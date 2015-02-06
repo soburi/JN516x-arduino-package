@@ -8,6 +8,8 @@ drivers
 examples
 hardware/arduino/avr
 hardware/arduino/sam
+hardware/arduino/jen/tools/ba-elf-ba2-r34135
+hardware/arduino/jen/import
 java
 libraries
 libusb0.dll
