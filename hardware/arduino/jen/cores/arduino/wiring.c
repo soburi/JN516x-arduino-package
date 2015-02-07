@@ -107,12 +107,8 @@ void init()
 
 	//UART
 	vAHI_UartEnable(E_AHI_UART_0);
-
 	vAHI_UartReset(E_AHI_UART_0, TRUE, TRUE);
 	vAHI_UartReset(E_AHI_UART_0, FALSE, FALSE);
-
-	vAHI_UartSetClockDivisor(E_AHI_UART_0, E_AHI_UART_RATE_115200);
-	vAHI_UartSetControl(E_AHI_UART_0, FALSE, FALSE, E_AHI_UART_WORD_LEN_8, TRUE, FALSE);
 
 	//Tick Timer
 	vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_DISABLE);
