@@ -39,7 +39,9 @@ int main(void)
 	USBDevice.attach();
 #endif
 	
+	vUTIL_UartText("--- enter setup ---\r\n");
 	setup();
+	vUTIL_UartText("--- exit  setup ---\r\n");
     
 	for (;;) {
 		vUTIL_UartText("--- enter loop ---\r\n");
