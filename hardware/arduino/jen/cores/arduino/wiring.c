@@ -22,6 +22,7 @@
   $Id$
 */
 
+#define USE_DEBUGPRINT
 #include "wiring_private.h"
 
 #include <AppHardwareApi.h>
@@ -52,8 +53,11 @@ static void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
 
 unsigned long millis()
 {
-	return MILLIS_INC * ticktimer_overflow_count +
+	unsigned long m;
+	m = MILLIS_INC * ticktimer_overflow_count +
 		(clockCyclesToMicroseconds(u32AHI_TickTimerRead())/1000);
+	debugprint("millis: %d\r\n", m);
+	return m;
 }
 
 unsigned long micros() {
@@ -77,6 +81,8 @@ void delay(unsigned long ms)
 			start += 1000;
 		}
 	}
+
+	debugprint("delay: %d\r\n", micros());
 }
 
 /* Delay for the given number of microseconds.  Assumes a 8 or 16 MHz clock. */
