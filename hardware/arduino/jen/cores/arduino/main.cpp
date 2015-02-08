@@ -28,7 +28,6 @@ int atexit(void (*func)()) { return 0; }
 void initVariant() __attribute__((weak));
 void initVariant() { }
 
-
 int main(void)
 {
 	init();
@@ -40,7 +39,7 @@ int main(void)
 #endif
 	
 	setup();
-	delay(10);
+	delay(10); // TODO: UART stabilize wait.
 	DEBUGPRINT("--- exit  setup ---\r\n");
     
 	for (;;) {
@@ -52,15 +51,4 @@ int main(void)
         
 	return 0;
 }
-
-extern "C"  void AppColdStart(void)
-{
-	main();
-}
-
-extern "C" void AppWarmStart(void)
-{
-	AppColdStart();
-}
-
 
