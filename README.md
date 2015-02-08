@@ -15,6 +15,8 @@ Install TOCOS TWE Engine's SDK.
 [ftp://tocos-wireless.com/TWESDK_201406/TWESDK_Eclipse_Kepler.zip](ftp://tocos-wireless.com/TWESDK_201406/TWESDK_Eclipse_Kepler.zip)
 
 
+Append build.path=[SOMEWHRER] and preproc.save_build_files=true.
+to Arduino preferences (%APPDATA%\Arduino15\preferences.txt).
 
 Currently, the author use TOCOS TWE Engine, the which is JN5164 breakout  board selling in japan.
 
@@ -93,3 +95,9 @@ Serial.print function is bad. Work only Serial.write(uint8).
 - bit()
 
 Device independed function maybe work correctly.
+
+
+Image Burn
+====
+
+Binary files generated on build.path after build, burn the file to chip by writer program.
