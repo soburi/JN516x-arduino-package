@@ -1,18 +1,45 @@
-name=TOCOS Wireless Engine Series
+name=NXP JN51xx Platform
+
+my.toconetinc=-I{runtime.ide.path}/hardware/arduino/jen/import/libToCoNet/include/ToCoNet -I{runtime.ide.path}/hardware/arduino/jen/import/libToCoNet/include/ToCoNetUtils 
+my.toconetlib={runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNet_JN5164.a {runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNetExt_JN5164.a {runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNetUtils_JN5164.a
+
+jennic.sdk.path={runtime.ide.path}/hardware/arduino/jen/import/516x
+jennic.sdk.path.components={jennic.sdk.path}/Components
+jennic.ba2.cflags1=-msibcall -mno-multi -mno-setcc -mno-carry -mno-subb -mno-sext
+jennic.ba2.cflags2=-mno-hard-div -mhard-mul -mbranch-cost=3 -msimple-mul -march=ba2 -mredzone-size=4
+jennic.ba2.cflags3=-ffixed-r16 -ffixed-r17 -ffixed-r18 -ffixed-r19 -ffixed-r20 -ffixed-r21 -ffixed-r22 -ffixed-r23
+jennic.ba2.cflags4=-ffixed-r24 -ffixed-r25 -ffixed-r26 -ffixed-r27 -ffixed-r28 -ffixed-r29 -ffixed-r30 -ffixed-r31
+jennic.ba2.cflags5=-fomit-frame-pointer
+jennic.chip.defines1=-DJN{build.jennic_mcu_family}=5160 -DJN{build.mcu}={build.mcu} -DJENNIC_CHIP_NAME=_{build.mcu}
+jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu} -DJENNIC_CHIP_FAMILY={build.jennic_mcu_family}
+jennic.chip.defines3=-DJENNIC_CHIP_FAMILY_{build.jennic_mcu_family} -DJENNIC_STACK_MAC
+jennic.defines1=-DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0 
+jennic.defines2=-DJENNIC_SW_EXTERNAL_FLASH=0 -DJN516X_DMA_UART_BACKWARDS_COMPATIBLE_API=1 -DJN516X_BACKWARDS_COMPATIBLE_API=1
+jennic.includes1=-I{jennic.sdk.path.components}/6LP/Include -I{jennic.sdk.path.components}/AES/Include -I{jennic.sdk.path.components}/AES_CCM_SW_PATCH/Include
+jennic.includes2=-I{jennic.sdk.path.components}/AES_SW/Include -I{jennic.sdk.path.components}/AppApi/Include -I{jennic.sdk.path.components}/AppQueueApi/Include
+jennic.includes3=-I{jennic.sdk.path.components}/Boot/Include -I{jennic.sdk.path.components}/Common/Include -I{jennic.sdk.path.components}/DBG/Include
+jennic.includes4=-I{jennic.sdk.path.components}/Flash/Include -I{jennic.sdk.path.components}/HardwareApi/Include -I{jennic.sdk.path.components}/JenNet/Include
+jennic.includes5=-I{jennic.sdk.path.components}/JennicLogo/Include -I{jennic.sdk.path.components}/JIP/Include -I{jennic.sdk.path.components}/MAC/Include
+jennic.includes6=-I{jennic.sdk.path.components}/MicroSpecific/Include -I{jennic.sdk.path.components}/MMAC/Include -I{jennic.sdk.path.components}/NXPLogo/Include
+jennic.includes7=-I{jennic.sdk.path.components}/OS/Include -I{jennic.sdk.path.components}/PATCH/Include -I{jennic.sdk.path.components}/PDM/Include
+jennic.includes8=-I{jennic.sdk.path.components}/Random/Include -I{jennic.sdk.path.components}/Recal/Include -I{jennic.sdk.path.components}/TimerServer/Include
+jennic.includes9=-I{jennic.sdk.path.components}/TOF/Include -I{jennic.sdk.path.components}/Utilities/Include -I{jennic.sdk.path.components}/XCV/Include
+jennic.ba2.cflags= {jennic.ba2.cflags1} {jennic.ba2.cflags2} {jennic.ba2.cflags3} {jennic.ba2.cflags4} {jennic.ba2.cflags5}
+jennic.defines= {jennic.chip.defines1} {jennic.chip.defines2} {jennic.chip.defines3} {jennic.defines1} {jennic.defines2} 
+jennic.includes= {jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic.includes4} {jennic.includes5} {jennic.includes6} {jennic.includes7} {jennic.includes8} {jennic.includes9} -I{jennic.sdk.path}/Platform/Common/Include
+jennic.links=-lAppApi_{build.jennic_mcu_family} -lMac_{build.jennic_mcu_family} -lTof_{build.jennic_mcu_family} -lXcv_{build.jennic_mcu_family} -lAES_CCM_SW_PATCH_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family} -lHardwareApi_{build.jennic_mcu_family} -lMicroSpecific_{build.jennic_mcu_family} -lBoot_{build.jennic_mcu_family} -lMaths_{build.jennic_mcu_family}
+jennic.libpath=-L{jennic.sdk.path}/Chip/{build.mcu}/Build -L{jennic.sdk.path}/Chip/{build.mcu}/Library -L{jennic.sdk.path}/Components/Library -L{jennic.sdk.path}/Stack/MAC/Build
+
+
 #compiler.path={runtime.ide.path}/hardware/arduino/jen/tools/ba-elf-ba2-r34135/bin/
 compiler.path=
 compiler.c.cmd=ba-elf-gcc
-compiler.c.flags=-c -g -Os -w -ffunction-sections -fdata-sections -nostdlib -DEMBEDDED -DUSER_VSR_HANDLER -DVERSION_MAIN=0 -DVERSION_SUB=1 -DVERSION_VAR=4 -DJN516x=5160 -DJN5164=5164 -DJENNIC_CHIP_NAME=_JN5164 -msibcall -mno-multi -mno-setcc -mno-carry -mno-subb -mno-hard-div -mhard-mul -mbranch-cost=3 -march=ba2 -mredzone-size=4 -ffixed-r16 -ffixed-r17 -ffixed-r18 -ffixed-r19 -ffixed-r20 -ffixed-r21 -ffixed-r22 -ffixed-r23 -ffixed-r24 -ffixed-r25 -ffixed-r26 -ffixed-r27 -ffixed-r28 -ffixed-r29 -ffixed-r30 -ffixed-r31 -fomit-frame-pointer -DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0 -DJENNIC_SW_EXTERNAL_FLASH=0 -DJN516X_DMA_UART_BACKWARDS_COMPATIBLE_API=1 -DJN516X_BACKWARDS_COMPATIBLE_API=1 -DPDM_DESCRIPTOR_BASED_API=1 -DJENNIC_CHIP=JN5164 -DJENNIC_CHIP_JN5164 -DJENNIC_CHIP_FAMILY=JN516x -DJENNIC_CHIP_FAMILY_JN516x -DJENNIC_STACK_MAC -Wall -Wunreachable-code -MD -MP
-my.includes= -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/6LP/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/AES/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/AES_CCM_SW_PATCH/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/AES_SW/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/AppApi/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/AppQueueApi/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/Boot/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/Common/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/DBG/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/Flash/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/HardwareApi/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/JenNet/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/JennicLogo/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/JIP/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/MAC/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/MicroSpecific/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/MMAC/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/NXPLogo/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/OS/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/PATCH/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/PDM/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/Random/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/Recal/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/TimerServer/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/TOF/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/Utilities/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/XCV/Include -I{runtime.ide.path}/hardware/arduino/jen/import/516x/Platform/Common/Include
-
-my.toconetinc=-I{runtime.ide.path}/hardware/arduino/jen/import/libToCoNet/include/ToCoNet -I{runtime.ide.path}/hardware/arduino/jen/import/libToCoNet/include/ToCoNetUtils 
-
+compiler.c.flags=-c -g -Os -w -ffunction-sections -fdata-sections -nostdlib {jennic.ba2.cflags} {jennic.defines} {jennic.includes} -DEMBEDDED -DUSER_VSR_HANDLER -DVERSION_MAIN=0 -DVERSION_SUB=1 -DVERSION_VAR=4 -DPDM_DESCRIPTOR_BASED_API=1 -Wall -Wunreachable-code -MD -MP
 compiler.c.elf.cmd=ba-elf-gcc
-compiler.c.elf.flags=-Os -Wl,--gc-sections  
+compiler.c.elf.flags=-Os -Wl,--gc-sections
 compiler.S.flags=-c -g -assembler-with-cpp
 compiler.cpp.cmd=ba-elf-g++
-compiler.cpp.flags=-c -g -Os -w -fdata-sections -ffunction-sections -nostdlib -fno-rtti -fno-exceptions -DEMBEDDED -DUSER_VSR_HANDLER -DVERSION_MAIN=0 -DVERSION_SUB=1 -DVERSION_VAR=4 -DJN516x=5160 -DJN5164=5164 -DJENNIC_CHIP_NAME=_JN5164 -msibcall -mno-multi -mno-setcc -mno-carry -mno-subb -mno-hard-div -mhard-mul -mbranch-cost=3 -march=ba2 -mredzone-size=4 -ffixed-r16 -ffixed-r17 -ffixed-r18 -ffixed-r19 -ffixed-r20 -ffixed-r21 -ffixed-r22 -ffixed-r23 -ffixed-r24 -ffixed-r25 -ffixed-r26 -ffixed-r27 -ffixed-r28 -ffixed-r29 -ffixed-r30 -ffixed-r31 -fomit-frame-pointer -DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0 -DJENNIC_SW_EXTERNAL_FLASH=0 -DJN516X_DMA_UART_BACKWARDS_COMPATIBLE_API=1 -DJN516X_BACKWARDS_COMPATIBLE_API=1 -DPDM_DESCRIPTOR_BASED_API=1 -DJENNIC_CHIP=JN5164 -DJENNIC_CHIP_JN5164 -DJENNIC_CHIP_FAMILY=JN516x -DJENNIC_CHIP_FAMILY_JN516x -DJENNIC_STACK_MAC -Wall -Wunreachable-code -MD -MP
-
+compiler.cpp.flags={compiler.c.flags} -fno-threadsafe-statics -fno-rtti -fno-exceptions
 compiler.ar.cmd=ba-elf-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=ba-elf-objcopy
@@ -35,19 +62,16 @@ build.extra_flags=
 recipe.S.o.pattern=
 
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {build.extra_flags} {my.includes} {includes} {build.variant_system_include} "{source_file}" -o "{object_file}"
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {build.extra_flags} {jennic.includes} {includes} {build.variant_system_include} "{source_file}" -o "{object_file}"
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {build.extra_flags} {my.includes} {includes} {build.variant_system_include} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {build.extra_flags} {jennic.includes} {includes} {build.variant_system_include} "{source_file}" -o "{object_file}"
 
 ## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} "{build.path}/{archive_file}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {build.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -TApp_Stack_Size.ld -nostartfiles -march=ba2 -L{runtime.ide.path}/hardware/arduino/jen/import/516x/Chip/JN5164/Build -L{runtime.ide.path}/hardware/arduino/jen/import/516x/Chip/JN5164/Library -L{runtime.ide.path}/hardware/arduino/jen/import/516x/Components/Library -L{runtime.ide.path}/hardware/arduino/jen/import/516x/Stack/MAC/Build -TAppBuildMac_JN5164.ld "-Wl,-Map,{build.path}/{build.project_name}.map" -o "{build.path}/{build.project_name}.elf" "-L{build.path}" {object_files} -Wl,--start-group -lAppApi_JN516x -lMac_JN516x -lTof_JN516x -lXcv_JN516x -lAES_CCM_SW_PATCH_JN516x -lAes_JN516x -lTimerServer_JN516x -lHardwareApi_JN516x -lMicroSpecific_JN516x -lBoot_JN516x -lMaths_JN516x {build.path}/{archive_file}  -Wl,--end-group
-
-my.toconetlib={runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNet_JN5164.a {runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNetExt_JN5164.a {runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNetUtils_JN5164.a
-
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {build.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -TApp_Stack_Size.ld -nostartfiles -march=ba2 -TAppBuildMac_{build.mcu}.ld "-Wl,-Map,{build.path}/{build.project_name}.map" -o "{build.path}/{build.project_name}.elf" {jennic.libpath} "-L{build.path}" {object_files} -Wl,--start-group {jennic.links} {build.path}/{archive_file} -Wl,--end-group
 
 ## Create bin
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.elf2bin.cmd}" {compiler.elf2bin.flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
@@ -69,7 +93,3 @@ tools.avrdude.config.path.linux={runtime.ide.path}/hardware/tools/avr/etc/avrdud
 tools.avrdude.upload.params.verbose=
 tools.avrdude.upload.params.quiet=
 tools.avrdude.upload.pattern="{cmd.path}" -F -t {serial.port} "{build.path}/{build.project_name}.hex"
-
-
-
-

@@ -1,5 +1,5 @@
 
-twelite.name=TWE-Lite
+twelite.name=TOCOS TWE-Lite
 
 twelite.upload.tool=avrdude
 twelite.upload.protocol=avr109
@@ -11,6 +11,7 @@ twelite.upload.use_1200bps_touch=true
 twelite.upload.wait_for_upload_port=false
 
 twelite.build.mcu=JN5164
+twelite.build.jennic_mcu_family=JN516x
 twelite.build.board=TWE_LITE
 twelite.build.f_cpu=32000000L
 twelite.build.usb_product="TWE-Lite-R"
