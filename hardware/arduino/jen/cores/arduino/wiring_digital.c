@@ -23,31 +23,24 @@
 
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 */
-
+#define USE_DEBUGPRINT
 #define ARDUINO_MAIN
 #include "wiring_private.h"
 #include "pins_arduino.h"
-
-extern void vUTIL_UartText(char *pcString);
-
-static char buf[32] = {0};
 
 void pinMode(uint8_t pin, uint8_t mode)
 {
 	if (mode == INPUT) {
 		vAHI_DioSetDirection((1UL<<pin), 0);
 		vAHI_DioSetPullup(0, (1UL<<pin));
-		sprintf(buf, "input  p:%d m:%d\r\n", pin, mode);
-		vUTIL_UartText(buf);
+		DEBUGPRINT("input  p:%d m:%d\r\n", pin, mode);
 	} else if (mode == INPUT_PULLUP) {
 		vAHI_DioSetDirection(0, (1UL<<pin));
 		vAHI_DioSetPullup((1UL<<pin), 0 );
-		sprintf(buf, "pullup p:%d m:%d\r\n", pin, mode);
-		vUTIL_UartText(buf);
+		DEBUGPRINT("pullup p:%d m:%d\r\n", pin, mode);
 	} else {
 		vAHI_DioSetDirection(0, (1UL<<pin) );
-		sprintf(buf, "output p:%d m:%d\r\n", pin, mode);
-		vUTIL_UartText(buf);
+		DEBUGPRINT("output p:%d m:%d\r\n", pin, mode);
 	}
 }
 
@@ -73,12 +66,10 @@ static void turnOffPWM(uint8_t timer)
 void digitalWrite(uint8_t pin, uint8_t val)
 {
 	if (val == LOW) {
-		sprintf(buf, "LOW  p:%d v:%d\r\n", pin, val);
-		vUTIL_UartText(buf);
+		DEBUGPRINT("LOW  p:%d v:%d\r\n", pin, val);
 		vAHI_DioSetOutput(0, (1UL<<pin));
 	} else {
-		sprintf(buf, "HIGH p:%d v:%d\r\n", pin, val);
-		vUTIL_UartText(buf);
+		DEBUGPRINT("HIGH p:%d v:%d\r\n", pin, val);
 		vAHI_DioSetOutput((1UL<<pin), 0);
 	}
 }

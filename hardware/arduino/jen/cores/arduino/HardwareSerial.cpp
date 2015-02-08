@@ -22,6 +22,8 @@
   Modified 3 December 2013 by Matthijs Kooijman
 */
 
+#define USE_DEBUGPRINT
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -83,11 +85,7 @@ void serialEventRun(void)
 void HardwareSerial::_tx_udr_empty_irq(void)
 {
 }
-extern "C" {
-extern void vUTIL_UartText(char *pcString);
-}
 // Public Methods //////////////////////////////////////////////////////////////
-char buf[32];
 void HardwareSerial::begin(unsigned long baud, byte config)
 {
 	//UART
@@ -128,18 +126,11 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 	vAHI_UartSetClockDivisor(E_AHI_UART_0, c_baud);
 	vAHI_UartSetControl(E_AHI_UART_0, parity_type, parity_enable, wordlen, stopbit, false);
 
-#if DEBUG
-	sprintf(buf, "c_baud:%d\r\n", c_baud);
-	vUTIL_UartText(buf);
-	sprintf(buf, "wordlen:%d\r\n", wordlen);
-	vUTIL_UartText(buf);
-	sprintf(buf, "stopbit:%d\r\n", stopbit);
-	vUTIL_UartText(buf);
-	sprintf(buf, "parity_enable:%d\r\n", parity_enable);
-	vUTIL_UartText(buf);
-	sprintf(buf, "parity_type:%d\r\n", parity_type);
-	vUTIL_UartText(buf);
-#endif
+	DEBUGPRINT("c_baud:%d\r\n", c_baud);
+	DEBUGPRINT("wordlen:%d\r\n", wordlen);
+	DEBUGPRINT("stopbit:%d\r\n", stopbit);
+	DEBUGPRINT("parity_enable:%d\r\n", parity_enable);
+	DEBUGPRINT("parity_type:%d\r\n", parity_type);
 
 }
 
@@ -154,8 +145,7 @@ int HardwareSerial::available(void)
 {
 	int r = u16AHI_UartReadRxFifoLevel(E_AHI_UART_0);
 	if(peek_buf != -1) return r++;
-	sprintf(buf, "available:%d\r\n", r);
-	vUTIL_UartText(buf);
+	DEBUGPRINT("available:%d\r\n", r);
 	return r;
 }
 
@@ -164,15 +154,13 @@ int HardwareSerial::peek(void)
 	if(peek_buf != -1) return peek_buf;
 
 	peek_buf = read();
-	sprintf(buf, "peek:%d\r\n", peek_buf);
-	vUTIL_UartText(buf);
+	DEBUGPRINT("peek:%d\r\n", peek_buf);
 	return peek_buf;
 }
 
 int HardwareSerial::read(void)
 {
-	sprintf(buf, "read:\r\n");
-	vUTIL_UartText(buf);
+	DEBUGPRINT("read:\r\n");
 	int ret;
 	if(peek_buf != -1) {
 		ret = peek_buf;
@@ -184,8 +172,7 @@ int HardwareSerial::read(void)
 		return -1;
 	}
 	int r = u16AHI_UartReadRxFifoLevel(E_AHI_UART_0);
-	sprintf(buf, "available:%d\r\n", r);
-	vUTIL_UartText(buf);
+	DEBUGPRINT("available:%d\r\n", r);
 
 	ret = u8AHI_UartReadData(E_AHI_UART_0);
 
@@ -204,13 +191,11 @@ void HardwareSerial::flush()
 
 size_t HardwareSerial::write(uint8_t c)
 {
-	sprintf(buf, "write:%d\r\n", c);
-	vUTIL_UartText(buf);
+	DEBUGPRINT("write:%d\r\n", c);
 	while((u8AHI_UartReadLineStatus(E_AHI_UART_0) & E_AHI_UART_LS_THRE) == 0);
 	vAHI_UartWriteData(E_AHI_UART_0, c);
 
 	return 1;
 }
-
 
 #endif // whole file

@@ -23,14 +23,11 @@
 
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 */
-
+#define USE_DEBUGPRINT
 #include "wiring_private.h"
 #include "pins_arduino.h"
 
 #include <AppHardwareApi.h>
-
-char buf[32];
-extern void vUTIL_UartText(char *pcString);
 
 uint8_t analog_reference = DEFAULT;
 void analogReference(uint8_t mode)
@@ -51,8 +48,7 @@ void analogReference(uint8_t mode)
 
 int analogRead(uint8_t pin)
 {
-	sprintf(buf, "analogRread:\r\n");
-	vUTIL_UartText(buf);
+	DEBUGPRINT("analogRread:\r\n");
 
 	uint32_t adc = 0;
 	switch(pin) {
@@ -73,8 +69,7 @@ int analogRead(uint8_t pin)
 	uint16_t read;
 	read = u16AHI_AdcRead();
 
-	sprintf(buf, "read:%d\r\n", read);
-	vUTIL_UartText(buf);
+	DEBUGPRINT("read:%d\r\n", read);
 }
 
 // Right now, PWM output only works on the pins with

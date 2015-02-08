@@ -17,9 +17,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
+#define USE_DEBUGPRINT
 #include <Arduino.h>
-extern "C" void vUTIL_UartText(char *pcString);
 
 //Declared weak in Arduino.h to allow user redefinitions.
 int atexit(void (*func)()) { return 0; }
@@ -28,6 +27,7 @@ int atexit(void (*func)()) { return 0; }
 // May be redefined by variant files.
 void initVariant() __attribute__((weak));
 void initVariant() { }
+
 
 int main(void)
 {
@@ -41,12 +41,12 @@ int main(void)
 	
 	setup();
 	delay(10);
-	vUTIL_UartText("--- exit  setup ---\r\n");
+	DEBUGPRINT("--- exit  setup ---\r\n");
     
 	for (;;) {
-		vUTIL_UartText("--- enter loop ---\r\n");
+		DEBUGPRINT("--- enter loop ---\r\n");
 		loop();
-		vUTIL_UartText("--- exit  loop ---\r\n");
+		DEBUGPRINT("--- exit  loop ---\r\n");
 		if (serialEventRun) serialEventRun();
 	}
         
@@ -62,3 +62,5 @@ extern "C" void AppWarmStart(void)
 {
 	AppColdStart();
 }
+
+

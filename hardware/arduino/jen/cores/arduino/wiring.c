@@ -25,7 +25,6 @@
 #include "wiring_private.h"
 
 #include <AppHardwareApi.h>
-void vUTIL_UartText(char *pcString);
 // the prescaler is set so that timer0 ticks every 64 clock cycles, and the
 // the overflow handler is called every 256 ticks.
 #define MICROSECONDS_PER_TIMER0_OVERFLOW (clockCyclesToMicroseconds(32))
@@ -125,35 +124,4 @@ void init()
 	while( !bAHI_APRegulatorEnabled() ) {}
 }
 
-
-
-/****************************************************************************
- *
- * NAME: vUTIL_UartText
- *
- * DESCRIPTION:
- * Sends text string to the UART
- *
- * PARAMETERS:      Name            RW  Usage
- *                  pcString        R   Pointer to zero-terminated string
- *
- ****************************************************************************/
-PUBLIC void vUTIL_UartText(char *pcString)
-{
-    while (*pcString)
-    {
-        /* Wait for TX FIFO empty */
-        while ((u8AHI_UartReadLineStatus(E_AHI_UART_0) & E_AHI_UART_LS_THRE) == 0);
-
-        /* Send the character */
-        vAHI_UartWriteData(E_AHI_UART_0, *pcString);
-        if (*pcString == '\n')
-        {
-            vAHI_UartWriteData(E_AHI_UART_0, '\r');
-        }
-
-        /* Move to next character */
-        pcString++;
-    }
-}
 

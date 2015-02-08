@@ -230,4 +230,18 @@ long map(long, long, long, long, long);
 
 #include "pins_arduino.h"
 
+// Temporary alternative measures for printing.
+#ifdef USE_DEBUGPRINT
+#ifdef __cplusplus
+extern "C"{
+#endif
+extern void debugprint(char* msg, ...);
+#define DEBUGPRINT debugprint
+#ifdef __cplusplus
+}
+#endif
+#else
+#define DEBUGPRINT(...)
+#endif
+
 #endif
