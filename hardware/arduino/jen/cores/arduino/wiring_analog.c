@@ -52,14 +52,11 @@ int analogRead(uint8_t pin)
 
 	uint32_t adc = 0;
 	switch(pin) {
-	case -2:
-		adc = E_AHI_ADC_SRC_ADC_3;
-	case -1:
-		adc = E_AHI_ADC_SRC_ADC_1;
-	case 0:
-		adc = E_AHI_ADC_SRC_ADC_2;
-	case 1:
-		adc = E_AHI_ADC_SRC_ADC_4;
+		case -2: adc = E_AHI_ADC_SRC_ADC_3; break;
+		case -1: adc = E_AHI_ADC_SRC_ADC_1; break;
+		case 0:  adc = E_AHI_ADC_SRC_ADC_2; break;
+		case 1:  adc = E_AHI_ADC_SRC_ADC_4; break;
+		default: return -1;
 	}
 
 	vAHI_AdcEnable(E_AHI_ADC_SINGLE_SHOT, E_AHI_AP_INPUT_RANGE_2, adc);
@@ -78,5 +75,18 @@ int analogRead(uint8_t pin)
 // to digital output.
 void analogWrite(uint8_t pin, int val)
 {
+	DEBUGPRINT("analogWrite %d %d\r\n", pin, val);
+	uint32_t timer = 0;
+	switch(pin) {
+		case 5:  timer = E_AHI_TIMER_1; break;
+		case 20: timer = E_AHI_TIMER_2; break;
+		case 21: timer = E_AHI_TIMER_3; break;
+		case 8:  timer = E_AHI_TIMER_4; break;
+		default: return;
+	}
+	vAHI_TimerEnable(timer, 0, false, false, true);
+	vAHI_TimerClockSelect(timer, false, true);
+	vAHI_TimerConfigureOutputs(timer, true, true);
+	vAHI_TimerStartRepeat(timer, 25000.0 * (val/255.0), 25000);
 }
 

@@ -108,6 +108,10 @@ void init()
 	vAHI_TickTimerRegisterCallback(ticktimer_callback);
 	vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_CONT);
 
+	//PWM Timer
+	vAHI_TimerSetLocation(E_AHI_TIMER_1, TRUE, TRUE);
+	vAHI_TimerFineGrainDIOControl(0x7);
+
 	//ADC
 	vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE, E_AHI_AP_INT_DISABLE,
 	                 E_AHI_AP_SAMPLE_2, E_AHI_AP_CLOCKDIV_500KHZ, E_AHI_AP_INTREF);
