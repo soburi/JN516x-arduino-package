@@ -27,59 +27,43 @@
 #include <AppHardwareApi.h>
 // the prescaler is set so that timer0 ticks every 64 clock cycles, and the
 // the overflow handler is called every 256 ticks.
-#define MICROSECONDS_PER_TIMER0_OVERFLOW (clockCyclesToMicroseconds(32))
+#define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clockCyclesToMicroseconds(0xFFFFFFFF))
 
 // the whole number of milliseconds per timer0 overflow
-#define MILLIS_INC (MICROSECONDS_PER_TIMER0_OVERFLOW / 1000)
+#define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
 
 // the fractional number of milliseconds per timer0 overflow. we shift right
 // by three to fit these numbers into a byte. (for the clock speeds we care
 // about - 8 and 16 MHz - this doesn't lose precision.)
-#define FRACT_INC ((MICROSECONDS_PER_TIMER0_OVERFLOW % 1000) >> 3)
+#define FRACT_INC ((MICROSECONDS_PER_TICKTIMER_OVERFLOW % 1000) >> 3)
 #define FRACT_MAX (1000 >> 3)
 
-volatile unsigned long timer0_overflow_count = 0;
-volatile unsigned long timer0_millis = 0;
-static unsigned char timer0_fract = 0;
+volatile unsigned long ticktimer_overflow_count = 0;
+volatile unsigned long ticktimer_millis = 0;
+static unsigned char ticktimer_fract = 0;
 
 #define TICKS_TO_USEC (32)
 #define TICK_TIMER_MAX (0x0fffffff)
 
 static void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
 {
-	// copy these to local variables so they can be stored in registers
-	// (volatile variables must be read from memory on every access)
-	unsigned long m = timer0_millis;
-	unsigned char f = timer0_fract;
-
-	m += MILLIS_INC;
-	f += FRACT_INC;
-	if (f >= FRACT_MAX) {
-		f -= FRACT_MAX;
-		m += 1;
-	}
-
-	timer0_fract = f;
-	timer0_millis = m;
-	timer0_overflow_count++;
+	ticktimer_overflow_count++;
 }
 
 unsigned long millis()
 {
-	unsigned long m;
-	m = timer0_millis;
-	return m;
+	return MILLIS_INC * ticktimer_overflow_count +
+		(clockCyclesToMicroseconds(u32AHI_TickTimerRead())/1000);
 }
 
 unsigned long micros() {
 	unsigned long m;
 	uint32_t t;
 
-	m = timer0_overflow_count;
+	m = ticktimer_overflow_count;
 
-	t = u32AHI_TickTimerRead();
-	
-	return (t/16);
+	return MICROSECONDS_PER_TICKTIMER_OVERFLOW * ticktimer_overflow_count +
+		clockCyclesToMicroseconds(u32AHI_TickTimerRead());
 }
 
 void delay(unsigned long ms)

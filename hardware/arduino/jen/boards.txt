@@ -13,7 +13,8 @@ twelite.upload.wait_for_upload_port=false
 twelite.build.mcu=JN5164
 twelite.build.jennic_mcu_family=JN516x
 twelite.build.board=TWE_LITE
-twelite.build.f_cpu=32000000L
+# use clock frequency.
+twelite.build.f_cpu=16000000L
 twelite.build.usb_product="TWE-Lite-R"
 twelite.build.core=arduino
 twelite.build.ldscript=
