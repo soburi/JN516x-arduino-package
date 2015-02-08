@@ -3,7 +3,8 @@ name=NXP JN51xx Platform
 my.toconetinc=-I{runtime.ide.path}/hardware/arduino/jen/import/libToCoNet/include/ToCoNet -I{runtime.ide.path}/hardware/arduino/jen/import/libToCoNet/include/ToCoNetUtils 
 my.toconetlib={runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNet_JN5164.a {runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNetExt_JN5164.a {runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNetUtils_JN5164.a
 
-jennic.sdk.path={runtime.ide.path}/hardware/arduino/jen/import/516x
+#jennic.sdk.path={runtime.ide.path}/hardware/arduino/jen/import/516x
+jennic.sdk.path=C:\TWESDK\516x
 jennic.sdk.path.components={jennic.sdk.path}/Components
 jennic.ba2.cflags1=-msibcall -mno-multi -mno-setcc -mno-carry -mno-subb -mno-sext
 jennic.ba2.cflags2=-mno-hard-div -mhard-mul -mbranch-cost=3 -msimple-mul -march=ba2 -mredzone-size=4
