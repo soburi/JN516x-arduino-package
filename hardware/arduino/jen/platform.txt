@@ -1,41 +1,44 @@
 name=NXP JN51xx Platform
 
-my.toconetinc=-I{runtime.ide.path}/hardware/arduino/jen/import/libToCoNet/include/ToCoNet -I{runtime.ide.path}/hardware/arduino/jen/import/libToCoNet/include/ToCoNetUtils 
-my.toconetlib={runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNet_JN5164.a {runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNetExt_JN5164.a {runtime.ide.path}/hardware/arduino/jen/import/libToCoNet\lib\libToCoNetUtils_JN5164.a
+compiler.path=C:\NXP\bstudio_nxp\sdk\Tools\ba-elf-ba2-r34135\bin\
+jennic.path=C:\NXP\bstudio_nxp\sdk\JN-SW-4165
 
-#jennic.sdk.path={runtime.ide.path}/hardware/arduino/jen/import/516x
-jennic.sdk.path=C:\TWESDK\516x
-jennic.sdk.path.components={jennic.sdk.path}/Components
-jennic.ba2.cflags1=-msibcall -mno-multi -mno-setcc -mno-carry -mno-subb -mno-sext
-jennic.ba2.cflags2=-mno-hard-div -mhard-mul -mbranch-cost=3 -msimple-mul -march=ba2 -mredzone-size=4
-jennic.ba2.cflags3=-ffixed-r16 -ffixed-r17 -ffixed-r18 -ffixed-r19 -ffixed-r20 -ffixed-r21 -ffixed-r22 -ffixed-r23
-jennic.ba2.cflags4=-ffixed-r24 -ffixed-r25 -ffixed-r26 -ffixed-r27 -ffixed-r28 -ffixed-r29 -ffixed-r30 -ffixed-r31
-jennic.ba2.cflags5=-fomit-frame-pointer
-jennic.chip.defines1=-DJN{build.jennic_mcu_family}=5160 -DJN{build.mcu}={build.mcu} -DJENNIC_CHIP_NAME=_{build.mcu}
-jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu} -DJENNIC_CHIP_FAMILY={build.jennic_mcu_family}
-jennic.chip.defines3=-DJENNIC_CHIP_FAMILY_{build.jennic_mcu_family} -DJENNIC_STACK_MAC
-jennic.defines1=-DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0 
+
+jennic.path.compos={jennic.path}/Components
+
+jennic.ba2.flags=-march=ba2 -mcpu=jn51xx -mredzone-size=4 -mbranch-cost=3 -fomit-frame-pointer -fshort-enums -flto
+
+jennic.chip.defines1=-DJN516x=5160 -DJN5164=5164 -DJENNIC_PCB_DEVKIT4 -DJENNIC_PCB=DEVKIT4
+jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu} -DJENNIC_CHIP_NAME=_{build.mcu}
+jennic.chip.defines3=-DJENNIC_CHIP_FAMILY={build.jennic_mcu_family} -DJENNIC_CHIP_FAMILY_{build.jennic_mcu_family}
+
+jennic.defines1=-DJENNIC_STACK_MAC -DJENNIC_MAC_MAC -DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0
 jennic.defines2=-DJENNIC_SW_EXTERNAL_FLASH=0 -DJN516X_DMA_UART_BACKWARDS_COMPATIBLE_API=1 -DJN516X_BACKWARDS_COMPATIBLE_API=1
-jennic.includes1=-I{jennic.sdk.path.components}/6LP/Include -I{jennic.sdk.path.components}/AES/Include -I{jennic.sdk.path.components}/AES_CCM_SW_PATCH/Include
-jennic.includes2=-I{jennic.sdk.path.components}/AES_SW/Include -I{jennic.sdk.path.components}/AppApi/Include -I{jennic.sdk.path.components}/AppQueueApi/Include
-jennic.includes3=-I{jennic.sdk.path.components}/Boot/Include -I{jennic.sdk.path.components}/Common/Include -I{jennic.sdk.path.components}/DBG/Include
-jennic.includes4=-I{jennic.sdk.path.components}/Flash/Include -I{jennic.sdk.path.components}/HardwareApi/Include -I{jennic.sdk.path.components}/JenNet/Include
-jennic.includes5=-I{jennic.sdk.path.components}/JennicLogo/Include -I{jennic.sdk.path.components}/JIP/Include -I{jennic.sdk.path.components}/MAC/Include
-jennic.includes6=-I{jennic.sdk.path.components}/MicroSpecific/Include -I{jennic.sdk.path.components}/MMAC/Include -I{jennic.sdk.path.components}/NXPLogo/Include
-jennic.includes7=-I{jennic.sdk.path.components}/OS/Include -I{jennic.sdk.path.components}/PATCH/Include -I{jennic.sdk.path.components}/PDM/Include
-jennic.includes8=-I{jennic.sdk.path.components}/Random/Include -I{jennic.sdk.path.components}/Recal/Include -I{jennic.sdk.path.components}/TimerServer/Include
-jennic.includes9=-I{jennic.sdk.path.components}/TOF/Include -I{jennic.sdk.path.components}/Utilities/Include -I{jennic.sdk.path.components}/XCV/Include
-jennic.ba2.cflags= {jennic.ba2.cflags1} {jennic.ba2.cflags2} {jennic.ba2.cflags3} {jennic.ba2.cflags4} {jennic.ba2.cflags5}
-jennic.defines= {jennic.chip.defines1} {jennic.chip.defines2} {jennic.chip.defines3} {jennic.defines1} {jennic.defines2} 
-jennic.includes= {jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic.includes4} {jennic.includes5} {jennic.includes6} {jennic.includes7} {jennic.includes8} {jennic.includes9} -I{jennic.sdk.path}/Platform/Common/Include
-jennic.links=-lAppApi_{build.jennic_mcu_family} -lMac_{build.jennic_mcu_family} -lTof_{build.jennic_mcu_family} -lXcv_{build.jennic_mcu_family} -lAES_CCM_SW_PATCH_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family} -lHardwareApi_{build.jennic_mcu_family} -lMicroSpecific_{build.jennic_mcu_family} -lBoot_{build.jennic_mcu_family} -lMaths_{build.jennic_mcu_family}
-jennic.libpath=-L{jennic.sdk.path}/Chip/{build.mcu}/Build -L{jennic.sdk.path}/Chip/{build.mcu}/Library -L{jennic.sdk.path}/Components/Library -L{jennic.sdk.path}/Stack/MAC/Build
+jennic.includes1=-I{jennic.path.compos}/6LP/Include -I{jennic.path.compos}/Aes/Include -I{jennic.path.compos}/AES_SW/Include
+jennic.includes2=-I{jennic.path.compos}/AppApi/Include -I{jennic.path.compos}/AppQueueApi/Include -I{jennic.path.compos}/Boot/Include
+jennic.includes3=-I{jennic.path.compos}/Common/Include -I{jennic.path.compos}/DBG/Include -I{jennic.path.compos}/HardwareApi/Include
+jennic.includes4=-I{jennic.path.compos}/JenNet/Include -I{jennic.path.compos}/JIP/Include -I{jennic.path.compos}/Library/Include
+jennic.includes5=-I{jennic.path.compos}/MAC/Include -I{jennic.path.compos}/MicroSpecific/Include -I{jennic.path.compos}/MiniMAC/Include
+jennic.includes6=-I{jennic.path.compos}/MMAC/Include -I{jennic.path.compos}/OS/Include -I{jennic.path.compos}/PDM/Include
+jennic.includes7=-I{jennic.path.compos}/ProductionTestApi/Include -I{jennic.path.compos}/Random/Include -I{jennic.path.compos}/Recal/Include
+jennic.includes8=-I{jennic.path.compos}/TimerServer/Include -I{jennic.path.compos}/TOF/Include -I{jennic.path.compos}/Utilities/Include
+jennic.includes9=-I{jennic.path.compos}/Xcv/Include
+
+jennic.links1=-lAppApi_{build.jennic_mcu_family} -lMAC_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family} -lTOF_{build.jennic_mcu_family}
+jennic.links2=-lXcv_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -lHardwareApi_{build.jennic_mcu_family} -lMicroSpecific_{build.jennic_mcu_family}
+jennic.links3=-lBoot_{build.jennic_mcu_family} -lBoardLib_{build.jennic_mcu_family}
+
+jennic.libpath1=-L{jennic.path}/Chip/{build.mcu}/Build -L{jennic.path}/Chip/{build.mcu}/Library -L{jennic.path}/Components/Library
+jennic.libpath2=-L{jennic.path}/Stack/MAC/Build -L{jennic.path}/Platform/DK4/Library -L{runtime.ide.path}/hardware/arduino/jen/linker
+
+jennic.defines={jennic.chip.defines1} {jennic.chip.defines2} {jennic.chip.defines3} {jennic.defines1} {jennic.defines2}
+jennic.includes={jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic.includes4} {jennic.includes5} {jennic.includes6} {jennic.includes7} {jennic.includes8} {jennic.includes9} -I{jennic.path}/Platform/Common/Include
+jennic.links={jennic.links1} {jennic.links2} {jennic.links3}
+jennic.libpath={jennic.libpath1} {jennic.libpath2}
 
 
-#compiler.path={runtime.ide.path}/hardware/arduino/jen/tools/ba-elf-ba2-r34135/bin/
-compiler.path=
 compiler.c.cmd=ba-elf-gcc
-compiler.c.flags=-c -g -Os -w -ffunction-sections -fdata-sections -nostdlib {jennic.ba2.cflags} {jennic.defines} {jennic.includes} -DEMBEDDED -DUSER_VSR_HANDLER -DVERSION_MAIN=0 -DVERSION_SUB=1 -DVERSION_VAR=4 -DPDM_DESCRIPTOR_BASED_API=1 -Wall -Wunreachable-code -MD -MP
+compiler.c.flags=-c -g -Os -ffunction-sections -fdata-sections {jennic.ba2.flags} {jennic.defines} {jennic.includes} -DEMBEDDED -DUSER_VSR_HANDLER -DVERSION_MAIN=0 -DVERSION_SUB=1 -DVERSION_VAR=4 -Wall -Wpacked -Wcast-align -Wunreachable-code -MD -MP
 compiler.c.elf.cmd=ba-elf-gcc
 compiler.c.elf.flags=-Os -Wl,--gc-sections
 compiler.S.flags=-c -g -assembler-with-cpp
@@ -66,13 +69,13 @@ recipe.S.o.pattern=
 recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {build.extra_flags} {jennic.includes} {includes} {build.variant_system_include} "{source_file}" -o "{object_file}"
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {build.extra_flags} {jennic.includes} {includes} {build.variant_system_include} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {build.extra_flags} {jennic.includes} {includes} {build.variant_system_include} "{source_file}" -MF {object_file}.d -o "{object_file}"
 
 ## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} "{build.path}/{archive_file}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {build.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -TApp_Stack_Size.ld -nostartfiles -march=ba2 -TAppBuildMac_{build.mcu}.ld "-Wl,-Map,{build.path}/{build.project_name}.map" -o "{build.path}/{build.project_name}.elf" {jennic.libpath} "-L{build.path}" {object_files} -Wl,--start-group {jennic.links} {build.path}/{archive_file} -Wl,--end-group
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {build.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -TApp_Stack_Size.ld {jennic.ba2.flags} -nostartfiles -TAppBuildMac_{build.mcu}.ld "-Wl,-Map,{build.path}/{build.project_name}.map" -o "{build.path}/{build.project_name}.elf" {jennic.libpath} "-L{build.path}" {object_files} -Wl,--start-group {jennic.links} {build.path}/{archive_file} -Wl,--end-group
 
 ## Create bin
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.elf2bin.cmd}" {compiler.elf2bin.flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"

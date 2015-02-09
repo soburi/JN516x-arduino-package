@@ -10,6 +10,7 @@
 
 void debugprint(char *format, ...)
 {
+/*
 	static char buffer[64];
 	static char* buf = buffer;
 	va_list arg;
@@ -26,6 +27,7 @@ void debugprint(char *format, ...)
 		} 
 		buf++;
 	}
+*/
 }
 
 
