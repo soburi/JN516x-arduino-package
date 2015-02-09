@@ -29,7 +29,7 @@ jennic.links2=-lXcv_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -l
 jennic.links3=-lBoot_{build.jennic_mcu_family} -lBoardLib_{build.jennic_mcu_family}
 
 jennic.libpath1=-L{jennic.path}/Chip/{build.mcu}/Build -L{jennic.path}/Chip/{build.mcu}/Library -L{jennic.path}/Components/Library
-jennic.libpath2=-L{jennic.path}/Stack/MAC/Build -L{jennic.path}/Platform/DK4/Library -L{runtime.ide.path}/hardware/arduino/jen/linker
+jennic.libpath2=-L{jennic.path}/Stack/MAC/Build -L{jennic.path}/Platform/DK4/Library
 
 jennic.defines={jennic.chip.defines1} {jennic.chip.defines2} {jennic.chip.defines3} {jennic.defines1} {jennic.defines2}
 jennic.includes={jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic.includes4} {jennic.includes5} {jennic.includes6} {jennic.includes7} {jennic.includes8} {jennic.includes9} -I{jennic.path}/Platform/Common/Include
