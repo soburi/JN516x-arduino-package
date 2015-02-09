@@ -7,17 +7,25 @@ This is arduino add-on package for NXP JN516x platform.
 Install
 ====
 
-Copy into Arduino 1.5.x SDK.
+Copy into Arduino 1.6.x SDK.
 
-Install BeyondStudio for NXP and JN516x-JenNet-IP Stack SDK.
+Install BeyondStudio for NXP, JN516x-JenNet-IP Stack SDK and JN516x Production Flash Programmer..
 
 [BeyondStudio for NXP](http://www.nxp.com/documents/other/JN-SW-4141.zip)
 [JN516x-JenNet-IP Stack SDK](http://www.nxp.com/documents/other/JN-SW-4165.zip)
+[JN516x Production Flash Programmer](http://www.nxp.com/documents/other/JN-SW-4107.zip)
 
 Install to default destination (C:\NXP\bstudio_nxp).
 
 Append build.path=[SOMEWHRER] and preproc.save_build_files=true.
 to Arduino preferences (%APPDATA%\Arduino15\preferences.txt).
+
+
+Build and Upload sketch
+===
+
+Select [Tools]->[Board]->[TOCOS TWE-Lite] from menu, and 
+[Upload], runs your sketch on JN516x.
 
 Status
 =====
@@ -28,8 +36,11 @@ API status
 
 !!! This software is in Early development stage .
 
+## NOT WORK
 
-## partially working
+- String
+
+## working
 
 - pinMode()
 - digitalWrite()
@@ -41,13 +52,7 @@ API status
 - micros()
 - delay()
 - Serial
-- Stream
 
-GPIO Function is mostly works.
-
-Timer is work correctly until 15 seconds from system boot.
-
-Serial.print function is bad. Work only Serial.write(uint8).
 
 ## not implemented yet
 
@@ -57,7 +62,7 @@ Serial.print function is bad. Work only Serial.write(uint8).
 - interrupts()
 - noInterrupts() 
 
-## not confirmed.
+## not confirmed
 
 - analogReadResolution()
 - analogWriteResolution() 
@@ -85,11 +90,7 @@ Serial.print function is bad. Work only Serial.write(uint8).
 - bitSet()
 - bitClear()
 - bit()
+- Stream
 
 Device independed function maybe work correctly.
 
-
-Image Burn
-====
-
-Binary files generated on build.path after build, burn the file to chip by writer program.
