@@ -23,8 +23,14 @@
 char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
   char fmt[20];
 // TODO reimplement dtostrf
-//  sprintf(fmt, "%%%d.%df", width, prec);
-//  sprintf(sout, fmt, val);
+  //sprintf(fmt, "%%%d.%df", width, prec);
+  //sprintf(sout, fmt, val);
+  int i=0;
+  char* p = sout;
+  for(i=0; i<20; i++) {
+    *p++ = 'f';
+  }
+
   return sout;
 }
 
