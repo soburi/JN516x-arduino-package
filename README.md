@@ -9,23 +9,15 @@ Install
 
 Copy into Arduino 1.5.x SDK.
 
-Install TOCOS TWE Engine's SDK.
+Install BeyondStudio for NXP and JN516x-JenNet-IP Stack SDK.
 
-[ftp://tocos-wireless.com/TWESDK_201408-31/TWESDK_wo_Eclipse_201408-31.zip](ftp://tocos-wireless.com/TWESDK_201408-31/TWESDK_wo_Eclipse_201408-31.zip)
-[ftp://tocos-wireless.com/TWESDK_201406/TWESDK_Eclipse_Kepler.zip](ftp://tocos-wireless.com/TWESDK_201406/TWESDK_Eclipse_Kepler.zip)
+[BeyondStudio for NXP](http://www.nxp.com/documents/other/JN-SW-4141.zip)
+[JN516x-JenNet-IP Stack SDK](http://www.nxp.com/documents/other/JN-SW-4165.zip)
 
+Install to default destination (C:\NXP\bstudio_nxp).
 
 Append build.path=[SOMEWHRER] and preproc.save_build_files=true.
 to Arduino preferences (%APPDATA%\Arduino15\preferences.txt).
-
-Currently, the author use TOCOS TWE Engine, the which is JN5164 breakout  board selling in japan.
-
-Build environment is tested in TOCOS TWE Engine.
-Unzip this files to C:\TWESDK.
-
-(Behavior in SDK of Jennic has not yet been confirmed.)
-
-
 
 Status
 =====
