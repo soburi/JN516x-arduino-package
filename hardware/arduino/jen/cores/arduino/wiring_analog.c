@@ -23,7 +23,7 @@
 
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 */
-#define USE_DEBUGPRINT
+//#define USE_DEBUGPRINT
 #include "wiring_private.h"
 #include "pins_arduino.h"
 

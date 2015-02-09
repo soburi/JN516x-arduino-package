@@ -22,7 +22,7 @@
   $Id$
 */
 
-#define USE_DEBUGPRINT
+//#define USE_DEBUGPRINT
 #include "wiring_private.h"
 
 #include <AppHardwareApi.h>

@@ -22,7 +22,7 @@
   Modified 3 December 2013 by Matthijs Kooijman
 */
 
-#define USE_DEBUGPRINT
+//#define USE_DEBUGPRINT
 
 #include <stdlib.h>
 #include <stdio.h>
