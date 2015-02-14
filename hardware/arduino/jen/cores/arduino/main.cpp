@@ -19,6 +19,7 @@
 
 //#define USE_DEBUGPRINT
 #include <Arduino.h>
+#include <AppHardwareApi.h>
 
 //Declared weak in Arduino.h to allow user redefinitions.
 int atexit(void (*func)()) { return 0; }
@@ -47,6 +48,7 @@ int main(void)
 		loop();
 		DEBUGPRINT("--- exit  loop ---\r\n");
 		if (serialEventRun) serialEventRun();
+		vAHI_WatchdogRestart();
 	}
         
 	return 0;
