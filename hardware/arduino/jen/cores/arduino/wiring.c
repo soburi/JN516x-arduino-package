@@ -116,8 +116,11 @@ void init()
 	vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_RESTART);
 
 	//PWM Timer
-	vAHI_TimerSetLocation(E_AHI_TIMER_1, TRUE, TRUE);
-	vAHI_TimerFineGrainDIOControl(0x7);
+	vAHI_TimerSetLocation(E_AHI_TIMER_1, true, true);
+	vAHI_TimerSetLocation(E_AHI_TIMER_2, true, true);
+	vAHI_TimerSetLocation(E_AHI_TIMER_3, true, true);
+	vAHI_TimerSetLocation(E_AHI_TIMER_4, true, true);
+	vAHI_TimerFineGrainDIOControl(0x87);
 
 	//ADC
 	vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE, E_AHI_AP_INT_DISABLE,

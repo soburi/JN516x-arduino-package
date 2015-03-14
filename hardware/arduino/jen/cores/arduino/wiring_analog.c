@@ -76,10 +76,10 @@ void analogWrite(uint8_t pin, int val)
 
 	uint32_t timer = 0;
 	switch(pin) {
-		case 5:  timer = E_AHI_TIMER_1; break;
-		case 20: timer = E_AHI_TIMER_2; break;
-		case 21: timer = E_AHI_TIMER_3; break;
-		case 8:  timer = E_AHI_TIMER_4; break;
+		case 5:    timer = E_AHI_TIMER_1; break;
+		case 8:    timer = E_AHI_TIMER_4; break;
+		case 0xD0: timer = E_AHI_TIMER_2; break;
+		case 0xD1: timer = E_AHI_TIMER_3; break;
 		default: return;
 	}
 	vAHI_TimerEnable(timer, 0, false, false, true);
