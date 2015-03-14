@@ -86,6 +86,7 @@ void HardwareSerial::_tx_udr_empty_irq(void)
 void HardwareSerial::begin(unsigned long baud, byte config)
 {
 	//UART
+	vAHI_UartSetRTSCTS(E_AHI_UART_0, false);
 	vAHI_UartEnable(E_AHI_UART_0);
 
 	vAHI_UartReset(E_AHI_UART_0, TRUE, TRUE);
