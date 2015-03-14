@@ -88,12 +88,7 @@ recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex=\.text\s+([0-9]+).*
 
-tools.avrdude.cmd.path=C:\TWESDK\Tools\jenprog\bin\jenprog.exe
-tools.avrdude.upload.pattern="{cmd.path}" "-C{config.path}" {upload.verbose} -p{build.mcu} -c{upload.protocol} -P{serial.port} -b{upload.speed} -D "-Uflash:w:{build.path}/{build.project_name}.hex:i"
-tools.avrdude.config.path={runtime.ide.path}/hardware/arduino/jen/avrdude_conf/avrdude.conf
-tools.avrdude.cmd.path.linux={runtime.ide.path}/hardware/tools/avr/bin/avrdude
-tools.avrdude.config.path.linux={runtime.ide.path}/hardware/tools/avr/etc/avrdude.conf
-
-tools.avrdude.upload.params.verbose=
-tools.avrdude.upload.params.quiet=
-tools.avrdude.upload.pattern="{cmd.path}" -F -t {serial.port} "{build.path}/{build.project_name}.hex"
+tools.jn51xxprogrammer.cmd.path=c:\NXP\ProductionFlashProgrammer\JN51xxProgrammer.exe
+tools.jn51xxprogrammer.upload.params.verbose=-V 100
+tools.jn51xxprogrammer.upload.params.quiet=-V 0
+tools.jn51xxprogrammer.upload.pattern="{cmd.path}" {upload.verbose} -P 1000000 -s{serial.port} -f {build.path}/{build.project_name}.bin

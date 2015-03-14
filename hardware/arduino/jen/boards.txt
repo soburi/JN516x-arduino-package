@@ -1,14 +1,8 @@
 
 twelite.name=TOCOS TWE-Lite
 
-twelite.upload.tool=avrdude
-twelite.upload.protocol=avr109
-twelite.upload.maximum_size=196608
-twelite.upload.maximum_data_size=2560
-twelite.upload.speed=115200
-twelite.upload.disable_flushing=true
-twelite.upload.use_1200bps_touch=true
-twelite.upload.wait_for_upload_port=false
+twelite.upload.tool=jn51xxprogrammer
+twelite.upload.protocol=jn51xx
 
 twelite.build.mcu=JN5164
 twelite.build.jennic_mcu_family=JN516x
