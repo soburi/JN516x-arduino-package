@@ -91,6 +91,9 @@ void init()
 {
 	u32AHI_Init();
 
+	//WatchDog
+	vAHI_WatchdogStop();
+
 #ifdef USE_DEBUGPRINT
 	//UART
 	vAHI_UartEnable(E_AHI_UART_0);
