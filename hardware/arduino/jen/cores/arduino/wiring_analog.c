@@ -48,7 +48,7 @@ void analogReference(uint8_t mode)
 
 int analogRead(uint8_t pin)
 {
-	DEBUGPRINT("analogRread:\r\n");
+	DEBUG_STR("analogRread:\r\n");
 
 	uint32_t adc = 0;
 	switch(pin) {
@@ -66,7 +66,10 @@ int analogRead(uint8_t pin)
 	uint16_t read;
 	read = u16AHI_AdcRead();
 
-	DEBUGPRINT("read:%d\r\n", read);
+	DEBUG_STR("read:");
+	DEBUG_DEC(read);
+	DEBUG_STR("\r\n");
+	return read;
 }
 
 // Right now, PWM output only works on the pins with
@@ -75,7 +78,12 @@ int analogRead(uint8_t pin)
 // to digital output.
 void analogWrite(uint8_t pin, int val)
 {
-	DEBUGPRINT("analogWrite %d %d\r\n", pin, val);
+	DEBUG_STR("analogWrite ");
+	DEBUG_DEC(pin);
+	DEBUG_STR(" ");
+	DEBUG_DEC(val);
+	DEBUG_STR("\r\n");
+
 	uint32_t timer = 0;
 	switch(pin) {
 		case 5:  timer = E_AHI_TIMER_1; break;

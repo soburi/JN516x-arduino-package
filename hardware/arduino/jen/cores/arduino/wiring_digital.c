@@ -33,14 +33,27 @@ void pinMode(uint8_t pin, uint8_t mode)
 	if (mode == INPUT) {
 		vAHI_DioSetDirection((1UL<<pin), 0);
 		vAHI_DioSetPullup(0, (1UL<<pin));
-		DEBUGPRINT("input  p:%d m:%d\r\n", pin, mode);
+		DEBUG_STR("input  p:");
+		DEBUG_DEC(pin);
+		DEBUG_STR(" m:");
+		DEBUG_DEC(mode);
+		DEBUG_STR("\r\n");
 	} else if (mode == INPUT_PULLUP) {
 		vAHI_DioSetDirection(0, (1UL<<pin));
 		vAHI_DioSetPullup((1UL<<pin), 0 );
-		DEBUGPRINT("pullup p:%d m:%d\r\n", pin, mode);
+		DEBUG_STR("pullup p:");
+		DEBUG_DEC(pin);
+		DEBUG_STR(" m:");
+		DEBUG_DEC(mode);
+		DEBUG_STR("\r\n");
+
 	} else {
 		vAHI_DioSetDirection(0, (1UL<<pin) );
-		DEBUGPRINT("output p:%d m:%d\r\n", pin, mode);
+		DEBUG_STR("output p:");
+		DEBUG_DEC(pin);
+		DEBUG_STR(" m:");
+		DEBUG_DEC(mode);
+		DEBUG_STR("\r\n");
 	}
 }
 
@@ -66,10 +79,18 @@ static void turnOffPWM(uint8_t timer)
 void digitalWrite(uint8_t pin, uint8_t val)
 {
 	if (val == LOW) {
-		DEBUGPRINT("LOW  p:%d v:%d\r\n", pin, val);
+		DEBUG_STR("LOW  p:");
+		DEBUG_DEC(pin);
+		DEBUG_STR(" v:");
+		DEBUG_DEC(val);
+		DEBUG_STR("\r\n");
 		vAHI_DioSetOutput(0, (1UL<<pin));
 	} else {
-		DEBUGPRINT("HIGH p:%d v:%d\r\n", pin, val);
+		DEBUG_STR("HIGH p:");
+		DEBUG_DEC(pin);
+		DEBUG_STR(" v:");
+		DEBUG_DEC(val);
+		DEBUG_STR("\r\n");
 		vAHI_DioSetOutput((1UL<<pin), 0);
 	}
 }

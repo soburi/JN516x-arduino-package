@@ -26,9 +26,7 @@
 #include "wiring_private.h"
 
 #include <AppHardwareApi.h>
-// the prescaler is set so that timer0 ticks every 64 clock cycles, and the
-// the overflow handler is called every 256 ticks.
-#define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clockCyclesToMicroseconds(0xFFFFFFFF))
+#define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clockCyclesToMicroseconds(0x0FFFFFFF))
 
 // the whole number of milliseconds per timer0 overflow
 #define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
@@ -43,7 +41,6 @@ volatile unsigned long ticktimer_overflow_count = 0;
 volatile unsigned long ticktimer_millis = 0;
 static unsigned char ticktimer_fract = 0;
 
-#define TICKS_TO_USEC (32)
 #define TICK_TIMER_MAX (0x0fffffff)
 
 static void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
@@ -56,7 +53,9 @@ unsigned long millis()
 	unsigned long m;
 	m = MILLIS_INC * ticktimer_overflow_count +
 		(clockCyclesToMicroseconds(u32AHI_TickTimerRead())/1000);
-	debugprint("millis: %d\r\n", m);
+	DEBUG_STR("millis: ");
+	DEBUG_DEC(m);
+	DEBUG_STR("\r\n");
 	return m;
 }
 
@@ -82,7 +81,9 @@ void delay(unsigned long ms)
 		}
 	}
 
-	debugprint("delay: %d\r\n", micros());
+	DEBUG_STR("delay: ");
+	DEBUG_DEC(micros());
+	DEBUG_STR("\r\n");
 }
 
 /* Delay for the given number of microseconds.  Assumes a 8 or 16 MHz clock. */
@@ -106,7 +107,7 @@ void init()
 	vAHI_TickTimerIntEnable(true);
 
 	vAHI_TickTimerRegisterCallback(ticktimer_callback);
-	vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_CONT);
+	vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_RESTART);
 
 	//PWM Timer
 	vAHI_TimerSetLocation(E_AHI_TIMER_1, TRUE, TRUE);

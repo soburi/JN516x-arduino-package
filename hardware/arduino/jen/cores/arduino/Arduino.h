@@ -33,6 +33,21 @@
 extern "C"{
 #endif
 
+// Temporary alternative measures for printing.
+//#ifdef USE_DEBUGPRINT
+extern void debug_str(const char* buf);
+extern void debug_long(long val, int radix);
+
+#define DEBUG_STR debug_str
+#define DEBUG_DEC(x) debug_long(x, 10)
+#define DEBUG_HEX(x) debug_long(x, 16)
+//#else
+//#define DEBUG_STR
+//#define DEBUG_DEC(x)
+//#define DEBUG_HEX(x)
+//#endif
+
+
 void yield(void);
 
 #define HIGH 0x1
@@ -229,19 +244,5 @@ long map(long, long, long, long, long);
 #endif
 
 #include "pins_arduino.h"
-
-// Temporary alternative measures for printing.
-#ifdef USE_DEBUGPRINT
-#ifdef __cplusplus
-extern "C"{
-#endif
-extern void debugprint(char* msg, ...);
-#define DEBUGPRINT debugprint
-#ifdef __cplusplus
-}
-#endif
-#else
-#define DEBUGPRINT(...)
-#endif
 
 #endif
