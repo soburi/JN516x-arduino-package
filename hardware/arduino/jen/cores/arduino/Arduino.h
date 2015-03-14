@@ -34,18 +34,18 @@ extern "C"{
 #endif
 
 // Temporary alternative measures for printing.
-//#ifdef USE_DEBUGPRINT
+#ifdef USE_DEBUGPRINT
 extern void debug_str(const char* buf);
 extern void debug_long(long val, int radix);
 
-#define DEBUG_STR debug_str
+#define DEBUG_STR(x) debug_str(x)
 #define DEBUG_DEC(x) debug_long(x, 10)
 #define DEBUG_HEX(x) debug_long(x, 16)
-//#else
-//#define DEBUG_STR
-//#define DEBUG_DEC(x)
-//#define DEBUG_HEX(x)
-//#endif
+#else
+#define DEBUG_STR(x) ((void)(x))
+#define DEBUG_DEC(x) ((void)(x))
+#define DEBUG_HEX(x) ((void)(x))
+#endif
 
 
 void yield(void);

@@ -23,10 +23,11 @@
 
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 */
-//#define USE_DEBUGPRINT
 #define ARDUINO_MAIN
 #include "wiring_private.h"
 #include "pins_arduino.h"
+
+#include <AppHardwareApi.h>
 
 void pinMode(uint8_t pin, uint8_t mode)
 {
@@ -72,9 +73,9 @@ void pinMode(uint8_t pin, uint8_t mode)
 //
 //static inline void turnOffPWM(uint8_t timer) __attribute__ ((always_inline));
 //static inline void turnOffPWM(uint8_t timer)
-static void turnOffPWM(uint8_t timer)
-{
-}
+//static void turnOffPWM(uint8_t timer)
+//{
+//}
 
 void digitalWrite(uint8_t pin, uint8_t val)
 {

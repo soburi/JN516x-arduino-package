@@ -22,7 +22,6 @@
   $Id$
 */
 
-//#define USE_DEBUGPRINT
 #include "wiring_private.h"
 
 #include <AppHardwareApi.h>
@@ -39,7 +38,6 @@
 
 volatile unsigned long ticktimer_overflow_count = 0;
 volatile unsigned long ticktimer_millis = 0;
-static unsigned char ticktimer_fract = 0;
 
 #define TICK_TIMER_MAX (0x0fffffff)
 
@@ -61,12 +59,10 @@ unsigned long millis()
 
 unsigned long micros() {
 	unsigned long m;
-	uint32_t t;
 
-	m = ticktimer_overflow_count;
-
-	return MICROSECONDS_PER_TICKTIMER_OVERFLOW * ticktimer_overflow_count +
+	m = MICROSECONDS_PER_TICKTIMER_OVERFLOW * ticktimer_overflow_count +
 		clockCyclesToMicroseconds(u32AHI_TickTimerRead());
+	return m;
 }
 
 void delay(unsigned long ms)
@@ -95,11 +91,17 @@ void init()
 {
 	u32AHI_Init();
 
+#ifdef USE_DEBUGPRINT
 	//UART
 	vAHI_UartEnable(E_AHI_UART_0);
 	vAHI_UartReset(E_AHI_UART_0, TRUE, TRUE);
 	vAHI_UartReset(E_AHI_UART_0, FALSE, FALSE);
-
+	vAHI_UartSetClockDivisor(E_AHI_UART_0, E_AHI_UART_RATE_9600);
+	vAHI_UartSetControl(E_AHI_UART_0, E_AHI_UART_EVEN_PARITY, E_AHI_UART_PARITY_DISABLE, E_AHI_UART_WORD_LEN_8, E_AHI_UART_1_STOP_BIT, false);
+#else
+	vAHI_UartDisable(E_AHI_UART_0);
+	vAHI_UartDisable(E_AHI_UART_1);
+#endif
 	//Tick Timer
 	vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_DISABLE);
 	vAHI_TickTimerWrite(0);
