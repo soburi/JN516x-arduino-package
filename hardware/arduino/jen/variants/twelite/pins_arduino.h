@@ -25,4 +25,9 @@
 #ifndef Pins_Arduino_h
 #define Pins_Arduino_h
 
+static const uint8_t A1   = 0xA1;
+static const uint8_t A2   = 0xA2;
+static const uint8_t A3   = 0;
+static const uint8_t A4   = 1;
+
 #endif

@@ -32,7 +32,8 @@ void analogReference(uint8_t mode)
 {
 	vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE, E_AHI_AP_INT_DISABLE, 
 	                 E_AHI_AP_SAMPLE_2, E_AHI_AP_CLOCKDIV_500KHZ,
-			 mode == EXTERNAL ? E_AHI_AP_INTREF : E_AHI_AP_EXTREF);
+			 E_AHI_AP_INTREF);
+			 //mode == EXTERNAL ? E_AHI_AP_INTREF : E_AHI_AP_EXTREF);
 	while( !bAHI_APRegulatorEnabled() ) {}
 }
 
@@ -42,10 +43,10 @@ int analogRead(uint8_t pin)
 
 	uint32_t adc = 0;
 	switch(pin) {
-		//case -2: adc = E_AHI_ADC_SRC_ADC_3; break;
-		//case -1: adc = E_AHI_ADC_SRC_ADC_1; break;
-		case 0:  adc = E_AHI_ADC_SRC_ADC_2; break;
+		case 0:  adc = E_AHI_ADC_SRC_ADC_3; break;
 		case 1:  adc = E_AHI_ADC_SRC_ADC_4; break;
+		case 0xA1: adc = E_AHI_ADC_SRC_ADC_1; break;
+		case 0xA2: adc = E_AHI_ADC_SRC_ADC_2; break;
 		default: return -1;
 	}
 
