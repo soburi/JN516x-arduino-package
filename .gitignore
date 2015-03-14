@@ -1,9 +1,7 @@
 arduino.exe
 arduino_debug.exe
-cyggcc_s-1.dll
-cygiconv-2.dll
-cygwin1.dll
-cygz.dll
+*.dll
+*.ini
 drivers
 examples
 hardware/arduino/avr
@@ -12,7 +10,6 @@ hardware/arduino/jen/tools/ba-elf-ba2-r34135
 hardware/arduino/jen/import
 java
 libraries
-libusb0.dll
 lib
 reference
 revisions.txt

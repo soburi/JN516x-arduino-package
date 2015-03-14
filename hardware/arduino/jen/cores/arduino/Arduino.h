@@ -26,6 +26,9 @@
 #include <string.h>
 #include <math.h>
 
+#include <avr/pgmspace.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 #include "binary.h"
 
@@ -74,14 +77,20 @@ void yield(void);
 #define FALLING 2
 #define RISING 3
 
+#if defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__) || defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) || defined(JN516x)
 #define DEFAULT 0
 #define EXTERNAL 1
 #define INTERNAL 2
+#else  
+#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || defined(__AVR_ATmega644__) || defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega644PA__)
 #define INTERNAL1V1 2
 #define INTERNAL2V56 3
+#else
 #define INTERNAL 3
+#endif
 #define DEFAULT 1
 #define EXTERNAL 0
+#endif
 
 // undefine stdlib's abs if encountered
 #ifdef abs
@@ -121,7 +130,7 @@ typedef unsigned int word;
 
 #define bit(b) (1UL << (b))
 
-typedef uint8_t boolean;
+typedef bool boolean;
 typedef uint8_t byte;
 
 void init(void);
@@ -155,6 +164,17 @@ void loop(void);
 // This comes from the pins_*.c file for the active board configuration.
 
 #define analogInPinToBit(P) (P)
+
+// On the ATmega1280, the addresses of some of the port registers are
+// greater than 255, so we can't store them in uint8_t's.
+extern const uint16_t PROGMEM port_to_mode_PGM[];
+extern const uint16_t PROGMEM port_to_input_PGM[];
+extern const uint16_t PROGMEM port_to_output_PGM[];
+
+extern const uint8_t PROGMEM digital_pin_to_port_PGM[];
+// extern const uint8_t PROGMEM digital_pin_to_bit_PGM[];
+extern const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[];
+extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 
 // Get the bit location within the hardware port of the given virtual pin.
 // This comes from the pins_*.c file for the active board configuration.
@@ -208,9 +228,6 @@ void loop(void);
 #define TIMER5A 16
 #define TIMER5B 17
 #define TIMER5C 18
-
-#define cli() 
-#define sei() 
 
 #ifdef __cplusplus
 } // extern "C"
