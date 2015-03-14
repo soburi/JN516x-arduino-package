@@ -23,26 +23,16 @@
 
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 */
-//#define USE_DEBUGPRINT
 #include "wiring_private.h"
 #include "pins_arduino.h"
 
 #include <AppHardwareApi.h>
 
-uint8_t analog_reference = DEFAULT;
 void analogReference(uint8_t mode)
 {
-	// can't actually set the register here because the default setting
-	// will connect AVCC and the AREF pin, which would cause a short if
-	// there's something connected to AREF.
-	analog_reference = mode;
-	int aref = E_AHI_AP_INTREF;
-	if(mode == EXTERNAL) {
-		aref;
-	}
-
 	vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE, E_AHI_AP_INT_DISABLE, 
-	                 E_AHI_AP_SAMPLE_2, E_AHI_AP_CLOCKDIV_500KHZ, aref);
+	                 E_AHI_AP_SAMPLE_2, E_AHI_AP_CLOCKDIV_500KHZ,
+			 mode == EXTERNAL ? E_AHI_AP_INTREF : E_AHI_AP_EXTREF);
 	while( !bAHI_APRegulatorEnabled() ) {}
 }
 
@@ -52,8 +42,8 @@ int analogRead(uint8_t pin)
 
 	uint32_t adc = 0;
 	switch(pin) {
-		case -2: adc = E_AHI_ADC_SRC_ADC_3; break;
-		case -1: adc = E_AHI_ADC_SRC_ADC_1; break;
+		//case -2: adc = E_AHI_ADC_SRC_ADC_3; break;
+		//case -1: adc = E_AHI_ADC_SRC_ADC_1; break;
 		case 0:  adc = E_AHI_ADC_SRC_ADC_2; break;
 		case 1:  adc = E_AHI_ADC_SRC_ADC_4; break;
 		default: return -1;
