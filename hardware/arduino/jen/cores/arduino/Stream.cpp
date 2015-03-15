@@ -32,7 +32,7 @@ int Stream::timedRead()
   int c;
   _startMillis = millis();
   do {
-    c = read();
+    c = read_();
     if (c >= 0) return c;
   } while(millis() - _startMillis < _timeout);
   return -1;     // -1 indicates timeout
@@ -44,7 +44,7 @@ int Stream::timedPeek()
   int c;
   _startMillis = millis();
   do {
-    c = peek();
+    c = peek_();
     if (c >= 0) return c;
   } while(millis() - _startMillis < _timeout);
   return -1;     // -1 indicates timeout
@@ -60,7 +60,7 @@ int Stream::peekNextDigit()
     if (c < 0) return c;  // timeout
     if (c == '-') return c;
     if (c >= '0' && c <= '9') return c;
-    read();  // discard non-numeric
+    read_();  // discard non-numeric
   }
 }
 
@@ -153,7 +153,7 @@ long Stream::parseInt(char skipChar)
       isNegative = true;
     else if(c >= '0' && c <= '9')        // is c a digit?
       value = value * 10 + c - '0';
-    read();  // consume the character we got with peek
+    read_();  // consume the character we got with peek
     c = timedPeek();
   }
   while( (c >= '0' && c <= '9') || c == skipChar );
@@ -196,7 +196,7 @@ float Stream::parseFloat(char skipChar){
       if(isFraction)
          fraction *= 0.1;
     }
-    read();  // consume the character we got with peek
+    read_();  // consume the character we got with peek
     c = timedPeek();
   }
   while( (c >= '0' && c <= '9')  || c == '.' || c == skipChar );

@@ -83,7 +83,7 @@
 #endif
 
 // Constructors ////////////////////////////////////////////////////////////////
-
+/*
 HardwareSerial::HardwareSerial(
   volatile uint8_t *ubrrh, volatile uint8_t *ubrrl,
   volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
@@ -95,7 +95,7 @@ HardwareSerial::HardwareSerial(
     _tx_buffer_head(0), _tx_buffer_tail(0)
 {
 }
-
+*/
 // Actual interrupt handlers //////////////////////////////////////////////////////////////
 
 void HardwareSerial::_rx_complete_irq(void)

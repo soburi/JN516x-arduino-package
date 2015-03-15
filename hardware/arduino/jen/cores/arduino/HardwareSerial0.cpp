@@ -26,6 +26,8 @@
 #include "HardwareSerial.h"
 #include "HardwareSerial_private.h"
 
+#include <AppHardwareApi.h>
+
 // Each HardwareSerial is defined in its own file, sine the linker pulls
 // in the entire file when any element inside is used. --gc-sections can
 // additionally cause unused symbols to be dropped, but ISRs have the
@@ -33,6 +35,7 @@
 // HardwareSerial instance in as well. Putting each instance in its own
 // file prevents the linker from pulling in any unused instances in the
 // first place.
+//
 
 #if defined(HAVE_HWSERIAL0)
 
@@ -46,10 +49,12 @@ volatile uint8_t tmp6;
 volatile uint8_t tmp7;
 
 #if defined(UBRRH) && defined(UBRRL)
-  HardwareSerial Serial(&UBRRH, &UBRRL, &UCSRA, &UCSRB, &UCSRC, &UDR);
+//  HardwareSerial Serial(&UBRRH, &UBRRL, &UCSRA, &UCSRB, &UCSRC, &UDR);
 #else
-  HardwareSerial Serial(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0);
+//  HardwareSerial Serial(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0);
 #endif
+  HardwareSerial Serial(E_AHI_UART_0);
+
 
 // Function that can be weakly referenced by serialEventRun to prevent
 // pulling in this file if it's not otherwise used.

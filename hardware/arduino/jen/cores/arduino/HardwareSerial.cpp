@@ -79,7 +79,6 @@ void serialEventRun(void)
 }
 
 // Actual interrupt handlers //////////////////////////////////////////////////////////////
-
 void HardwareSerial::_tx_udr_empty_irq(void)
 {
 }
@@ -124,6 +123,9 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 	vAHI_UartSetClockDivisor(E_AHI_UART_0, c_baud);
 	vAHI_UartSetControl(E_AHI_UART_0, parity_type, parity_enable, wordlen, stopbit, false);
 
+	setWriteCharFPtr( HardwareSerial::uart_write_char );
+	setWriteStringFPtr( HardwareSerial::uart_write_string );
+
 	DEBUG_STR("c_baud:");
 	DEBUG_DEC(c_baud);
 	DEBUG_STR("\r\n");
@@ -139,7 +141,6 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 	DEBUG_STR("parity_type:");
 	DEBUG_DEC(parity_type);
 	DEBUG_STR("\r\n");
-
 }
 
 void HardwareSerial::end()
@@ -147,12 +148,18 @@ void HardwareSerial::end()
 	vAHI_UartDisable(E_AHI_UART_0);
 }
 
-int peek_buf = -1;
-
-int HardwareSerial::available(void)
+int HardwareSerial::available()
 {
-	int r = u16AHI_UartReadRxFifoLevel(E_AHI_UART_0);
-	if(peek_buf != -1) return r++;
+	return uart_available(this);
+}
+
+int HardwareSerial::uart_available(void* context)
+{
+	HardwareSerial* serial = reinterpret_cast<HardwareSerial*>(context);
+	int uart = serial->uart;
+
+	int r = u16AHI_UartReadRxFifoLevel(uart);
+	if(serial->peek_buf != -1) return r++;
 	DEBUG_STR("available:");
 	DEBUG_DEC(r);
 	DEBUG_STR("\r\n");
@@ -160,34 +167,48 @@ int HardwareSerial::available(void)
 	return r;
 }
 
-int HardwareSerial::peek(void)
+int HardwareSerial::peek()
 {
-	if(peek_buf != -1) return peek_buf;
-
-	peek_buf = read();
-	DEBUG_STR("peek:");
-	DEBUG_DEC(peek_buf);
-	DEBUG_STR("\r\n");
-	return peek_buf;
+	return uart_peek(this);
 }
 
-int HardwareSerial::read(void)
+int HardwareSerial::uart_peek(void* context)
 {
+	HardwareSerial* serial = reinterpret_cast<HardwareSerial*>(context);
+
+	if(serial->peek_buf != -1) return serial->peek_buf;
+
+	serial->peek_buf = uart_read(context);
+	DEBUG_STR("peek:");
+	DEBUG_DEC(serial->peek_buf);
+	DEBUG_STR("\r\n");
+	return serial->peek_buf;
+}
+
+int HardwareSerial::read()
+{
+	return uart_read(this);
+}
+
+int HardwareSerial::uart_read(void* context)
+{
+	HardwareSerial* serial = reinterpret_cast<HardwareSerial*>(context);
+	int uart = serial->uart;
 	DEBUG_STR("read:\r\n");
 	int ret;
-	if(peek_buf != -1) {
-		ret = peek_buf;
-		peek_buf = -1;
+	if(serial->peek_buf != -1) {
+		ret = serial->peek_buf;
+		serial->peek_buf = -1;
 		return ret;
 	}
 
-	if(!u8AHI_UartReadLineStatus(E_AHI_UART_0) & E_AHI_UART_LS_DR) {
+	if(!u8AHI_UartReadLineStatus(uart) & E_AHI_UART_LS_DR) {
 		return -1;
 	}
 	DEBUG_STR("available:");
-	DEBUG_DEC(u16AHI_UartReadRxFifoLevel(E_AHI_UART_0) );
+	DEBUG_DEC(u16AHI_UartReadRxFifoLevel(uart) );
 	DEBUG_STR("\r\n");
-	ret = u8AHI_UartReadData(E_AHI_UART_0);
+	ret = u8AHI_UartReadData(uart);
 
 	return ret;
 }
@@ -199,17 +220,30 @@ int HardwareSerial::availableForWrite(void)
 
 void HardwareSerial::flush()
 {
-	while((u8AHI_UartReadLineStatus(E_AHI_UART_0) & E_AHI_UART_LS_THRE) == 0);
+	uart_flush(this);
 }
 
-size_t HardwareSerial::write(uint8_t c)
+void HardwareSerial::uart_flush(void* context)
 {
-	DEBUG_STR("write:");
-	DEBUG_DEC(c);
-	DEBUG_STR("\r\n");
-	while((u8AHI_UartReadLineStatus(E_AHI_UART_0) & E_AHI_UART_LS_THRE) == 0);
-	vAHI_UartWriteData(E_AHI_UART_0, c);
+	int uart = reinterpret_cast<HardwareSerial*>(context)->uart;
+	while((u8AHI_UartReadLineStatus(uart) & E_AHI_UART_LS_THRE) == 0);
+}
 
+size_t HardwareSerial::uart_write_char(void* context, uint8_t c)
+{
+	int uart = reinterpret_cast<HardwareSerial*>(context)->uart;
+	while((u8AHI_UartReadLineStatus(uart) & E_AHI_UART_LS_THRE) == 0);
+	vAHI_UartWriteData(uart, c);
 	return 1;
+}
+
+size_t HardwareSerial::uart_write_string(void* context, const uint8_t* s, size_t length)
+{
+	int uart = reinterpret_cast<HardwareSerial*>(context)->uart;
+	for(uint32_t i=0; i<length; i++) {
+		while((u8AHI_UartReadLineStatus(uart) & E_AHI_UART_LS_THRE) == 0);
+		vAHI_UartWriteData(uart, s[i]);
+	}
+	return length;
 }
 #endif // whole file

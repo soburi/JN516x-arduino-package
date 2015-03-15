@@ -35,14 +35,38 @@
 readBytesBetween( pre_string, terminator, buffer, length)
 */
 
+typedef int (*available_func)(void*);
+typedef int (*read_func)(void*);
+typedef int (*peek_func)(void*);
+typedef void (*flush_func)(void*);
+
 class Stream : public Print
 {
+  private:
+    available_func available_fp;
+    read_func read_fp;
+    peek_func peek_fp;
+    flush_func flush_fp;
   protected:
+    int peek_buf;
     unsigned long _timeout;      // number of milliseconds to wait for the next char before aborting timed read
     unsigned long _startMillis;  // used for timeout measurement
     int timedRead();    // private method to read stream with timeout
     int timedPeek();    // private method to peek stream with timeout
     int peekNextDigit(); // returns the next numeric digit in the stream or -1 if timeout
+
+    void setAvailableFPtr(available_func afp) { available_fp = afp; }
+    void setReadFPtr(read_func rfp) { read_fp = rfp; }
+    void setPeekFPtr(peek_func pfp) { peek_fp = pfp; }
+    void setFlushFPtr(flush_func ffp) { flush_fp = ffp; }
+
+    static int func_available_read_peek_nop(void*) { return 0; }
+    static void func_flush_nop(void*) { }
+
+    int available_() { return available_fp(this); }
+    int read_() { return read_fp(this); }
+    int peek_() { return peek_fp(this); }
+    void flush_() { return flush_fp(this); }
 
   public:
     virtual int available() = 0;

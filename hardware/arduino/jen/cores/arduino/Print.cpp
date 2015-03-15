@@ -32,11 +32,7 @@
 /* default implementation: may be overridden */
 size_t Print::write(const uint8_t *buffer, size_t size)
 {
-  size_t n = 0;
-  while (size--) {
-    n += write(*buffer++);
-  }
-  return n;
+  return write_(buffer,size);
 }
 
 size_t Print::print(const __FlashStringHelper *ifsh)
@@ -56,7 +52,7 @@ size_t Print::print(const char str[])
 
 size_t Print::print(char c)
 {
-  return write(c);
+  return write_(c);
 }
 
 size_t Print::print(unsigned char b, int base)
@@ -77,7 +73,7 @@ size_t Print::print(unsigned int n, int base)
 size_t Print::print(long n, int base)
 {
   if (base == 0) {
-    return write(n);
+    return write_(n);
   } else if (base == 10) {
     if (n < 0) {
       int t = print('-');
@@ -92,7 +88,7 @@ size_t Print::print(long n, int base)
 
 size_t Print::print(unsigned long n, int base)
 {
-  if (base == 0) return write(n);
+  if (base == 0) return write_(n);
   else return printNumber(n, base);
 }
 

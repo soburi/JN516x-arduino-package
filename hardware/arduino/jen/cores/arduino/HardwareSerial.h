@@ -81,12 +81,15 @@ typedef uint8_t rx_buffer_index_t;
 class HardwareSerial : public Stream
 {
   protected:
+/*
     volatile uint8_t * const _ubrrh;
     volatile uint8_t * const _ubrrl;
     volatile uint8_t * const _ucsra;
     volatile uint8_t * const _ucsrb;
     volatile uint8_t * const _ucsrc;
     volatile uint8_t * const _udr;
+*/
+    int uart;
     // Has any byte been written to the UART since begin()
     bool _written;
 
@@ -100,12 +103,24 @@ class HardwareSerial : public Stream
     // instruction.
     unsigned char _rx_buffer[SERIAL_RX_BUFFER_SIZE];
     unsigned char _tx_buffer[SERIAL_TX_BUFFER_SIZE];
+    static int uart_available(void* context);
+    static int uart_peek(void* context);
+    static int uart_read(void* context);
+    static void uart_flush(void* context);
 
+    static size_t uart_write_char(void*, uint8_t);
+    static size_t uart_write_string(void*, const uint8_t*, size_t);
   public:
-    inline HardwareSerial(
-      volatile uint8_t *ubrrh, volatile uint8_t *ubrrl,
-      volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
-      volatile uint8_t *ucsrc, volatile uint8_t *udr);
+    inline HardwareSerial(int no)
+	    : uart(no)
+    {
+	    setWriteCharFPtr( HardwareSerial::uart_write_char );
+	    setWriteStringFPtr( HardwareSerial::uart_write_string );
+    }
+
+//      volatile uint8_t *ubrrh, volatile uint8_t *ubrrl,
+//      volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
+//      volatile uint8_t *ucsrc, volatile uint8_t *udr);
     void begin(unsigned long baud) { begin(baud, SERIAL_8N1); }
     void begin(unsigned long, uint8_t);
     void end();
@@ -114,12 +129,14 @@ class HardwareSerial : public Stream
     virtual int read(void);
     int availableForWrite(void);
     virtual void flush(void);
-    virtual size_t write(uint8_t);
-    inline size_t write(unsigned long n) { return write((uint8_t)n); }
-    inline size_t write(long n) { return write((uint8_t)n); }
-    inline size_t write(unsigned int n) { return write((uint8_t)n); }
-    inline size_t write(int n) { return write((uint8_t)n); }
-    using Print::write; // pull in write(str) and write(buf, size) from Print
+    inline size_t write(uint8_t n) { return write_(n); }
+    inline size_t write(unsigned long n) { return write_((uint8_t)n); }
+    inline size_t write(long n) { return write_((uint8_t)n); }
+    inline size_t write(unsigned int n) { return write_((uint8_t)n); }
+    inline size_t write(int n) { return write_((uint8_t)n); }
+    inline size_t write(const char *buffer, size_t size) { return write_((const uint8_t *)buffer, size);}
+    inline size_t write(const uint8_t *buffer, size_t size) { return write_(buffer, size);}
+    inline size_t write(const char *str) { return write_((const uint8_t *)str, strlen(str)); }
     operator bool() { return true; }
 
     // Interrupt handlers - Not intended to be called externally
