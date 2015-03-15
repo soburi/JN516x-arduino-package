@@ -30,6 +30,13 @@ Select [Tools]->[Board]->[TOCOS TWE-Lite] from menu, and
 Status
 =====
 
+Limitation by Hardware difference
+====
+
+##### Interrupt mode
+JN516x does not support LEVEL triggerd and both edge triggerd nterruption.
+ attatchInterrupt() treat HIGH, LOW, CHANGE as RISING.
+
 
 API status
 ====
@@ -51,14 +58,13 @@ API status
 - millis()
 - micros()
 - delay()
+- attachInterrupt()
+- detachInterrupt()
 - Serial
-
 
 ## not implemented yet
 
 - delayMicroseconds() 
-- attachInterrupt()
-- detachInterrupt()
 - interrupts()
 - noInterrupts() 
 
