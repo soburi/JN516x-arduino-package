@@ -75,7 +75,7 @@ recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -D
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} "{build.path}/{archive_file}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {build.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -TApp_Stack_Size.ld {jennic.ba2.flags} -nostartfiles -TAppBuildMac_{build.mcu}.ld "-Wl,-Map,{build.path}/{build.project_name}.map" -o "{build.path}/{build.project_name}.elf" {jennic.libpath} "-L{build.path}" {object_files} -Wl,--start-group {jennic.links} {build.path}/{archive_file} -Wl,--end-group
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {build.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -TApp_Stack_Size.ld {jennic.ba2.flags} -nostartfiles -TAppBuildMac_{build.mcu}.ld "-Wl,-Map,{build.path}/{build.project_name}.map" -o "{build.path}/{build.project_name}.elf" -L{runtime.ide.path}/hardware/arduino/jen/linker {jennic.libpath} "-L{build.path}" {object_files} -Wl,--start-group {jennic.links} {build.path}/{archive_file} -Wl,--end-group
 
 ## Create bin
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.elf2bin.cmd}" {compiler.elf2bin.flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
