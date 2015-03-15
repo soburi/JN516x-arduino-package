@@ -24,22 +24,13 @@
 
 #include "wiring_private.h"
 
-#include <AppHardwareApi.h>
 #define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clockCyclesToMicroseconds(0x0FFFFFFF))
-
-// the whole number of milliseconds per timer0 overflow
 #define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
-
-// the fractional number of milliseconds per timer0 overflow. we shift right
-// by three to fit these numbers into a byte. (for the clock speeds we care
-// about - 8 and 16 MHz - this doesn't lose precision.)
-#define FRACT_INC ((MICROSECONDS_PER_TICKTIMER_OVERFLOW % 1000) >> 3)
-#define FRACT_MAX (1000 >> 3)
-
-volatile unsigned long ticktimer_overflow_count = 0;
-volatile unsigned long ticktimer_millis = 0;
-
 #define TICK_TIMER_MAX (0x0fffffff)
+
+unsigned long ticktimer_overflow_count = 0;
+
+PR_HWINT_APPCALLBACK SysCtrl_DIO_interrupt_handler = 0;
 
 static void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
 {
@@ -87,6 +78,16 @@ void delayMicroseconds(unsigned int us)
 {
 }
 
+static void sysctrl_callback(uint32 u32Device, uint32 u32ItemBitmap)
+{
+	DEBUG_STR("sysctrl_callback ");
+	DEBUG_HEX(u32Device);
+	DEBUG_STR(" ");
+	DEBUG_HEX(u32ItemBitmap);
+	DEBUG_STR("\n");
+	if(SysCtrl_DIO_interrupt_handler) SysCtrl_DIO_interrupt_handler(u32Device, u32ItemBitmap);
+}
+
 void init()
 {
 	u32AHI_Init();
@@ -94,6 +95,8 @@ void init()
 	//WatchDog
 	vAHI_WatchdogStop();
 
+	//SysCtrl
+	vAHI_SysCtrlRegisterCallback(sysctrl_callback);
 #ifdef USE_DEBUGPRINT
 	//UART
 	vAHI_UartSetRTSCTS(E_AHI_UART_0, false);
