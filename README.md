@@ -5,26 +5,42 @@ This is arduino add-on package for NXP JN516x platform.
 
 
 Install
-====
+=======
 
-Copy into Arduino 1.6.x SDK.
+Install JN516x plugin to arduino
+--------------------------------
 
-Install BeyondStudio for NXP, JN516x-JenNet-IP Stack SDK and JN516x Production Flash Programmer..
+### for Arduino 1.6.2 or newer versions.
 
-[BeyondStudio for NXP](http://www.nxp.com/documents/other/JN-SW-4141.zip)
-[JN516x-JenNet-IP Stack SDK](http://www.nxp.com/documents/other/JN-SW-4165.zip)
-[JN516x Production Flash Programmer](http://www.nxp.com/documents/other/JN-SW-4107.zip)
+* See [jn516x arduino proxy](https://github.com/soburi/jn516x-arduino-proxy).
+
+### for Arduino 1.6.1 or older versions.
+
+- Extract [plugin archive](https://github.com/soburi/JN516x-arduino-package/archive/master.zip)
+into _[arduino\_root]/hardware/arduino_ folder.
+- Extrace [toolchain archive](https://dl.dropboxusercontent.com/u/498101/jn516x-tools_i686-mingw32_r8352.tar.bz2) into into _[arduino\_root]/hardware/tools_ folder.
+
+
+Install JN516x SDK
+------------------
+Install JN516x-JenNet-IP Stack SDK and JN516x Production Flash Programmer..
+
+* [JN-SW-4065-JN516x-JenNet-IP-SDK-v979](http://www.nxp.com/documents/other/JN-SW-4065.zip)
+* [JN516x Production Flash Programmer](http://www.nxp.com/documents/other/JN-SW-4107.zip)
 
 Install to default destination (C:\NXP\bstudio_nxp).
 
-Append build.path=[SOMEWHRER] and preproc.save_build_files=true.
+Configure arduino preference for debug
+--------------------------------------
+Append build.path=_[SOMEWHRER]_ and preproc.save_build_files=true.
 to Arduino preferences (%APPDATA%\Arduino15\preferences.txt).
 
+
 Patching SDK
-====
+------------
 newlib functions are failed linking.
 To resolve, applying this patch to SDK.
-Linker was set to prefer to read LD file from hardware\arduino\jen\linker.
+Linker was set to prefer to read LD file from _[JN516x plugin folder]_/linker.
 Patched file put on to this folder.
 
 ```
@@ -35,7 +51,7 @@ Patched file put on to this folder.
              _bss_end = ABSOLUTE(.);
          } > ram
 +	end = ABSOLUTE(.);
- 
+
          /* reserve minimum heap size */
          .heap ALIGN (0x4) :
 @@ -80,6 +81,7 @@
@@ -43,42 +59,42 @@ Patched file put on to this folder.
              . += _stack_size;
          } > ram
 +	_stack = ABSOLUTE(.);
- 
+
          /* Test to check if the .data initialisation values in flash has gone
             past the end of the available space; the linker doesn't throw an
 ```
 
 Build and Upload sketch
-===
+=======================
 
-Select [Tools]->[Board]->[TOCOS TWE-Lite] from menu, and 
+Select [Tools]->[Board]->[TOCOS TWE-Lite] from menu, and
 [Upload], runs your sketch on JN516x.
 
 Status
-=====
+======
 
 Limitation by Hardware difference
-====
+---------------------------------
 
-##### Interrupt mode
+### Interrupt mode
 JN516x does not support LEVEL triggerd and both edge triggerd nterruption.
  attatchInterrupt() treat HIGH, LOW, CHANGE as RISING.
 
 
 API status
-====
+----------
 
-!!! This software is in Early development stage .
+** !!! This software is in Early development stage . **
 
-## NOT WORK
+### NOT WORK
 
 - String
 
-## working
+### working
 
 - pinMode()
 - digitalWrite()
-- digitalRead() 
+- digitalRead()
 - analogReference()
 - analogRead()
 - analogWrite()
@@ -89,33 +105,33 @@ API status
 - detachInterrupt()
 - Serial
 
-## not implemented yet
+### not implemented yet
 
-- delayMicroseconds() 
+- delayMicroseconds()
 - interrupts()
-- noInterrupts() 
+- noInterrupts()
 
-## not confirmed
+### not confirmed
 
 - analogReadResolution()
-- analogWriteResolution() 
+- analogWriteResolution()
 - tone()
 - noTone()
 - shiftOut()
 - shiftIn()
-- pulseIn() 
+- pulseIn()
 - min()
 - max()
 - abs()
 - constrain()
 - map()
 - pow()
-- sqrt() 
+- sqrt()
 - sin()
 - cos()
-- tan() 
+- tan()
 - randomSeed()
-- random() 
+- random()
 - lowByte()
 - highByte()
 - bitRead()
