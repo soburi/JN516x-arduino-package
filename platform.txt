@@ -1,9 +1,19 @@
 name=NXP JN51xx Platform
 
+# toolchain path
 
-compiler.path={runtime.ide.path}/hardware/tools/ba-elf-ba2/bin/
-#jennic.path=C:/NXP/bstudio_nxp/sdk/JN-SW-4165
+# for 1.6.3 or newer
+jn516x-tools.path={runtime.tools.jn516x-tools.path}
+
+# Uncomment this line if use with arduino1.6.1 or older versions
+# jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
+
+compiler.path={jn516x-tools.path}/ba-elf-ba2/bin/
+
+# SDK path
+
 jennic.path=C:/Jennic
+#jennic.path=C:/NXP/bstudio_nxp/sdk/JN-SW-4165
 jennic.path.compos={jennic.path}/Components
 
 jennic.ba2.flags1=-msibcall -mno-multi -mno-setcc -mno-carry
