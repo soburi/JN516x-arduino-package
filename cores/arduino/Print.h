@@ -31,28 +31,14 @@
 #define OCT 8
 #define BIN 2
 
-typedef size_t (*write_char_func)(void*, uint8_t);
-typedef size_t (*write_string_func)(void*, const uint8_t*, size_t);
-
 class Print
 {
   private:
     int write_error;
     size_t printNumber(unsigned long, uint8_t);
     size_t printFloat(double, uint8_t);
-    write_char_func write_char_fp;
-    write_string_func write_string_fp;
   protected:
     void setWriteError(int err = 1) { write_error = err; }
-
-    void setWriteCharFPtr(write_char_func wcfp) { write_char_fp = wcfp; }
-    void setWriteStringFPtr(write_string_func wsfp) { write_string_fp = wsfp; }
-
-    static size_t func_write_char_nop(void*, uint8_t) { return 0; }
-    static size_t func_write_string_nop(void*, uint8_t) { return 0; }
-
-    size_t write_(uint8_t c) { return write_char_fp(this, c); }
-    size_t write_(const uint8_t *buffer, size_t size) { return write_string_fp(this, buffer, size); }
   public:
     Print() : write_error(0) {}
   
@@ -62,11 +48,11 @@ class Print
     virtual size_t write(uint8_t) = 0;
     size_t write(const char *str) {
       if (str == NULL) return 0;
-      return write_((const uint8_t *)str, strlen(str));
+      return write((const uint8_t *)str, strlen(str));
     }
     virtual size_t write(const uint8_t *buffer, size_t size);
     size_t write(const char *buffer, size_t size) {
-      return write_((const uint8_t *)buffer, size);
+      return write((const uint8_t *)buffer, size);
     }
     
     size_t print(const __FlashStringHelper *);

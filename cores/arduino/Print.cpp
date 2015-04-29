@@ -32,12 +32,23 @@
 /* default implementation: may be overridden */
 size_t Print::write(const uint8_t *buffer, size_t size)
 {
-  return write_(buffer,size);
+  size_t n = 0;
+  while (size--) {
+    n += write(*buffer++);
+  }
+  return n;
 }
 
 size_t Print::print(const __FlashStringHelper *ifsh)
 {
-  return print(reinterpret_cast<const char *>(ifsh));
+  PGM_P p = reinterpret_cast<PGM_P>(ifsh);
+  size_t n = 0;
+  while (1) {
+    unsigned char c = pgm_read_byte(p++);
+    if (c == 0) break;
+    n += write(c);
+  }
+  return n;
 }
 
 size_t Print::print(const String &s)
@@ -52,7 +63,7 @@ size_t Print::print(const char str[])
 
 size_t Print::print(char c)
 {
-  return write_(c);
+  return write(c);
 }
 
 size_t Print::print(unsigned char b, int base)
@@ -73,7 +84,7 @@ size_t Print::print(unsigned int n, int base)
 size_t Print::print(long n, int base)
 {
   if (base == 0) {
-    return write_(n);
+    return write(n);
   } else if (base == 10) {
     if (n < 0) {
       int t = print('-');
@@ -88,7 +99,7 @@ size_t Print::print(long n, int base)
 
 size_t Print::print(unsigned long n, int base)
 {
-  if (base == 0) return write_(n);
+  if (base == 0) return write(n);
   else return printNumber(n, base);
 }
 

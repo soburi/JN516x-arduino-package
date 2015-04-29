@@ -16,27 +16,28 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef HardwareSerial_h
-#define HardwareSerial_h
+#include "RingBuffer.h"
+#include <string.h>
 
-#include <inttypes.h>
-
-#include "Stream.h"
-
-class HardwareSerial : public Stream
+RingBuffer::RingBuffer( void )
 {
-  public:
-    virtual void begin(unsigned long);
-    virtual void end();
-    virtual int available(void) = 0;
-    virtual int peek(void) = 0;
-    virtual int read(void) = 0;
-    virtual void flush(void) = 0;
-    virtual size_t write(uint8_t) = 0;
-    using Print::write; // pull in write(str) and write(buf, size) from Print
-    virtual operator bool() = 0;
-};
+    memset( (void *)_aucBuffer, 0, SERIAL_BUFFER_SIZE ) ;
+    _iHead=0 ;
+    _iTail=0 ;
+}
 
-extern void serialEventRun(void) __attribute__((weak));
+void RingBuffer::store_char( uint8_t c )
+{
+  int i = (uint32_t)(_iHead + 1) % SERIAL_BUFFER_SIZE ;
 
-#endif
+  // if we should be storing the received character into the location
+  // just before the tail (meaning that the head would advance to the
+  // current location of the tail), we're about to overflow the buffer
+  // and so we don't write the character or advance the head.
+  if ( i != _iTail )
+  {
+    _aucBuffer[_iHead] = c ;
+    _iHead = i ;
+  }
+}
+
