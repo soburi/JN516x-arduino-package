@@ -23,7 +23,7 @@ jennic.ba2.flags4=-ffixed-r16 -ffixed-r17 -ffixed-r18 -ffixed-r19 -ffixed-r20 -f
 jennic.ba2.flags5=-ffixed-r24 -ffixed-r25 -ffixed-r26 -ffixed-r27 -ffixed-r28 -ffixed-r29 -ffixed-r30 -ffixed-r31
 jennic.ba2.flags={jennic.ba2.flags1} {jennic.ba2.flags2} {jennic.ba2.flags3} {jennic.ba2.flags4} {jennic.ba2.flags5}
 
-jennic.chip.defines1=-DJN516x=5160 -DJN5164=5164 -DJENNIC_CHIP_NAME=_{build.mcu}
+jennic.chip.defines1=-DJN516x=5160 -D{build.mcu}={build.jennic_mcu_model_no} -DJENNIC_CHIP_NAME=_{build.mcu}
 jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu} -DJENNIC_PCB=DEVKIT4
 jennic.chip.defines3=-DJENNIC_CHIP_FAMILY={build.jennic_mcu_family} -DJENNIC_CHIP_FAMILY_{build.jennic_mcu_family}
 
@@ -81,10 +81,10 @@ build.extra_flags=
 recipe.S.o.pattern=
 
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {compiler.c.flags} {build.extra_flags} {jennic.includes} {includes} {build.variant_system_include} "{source_file}" -MD -MF {object_file}.d -MP
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {compiler.c.flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MD -MF {object_file}.d -MP
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {compiler.cpp.flags} {build.extra_flags} {jennic.includes} {includes} {build.variant_system_include} "{source_file}" -MD -MF {object_file}.d -MD
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -D{software}={runtime.ide.version} {compiler.cpp.flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MD -MF {object_file}.d -MD
 
 ## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} "{build.path}/{archive_file}" "{object_file}"

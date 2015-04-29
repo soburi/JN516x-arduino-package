@@ -4,8 +4,9 @@ twelite.name=TOCOS TWE-Lite
 twelite.upload.tool=jn51xxprogrammer
 twelite.upload.protocol=jn51xx
 
-twelite.build.mcu=JN5164
 twelite.build.jennic_mcu_family=JN516x
+twelite.build.jennic_mcu_model_no=5164
+twelite.build.mcu=JN{build.jennic_mcu_model_no}
 twelite.build.board=TWE_LITE
 # use clock frequency.
 twelite.build.f_cpu=16000000L
