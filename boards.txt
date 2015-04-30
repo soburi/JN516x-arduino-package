@@ -1,17 +1,50 @@
+# note: JN516x have difference among CPU clock and timer clock.
+#       Use timer clock for F_CPU value.
+
+jn5161.name=Generic JN5161
+jn5161.upload.tool=jn51xxprogrammer
+jn5161.upload.protocol=jn51xx
+jn5161.build.jennic_mcu_family=JN516x
+jn5161.build.jennic_mcu_model_no=5161
+jn5161.build.mcu=JN{build.jennic_mcu_model_no}
+jn5161.build.board=JN5161
+jn5161.build.f_cpu=16000000L
+jn5161.build.core=arduino
+jn5161.build.variant=jn5161
+
+
+jn5164.name=Generic JN5164
+jn5164.upload.tool=jn51xxprogrammer
+jn5164.upload.protocol=jn51xx
+jn5164.build.jennic_mcu_family=JN516x
+jn5164.build.jennic_mcu_model_no=5164
+jn5164.build.mcu=JN{build.jennic_mcu_model_no}
+jn5164.build.board=JN5164
+jn5164.build.f_cpu=16000000L
+jn5164.build.core=arduino
+jn5164.build.variant=jn5164
+
+
+jn5168.name=Generic JN5168
+jn5168.upload.tool=jn51xxprogrammer
+jn5168.upload.protocol=jn51xx
+jn5168.build.jennic_mcu_family=JN516x
+jn5168.build.jennic_mcu_model_no=5168
+jn5168.build.mcu=JN{build.jennic_mcu_model_no}
+jn5168.build.board=JN5168
+jn5168.build.f_cpu=16000000L
+jn5168.build.core=arduino
+jn5168.build.variant=jn5168
+
 
 twelite.name=TOCOS TWE-Lite
-
 twelite.upload.tool=jn51xxprogrammer
 twelite.upload.protocol=jn51xx
-
 twelite.build.jennic_mcu_family=JN516x
 twelite.build.jennic_mcu_model_no=5164
 twelite.build.mcu=JN{build.jennic_mcu_model_no}
 twelite.build.board=TWE_LITE
-# use clock frequency.
 twelite.build.f_cpu=16000000L
 twelite.build.usb_product="TWE-Lite-R"
 twelite.build.core=arduino
-twelite.build.ldscript=
 twelite.build.variant=twelite
-twelite.build.variant_system_include=
