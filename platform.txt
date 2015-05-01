@@ -33,7 +33,7 @@ jennic.includes7=-I{jennic.path.compos}/ProductionTestApi/Include -I{jennic.path
 jennic.includes8=-I{jennic.path.compos}/TimerServer/Include -I{jennic.path.compos}/TOF/Include -I{jennic.path.compos}/Utilities/Include
 jennic.includes9=-I{jennic.path.compos}/Xcv/Include
 
-jennic.links1=-lAppApi_{build.jennic_mcu_family} -lMAC_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family} -lTOF_{build.jennic_mcu_family}
+jennic.links1=-lAppApi_{build.jennic_mcu_family} -lMAC_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family} -lTof_{build.jennic_mcu_family}
 jennic.links2=-lXcv_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -lHardwareApi_{build.jennic_mcu_family} -lMicroSpecific_{build.jennic_mcu_family}
 jennic.links3=-lBoot_{build.jennic_mcu_family} -lBoardLib_{build.jennic_mcu_family}
 
