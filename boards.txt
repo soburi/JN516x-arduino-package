@@ -48,3 +48,15 @@ twelite.build.f_cpu=16000000L
 twelite.build.usb_product="TWE-Lite-R"
 twelite.build.core=arduino
 twelite.build.variant=twelite
+
+
+meshbee.name=SeeedStudio Mesh Bee
+meshbee.upload.tool=jn51xxprogrammer
+meshbee.upload.protocol=jn51xx
+meshbee.build.jennic_mcu_family=JN516x
+meshbee.build.jennic_mcu_model_no=5168
+meshbee.build.mcu=JN{build.jennic_mcu_model_no}
+meshbee.build.board=MESH_BEE
+meshbee.build.f_cpu=16000000L
+meshbee.build.core=arduino
+meshbee.build.variant=meshbee
