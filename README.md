@@ -23,12 +23,35 @@ into _[arduino\_root]/hardware/arduino_ folder.
 
 Install JN516x SDK
 ------------------
-Install JN516x-JenNet-IP Stack SDK and JN516x Production Flash Programmer..
+Install JN516x-JenNet-IP Stack SDK.
 
 * [JN-SW-4065-JN516x-JenNet-IP-SDK-v979](http://www.nxp.com/documents/other/JN-SW-4065.zip)
+
+### Windows
+
+Simply install to default destination (C:\Jennic).
+
+### MacOSX and Linux
+
+Use [wine](https://www.winehq.org/) to launch installer program.
+Install to Z:\opt\Jennic(point to /opt/Jennic in filesystem).
+
+
+Install Flash Programmer
+------------------------
+
+### Windows
+Install JN516x Production Flash Programmer.
+
 * [JN516x Production Flash Programmer](http://www.nxp.com/documents/other/JN-SW-4107.zip)
 
 Install to default destination (C:\NXP\bstudio_nxp).
+
+### MacOSX and Linux
+Install jenprog
+
+* [jenprog](https://github.com/pengphei/jenprog)
+
 
 Configure arduino preference for debug
 --------------------------------------
