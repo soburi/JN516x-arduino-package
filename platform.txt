@@ -5,7 +5,8 @@ compiler.path={runtime.tools.jn516x-tools.path}/ba-elf-ba2/bin/
 
 # SDK path
 
-jennic.path=C:/Jennic
+jennic.path=/opt/Jennic
+jennic.path.windows=C:/Jennic
 #jennic.path=C:/NXP/bstudio_nxp/sdk/JN-SW-4165
 jennic.path.compos={jennic.path}/Components
 
