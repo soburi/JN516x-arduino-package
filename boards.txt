@@ -12,7 +12,8 @@
 #       Use timer clock for F_CPU value.
 
 jn5161.name=Generic JN5161
-jn5161.upload.tool=jn51xxprogrammer
+jn5161.upload.tool=jenprog
+jn5161.upload.tool.windows=jn51xxprogrammer
 jn5161.upload.protocol=jn51xx
 jn5161.build.jennic_mcu_family=JN516x
 jn5161.build.jennic_mcu_model_no=5161
@@ -24,7 +25,8 @@ jn5161.build.variant=jn5161
 
 
 jn5164.name=Generic JN5164
-jn5164.upload.tool=jn51xxprogrammer
+jn5164.upload.tool=jenprog
+jn5164.upload.tool.windows=jn51xxprogrammer
 jn5164.upload.protocol=jn51xx
 jn5164.build.jennic_mcu_family=JN516x
 jn5164.build.jennic_mcu_model_no=5164
@@ -36,7 +38,8 @@ jn5164.build.variant=jn5164
 
 
 jn5168.name=Generic JN5168
-jn5168.upload.tool=jn51xxprogrammer
+jn5168.upload.tool=jenprog
+jn5168.upload.tool.windows=jn51xxprogrammer
 jn5168.upload.protocol=jn51xx
 jn5168.build.jennic_mcu_family=JN516x
 jn5168.build.jennic_mcu_model_no=5168
@@ -48,7 +51,8 @@ jn5168.build.variant=jn5168
 
 
 twelite.name=TOCOS TWE-Lite
-twelite.upload.tool=jn51xxprogrammer
+twelite.upload.tool=jenprog
+twelite.upload.tool.windows=jn51xxprogrammer
 twelite.upload.protocol=jn51xx
 twelite.build.jennic_mcu_family=JN516x
 twelite.build.jennic_mcu_model_no=5164
@@ -61,7 +65,8 @@ twelite.build.variant=twelite
 
 
 meshbee.name=SeeedStudio Mesh Bee
-meshbee.upload.tool=jn51xxprogrammer
+meshbee.upload.tool=jenprog
+meshbee.upload.tool.windows=jn51xxprogrammer
 meshbee.upload.protocol=jn51xx
 meshbee.build.jennic_mcu_family=JN516x
 meshbee.build.jennic_mcu_model_no=5168
