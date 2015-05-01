@@ -23,19 +23,22 @@ jennic.chip.defines3=-DJENNIC_CHIP_FAMILY={build.jennic_mcu_family} -DJENNIC_CHI
 
 jennic.defines1=-DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0
 jennic.defines2=-DJENNIC_SW_EXTERNAL_FLASH=0 -DJN516X_DMA_UART_BACKWARDS_COMPATIBLE_API=1 -DJN516X_BACKWARDS_COMPATIBLE_API=1 -DPDM_DESCRIPTOR_BASED_API=1 -DJENNIC_STACK_MAC
-jennic.includes1=-I{jennic.path.compos}/6LP/Include -I{jennic.path.compos}/Aes/Include -I{jennic.path.compos}/AES_SW/Include
+jennic.includes1=-I{jennic.path.compos}/6LP/Include -I{jennic.path.compos}/Aes/Include -I{jennic.path.compos}/AES_CCM_SW_PATCH/Include -I{jennic.path.compos}/AES_SW/Include
 jennic.includes2=-I{jennic.path.compos}/AppApi/Include -I{jennic.path.compos}/AppQueueApi/Include -I{jennic.path.compos}/Boot/Include
-jennic.includes3=-I{jennic.path.compos}/Common/Include -I{jennic.path.compos}/DBG/Include -I{jennic.path.compos}/HardwareApi/Include
-jennic.includes4=-I{jennic.path.compos}/JenNet/Include -I{jennic.path.compos}/JIP/Include -I{jennic.path.compos}/Library/Include
-jennic.includes5=-I{jennic.path.compos}/MAC/Include -I{jennic.path.compos}/MicroSpecific/Include -I{jennic.path.compos}/MiniMAC/Include
-jennic.includes6=-I{jennic.path.compos}/MMAC/Include -I{jennic.path.compos}/OS/Include -I{jennic.path.compos}/PDM/Include
-jennic.includes7=-I{jennic.path.compos}/ProductionTestApi/Include -I{jennic.path.compos}/Random/Include -I{jennic.path.compos}/Recal/Include
+jennic.includes3=-I{jennic.path.compos}/Common/Include -I{jennic.path.compos}/DBG/Include -I{jennic.path.compos}/Flash/Include
+jennic.includes4=-I{jennic.path.compos}/HardwareApi/Include -I{jennic.path.compos}/JenNet/Include -I{jennic.path.compos}/JIP/Include
+jennic.includes5=-I{jennic.path.compos}/MAC/Include -I{jennic.path.compos}/MicroSpecific/Include -I{jennic.path.compos}/MMAC/Include
+jennic.includes6=-I{jennic.path.compos}/OS/Include -I{jennic.path.compos}/PATCH/Include -I{jennic.path.compos}/PDM/Include
+jennic.includes7=-I{jennic.path.compos}/Random/Include -I{jennic.path.compos}/Recal/Include
 jennic.includes8=-I{jennic.path.compos}/TimerServer/Include -I{jennic.path.compos}/TOF/Include -I{jennic.path.compos}/Utilities/Include
 jennic.includes9=-I{jennic.path.compos}/Xcv/Include
 
-jennic.links1=-lAppApi_{build.jennic_mcu_family} -lMAC_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family} -lTof_{build.jennic_mcu_family}
-jennic.links2=-lXcv_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -lHardwareApi_{build.jennic_mcu_family} -lMicroSpecific_{build.jennic_mcu_family}
-jennic.links3=-lBoot_{build.jennic_mcu_family} -lBoardLib_{build.jennic_mcu_family}
+jennic.links1=-lAppApi_{build.jennic_mcu_family} -lMAC_{build.jennic_mcu_family} -lTof_{build.jennic_mcu_family} -lXcv_{build.jennic_mcu_family}
+jennic.links2=-lAES_CCM_SW_PATCH_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family}
+jennic.links3=-lHardwareApi_{build.jennic_mcu_family} -lMicroSpecific_{build.jennic_mcu_family} -lBoot_{build.jennic_mcu_family} -lMaths_{build.jennic_mcu_family}
+jennic.links4=-lFlash_{build.jennic_mcu_family} -lRandom_{build.jennic_mcu_family} -lRecal_{build.jennic_mcu_family}
+#jennic.links5=-l6LP_{build.jennic_mcu_family} -lAES_SW_{build.jennic_mcu_family} -lDBG_{build.jennic_mcu_family} -lJenNet_{build.jennic_mcu_family}
+#jennic.links6=-lJIP_{build.jennic_mcu_family} -lMMAC_{build.jennic_mcu_family} -lPDM_EEPROM_{build.jennic_mcu_family} -lPDM_EXTERNAL_FLASH_{build.jennic_mcu_family}
 
 jennic.libpath1=-L{jennic.path}/Chip/{build.mcu}/Build -L{jennic.path}/Chip/{build.mcu}/Library -L{jennic.path}/Components/Library
 jennic.libpath2=-L{jennic.path}/Stack/MAC/Build -L{jennic.path}/Platform/DK4/Library
