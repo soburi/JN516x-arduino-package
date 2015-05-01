@@ -1,14 +1,7 @@
 name=NXP JN51xx Platform
 
 # toolchain path
-
-# for 1.6.3 or newer
-jn516x-tools.path={runtime.tools.jn516x-tools.path}
-
-# Uncomment this line if use with arduino1.6.1 or older versions
-# jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
-
-compiler.path={jn516x-tools.path}/ba-elf-ba2/bin/
+compiler.path={runtime.tools.jn516x-tools.path}/ba-elf-ba2/bin/
 
 # SDK path
 

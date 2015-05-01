@@ -1,3 +1,13 @@
+#
+# Uncomment following lines if use with arduino1.6.1 or older versions.
+#
+#jn5161.runtime.tools.jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
+#jn5164.runtime.tools.jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
+#jn5168.runtime.tools.jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
+#twelite.runtime.tools.jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
+#meshbee.runtime.tools.jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
+
+
 # note: JN516x have difference among CPU clock and timer clock.
 #       Use timer clock for F_CPU value.
 
