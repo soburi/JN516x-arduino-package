@@ -84,7 +84,7 @@ recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -TApp_Stack_Size.ld -nostartfiles -mba2_elf -march=ba2 -L{runtime.platform.path}/linker {jennic.libpath} "-L{build.path}" -TAppBuildMac_{build.mcu}.ld -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group {jennic.links}  {build.path}/{archive_file} -Wl,--end-group "-Wl,-Map,{build.path}/{build.project_name}.map"
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -nostartfiles -mba2_elf -march=ba2 -L{build.variant.path}/ldscript  -L{build.variant.path}/../_jn516x_/ldscript {jennic.libpath} "-L{build.path}" -TArduinize.ld -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group {jennic.links}  {build.path}/{archive_file} -Wl,--end-group "-Wl,-Map,{build.path}/{build.project_name}.map"
 
 ## Create bin
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
