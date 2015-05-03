@@ -16,32 +16,27 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef WiringPrivate_h
-#define WiringPrivate_h
-
-#include <stdint.h>
-#include <stdio.h>
-#include <stdarg.h>
+#ifndef _WIRING_SHIFT_
+#define _WIRING_SHIFT_
 
 #ifdef __cplusplus
-extern "C"{
+ extern "C" {
 #endif
 
-// Includes Atmel CMSIS
-//#include <chip.h>
+/*
+ * \brief
+ */
+extern uint32_t shiftIn( uint32_t ulDataPin, uint32_t ulClockPin, uint32_t ulBitOrder ) ;
 
-#include "wiring_constants.h"
+
+/*
+ * \brief
+ */
+extern void shiftOut( uint32_t ulDataPin, uint32_t ulClockPin, uint32_t ulBitOrder, uint32_t ulVal ) ;
+
 
 #ifdef __cplusplus
-} // extern "C"
-
-#include "HardwareSerial.h"
-
+}
 #endif
 
-#include <AppHardwareApi.h>
-
-extern PR_HWINT_APPCALLBACK SysCtrl_DIO_interrupt_handler;
-
-
-#endif
+#endif /* _WIRING_SHIFT_ */

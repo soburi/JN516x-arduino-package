@@ -22,7 +22,11 @@
   $Id$
 */
 
+#define ARDUINO_MAIN
+#include "Arduino.h"
+
 #include "wiring_private.h"
+
 
 #define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clockCyclesToMicroseconds(0x0FFFFFFF))
 #define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
@@ -74,9 +78,6 @@ void delay(unsigned long ms)
 }
 
 /* Delay for the given number of microseconds.  Assumes a 8 or 16 MHz clock. */
-void delayMicroseconds(unsigned int us)
-{
-}
 
 static void sysctrl_callback(uint32 u32Device, uint32 u32ItemBitmap)
 {

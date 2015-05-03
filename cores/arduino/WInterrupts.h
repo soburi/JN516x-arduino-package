@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2011-2012 Arduino.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -16,32 +16,21 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef WiringPrivate_h
-#define WiringPrivate_h
+#ifndef _WIRING_INTERRUPTS_
+#define _WIRING_INTERRUPTS_
 
-#include <stdint.h>
-#include <stdio.h>
-#include <stdarg.h>
+#include "Arduino.h"
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif
 
-// Includes Atmel CMSIS
-//#include <chip.h>
+void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode);
 
-#include "wiring_constants.h"
+void detachInterrupt(uint32_t pin);
 
 #ifdef __cplusplus
-} // extern "C"
-
-#include "HardwareSerial.h"
-
+}
 #endif
 
-#include <AppHardwareApi.h>
-
-extern PR_HWINT_APPCALLBACK SysCtrl_DIO_interrupt_handler;
-
-
-#endif
+#endif /* _WIRING_INTERRUPTS_ */

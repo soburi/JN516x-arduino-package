@@ -24,12 +24,14 @@ extern "C" void __cxa_deleted_virtual(void) __attribute__ ((__noreturn__));
 void __cxa_pure_virtual(void) {
   // We might want to write some diagnostics to uart in this case
   //std::terminate();
-  abort();
+  while (1)
+    ;
 }
 
 void __cxa_deleted_virtual(void) {
   // We might want to write some diagnostics to uart in this case
   //std::terminate();
-  abort();
+  while (1)
+    ;
 }
 

@@ -1,8 +1,6 @@
-#include "Arduino.h"
+#include "WInterrupts.h"
 
 #include "wiring_private.h"
-
-#include <AppHardwareApi.h>
 
 #define DIO_NUM 20
 
@@ -30,7 +28,8 @@ static void DIO_interrupt_handler(uint32_t device, uint32_t bits)
 	DEBUG_STR("end DIO_interrupt_handler \n");
 }
 
-void attachInterrupt(uint8_t pin, void (*callback)(void), int mode)
+
+void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
 {
 	if(!SysCtrl_DIO_interrupt_handler) {
 		DEBUG_STR("set SysCtrl_DIO_interrupt_handler\n");
@@ -50,7 +49,7 @@ void attachInterrupt(uint8_t pin, void (*callback)(void), int mode)
 	}
 }
 
-void detachInterrupt(uint8_t pin)
+void detachInterrupt(uint32_t pin)
 {
 	if(pin > DIO_NUM) return;
 	

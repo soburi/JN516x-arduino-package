@@ -1,7 +1,7 @@
 /*
   dtostrf - Emulation for dtostrf function from avr-libc
   Copyright (c) 2013 Arduino.  All rights reserved.
-  Written by Cristian Maglie <c.maglie@bug.st>
+  Written by Cristian Maglie <c.maglie@arduino.cc>
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -22,15 +22,8 @@
 
 char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
   char fmt[20];
-// TODO reimplement dtostrf
-  //sprintf(fmt, "%%%d.%df", width, prec);
-  //sprintf(sout, fmt, val);
-  int i=0;
-  char* p = sout;
-  for(i=0; i<20; i++) {
-    *p++ = 'f';
-  }
-
+  sprintf(fmt, "%%%d.%df", width, prec);
+  sprintf(sout, fmt, val);
   return sout;
 }
 

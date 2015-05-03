@@ -25,7 +25,6 @@
 */
 #define ARDUINO_MAIN
 #include "wiring_private.h"
-#include "pins_arduino.h"
 
 #include <AppHardwareApi.h>
 
