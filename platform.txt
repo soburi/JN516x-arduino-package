@@ -19,7 +19,7 @@ jennic.ba2.flags={jennic.ba2.flags1} {jennic.ba2.flags2} {jennic.ba2.flags3} {je
 
 jennic.chip.defines1=-DJN516x=5160 -D{build.mcu}={build.jennic_mcu_model_no} -DJENNIC_CHIP_NAME=_{build.mcu}
 jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu} -DJENNIC_PCB=DEVKIT4
-jennic.chip.defines3=-DJENNIC_CHIP_FAMILY={build.jennic_mcu_family} -DJENNIC_CHIP_FAMILY_{build.jennic_mcu_family}
+jennic.chip.defines3=-DJENNIC_CHIP_FAMILY={build.jennic_mcu_family} -DJENNIC_CHIP_FAMILY_{build.jennic_mcu_family} -DEMBEDDED -DUSER_VSR_HANDLER
 
 jennic.defines1=-DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0
 jennic.defines2=-DJENNIC_SW_EXTERNAL_FLASH=0 -DJN516X_DMA_UART_BACKWARDS_COMPATIBLE_API=1 -DJN516X_BACKWARDS_COMPATIBLE_API=1 -DPDM_DESCRIPTOR_BASED_API=1 -DJENNIC_STACK_MAC
