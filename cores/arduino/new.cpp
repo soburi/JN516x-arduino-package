@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2014 Arduino.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -16,32 +16,21 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef WiringPrivate_h
-#define WiringPrivate_h
+#include <stdlib.h>
 
-#include <stdint.h>
-#include <stdio.h>
-#include <stdarg.h>
+void *operator new(size_t size) {
+  return malloc(size);
+}
 
-#ifdef __cplusplus
-extern "C"{
-#endif
+void *operator new[](size_t size) {
+  return malloc(size);
+}
 
-// Includes Atmel CMSIS
-#include <chip.h>
+void operator delete(void * ptr) {
+  free(ptr);
+}
 
-#include "wiring_constants.h"
+void operator delete[](void * ptr) {
+  free(ptr);
+}
 
-#ifdef __cplusplus
-} // extern "C"
-
-#include "HardwareSerial.h"
-
-#endif
-
-#include <AppHardwareApi.h>
-
-extern PR_HWINT_APPCALLBACK SysCtrl_DIO_interrupt_handler;
-
-
-#endif
