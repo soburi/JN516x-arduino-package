@@ -47,23 +47,6 @@ extern "C"{
 #define clockCyclesToMicroseconds(a) ( ((a) * 1000L) / (SystemCoreClock / 1000L) )
 #define microsecondsToClockCycles(a) ( (a) * (SystemCoreClock / 1000000L) )
 
-// Temporary alternative measures for printing.
-#ifdef USE_DEBUGPRINT
-extern void debug_str(const char* buf);
-extern void debug_long(long val, int radix);
-
-#define DEBUGPRINT_DISABLE(x) x
-
-#define DEBUG_STR(x) DEBUGPRINT_DISABLE( debug_str(x) )
-#define DEBUG_DEC(x) DEBUGPRINT_DISABLE( debug_long(x, 10) )
-#define DEBUG_HEX(x) DEBUGPRINT_DISABLE( debug_long(x, 16) )
-#else
-#define DEBUG_STR(x) ((void)(x))
-#define DEBUG_DEC(x) ((void)(x))
-#define DEBUG_HEX(x) ((void)(x))
-#endif
-
-
 void yield(void);
 
 /* sketch */

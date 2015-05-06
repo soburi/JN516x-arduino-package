@@ -22,10 +22,6 @@
 #include "Arduino.h"
 #ifdef __cplusplus
 #include "UARTClass.h"
-#endif
-
-
-#ifdef __cplusplus
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
@@ -61,8 +57,29 @@ extern UARTClass Serial1;
 //#define SERIAL_PORT_HARDWARE2       Serial2
 //#define SERIAL_PORT_HARDWARE3       Serial3
 
-
 #endif // __cplusplus
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// Temporary alternative measures for printing.
+#ifdef USE_DEBUGPRINT
+extern void debug_str(const char* buf);
+extern void debug_long(long val, int radix);
+
+#define DEBUGPRINT_DISABLE(x) x
+
+#define DEBUG_STR(x) DEBUGPRINT_DISABLE( debug_str(x) )
+#define DEBUG_DEC(x) DEBUGPRINT_DISABLE( debug_long(x, 10) )
+#define DEBUG_HEX(x) DEBUGPRINT_DISABLE( debug_long(x, 16) )
+#else
+#define DEBUG_STR(x) ((void)(x))
+#define DEBUG_DEC(x) ((void)(x))
+#define DEBUG_HEX(x) ((void)(x))
+#endif
+
 
 #define VARIANT_MCK                     84000000
 
@@ -70,6 +87,10 @@ static const uint8_t A1   = 0xA1;
 static const uint8_t A2   = 0xA2;
 static const uint8_t A3   = 0;
 static const uint8_t A4   = 1;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _VARIANT_TWELITE_ */
 
