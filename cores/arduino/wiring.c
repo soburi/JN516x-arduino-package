@@ -28,7 +28,8 @@
 #include "wiring_private.h"
 
 
-#define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clockCyclesToMicroseconds(0x0FFFFFFF))
+#define clock2usec(a) ( (a) / clockCyclesPerMicrosecond() )
+#define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clock2usec(0x0FFFFFFF))
 #define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
 #define TICK_TIMER_MAX (0x0fffffff)
 
@@ -45,7 +46,7 @@ unsigned long millis()
 {
 	unsigned long m;
 	m = MILLIS_INC * ticktimer_overflow_count +
-		(clockCyclesToMicroseconds(u32AHI_TickTimerRead())/1000);
+		(clock2usec(u32AHI_TickTimerRead())/1000);
 	DEBUG_STR("millis: ");
 	DEBUG_DEC(m);
 	DEBUG_STR("\r\n");
@@ -56,7 +57,7 @@ unsigned long micros() {
 	unsigned long m;
 
 	m = MICROSECONDS_PER_TICKTIMER_OVERFLOW * ticktimer_overflow_count +
-		clockCyclesToMicroseconds(u32AHI_TickTimerRead());
+		clock2usec(u32AHI_TickTimerRead());
 	return m;
 }
 

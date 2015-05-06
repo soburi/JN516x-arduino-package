@@ -75,10 +75,10 @@ compiler.objcopy.eep.extra_flags=
 compiler.elf2hex.extra_flags=
 
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.flags} {compiler.c.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.flags} {compiler.c.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.flags} {compiler.cpp.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu}  -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.flags} {compiler.cpp.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
 
 ## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
