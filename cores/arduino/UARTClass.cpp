@@ -28,7 +28,7 @@
 // Constructors ////////////////////////////////////////////////////////////////
 
 UARTClass::UARTClass(int portno)
-	: port(portno)
+	: port(portno), initialized(false)
 {
 }
 
@@ -59,11 +59,11 @@ void UARTClass::begin(const uint32_t dwBaudRate, const UARTModes config)
 void UARTClass::init(const uint32_t dwBaudRate, const uint32_t config)
 {
 	//UART
-	vAHI_UartSetRTSCTS(E_AHI_UART_0, false);
-	vAHI_UartEnable(E_AHI_UART_0);
+	vAHI_UartSetRTSCTS(port, false);
+	vAHI_UartEnable(port);
 
-	vAHI_UartReset(E_AHI_UART_0, TRUE, TRUE);
-	vAHI_UartReset(E_AHI_UART_0, FALSE, FALSE);
+	vAHI_UartReset(port, TRUE, TRUE);
+	vAHI_UartReset(port, FALSE, FALSE);
 
 	int c_baud;
 	switch(dwBaudRate)
@@ -94,10 +94,10 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t config)
 	uint32_t parity_type =
 		( ((config>>9) & 0x01) ? E_AHI_UART_EVEN_PARITY: E_AHI_UART_ODD_PARITY);
 
-	vAHI_UartSetClockDivisor(E_AHI_UART_0, c_baud);
-	vAHI_UartSetControl(E_AHI_UART_0, parity_type, parity_enable, wordlen, stopbit, false);
-	//vAHI_UartSetClockDivisor(E_AHI_UART_0, E_AHI_UART_RATE_9600);
-	//vAHI_UartSetControl(E_AHI_UART_0, E_AHI_UART_EVEN_PARITY, false, E_AHI_UART_WORD_LEN_8, E_AHI_UART_1_STOP_BIT, false);
+	vAHI_UartSetClockDivisor(port, c_baud);
+	vAHI_UartSetControl(port, parity_type, parity_enable, wordlen, stopbit, false);
+	//vAHI_UartSetClockDivisor(port, E_AHI_UART_RATE_9600);
+	//vAHI_UartSetControl(port, E_AHI_UART_EVEN_PARITY, false, E_AHI_UART_WORD_LEN_8, E_AHI_UART_1_STOP_BIT, false);
 
 	DEBUG_STR("c_baud:");
 	DEBUG_DEC(c_baud);
@@ -114,6 +114,8 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t config)
 	DEBUG_STR("parity_type:");
 	DEBUG_DEC(parity_type);
 	DEBUG_STR("\r\n");
+
+	initialized = true;
 }
 
 void UARTClass::end( void )
@@ -135,9 +137,11 @@ uint32_t UARTClass::getInterruptPriority()
 #endif
 int UARTClass::available( void )
 {
+	if(!initialized) return 0;
+
+	DEBUG_STR("available:");
 	int r = u16AHI_UartReadRxFifoLevel(port);
 	if(peek_buf != -1) return r++;
-	DEBUG_STR("available:");
 	DEBUG_DEC(r);
 	DEBUG_STR("\r\n");
 	return r;
@@ -162,6 +166,8 @@ int UARTClass::peek( void )
 
 int UARTClass::read( void )
 {
+	if(!initialized) return -1;
+
 	DEBUG_STR("read:\r\n");
 	int ret;
 	if(peek_buf != -1) {
@@ -183,11 +189,15 @@ int UARTClass::read( void )
 
 void UARTClass::flush( void )
 {
+	if(!initialized) return;
+
 	while((u8AHI_UartReadLineStatus(port) & E_AHI_UART_LS_THRE) == 0);
 }
 
 size_t UARTClass::write( const uint8_t uc_data )
 {
+	if(!initialized) return 0;
+
 	while((u8AHI_UartReadLineStatus(port) & E_AHI_UART_LS_THRE) == 0);
 	vAHI_UartWriteData(port, uc_data);
 	return 1;
@@ -195,6 +205,8 @@ size_t UARTClass::write( const uint8_t uc_data )
 
 size_t UARTClass::write(const uint8_t *buffer, size_t size)
 {
+	if(!initialized) return 0;
+
 	DEBUG_STR("UARTClass::write(array)\r\n");
 	while((u8AHI_UartReadLineStatus(port) & E_AHI_UART_LS_THRE) == 0);
 	for(int i=0; i<size; i++) {

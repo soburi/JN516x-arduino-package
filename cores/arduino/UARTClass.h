@@ -75,7 +75,8 @@
 class UARTClass : public HardwareSerial
 {
   protected:
-    int port;
+    uint32_t port;
+    bool initialized;
     int peek_buf;
 
   public:
@@ -120,4 +121,4 @@ class UARTClass : public HardwareSerial
 
 };
 
-#endif
+#endif // _UART_CLASS_
