@@ -61,7 +61,7 @@ void UART0_Handler(void)
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
-  if (Serial1.available()) serialEvent1();
+  //if (Serial1.available()) serialEvent1();
   //if (Serial2.available()) serialEvent2();
   //if (Serial3.available()) serialEvent3();
 }
