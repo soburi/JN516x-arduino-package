@@ -68,6 +68,10 @@ Already implemented
 - analogRead()
 - analogWrite()
 
+### Advanced I/O
+- shiftOut()
+- shiftIn()
+
 ### Time
 - millis()
 - micros()
@@ -100,6 +104,10 @@ Already implemented
 - bitClear()
 - bit()
 
+### Interrupts
+- interrupts()
+- noInterrupts()
+
 ### External Interrupts
 - attachInterrupt()
 - detachInterrupt()
@@ -115,16 +123,9 @@ Not implemented yet.
 - delayMicroseconds()
 
 ### Advanced I/O
-- tone()
-- noTone()
-- shiftOut()
-- shiftIn()
-- pulseIn()
-
-### Interrupts
-- interrupts()
-- noInterrupts()
-
+- tone() _This function will follow the implementation status of Arduino Due._
+- noTone() _This function will follow the implementation status of Arduino Due._
+- pulseIn() _System dependent constants are not tuned._
 
 
 Limitation by Hardware difference
@@ -137,6 +138,5 @@ Limitation by Hardware difference
 
 
 ### Interrupt mode
-JN516x does not support LEVEL triggerd and both edge triggerd interruption, support only RISING and FALLING. 
+JN516x does not support LEVEL triggerd and both edge triggerd interruption, support only RISING and FALLING.
 attatchInterrupt() treat HIGH, LOW, CHANGE as RISING.
-
