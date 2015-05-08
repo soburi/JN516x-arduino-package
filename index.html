@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Jn516x-arduino-package : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jn516x-arduino-package</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/soburi/JN516x-arduino-package">View on GitHub</a>
+
+          <h1 id="project_title">Jn516x-arduino-package</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/soburi/JN516x-arduino-package/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/soburi/JN516x-arduino-package/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h1>
+
+<p>This is arduino add-on package for NXP JN516x platform.</p>
+
+<h1>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h1>
+
+<h2>
+<a id="install-jn516x-plugin-to-arduino" class="anchor" href="#install-jn516x-plugin-to-arduino" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install JN516x plugin to arduino</h2>
+
+<h3>
+<a id="for-arduino-162-or-newer-versions" class="anchor" href="#for-arduino-162-or-newer-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>for Arduino 1.6.2 or newer versions.</h3>
+
+<ul>
+<li>See <a href="https://github.com/soburi/jn516x-arduino-proxy">jn516x arduino proxy</a>.</li>
+</ul>
+
+<h3>
+<a id="for-arduino-161-or-older-versions" class="anchor" href="#for-arduino-161-or-older-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>for Arduino 1.6.1 or older versions.</h3>
+
+<ul>
+<li>Extract <a href="https://github.com/soburi/JN516x-arduino-package/archive/master.zip">plugin archive</a>
+into <em>[arduino_root]/hardware/arduino</em> folder.</li>
+<li>Extrace <a href="https://dl.dropboxusercontent.com/u/498101/jn516x-tools_i686-mingw32_r8352.tar.bz2">toolchain archive</a> into into <em>[arduino_root]/hardware/tools</em> folder.</li>
+</ul>
+
+<h2>
+<a id="install-jn516x-sdk" class="anchor" href="#install-jn516x-sdk" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install JN516x SDK</h2>
+
+<p>Install JN516x-JenNet-IP Stack SDK.</p>
+
+<ul>
+<li><a href="http://www.nxp.com/documents/other/JN-SW-4065.zip">JN-SW-4065-JN516x-JenNet-IP-SDK-v979</a></li>
+</ul>
+
+<h3>
+<a id="windows" class="anchor" href="#windows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows</h3>
+
+<p>Simply install to default destination (C:\Jennic).</p>
+
+<h3>
+<a id="macosx-and-linux" class="anchor" href="#macosx-and-linux" aria-hidden="true"><span class="octicon octicon-link"></span></a>MacOSX and Linux</h3>
+
+<p>Use <a href="https://www.winehq.org/">wine</a> to launch installer program.
+Install to Z:\opt\Jennic(point to /opt/Jennic in filesystem).</p>
+
+<h2>
+<a id="install-flash-programmer" class="anchor" href="#install-flash-programmer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install Flash Programmer</h2>
+
+<h3>
+<a id="windows-1" class="anchor" href="#windows-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows</h3>
+
+<p>Install JN516x Production Flash Programmer.</p>
+
+<ul>
+<li><a href="http://www.nxp.com/documents/other/JN-SW-4107.zip">JN516x Production Flash Programmer</a></li>
+</ul>
+
+<p>Install to default destination (C:\NXP\bstudio_nxp).</p>
+
+<h3>
+<a id="macosx-and-linux-1" class="anchor" href="#macosx-and-linux-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>MacOSX and Linux</h3>
+
+<p>Install jenprog</p>
+
+<ul>
+<li><a href="https://github.com/pengphei/jenprog">jenprog</a></li>
+</ul>
+
+<h1>
+<a id="api-implement-status" class="anchor" href="#api-implement-status" aria-hidden="true"><span class="octicon octicon-link"></span></a>API implement status</h1>
+
+<h2>
+<a id="already-implemented" class="anchor" href="#already-implemented" aria-hidden="true"><span class="octicon octicon-link"></span></a>Already implemented</h2>
+
+<h3>
+<a id="digital-io" class="anchor" href="#digital-io" aria-hidden="true"><span class="octicon octicon-link"></span></a>Digital I/O</h3>
+
+<ul>
+<li>pinMode()</li>
+<li>digitalWrite()</li>
+<li>digitalRead()</li>
+</ul>
+
+<h3>
+<a id="analog-io" class="anchor" href="#analog-io" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analog I/O</h3>
+
+<ul>
+<li>analogReference()</li>
+<li>analogRead()</li>
+<li>analogWrite()</li>
+</ul>
+
+<h3>
+<a id="advanced-io" class="anchor" href="#advanced-io" aria-hidden="true"><span class="octicon octicon-link"></span></a>Advanced I/O</h3>
+
+<ul>
+<li>shiftOut()</li>
+<li>shiftIn()</li>
+</ul>
+
+<h3>
+<a id="time" class="anchor" href="#time" aria-hidden="true"><span class="octicon octicon-link"></span></a>Time</h3>
+
+<ul>
+<li>millis()</li>
+<li>micros()</li>
+<li>delay()</li>
+</ul>
+
+<h3>
+<a id="math" class="anchor" href="#math" aria-hidden="true"><span class="octicon octicon-link"></span></a>Math</h3>
+
+<ul>
+<li>min()</li>
+<li>max()</li>
+<li>abs()</li>
+<li>constrain()</li>
+<li>map()</li>
+<li>pow()</li>
+<li>sqrt()</li>
+</ul>
+
+<h3>
+<a id="trigonometry" class="anchor" href="#trigonometry" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trigonometry</h3>
+
+<ul>
+<li>sin()</li>
+<li>cos()</li>
+<li>tan()</li>
+</ul>
+
+<h3>
+<a id="random-numbers" class="anchor" href="#random-numbers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random Numbers</h3>
+
+<ul>
+<li>randomSeed()</li>
+<li>random()</li>
+</ul>
+
+<h3>
+<a id="bits-and-bytes" class="anchor" href="#bits-and-bytes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bits and Bytes</h3>
+
+<ul>
+<li>lowByte()</li>
+<li>highByte()</li>
+<li>bitRead()</li>
+<li>bitWrite()</li>
+<li>bitSet()</li>
+<li>bitClear()</li>
+<li>bit()</li>
+</ul>
+
+<h3>
+<a id="interrupts" class="anchor" href="#interrupts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interrupts</h3>
+
+<ul>
+<li>interrupts()</li>
+<li>noInterrupts()</li>
+</ul>
+
+<h3>
+<a id="external-interrupts" class="anchor" href="#external-interrupts" aria-hidden="true"><span class="octicon octicon-link"></span></a>External Interrupts</h3>
+
+<ul>
+<li>attachInterrupt()</li>
+<li>detachInterrupt()</li>
+</ul>
+
+<h3>
+<a id="communication" class="anchor" href="#communication" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication</h3>
+
+<ul>
+<li>Serial</li>
+<li>Stream</li>
+</ul>
+
+<h2>
+<a id="not-implemented-yet" class="anchor" href="#not-implemented-yet" aria-hidden="true"><span class="octicon octicon-link"></span></a>Not implemented yet.</h2>
+
+<h3>
+<a id="time-1" class="anchor" href="#time-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Time</h3>
+
+<ul>
+<li>delayMicroseconds()</li>
+</ul>
+
+<h3>
+<a id="advanced-io-1" class="anchor" href="#advanced-io-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Advanced I/O</h3>
+
+<ul>
+<li>tone() <em>This function will follow the implementation status of Arduino Due.</em>
+</li>
+<li>noTone() <em>This function will follow the implementation status of Arduino Due.</em>
+</li>
+<li>pulseIn() <em>System dependent constants are not tuned.</em>
+</li>
+</ul>
+
+<h1>
+<a id="limitation-by-hardware-difference" class="anchor" href="#limitation-by-hardware-difference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limitation by Hardware difference</h1>
+
+<h3>
+<a id="not-support-function" class="anchor" href="#not-support-function" aria-hidden="true"><span class="octicon octicon-link"></span></a>Not support function.</h3>
+
+<ul>
+<li>analogReadResolution()</li>
+<li>analogWriteResolution()</li>
+<li>Keyboard</li>
+<li>Mouse</li>
+</ul>
+
+<h3>
+<a id="interrupt-mode" class="anchor" href="#interrupt-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interrupt mode</h3>
+
+<p>JN516x does not support LEVEL triggerd and both edge triggerd interruption, support only RISING and FALLING.
+attatchInterrupt() treat HIGH, LOW, CHANGE as RISING.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jn516x-arduino-package maintained by <a href="https://github.com/soburi">soburi</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
