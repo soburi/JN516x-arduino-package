@@ -1,0 +1,62 @@
+{
+"packages": [
+	{
+	"name":"jn516x",
+	"maintainer":"soburi",
+	"websiteURL":"http://github.com/soburi/JN516x-arduino-package",
+	"email":"soburi@gmail.com",
+	"platforms":[
+		{
+		"name": "JN516x",
+		"architecture": "jn516x",
+		"version": "0.0.20150503",
+		"category": "JN516x",
+		"url": "https://github.com/soburi/JN516x-arduino-package/archive/release-0.0.20150503.zip",
+		"archiveFileName": "JN516x-arduino-package-release-0.0.20150503.zip",
+		"checksum": "SHA-256:8b894963f79b81eec06e30007d4b54a0e5e333dd0dec1ec616d42006253278f2",
+		"size": "94463",
+		"boards": [
+			{"name": "Generic JN516x board"},
+			{"name": "TOCOS TWE Lite"}
+		],
+		"toolsDependencies": [
+			{
+			"packager": "jn516x",
+			"name": "jn516x-tools",
+			"version": "0.0.20150501"
+			}
+		]
+		}
+	],
+	"tools":[
+		{
+		"name":"jn516x-tools",
+		"version":"0.0.20150501",
+		"systems":[
+			{
+			"host":"i686-mingw32",
+			"archiveFileName":"jn516x-tools_i686-mingw32_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/jn516x-tools_i686-mingw32_r8352.tar.bz2",
+			"checksum":"SHA-256:6e69c41745d58d5c07984a6ee539a2db7247cda9e9c34ad64fa4e36fcb637d3b",
+			"size":"30311193"
+			},
+			{
+			"host":"x86_64-apple-darwin",
+			"archiveFileName":"jn516x-tools_x86_64-apple-darwin_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/jn516x-tools_x86_64-apple-darwin_r8352.tar.bz2",
+			"checksum":"SHA-256:a53ff8615d0ab92439e36c6707ee5f55dfabe9c015e0e4247df26121f75542bd",
+			"size":"19716454"
+			},
+			{
+			"host":"x86_64-pc-linux-gnu",
+			"archiveFileName":"jn516x-tools_x86_64-pc-linux-gnu_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/jn516x-tools_x86_64-pc-linux-gnu_r8352.tar.bz2",
+			"checksum":"SHA-256:f819413ac0a26a55ea4b43add2012c173412fc428b4e1c64caf30e0223d32652",
+			"size":"35355891"
+			}
+		]
+		}
+	]
+	}
+]
+}
