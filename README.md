@@ -10,15 +10,21 @@ Install
 Install JN516x plugin to arduino
 --------------------------------
 
-### for Arduino 1.6.2 or newer versions.
+### for Arduino 1.6.4 or newer versions.
 
-* See [jn516x arduino proxy](https://github.com/soburi/jn516x-arduino-proxy).
+*  Use this additional package definition by 'Additional Boards Manager URLs' option that is on Arduino's preferences.
+[http://soburi.github.io/JN516x-arduino-package/package_soburi_jn516x_index.json](http://soburi.github.io/JN516x-arduino-package/package_soburi_jn516x_index.json)
 
-### for Arduino 1.6.1 or older versions.
+### for Arduino 1.6.3 or older versions.
 
 - Extract [plugin archive](https://github.com/soburi/JN516x-arduino-package/archive/master.zip)
-into _[arduino\_root]/hardware/arduino_ folder.
-- Extrace [toolchain archive](https://dl.dropboxusercontent.com/u/498101/jn516x-tools_i686-mingw32_r8352.tar.bz2) into into _[arduino\_root]/hardware/tools_ folder.
+into _[arduino\_root]/hardware/soburi_ folder.
+- Extract [toolchain archive](https://dl.dropboxusercontent.com/u/498101/jn516x-tools_i686-mingw32_r8352.tar.bz2) into into _[arduino\_root]/hardware/tools_ folder.
+- Put a platform.local.txt that contains following line,
+```
+runtime.tools.jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
+```
+into a plugin archive extracted folder.
 
 
 Install JN516x SDK
