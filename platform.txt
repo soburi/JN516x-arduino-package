@@ -49,8 +49,14 @@ jennic.links={jennic.links1} {jennic.links2} {jennic.links3}
 jennic.libpath={jennic.libpath1} {jennic.libpath2}
 
 
+compiler.warning_flags=-w
+compiler.warning_flags.none=-w
+compiler.warning_flags.default=
+compiler.warning_flags.more=-Wall
+compiler.warning_flags.all=-Wall -Wextra
+
 compiler.c.cmd=ba-elf-gcc
-compiler.c.flags={jennic.ba2.flags} -fomit-frame-pointer -fdata-sections -ffunction-sections {jennic.defines} -Wall -Wunreachable-code
+compiler.c.flags={jennic.ba2.flags} -fomit-frame-pointer -fdata-sections -ffunction-sections {jennic.defines} {compiler.warning_flags}
 compiler.c.elf.cmd=ba-elf-gcc
 compiler.c.elf.flags=-Os -Wl,--gc-sections
 compiler.cpp.cmd=ba-elf-g++
