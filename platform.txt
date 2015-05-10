@@ -18,7 +18,7 @@ jennic.ba2.flags5=-ffixed-r24 -ffixed-r25 -ffixed-r26 -ffixed-r27 -ffixed-r28 -f
 jennic.ba2.flags={jennic.ba2.flags1} {jennic.ba2.flags2} {jennic.ba2.flags3} {jennic.ba2.flags4} {jennic.ba2.flags5}
 
 jennic.chip.defines1=-DJN516x=5160 -D{build.mcu}={build.jennic_mcu_model_no} -DJENNIC_CHIP_NAME=_{build.mcu}
-jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu} -DJENNIC_PCB=DEVKIT4
+jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu}
 jennic.chip.defines3=-DJENNIC_CHIP_FAMILY={build.jennic_mcu_family} -DJENNIC_CHIP_FAMILY_{build.jennic_mcu_family} -DEMBEDDED -DUSER_VSR_HANDLER
 
 jennic.defines1=-DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0
@@ -41,10 +41,10 @@ jennic.links4=-lFlash_{build.jennic_mcu_family} -lRandom_{build.jennic_mcu_famil
 #jennic.links6=-lJIP_{build.jennic_mcu_family} -lMMAC_{build.jennic_mcu_family} -lPDM_EEPROM_{build.jennic_mcu_family} -lPDM_EXTERNAL_FLASH_{build.jennic_mcu_family}
 
 jennic.libpath1=-L{jennic.path}/Chip/{build.mcu}/Build -L{jennic.path}/Chip/{build.mcu}/Library -L{jennic.path}/Components/Library
-jennic.libpath2=-L{jennic.path}/Stack/MAC/Build -L{jennic.path}/Platform/DK4/Library
+jennic.libpath2=-L{jennic.path}/Stack/MAC/Build
 
 jennic.defines={jennic.chip.defines1} {jennic.chip.defines2} {jennic.chip.defines3} {jennic.defines1} {jennic.defines2}
-jennic.includes=-I{jennic.path}/Platform/Common/Include -I{jennic.path}/Platform/DK4/Include {jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic.includes4} {jennic.includes5} {jennic.includes6} {jennic.includes7} {jennic.includes8} {jennic.includes9}
+jennic.includes={jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic.includes4} {jennic.includes5} {jennic.includes6} {jennic.includes7} {jennic.includes8} {jennic.includes9}
 jennic.links={jennic.links1} {jennic.links2} {jennic.links3} {jennic.links4}
 jennic.libpath={jennic.libpath1} {jennic.libpath2}
 
