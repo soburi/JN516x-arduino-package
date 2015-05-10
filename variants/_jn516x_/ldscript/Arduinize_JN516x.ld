@@ -186,13 +186,23 @@ SECTIONS
     KEEP (*(SORT(.ctors.*)))
     KEEP (*(.ctors))
   } > ram
-  .dtors          : AT ((LOADADDR(.ctors) + SIZEOF(.ctors) + 3) & ~ 3)
+  .end_ctors          : AT ((LOADADDR(.ctors) + SIZEOF(.ctors) + 3) & ~ 3)
+  {
+    LONG(0x0) /* TERMINATOR */
+    LONG( SIZEOF(.ctors) )
+  } > ram
+  .dtors          : AT ((LOADADDR(.end_ctors) + SIZEOF(.end_ctors) + 3) & ~ 3)
   {
     KEEP (*crtbegin.o(.dtors))
     KEEP (*crtbegin?.o(.dtors))
     KEEP (*(EXCLUDE_FILE (*crtend.o *crtend?.o ) .dtors))
     KEEP (*(SORT(.dtors.*)))
     KEEP (*(.dtors))
+  } > ram
+  .end_dtors          : AT ((LOADADDR(.dtors) + SIZEOF(.dtors) + 3) & ~ 3)
+  {
+    LONG(0x0) /* TERMINATOR */
+    LONG( SIZEOF(.dtors) )
   } > ram
   .jcr            : { KEEP (*(.jcr)) } > ram
   .data.rel.ro : { *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*) *(.data.rel.ro* .gnu.linkonce.d.rel.ro.*) } > ram
