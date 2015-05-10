@@ -19,6 +19,9 @@
 #ifndef _VARIANT_
 #define _VARIANT_
 
+#include <dbg.h>
+#include <dbg_uart.h>
+
 #include "Arduino.h"
 #ifdef __cplusplus
 #include "UARTClass.h"
@@ -64,20 +67,11 @@ extern UARTClass Serial1;
 extern "C" {
 #endif
 
-// Temporary alternative measures for printing.
-#ifdef USE_DEBUGPRINT
-extern void debug_str(const char* buf);
-extern void debug_long(long val, int radix);
-
-#define DEBUGPRINT_DISABLE(x) x
-
-#define DEBUG_STR(x) DEBUGPRINT_DISABLE( debug_str(x) )
-#define DEBUG_DEC(x) DEBUGPRINT_DISABLE( debug_long(x, 10) )
-#define DEBUG_HEX(x) DEBUGPRINT_DISABLE( debug_long(x, 16) )
+#define DBG_PRINTF(...) DBG_vPrintf(DBG_VPRINTF_ENABLE, __VA_ARGS__)
+#ifdef DBG_ENABLE
+#define DBG_VPRINTF_ENABLE true
 #else
-#define DEBUG_STR(x) ((void)(x))
-#define DEBUG_DEC(x) ((void)(x))
-#define DEBUG_HEX(x) ((void)(x))
+#define DBG_VPRINTF_ENABLE false
 #endif
 
 

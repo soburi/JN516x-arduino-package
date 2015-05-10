@@ -34,27 +34,27 @@ void pinMode(uint32_t pin, uint32_t mode)
 	if (mode == INPUT) {
 		vAHI_DioSetDirection((1UL<<pin), 0);
 		vAHI_DioSetPullup(0, (1UL<<pin));
-		DEBUG_STR("input  p:");
-		DEBUG_DEC(pin);
-		DEBUG_STR(" m:");
-		DEBUG_DEC(mode);
-		DEBUG_STR("\r\n");
+		DBG_PRINTF("input  p:");
+		DBG_PRINTF("%d\r\n", pin);
+		DBG_PRINTF(" m:");
+		DBG_PRINTF("%d\r\n", mode);
+		DBG_PRINTF("\r\n");
 	} else if (mode == INPUT_PULLUP) {
 		vAHI_DioSetDirection(0, (1UL<<pin));
 		vAHI_DioSetPullup((1UL<<pin), 0 );
-		DEBUG_STR("pullup p:");
-		DEBUG_DEC(pin);
-		DEBUG_STR(" m:");
-		DEBUG_DEC(mode);
-		DEBUG_STR("\r\n");
+		DBG_PRINTF("pullup p:");
+		DBG_PRINTF("%d\r\n", pin);
+		DBG_PRINTF(" m:");
+		DBG_PRINTF("%d\r\n", mode);
+		DBG_PRINTF("\r\n");
 
 	} else {
 		vAHI_DioSetDirection(0, (1UL<<pin) );
-		DEBUG_STR("output p:");
-		DEBUG_DEC(pin);
-		DEBUG_STR(" m:");
-		DEBUG_DEC(mode);
-		DEBUG_STR("\r\n");
+		DBG_PRINTF("output p:");
+		DBG_PRINTF("%d\r\n", pin);
+		DBG_PRINTF(" m:");
+		DBG_PRINTF("%d\r\n", mode);
+		DBG_PRINTF("\r\n");
 	}
 }
 
@@ -80,18 +80,18 @@ void pinMode(uint32_t pin, uint32_t mode)
 void digitalWrite(uint32_t pin, uint32_t val)
 {
 	if (val == LOW) {
-		DEBUG_STR("LOW  p:");
-		DEBUG_DEC(pin);
-		DEBUG_STR(" v:");
-		DEBUG_DEC(val);
-		DEBUG_STR("\r\n");
+		DBG_PRINTF("LOW  p:");
+		DBG_PRINTF("%d\r\n", pin);
+		DBG_PRINTF(" v:");
+		DBG_PRINTF("%d\r\n", val);
+		DBG_PRINTF("\r\n");
 		vAHI_DioSetOutput(0, (1UL<<pin));
 	} else {
-		DEBUG_STR("HIGH p:");
-		DEBUG_DEC(pin);
-		DEBUG_STR(" v:");
-		DEBUG_DEC(val);
-		DEBUG_STR("\r\n");
+		DBG_PRINTF("HIGH p:");
+		DBG_PRINTF("%d\r\n", pin);
+		DBG_PRINTF(" v:");
+		DBG_PRINTF("%d\r\n", val);
+		DBG_PRINTF("\r\n");
 		vAHI_DioSetOutput((1UL<<pin), 0);
 	}
 }

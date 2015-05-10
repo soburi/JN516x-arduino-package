@@ -47,9 +47,9 @@ unsigned long millis()
 	unsigned long m;
 	m = MILLIS_INC * ticktimer_overflow_count +
 		(clock2usec(u32AHI_TickTimerRead())/1000);
-	DEBUG_STR("millis: ");
-	DEBUG_DEC(m);
-	DEBUG_STR("\r\n");
+	DBG_PRINTF("millis: ");
+	DBG_PRINTF("%d\r\n", m);
+	DBG_PRINTF("\r\n");
 	return m;
 }
 
@@ -73,20 +73,20 @@ void delay(unsigned long ms)
 		}
 	}
 
-	DEBUG_STR("delay: ");
-	DEBUG_DEC(micros());
-	DEBUG_STR("\r\n");
+	DBG_PRINTF("delay: ");
+	DBG_PRINTF("%d\r\n", micros());
+	DBG_PRINTF("\r\n");
 }
 
 /* Delay for the given number of microseconds.  Assumes a 8 or 16 MHz clock. */
 
 static void sysctrl_callback(uint32 u32Device, uint32 u32ItemBitmap)
 {
-	DEBUG_STR("sysctrl_callback ");
-	DEBUG_HEX(u32Device);
-	DEBUG_STR(" ");
-	DEBUG_HEX(u32ItemBitmap);
-	DEBUG_STR("\n");
+	DBG_PRINTF("sysctrl_callback ");
+	DBG_PRINTF("%x", u32Device);
+	DBG_PRINTF(" ");
+	DBG_PRINTF("%x", u32ItemBitmap);
+	DBG_PRINTF("\n");
 	if(SysCtrl_DIO_interrupt_handler) SysCtrl_DIO_interrupt_handler(u32Device, u32ItemBitmap);
 }
 
@@ -99,16 +99,10 @@ void init()
 
 	//SysCtrl
 	vAHI_SysCtrlRegisterCallback(sysctrl_callback);
-#ifdef USE_DEBUGPRINT
-	//UART
-	vAHI_UartSetRTSCTS(E_AHI_UART_0, false);
-	vAHI_UartEnable(E_AHI_UART_0);
-	vAHI_UartReset(E_AHI_UART_0, TRUE, TRUE);
-	vAHI_UartReset(E_AHI_UART_0, FALSE, FALSE);
-	vAHI_UartSetClockDivisor(E_AHI_UART_0, E_AHI_UART_RATE_9600);
-	vAHI_UartSetControl(E_AHI_UART_0, E_AHI_UART_EVEN_PARITY, E_AHI_UART_PARITY_DISABLE, E_AHI_UART_WORD_LEN_8, E_AHI_UART_1_STOP_BIT, false);
-#else
+#if !defined(DBG_ENABLE) || ( defined(DBG_UART) && (DBG_UART != DBG_E_UART_0) )
 	vAHI_UartDisable(E_AHI_UART_0);
+#endif
+#if !defined(DBG_ENABLE) || ( DBG_UART != DBG_E_UART_1 )
 	vAHI_UartDisable(E_AHI_UART_1);
 #endif
 	//Tick Timer

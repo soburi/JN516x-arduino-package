@@ -39,7 +39,7 @@ void analogReference(eAnalogReference mode)
 
 uint32_t analogRead(uint32_t pin)
 {
-	DEBUG_STR("analogRread:\r\n");
+	DBG_PRINTF("analogRread:\r\n");
 
 	uint32_t adc = 0;
 	switch(pin) {
@@ -57,9 +57,9 @@ uint32_t analogRead(uint32_t pin)
 	uint16_t read;
 	read = u16AHI_AdcRead();
 
-	DEBUG_STR("read:");
-	DEBUG_DEC(read);
-	DEBUG_STR("\r\n");
+	DBG_PRINTF("read:");
+	DBG_PRINTF("%d\r\n", read);
+	DBG_PRINTF("\r\n");
 	return read;
 }
 
@@ -69,11 +69,11 @@ uint32_t analogRead(uint32_t pin)
 // to digital output.
 void analogWrite(uint32_t pin, uint32_t val)
 {
-	DEBUG_STR("analogWrite ");
-	DEBUG_DEC(pin);
-	DEBUG_STR(" ");
-	DEBUG_DEC(val);
-	DEBUG_STR("\r\n");
+	DBG_PRINTF("analogWrite ");
+	DBG_PRINTF("%d\r\n", pin);
+	DBG_PRINTF(" ");
+	DBG_PRINTF("%d\r\n", val);
+	DBG_PRINTF("\r\n");
 
 	uint32_t timer = 0;
 	switch(pin) {

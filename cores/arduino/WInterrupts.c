@@ -12,27 +12,27 @@ static interrupt_handler handler_table[DIO_NUM] = {nop};
 
 static void DIO_interrupt_handler(uint32_t device, uint32_t bits)
 {
-	DEBUG_STR("DIO_interrupt_handler ");
-	DEBUG_HEX(bits);
-	DEBUG_STR("\n");
+	DBG_PRINTF("DIO_interrupt_handler ");
+	DBG_PRINTF("%x", bits);
+	DBG_PRINTF("\n");
 	int i=0;
 	uint32_t dio_bits = (bits & 0x1FFFFF);
 	for(i=0; i<DIO_NUM; i++) {
 		if( dio_bits& (0x1U<<i) ) {
-			DEBUG_STR("call ");
-			DEBUG_DEC(i);
-			DEBUG_STR("\n");
+			DBG_PRINTF("call ");
+			DBG_PRINTF("%d\r\n", i);
+			DBG_PRINTF("\n");
 			handler_table[i]();
 		}
 	}
-	DEBUG_STR("end DIO_interrupt_handler \n");
+	DBG_PRINTF("end DIO_interrupt_handler \n");
 }
 
 
 void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
 {
 	if(!SysCtrl_DIO_interrupt_handler) {
-		DEBUG_STR("set SysCtrl_DIO_interrupt_handler\n");
+		DBG_PRINTF("set SysCtrl_DIO_interrupt_handler\n");
 		SysCtrl_DIO_interrupt_handler = DIO_interrupt_handler;
 	}
 

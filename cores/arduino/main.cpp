@@ -40,12 +40,12 @@ int main(void)
 	
 	setup();
 	delay(10); // TODO: UART stabilize wait.
-	DEBUG_STR("--- exit  setup ---\r\n");
+	DBG_PRINTF("--- exit  setup ---\r\n");
     
 	for (;;) {
-		DEBUG_STR("--- enter loop ---\r\n");
+		DBG_PRINTF("--- enter loop ---\r\n");
 		loop();
-		DEBUG_STR("--- exit  loop ---\r\n");
+		DBG_PRINTF("--- exit  loop ---\r\n");
 		if (serialEventRun) serialEventRun();
 	}
         
