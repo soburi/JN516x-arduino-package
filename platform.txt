@@ -107,7 +107,7 @@ tools.jn51xxprogrammer.upload.params.verbose=-V 100
 tools.jn51xxprogrammer.upload.params.quiet=-V 0
 tools.jn51xxprogrammer.upload.pattern="{cmd.path}" {upload.verbose} -P 1000000 -s{serial.port} -f {build.path}/{build.project_name}.bin
 
-tools.jenprog.cmd.path=jenprog
+tools.jenprog.cmd.path={runtime.tools.jenprog.path}/jenprog
 tools.jenprog.upload.params.verbose=
 tools.jenprog.upload.params.quiet=
 tools.jenprog.upload.pattern="{cmd.path}" -t {serial.port} {build.path}/{build.project_name}.bin
