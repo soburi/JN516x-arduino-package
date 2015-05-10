@@ -24,6 +24,11 @@
 			"packager": "jn516x",
 			"name": "jn516x-tools",
 			"version": "0.0.20150501"
+			},
+			{
+			"packager": "jn516x",
+			"name": "jenprog",
+			"version": "1.1.0"
 			}
 		]
 		}
@@ -53,6 +58,33 @@
 			"url":"https://dl.dropboxusercontent.com/u/498101/jn516x-tools_x86_64-pc-linux-gnu_r8352.tar.bz2",
 			"checksum":"SHA-256:f819413ac0a26a55ea4b43add2012c173412fc428b4e1c64caf30e0223d32652",
 			"size":"35355891"
+			}
+		]
+		},
+		{
+		"name":"jenprog",
+		"version":"1.1.0",
+		"systems":[
+			{
+			"host":"i686-mingw32",
+			"archiveFileName":"jenprog1.1_i686-mingw32.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_i686-mingw32.tar.bz2",
+			"checksum":"SHA-256:562ddc8142eee9bc892f319106f2d87982534a374fbfc5b5395f8b982878834c",
+			"size":"184"
+			},
+			{
+			"host":"x86_64-apple-darwin",
+			"archiveFileName":"jenprog1.1_x86_64-apple-darwin.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_x86_64-apple-darwin.tar.bz2",
+			"checksum":"SHA-256:255e35ffe6f65593420ce7e05c7b081d1fdb1dead0a48c2d3aca014ebe45c2be",
+			"size":"4497434"
+			},
+			{
+			"host":"x86_64-pc-linux-gnu",
+			"archiveFileName":"jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
+			"checksum":"SHA-256:c44bba67897bdac05645805ade28feb9289da1f598e8dd049690fdf0b8c4658f",
+			"size":"2499921"
 			}
 		]
 		}
