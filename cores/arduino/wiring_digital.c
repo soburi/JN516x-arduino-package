@@ -24,11 +24,12 @@
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 */
 #define ARDUINO_MAIN
+#include "Arduino.h"
 #include "wiring_private.h"
 
 #include <AppHardwareApi.h>
 
-void pinMode(uint8_t pin, uint8_t mode)
+void pinMode(uint32_t pin, uint32_t mode)
 {
 	if (mode == INPUT) {
 		vAHI_DioSetDirection((1UL<<pin), 0);
@@ -76,7 +77,7 @@ void pinMode(uint8_t pin, uint8_t mode)
 //{
 //}
 
-void digitalWrite(uint8_t pin, uint8_t val)
+void digitalWrite(uint32_t pin, uint32_t val)
 {
 	if (val == LOW) {
 		DEBUG_STR("LOW  p:");
@@ -95,7 +96,7 @@ void digitalWrite(uint8_t pin, uint8_t val)
 	}
 }
 
-int digitalRead(uint8_t pin)
+int digitalRead(uint32_t pin)
 {
 	if (u32AHI_DioReadInput() & (1<<pin)) return HIGH;
 	return LOW;

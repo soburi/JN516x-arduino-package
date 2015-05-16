@@ -23,11 +23,12 @@
 
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 */
+#define ARDUINO_MAIN
+#include "Arduino.h"
 #include "wiring_private.h"
 
 #include <AppHardwareApi.h>
-
-void analogReference(uint8_t mode)
+void analogReference(eAnalogReference mode)
 {
 	vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE, E_AHI_AP_INT_DISABLE, 
 	                 E_AHI_AP_SAMPLE_2, E_AHI_AP_CLOCKDIV_500KHZ,
@@ -36,7 +37,7 @@ void analogReference(uint8_t mode)
 	while( !bAHI_APRegulatorEnabled() ) {}
 }
 
-int analogRead(uint8_t pin)
+uint32_t analogRead(uint32_t pin)
 {
 	DEBUG_STR("analogRread:\r\n");
 
@@ -66,7 +67,7 @@ int analogRead(uint8_t pin)
 // hardware support.  These are defined in the appropriate
 // pins_*.c file.  For the rest of the pins, we default
 // to digital output.
-void analogWrite(uint8_t pin, int val)
+void analogWrite(uint32_t pin, uint32_t val)
 {
 	DEBUG_STR("analogWrite ");
 	DEBUG_DEC(pin);
