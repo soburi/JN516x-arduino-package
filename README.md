@@ -43,22 +43,6 @@ Use [wine](https://www.winehq.org/) to launch installer program.
 Install to Z:\opt\Jennic(point to /opt/Jennic in filesystem).
 
 
-Install Flash Programmer
-------------------------
-
-### Windows
-Install JN516x Production Flash Programmer.
-
-* [JN516x Production Flash Programmer](http://www.nxp.com/documents/other/JN-SW-4107.zip)
-
-Install to default destination (C:\NXP\bstudio_nxp).
-
-### MacOSX and Linux
-Install jenprog
-
-* [jenprog](https://github.com/pengphei/jenprog)
-
-
 API implement status
 ====================
 
