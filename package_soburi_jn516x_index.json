@@ -11,10 +11,10 @@
 		"architecture": "jn516x",
 		"version": "0.0.20150503",
 		"category": "JN516x",
-		"url": "https://github.com/soburi/JN516x-arduino-package/archive/release-0.0.20150519.zip",
-		"archiveFileName": "JN516x-arduino-package-release-0.0.20150519.zip",
-		"checksum": "SHA-256:beeda3951dcdb670d232b407ee1be3885a5e27992073d9889617ee3aee672999",
-		"size": "123240",
+		"url": "https://github.com/soburi/JN516x-arduino-package/archive/release-0.0.20150530.zip",
+		"archiveFileName": "JN516x-arduino-package-release-0.0.20150530.zip",
+		"checksum": "SHA-256:b06475721489f57c7d4ac80604b7e24f583487bb8e34b5336d275864c3e466d3",
+		"size": "123058",
 		"boards": [
 			{"name": "Generic JN516x board"},
 			{"name": "TOCOS TWE Lite"}
