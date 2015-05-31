@@ -13,8 +13,8 @@
 		"category": "JN516x",
 		"url": "https://github.com/soburi/JN516x-arduino-package/archive/ba2test.zip",
 		"archiveFileName": "JN516x-arduino-package-ba2test.zip",
-		"checksum": "SHA-256:b06475721489f57c7d4ac80604b7e24f583487bb8e34b5336d275864c3e466d3",
-		"size": "123058",
+		"checksum": "SHA-256:93ad4411258480fd6c4375c2c51a116d7e7286bdb33e664decd6fbad4f040d23",
+		"size": "119674",
 		"boards": [
 			{"name": "Generic JN516x board"},
 			{"name": "TOCOS TWE Lite"}
