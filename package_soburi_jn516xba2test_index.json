@@ -12,7 +12,7 @@
 		"version": "0.0.20150531",
 		"category": "JN516x",
 		"url": "https://github.com/soburi/JN516x-arduino-package/archive/release-0.0.20150531.zip",
-		"archiveFileName": "JN516x-arduino-package/archive/release-0.0.20150531.zip",
+		"archiveFileName": "JN516x-arduino-package-release-0.0.20150531.zip",
 		"checksum": "SHA-256:3a724502127bb6d3f398edf978a85430f244211653910ec0ad1669a4d45345be",
 		"size": "123054",
 		"boards": [
