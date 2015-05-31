@@ -17,7 +17,7 @@
 		"size": "123054",
 		"boards": [
 			{"name": "Generic JN516x board"},
-			{"name": "TOCOS TWE Lite"}
+			{"name": "TOCOS TWE Lite"},
 			{"name": "SeeedStudio Mesh Bee"}
 		],
 		"toolsDependencies": [
