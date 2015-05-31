@@ -1,7 +1,7 @@
 name=NXP JN51xx Platform
 
 # toolchain path
-compiler.path={runtime.tools.jn516x-tools.path}/ba-elf-ba2/bin/
+compiler.path={runtime.tools.ba-elf-ba2-gcc.path}/bin/
 
 # SDK path
 
