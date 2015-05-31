@@ -9,7 +9,7 @@
 		{
 		"name": "JN516x",
 		"architecture": "jn516x",
-		"version": "0.0.20150503",
+		"version": "0.0.20150530",
 		"category": "JN516x",
 		"url": "https://github.com/soburi/JN516x-arduino-package/archive/release-0.0.20150530.zip",
 		"archiveFileName": "JN516x-arduino-package-release-0.0.20150530.zip",
@@ -69,8 +69,8 @@
 			"host":"i686-mingw32",
 			"archiveFileName":"jenprog1.1_i686-mingw32.tar.bz2",
 			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_i686-mingw32.tar.bz2",
-			"checksum":"SHA-256:d4f25936b6c0867e37390b3698e775e9b3bdcfb710ee81cd4a1b50d7709550c1",
-			"size":"2198373"
+			"checksum":"SHA-256:91665f4c905c18755a553975593be184636c4414377b50e09783e91ecee5c3df",
+			"size":"6767765"
 			},
 			{
 			"host":"x86_64-apple-darwin",
@@ -83,8 +83,8 @@
 			"host":"x86_64-pc-linux-gnu",
 			"archiveFileName":"jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
 			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
-			"checksum":"SHA-256:f31e461412f58a38d4621550840394d5c8d319bd553da9e5a3cb90e52718bd0b",
-			"size":"2684965"
+			"checksum":"SHA-256:df92952fae8093a8564267c6523259b670694f8568edddab1d6141dcba9931d9",
+			"size":"2685865"
 			}
 		]
 		}
