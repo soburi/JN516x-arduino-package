@@ -69,8 +69,8 @@
 			"host":"i686-mingw32",
 			"archiveFileName":"jenprog1.1_i686-mingw32.tar.bz2",
 			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_i686-mingw32.tar.bz2",
-			"checksum":"SHA-256:91665f4c905c18755a553975593be184636c4414377b50e09783e91ecee5c3df",
-			"size":"6767765"
+			"checksum":"SHA-256:952ae937d139a49db6ecee78a4899ba251469ee4108733ff43bfb88e033263e8",
+			"size":"6616000"
 			},
 			{
 			"host":"x86_64-apple-darwin",
