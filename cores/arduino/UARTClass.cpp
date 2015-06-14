@@ -27,9 +27,11 @@
 
 // Constructors ////////////////////////////////////////////////////////////////
 
-UARTClass::UARTClass(int portno)
+UARTClass::UARTClass(int portno, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer )
 	: port(portno), initialized(false)
 {
+  _rx_buffer = pRx_buffer;
+  _tx_buffer = pTx_buffer;
 }
 
 /*
@@ -61,6 +63,15 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t config)
 	//UART
 	vAHI_UartSetRTSCTS(port, false);
 	vAHI_UartEnable(port);
+	if(port == E_AHI_UART_0) {
+		vAHI_Uart0RegisterCallback(UART0_Handler);
+
+	}
+	else {
+		vAHI_Uart1RegisterCallback(UART1_Handler);
+	}
+
+	vAHI_UartSetInterrupt(port, false, false, true, true, E_AHI_UART_FIFO_LEVEL_1);
 
 	vAHI_UartReset(port, TRUE, TRUE);
 	vAHI_UartReset(port, FALSE, FALSE);
@@ -120,7 +131,13 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t config)
 
 void UARTClass::end( void )
 {
-	vAHI_UartDisable(port);
+  // Clear any received data
+  _rx_buffer->_iHead = _rx_buffer->_iTail;
+
+  // Wait for any outstanding data to be sent
+  flush();
+
+  vAHI_UartDisable(port);
 }
 #if 0
 
@@ -137,86 +154,97 @@ uint32_t UARTClass::getInterruptPriority()
 #endif
 int UARTClass::available( void )
 {
-	if(!initialized) return 0;
-
-	DBG_PRINTF("available:");
-	int r = u16AHI_UartReadRxFifoLevel(port);
-	if(peek_buf != -1) return r++;
-	DBG_PRINTF("%d\r\n", r);
-	DBG_PRINTF("\r\n");
-	return r;
+  if(!initialized) return 0;
+  return (uint32_t)(SERIAL_BUFFER_SIZE + _rx_buffer->_iHead - _rx_buffer->_iTail) % SERIAL_BUFFER_SIZE;
 }
 
 int UARTClass::availableForWrite(void)
 {
-	//TODO
-	return 0;
+  if(!initialized) return -1;
+  int head = _tx_buffer->_iHead;
+  int tail = _tx_buffer->_iTail;
+  if (head >= tail) return SERIAL_BUFFER_SIZE - 1 - head + tail;
+  return tail - head - 1;
 }
 
 int UARTClass::peek( void )
 {
-	if(peek_buf != -1) return peek_buf;
+  if ( _rx_buffer->_iHead == _rx_buffer->_iTail )
+    return -1;
 
-	peek_buf = read();
-	DBG_PRINTF("peek:");
-	DBG_PRINTF("%d\r\n", peek_buf);
-	DBG_PRINTF("\r\n");
-	return peek_buf;
+  return _rx_buffer->_aucBuffer[_rx_buffer->_iTail];
 }
 
 int UARTClass::read( void )
 {
-	if(!initialized) return -1;
+  if(!initialized) return -1;
+  // if the head isn't ahead of the tail, we don't have any characters
+  if ( _rx_buffer->_iHead == _rx_buffer->_iTail )
+    return -1;
 
-	DBG_PRINTF("read:\r\n");
-	int ret;
-	if(peek_buf != -1) {
-		ret = peek_buf;
-		peek_buf = -1;
-		return ret;
-	}
-
-	if(!u8AHI_UartReadLineStatus(port) & E_AHI_UART_LS_DR) {
-		return -1;
-	}
-	DBG_PRINTF("available:");
-	DBG_PRINTF("%d\r\n", u16AHI_UartReadRxFifoLevel(port) );
-	DBG_PRINTF("\r\n");
-	ret = u8AHI_UartReadData(port);
-
-	return ret;
+  uint8_t uc = _rx_buffer->_aucBuffer[_rx_buffer->_iTail];
+  _rx_buffer->_iTail = (unsigned int)(_rx_buffer->_iTail + 1) % SERIAL_BUFFER_SIZE;
+  return uc;
 }
 
 void UARTClass::flush( void )
 {
-	if(!initialized) return;
-
-	while((u8AHI_UartReadLineStatus(port) & E_AHI_UART_LS_THRE) == 0);
+  if(!initialized) return;
+  while (_tx_buffer->_iHead != _tx_buffer->_iTail); //wait for transmit data to be sent
+  // Wait for transmission to complete
+  while ((u8AHI_UartReadInterruptStatus(port) & E_AHI_UART_INT_TX) != E_AHI_UART_INT_TX)
+   ;
 }
 
 size_t UARTClass::write( const uint8_t uc_data )
 {
-	if(!initialized) return 0;
+  // Is the hardware currently busy?
+  if (((u8AHI_UartReadInterruptStatus(port) & E_AHI_UART_INT_TX) != E_AHI_UART_INT_TX) |
+      (_tx_buffer->_iTail != _tx_buffer->_iHead))
+  {
+    // If busy we buffer
+    unsigned int l = (_tx_buffer->_iHead + 1) % SERIAL_BUFFER_SIZE;
+    while (_tx_buffer->_iTail == l)
+      ; // Spin locks if we're about to overwrite the buffer. This continues once the data is sent
 
-	while((u8AHI_UartReadLineStatus(port) & E_AHI_UART_LS_THRE) == 0);
-	vAHI_UartWriteData(port, uc_data);
-	return 1;
+    _tx_buffer->_aucBuffer[_tx_buffer->_iHead] = uc_data;
+    _tx_buffer->_iHead = l;
+    //// Make sure TX interrupt is enabled
+    //_pUart->UART_IER = UART_IER_TXRDY;
+  }
+  else 
+  {
+     // Bypass buffering and send character directly
+     vAHI_UartWriteData(port, uc_data);
+  }
+  return 1;
 }
 
-size_t UARTClass::write(const uint8_t *buffer, size_t size)
+void UARTClass::IrqHandler(const uint32_t status)
 {
-	if(!initialized) return 0;
+  // Did we receive data?
+  if ((status & E_AHI_UART_INT_RXDATA) == E_AHI_UART_INT_RXDATA)
+    _rx_buffer->store_char(u8AHI_UartReadData(port));
 
-	DBG_PRINTF("UARTClass::write(array)\r\n");
-	while((u8AHI_UartReadLineStatus(port) & E_AHI_UART_LS_THRE) == 0);
-	for(int i=0; i<size; i++) {
-		vAHI_UartWriteData(port, buffer[i]);
-	}
-	return size;
-}
+  // Do we need to keep sending data?
+  if ((status & E_AHI_UART_INT_TX) == E_AHI_UART_INT_TX) 
+  {
+    if (_tx_buffer->_iTail != _tx_buffer->_iHead) {
+     vAHI_UartWriteData(port, _tx_buffer->_aucBuffer[_tx_buffer->_iTail]);
+      _tx_buffer->_iTail = (unsigned int)(_tx_buffer->_iTail + 1) % SERIAL_BUFFER_SIZE;
+    }
+    //else
+    //{
+    //  // Mask off transmit interrupt so we don't get it anymore
+    //  _pUart->UART_IDR = UART_IDR_TXRDY;
+    //}
+  }
 
-void UARTClass::IrqHandler( void )
-{
-	//TODO
+  // Acknowledge errors
+  //if ((status & UART_SR_OVRE) == UART_SR_OVRE || (status & UART_SR_FRAME) == UART_SR_FRAME)
+  //{
+  //  // TODO: error reporting outside ISR
+  //  _pUart->UART_CR |= UART_CR_RSTSTA;
+  //}
 }
 

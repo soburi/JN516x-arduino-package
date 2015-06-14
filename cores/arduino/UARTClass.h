@@ -87,7 +87,7 @@ class UARTClass : public HardwareSerial
       Mode_8M1 = US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_MARK,
       Mode_8S1 = US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_SPACE,
     };
-    UARTClass(int portno);
+    UARTClass(int portno, RingBuffer* pRx_buffer, RingBuffer* pTx_buffer);
 
     void begin(const uint32_t dwBaudRate);
     void begin(const uint32_t dwBaudRate, const UARTModes config);
@@ -103,7 +103,7 @@ class UARTClass : public HardwareSerial
     void setInterruptPriority(uint32_t priority);
     uint32_t getInterruptPriority();
 
-    void IrqHandler(void);
+    void IrqHandler(const uint32_t status);
 
     operator bool() { return true; }; // UART always active
 
@@ -116,8 +116,6 @@ class UARTClass : public HardwareSerial
 //    Uart* _pUart;
 //    IRQn_Type _dwIrq;
 //    uint32_t _dwId;
-
-    size_t write(const uint8_t *buffer, size_t size);
 
 };
 

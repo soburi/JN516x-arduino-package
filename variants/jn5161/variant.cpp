@@ -23,37 +23,38 @@
 /*
  * UART objects
  */
-/*
 RingBuffer rx_buffer1;
 RingBuffer tx_buffer1;
-*/
 
-UARTClass Serial(E_AHI_UART_0);
+UARTClass Serial(E_AHI_UART_0, &rx_buffer1, &tx_buffer1);
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
 
 // IT handlers
-void UART_Handler(void)
+void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap)
 {
-  Serial.IrqHandler();
+  Serial.IrqHandler(u32ItemBitmap);
 }
 
 // ----------------------------------------------------------------------------
 /*
  * USART objects
  */
-/*
 RingBuffer rx_buffer2;
+
+
 RingBuffer tx_buffer2;
-*/
-UARTClass Serial1(E_AHI_UART_1);
+
+
+
+UARTClass Serial1(E_AHI_UART_1, &rx_buffer2, &tx_buffer2);
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
 
 // IT handlers
-void UART0_Handler(void)
+void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap)
 {
-  Serial1.IrqHandler();
+  Serial1.IrqHandler(u32ItemBitmap);
 }
 
 // ----------------------------------------------------------------------------

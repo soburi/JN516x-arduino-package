@@ -102,6 +102,8 @@ static const uint8_t A2   = 0xA2;
 static const uint8_t A3   = 0;
 static const uint8_t A4   = 1;
 
+void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
+void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
 #ifdef __cplusplus
 }
 #endif
