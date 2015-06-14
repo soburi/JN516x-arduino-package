@@ -17,38 +17,47 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-//#define USE_DEBUGPRINT
-#include <Arduino.h>
+#define ARDUINO_MAIN
+#include "Arduino.h"
 
-//Declared weak in Arduino.h to allow user redefinitions.
-int atexit(void (*func)()) { return 0; }
+/*
+ * Cortex-M3 Systick IT handler
+ */
+/*
+extern void SysTick_Handler( void )
+{
+  // Increment tick count each ms
+  TimeTick_Increment() ;
+}
+*/
 
 // Weak empty variant initialization function.
 // May be redefined by variant files.
 void initVariant() __attribute__((weak));
 void initVariant() { }
 
-int main(void)
+/*
+ * \brief Main entry point of Arduino application
+ */
+int main( void )
 {
 	init();
 
 	initVariant();
 
+	delay(1);
+
 #if defined(USBCON)
 	USBDevice.attach();
 #endif
-	
+
 	setup();
-	delay(10); // TODO: UART stabilize wait.
-	DBG_PRINTF("--- exit  setup ---\r\n");
-    
-	for (;;) {
-		DBG_PRINTF("--- enter loop ---\r\n");
+
+	for (;;)
+	{
 		loop();
-		DBG_PRINTF("--- exit  loop ---\r\n");
 		if (serialEventRun) serialEventRun();
 	}
-        
+
 	return 0;
 }
-
