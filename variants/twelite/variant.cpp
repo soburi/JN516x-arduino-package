@@ -26,7 +26,7 @@
 RingBuffer rx_buffer1;
 RingBuffer tx_buffer1;
 
-UARTClass Serial(E_AHI_UART_0, &rx_buffer1, &tx_buffer1);
+UARTClass Serial(NULL, 0, E_AHI_UART_0, &rx_buffer1, &tx_buffer1);
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
 
@@ -47,7 +47,7 @@ RingBuffer tx_buffer2;
 
 
 
-UARTClass Serial1(E_AHI_UART_1, &rx_buffer2, &tx_buffer2);
+UARTClass Serial1(NULL, 0, E_AHI_UART_1, &rx_buffer2, &tx_buffer2);
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
 
