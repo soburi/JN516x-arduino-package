@@ -17,13 +17,14 @@
 		"size": "124578",
 		"boards": [
 			{"name": "Generic JN516x board"},
-			{"name": "TOCOS TWE Lite"}
+			{"name": "TOCOS TWE Lite"},
+			{"name": "SeeedStudio Mesh Bee"}
 		],
 		"toolsDependencies": [
 			{
 			"packager": "jn516x",
-			"name": "jn516x-tools",
-			"version": "0.0.20150501"
+			"name": "ba-elf-ba2-gcc",
+			"version":"4.1.2-r8352-build0"
 			},
 			{
 			"packager": "jn516x",
@@ -35,29 +36,29 @@
 	],
 	"tools":[
 		{
-		"name":"jn516x-tools",
-		"version":"0.0.20150501",
+		"name": "ba-elf-ba2-gcc",
+		"version":"4.1.2-r8352-build0",
 		"systems":[
 			{
 			"host":"i686-mingw32",
-			"archiveFileName":"jn516x-tools_i686-mingw32_r8352.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/jn516x-tools_i686-mingw32_r8352.tar.bz2",
-			"checksum":"SHA-256:6e69c41745d58d5c07984a6ee539a2db7247cda9e9c34ad64fa4e36fcb637d3b",
-			"size":"30311193"
+			"archiveFileName":"ba-elf-ba2-gcc_i686-mingw32_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_i686-mingw32_r8352.tar.bz2",
+			"checksum":"SHA-256:15e6c8be6d2d53c5f6d13195bd19b34fe234717a4e014167f7c40b99b104a996",
+			"size":"30317284"
 			},
 			{
 			"host":"x86_64-apple-darwin",
-			"archiveFileName":"jn516x-tools_x86_64-apple-darwin_r8352.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/jn516x-tools_x86_64-apple-darwin_r8352.tar.bz2",
-			"checksum":"SHA-256:a53ff8615d0ab92439e36c6707ee5f55dfabe9c015e0e4247df26121f75542bd",
-			"size":"19716454"
+			"archiveFileName":"ba-elf-ba2-gcc_x86_64-apple-darwin_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_x86_64-apple-darwin_r8352.tar.bz2",
+			"checksum":"SHA-256:ebc5e58a9765ad37d688009e7c1431d87881db774cbab3cf14cc624b8f965365",
+			"size":"19721952"
 			},
 			{
 			"host":"x86_64-pc-linux-gnu",
-			"archiveFileName":"jn516x-tools_x86_64-pc-linux-gnu_r8352.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/jn516x-tools_x86_64-pc-linux-gnu_r8352.tar.bz2",
-			"checksum":"SHA-256:f819413ac0a26a55ea4b43add2012c173412fc428b4e1c64caf30e0223d32652",
-			"size":"35355891"
+			"archiveFileName":"ba-elf-ba2-gcc_x86_64-pc-linux-gnu_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_x86_64-pc-linux-gnu_r8352.tar.bz2",
+			"checksum":"SHA-256:0fb707357b32aba9cd1061d95b1d8fdf28cee92cc93efbea9aef609602503dd0",
+			"size":"35502426"
 			}
 		]
 		},
