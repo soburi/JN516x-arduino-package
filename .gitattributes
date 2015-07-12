@@ -1,0 +1,2 @@
+*.tar.bz2 filter=lfs diff=lfs merge=lfs -crlf
+*.zip filter=lfs diff=lfs merge=lfs -crlf
