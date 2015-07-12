@@ -9,7 +9,7 @@
 		{
 		"name": "JN516x",
 		"architecture": "jn516x",
-		"version": "0.0.20150614",
+		"version": "0.0.20150712",
 		"category": "JN516x",
 		"url": "https://github.com/soburi/JN516x-arduino-package/archive/release-0.0.20150614.zip",
 		"archiveFileName": "JN516x-arduino-package-release-0.0.20150614.zip",
