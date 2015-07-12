@@ -29,7 +29,7 @@
 			{
 			"packager": "jn516x",
 			"name": "jenprog",
-			"version": "1.1.0"
+			"version":"1.1.0-20150712"
 			}
 		]
 		}
@@ -64,26 +64,26 @@
 		},
 		{
 		"name":"jenprog",
-		"version":"1.1.0",
+		"version":"1.1.0-20150712",
 		"systems":[
 			{
 			"host":"i686-mingw32",
 			"archiveFileName":"jenprog1.1_i686-mingw32.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_i686-mingw32.tar.bz2",
-			"checksum":"SHA-256:28a26c3c7874962f615eafbb3693b3d9a41af8e69578aae0111919fd30b53fd9",
-			"size":"6764165"
+			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_i686-mingw32.tar.bz2",
+			"checksum":"SHA-256:9ac96f165b1ce1ed76693328f49b8dae6fb7c73cb977b4bca55b1f5eacb78614",
+			"size":"6764214"
 			},
 			{
 			"host":"x86_64-apple-darwin",
 			"archiveFileName":"jenprog1.1_x86_64-apple-darwin.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_x86_64-apple-darwin.tar.bz2",
+			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_x86_64-apple-darwin.tar.bz2",
 			"checksum":"SHA-256:255e35ffe6f65593420ce7e05c7b081d1fdb1dead0a48c2d3aca014ebe45c2be",
 			"size":"4497434"
 			},
 			{
 			"host":"x86_64-pc-linux-gnu",
 			"archiveFileName":"jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
+			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
 			"checksum":"SHA-256:df92952fae8093a8564267c6523259b670694f8568edddab1d6141dcba9931d9",
 			"size":"2685865"
 			}
