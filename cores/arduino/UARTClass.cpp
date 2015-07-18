@@ -53,7 +53,8 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t config)
 {
 	//UART
 	vAHI_UartSetRTSCTS(_dwId, false);
-	vAHI_UartEnable(_dwId);
+	bAHI_UartEnable(_dwId, _tx_native_buf, HW_BUFSIZE, _rx_native_buf, HW_BUFSIZE);
+
 	if(_dwId == E_AHI_UART_0) {
 		vAHI_Uart0RegisterCallback(UART0_Handler);
 

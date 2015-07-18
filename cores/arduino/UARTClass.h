@@ -31,6 +31,7 @@
 #define SERIAL_8M1 UARTClass::Mode_8M1
 #define SERIAL_8S1 UARTClass::Mode_8S1
 
+#define HW_BUFSIZE 128
 
 class UARTClass : public HardwareSerial
 {
@@ -72,6 +73,8 @@ class UARTClass : public HardwareSerial
     //IRQn_Type _dwIrq;
     uint32_t _dwId;
 
+    uint8_t _rx_native_buf[HW_BUFSIZE];
+    uint8_t _tx_native_buf[HW_BUFSIZE];
 };
 
 #endif // _UART_CLASS_
