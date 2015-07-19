@@ -19,6 +19,7 @@
 #ifndef WiringPrivate_h
 #define WiringPrivate_h
 
+#include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -32,16 +33,17 @@ extern "C"{
 
 #include "wiring_constants.h"
 
+#define DIO_NUM 20
+
+extern uint32_t ticktimer_overflow_count;
+typedef void (*void_callback_void)(void);
+extern void_callback_void handler_table[DIO_NUM];
+
+extern void ticktimer_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
+extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
+
 #ifdef __cplusplus
 } // extern "C"
-
-#include "HardwareSerial.h"
-
 #endif
-
-#include <AppHardwareApi.h>
-
-extern PR_HWINT_APPCALLBACK SysCtrl_DIO_interrupt_handler;
-
 
 #endif

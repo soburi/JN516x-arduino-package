@@ -33,15 +33,6 @@
 #define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
 #define TICK_TIMER_MAX (0x0fffffff)
 
-unsigned long ticktimer_overflow_count = 0;
-
-PR_HWINT_APPCALLBACK SysCtrl_DIO_interrupt_handler = 0;
-
-static void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
-{
-	ticktimer_overflow_count++;
-}
-
 unsigned long millis()
 {
 	unsigned long m;
@@ -79,16 +70,6 @@ void delay(unsigned long ms)
 }
 
 /* Delay for the given number of microseconds.  Assumes a 8 or 16 MHz clock. */
-
-static void sysctrl_callback(uint32 u32Device, uint32 u32ItemBitmap)
-{
-	DBG_PRINTF("sysctrl_callback ");
-	DBG_PRINTF("%x", u32Device);
-	DBG_PRINTF(" ");
-	DBG_PRINTF("%x", u32ItemBitmap);
-	DBG_PRINTF("\n");
-	if(SysCtrl_DIO_interrupt_handler) SysCtrl_DIO_interrupt_handler(u32Device, u32ItemBitmap);
-}
 
 void init()
 {
