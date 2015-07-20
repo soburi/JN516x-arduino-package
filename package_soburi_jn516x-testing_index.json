@@ -1,0 +1,95 @@
+{
+"packages": [
+	{
+	"name":"jn516x",
+	"maintainer":"soburi",
+	"websiteURL":"http://github.com/soburi/JN516x-arduino-package",
+	"email":"soburi@gmail.com",
+	"platforms":[
+		{
+		"name": "JN516x",
+		"architecture": "jn516x",
+		"version": "0.0.20150714",
+		"category": "JN516x",
+		"url": "https://github.com/soburi/JN516x-arduino-package/archive/release-0.0.20150714.tar.gz",
+		"archiveFileName": "JN516x-arduino-package-release-0.0.20150714.tar.gz",
+		"checksum": "SHA-256:ebbe4b8f9542ba681e9835a7e96e2c91e614dc6336d3960fedd822b0e0238f31",
+		"size": "69187",
+		"boards": [
+			{"name": "Generic JN516x board"},
+			{"name": "TOCOS TWE Lite"},
+			{"name": "SeeedStudio Mesh Bee"}
+		],
+		"toolsDependencies": [
+			{
+			"packager": "jn516x",
+			"name": "ba-elf-ba2-gcc",
+			"version":"4.1.2-r8352-build0"
+			},
+			{
+			"packager": "jn516x",
+			"name": "jenprog",
+			"version":"1.1.0-20150712"
+			}
+		]
+		}
+	],
+	"tools":[
+		{
+		"name": "ba-elf-ba2-gcc",
+		"version":"4.1.2-r8352-build0",
+		"systems":[
+			{
+			"host":"i686-mingw32",
+			"archiveFileName":"ba-elf-ba2-gcc_i686-mingw32_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_i686-mingw32_r8352.tar.bz2",
+			"checksum":"SHA-256:15e6c8be6d2d53c5f6d13195bd19b34fe234717a4e014167f7c40b99b104a996",
+			"size":"30317284"
+			},
+			{
+			"host":"x86_64-apple-darwin",
+			"archiveFileName":"ba-elf-ba2-gcc_x86_64-apple-darwin_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_x86_64-apple-darwin_r8352.tar.bz2",
+			"checksum":"SHA-256:ebc5e58a9765ad37d688009e7c1431d87881db774cbab3cf14cc624b8f965365",
+			"size":"19721952"
+			},
+			{
+			"host":"x86_64-pc-linux-gnu",
+			"archiveFileName":"ba-elf-ba2-gcc_x86_64-pc-linux-gnu_r8352.tar.bz2",
+			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_x86_64-pc-linux-gnu_r8352.tar.bz2",
+			"checksum":"SHA-256:0fb707357b32aba9cd1061d95b1d8fdf28cee92cc93efbea9aef609602503dd0",
+			"size":"35502426"
+			}
+		]
+		},
+		{
+		"name":"jenprog",
+		"version":"1.1.0-20150712",
+		"systems":[
+			{
+			"host":"i686-mingw32",
+			"archiveFileName":"jenprog1.1_i686-mingw32.tar.bz2",
+			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_i686-mingw32.tar.bz2",
+			"checksum":"SHA-256:9ac96f165b1ce1ed76693328f49b8dae6fb7c73cb977b4bca55b1f5eacb78614",
+			"size":"6764214"
+			},
+			{
+			"host":"x86_64-apple-darwin",
+			"archiveFileName":"jenprog1.1_x86_64-apple-darwin.tar.bz2",
+			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_x86_64-apple-darwin.tar.bz2",
+			"checksum":"SHA-256:255e35ffe6f65593420ce7e05c7b081d1fdb1dead0a48c2d3aca014ebe45c2be",
+			"size":"4497434"
+			},
+			{
+			"host":"x86_64-pc-linux-gnu",
+			"archiveFileName":"jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
+			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
+			"checksum":"SHA-256:df92952fae8093a8564267c6523259b670694f8568edddab1d6141dcba9931d9",
+			"size":"2685865"
+			}
+		]
+		}
+	]
+	}
+]
+}
