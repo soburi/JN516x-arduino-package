@@ -97,6 +97,36 @@ extern "C" {
 
 #define VARIANT_MCK                     84000000
 
+
+#define SYSTEM_WAKETIMER E_AHI_WAKE_TIMER_1
+#if SYSTEM_WAKETIMER == E_AHI_WAKE_TIMER_0
+#define SYSTEM_WAKETIMER_MASK E_AHI_WAKE_TIMER_MASK_0
+#else
+#define SYSTEM_WAKETIMER_MASK E_AHI_WAKE_TIMER_MASK_1
+#endif
+
+#define WTCOUNT2MSEC(cnt) ( (cnt) / 320000.f / (double)wakeTimerCalibrationValue() )
+#define MSEC2WTCOUNT(ms)  ( (ms)  * 320000.f / (double)wakeTimerCalibrationValue() )
+
+#define POWER_STATUS_WAKED		(0x1 << 0)
+#define POWER_STATUS_RAM_RETAINING	(0x1 << 1)
+#define POWER_STATUS_ANALOG_ON		(0x1 << 2)
+#define POWER_STATUS_PROTOCOL_ON	(0x1 << 3)
+#define POWER_STATUS_NONE_4		(0x1 << 4)
+#define POWER_STATUS_NONE_5		(0x1 << 5)
+#define POWER_STATUS_NONE_6		(0x1 << 6)
+#define POWER_STATUS_WATCHDOG_CAUSED	(0x1 << 7)
+#define POWER_STATUS_NONE_8		(0x1 << 8)
+#define POWER_STATUS_NONE_9		(0x1 << 9)
+#define POWER_STATUS_32KHZ_READY	(0x1 << 10)
+#define POWER_STATUS_WAKED_FROM_DEEP	(0x1 << 11)
+#define POWER_STATUS_NONE_12		(0x1 << 12)
+#define POWER_STATUS_NONE_13		(0x1 << 13)
+#define POWER_STATUS_NONE_14		(0x1 << 14)
+#define POWER_STATUS_NONE_15		(0x1 << 15)
+
+
+
 static const uint8_t A1   = 0xA1;
 static const uint8_t A2   = 0xA2;
 static const uint8_t A3   = 0;
@@ -104,6 +134,10 @@ static const uint8_t A4   = 1;
 
 void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
 void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
+
+bool warmBoot();
+bool waked();
+
 extern uint32_t wakeTimerCalibrationValue();
 extern void setWakeTimerCalibrationValue(uint32_t value);
 

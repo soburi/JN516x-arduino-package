@@ -66,6 +66,17 @@ void serialEventRun(void)
 }
 
 // ----------------------------------------------------------------------------
+
+bool warmBoot()
+{
+	return (u16AHI_PowerStatus() & POWER_STATUS_RAM_RETAINING) ? 1 : 0;
+}
+
+bool waked()
+{
+	return (u16AHI_PowerStatus() & POWER_STATUS_WAKED) ? 1 : 0;
+}
+
 uint32_t waketimer_calibration_value = 0;
 
 uint32_t wakeTimerCalibrationValue()
