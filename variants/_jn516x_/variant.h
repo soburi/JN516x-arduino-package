@@ -104,6 +104,9 @@ static const uint8_t A4   = 1;
 
 void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
 void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
+extern uint32_t wakeTimerCalibrationValue();
+extern void setWakeTimerCalibrationValue(uint32_t value);
+
 #ifdef __cplusplus
 }
 #endif

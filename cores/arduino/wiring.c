@@ -86,6 +86,12 @@ void init()
 #if !defined(DBG_ENABLE) || ( DBG_UART != DBG_E_UART_1 )
 	vAHI_UartDisable(E_AHI_UART_1);
 #endif
+	//WakeTimer
+	vAHI_WakeTimerStop(E_AHI_WAKE_TIMER_0);
+	vAHI_WakeTimerStop(E_AHI_WAKE_TIMER_1);
+	(void)u8AHI_WakeTimerFiredStatus();
+	setWakeTimerCalibrationValue( u32AHI_WakeTimerCalibrate() );
+
 	//Tick Timer
 	vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_DISABLE);
 	vAHI_TickTimerWrite(0);

@@ -66,3 +66,13 @@ void serialEventRun(void)
 }
 
 // ----------------------------------------------------------------------------
+uint32_t waketimer_calibration_value = 0;
+
+uint32_t wakeTimerCalibrationValue()
+{
+	return waketimer_calibration_value;
+}
+void setWakeTimerCalibrationValue(uint32_t value)
+{
+	waketimer_calibration_value = value;
+}
