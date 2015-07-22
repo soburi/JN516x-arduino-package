@@ -101,7 +101,8 @@ open(JSONFILE) do |f|
     entry["name"] = "JN516x Boards"
 		entry["architecture"] =  "jn516x"
 		entry["category"] =  "Contributed"
-		entry["version"] =  tt.gsub(/^#{TAG}-/, '')
+    version = tt.gsub(/^#{TAG}-/, '')
+		entry["version"] = version
     url = "#{GHURL}/archive/#{tt}.tar.gz"
 		entry["url"] = url
 
@@ -122,7 +123,7 @@ open(JSONFILE) do |f|
       toolent
     end
 
-    if pkgs.find {|x| x["version"] == tt} == nil
+    if pkgs.find {|x| x["version"] == version} == nil
       pkgs.push(entry)
     end
   end
