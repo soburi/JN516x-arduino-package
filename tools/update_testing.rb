@@ -109,7 +109,7 @@ open(JSONFILE) do |f|
     filename =fetch_file(url)
 
 		entry["archiveFileName"] = filename
-		entry["checksum"] =  "SHA-256:" + Digest::SHA256.hexdigest(filename)
+		entry["checksum"] =  "SHA-256:" + Digest::SHA256.hexdigest(File.binread(filename))
 		entry["size"] =  File.size(filename).to_s
     entry["boards"] =
       [ {"name"=>"Generic JN516x board"},
