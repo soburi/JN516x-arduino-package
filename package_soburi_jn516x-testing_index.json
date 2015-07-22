@@ -1,95 +1,464 @@
 {
-"packages": [
-	{
-	"name":"jn516x",
-	"maintainer":"soburi",
-	"websiteURL":"http://github.com/soburi/JN516x-arduino-package",
-	"email":"soburi@gmail.com",
-	"platforms":[
-		{
-		"name": "JN516x",
-		"architecture": "jn516x",
-		"version": "0.0.20150714",
-		"category": "JN516x",
-		"url": "https://github.com/soburi/JN516x-arduino-package/archive/release-0.0.20150714.tar.gz",
-		"archiveFileName": "JN516x-arduino-package-release-0.0.20150714.tar.gz",
-		"checksum": "SHA-256:ebbe4b8f9542ba681e9835a7e96e2c91e614dc6336d3960fedd822b0e0238f31",
-		"size": "69187",
-		"boards": [
-			{"name": "Generic JN516x board"},
-			{"name": "TOCOS TWE Lite"},
-			{"name": "SeeedStudio Mesh Bee"}
-		],
-		"toolsDependencies": [
-			{
-			"packager": "jn516x",
-			"name": "ba-elf-ba2-gcc",
-			"version":"4.1.2-r8352-build0"
-			},
-			{
-			"packager": "jn516x",
-			"name": "jenprog",
-			"version":"1.1.0-20150712"
-			}
-		]
-		}
-	],
-	"tools":[
-		{
-		"name": "ba-elf-ba2-gcc",
-		"version":"4.1.2-r8352-build0",
-		"systems":[
-			{
-			"host":"i686-mingw32",
-			"archiveFileName":"ba-elf-ba2-gcc_i686-mingw32_r8352.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_i686-mingw32_r8352.tar.bz2",
-			"checksum":"SHA-256:15e6c8be6d2d53c5f6d13195bd19b34fe234717a4e014167f7c40b99b104a996",
-			"size":"30317284"
-			},
-			{
-			"host":"x86_64-apple-darwin",
-			"archiveFileName":"ba-elf-ba2-gcc_x86_64-apple-darwin_r8352.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_x86_64-apple-darwin_r8352.tar.bz2",
-			"checksum":"SHA-256:ebc5e58a9765ad37d688009e7c1431d87881db774cbab3cf14cc624b8f965365",
-			"size":"19721952"
-			},
-			{
-			"host":"x86_64-pc-linux-gnu",
-			"archiveFileName":"ba-elf-ba2-gcc_x86_64-pc-linux-gnu_r8352.tar.bz2",
-			"url":"https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_x86_64-pc-linux-gnu_r8352.tar.bz2",
-			"checksum":"SHA-256:0fb707357b32aba9cd1061d95b1d8fdf28cee92cc93efbea9aef609602503dd0",
-			"size":"35502426"
-			}
-		]
-		},
-		{
-		"name":"jenprog",
-		"version":"1.1.0-20150712",
-		"systems":[
-			{
-			"host":"i686-mingw32",
-			"archiveFileName":"jenprog1.1_i686-mingw32.tar.bz2",
-			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_i686-mingw32.tar.bz2",
-			"checksum":"SHA-256:9ac96f165b1ce1ed76693328f49b8dae6fb7c73cb977b4bca55b1f5eacb78614",
-			"size":"6764214"
-			},
-			{
-			"host":"x86_64-apple-darwin",
-			"archiveFileName":"jenprog1.1_x86_64-apple-darwin.tar.bz2",
-			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_x86_64-apple-darwin.tar.bz2",
-			"checksum":"SHA-256:255e35ffe6f65593420ce7e05c7b081d1fdb1dead0a48c2d3aca014ebe45c2be",
-			"size":"4497434"
-			},
-			{
-			"host":"x86_64-pc-linux-gnu",
-			"archiveFileName":"jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
-			"url":"https://github.com/soburi/JN516x-arduino-package/raw/repository-20150712/jenprog1.1_x86_64-pc-linux-gnu.tar.bz2",
-			"checksum":"SHA-256:df92952fae8093a8564267c6523259b670694f8568edddab1d6141dcba9931d9",
-			"size":"2685865"
-			}
-		]
-		}
-	]
-	}
-]
+  "packages": [
+    {
+      "name": "jn516x",
+      "maintainer": "soburi",
+      "websiteURL": "https://github.com/soburi/JN516x-arduino-package",
+      "email": "soburi@gmail.com",
+      "platforms": [
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150429",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150429.tar.gz",
+          "archiveFileName": "testing-0.0.20150429.tar.gz",
+          "checksum": "SHA-256:14a04b34af81b49bf9324b53b0e1f5e5f04147eb26cb8b5441868b6e8c6fc7eb",
+          "size": "35842",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150501",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150501.tar.gz",
+          "archiveFileName": "testing-0.0.20150501.tar.gz",
+          "checksum": "SHA-256:847c36a76b8b12b66f927ccf9d58b46cf7ce2c87e7f6efda4a683270a754839a",
+          "size": "36473",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150502",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150502.tar.gz",
+          "archiveFileName": "testing-0.0.20150502.tar.gz",
+          "checksum": "SHA-256:d727c6002f47104c211e412ff0ea41bae0afb80e5af76c448b992aa5d65a9eaa",
+          "size": "36468",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150503",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150503.tar.gz",
+          "archiveFileName": "testing-0.0.20150503.tar.gz",
+          "checksum": "SHA-256:4bbe45fb97f5a42e83879825123ca2f849e11eaf69886122ce7b9afa78c30fef",
+          "size": "41501",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150508",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150508.tar.gz",
+          "archiveFileName": "testing-0.0.20150508.tar.gz",
+          "checksum": "SHA-256:df9857032f8ba60f5348faa307ce34ab0d90475805c6ec79cf0481c34d7efa19",
+          "size": "42623",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150510",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150510.tar.gz",
+          "archiveFileName": "testing-0.0.20150510.tar.gz",
+          "checksum": "SHA-256:865f5ae47bf4f2be97368cc6dba9812555c6d3c2c8488b090c405f877b075eaa",
+          "size": "43457",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150519",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150519.tar.gz",
+          "archiveFileName": "testing-0.0.20150519.tar.gz",
+          "checksum": "SHA-256:3959cdf9ae25132ffd1d26e8a043e20f80d44614218e48b36e79b138be0e58fa",
+          "size": "54395",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150530",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150530.tar.gz",
+          "archiveFileName": "testing-0.0.20150530.tar.gz",
+          "checksum": "SHA-256:534f546b2332fa899d4b79fd1ca4754344577f68b61339365e689afdbbe6347f",
+          "size": "54215",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150531",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150531.tar.gz",
+          "archiveFileName": "testing-0.0.20150531.tar.gz",
+          "checksum": "SHA-256:ecf03a0836836bbdd469c8364e4ef5430cf398a54154f07c1ce4535218579c89",
+          "size": "54225",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150614",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150614.tar.gz",
+          "archiveFileName": "testing-0.0.20150614.tar.gz",
+          "checksum": "SHA-256:79ab1b045220ba1576184b433dc6d6f883b110385917f4c85a2a8f43812a35a5",
+          "size": "54620",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150714",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150714.tar.gz",
+          "archiveFileName": "testing-0.0.20150714.tar.gz",
+          "checksum": "SHA-256:616c71ee26290b605dd020eebdeadb5fb4ea0f28f8310f0ae191019b84aa4161",
+          "size": "69180",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        },
+        {
+          "name": "JN516x",
+          "architecture": "jn516x",
+          "category": "JN516x",
+          "version": "testing-0.0.20150721",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150721.tar.gz",
+          "archiveFileName": "testing-0.0.20150721.tar.gz",
+          "checksum": "SHA-256:581db54b7ad7884e667fe872bacf2d5f6e19f9b0d70c165279f1b87f80470afe",
+          "size": "70921",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "name": "ba-elf-ba2-gcc",
+          "version": "4.1.2-r8352-build0",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "ba-elf-ba2-gcc_i686-mingw32_4.1.2-r8352-build0.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20150723/ba-elf-ba2-gcc_i686-mingw32_4.1.2-r8352-build0.tar.bz2?raw=true",
+              "checksum": "SHA-256:15e6c8be6d2d53c5f6d13195bd19b34fe234717a4e014167f7c40b99b104a996",
+              "size": "30317284"
+            },
+            {
+              "host": "x86_64-apple-darwin",
+              "archiveFileName": "ba-elf-ba2-gcc_x86_64-apple-darwin_4.1.2-r8352-build0.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20150723/ba-elf-ba2-gcc_x86_64-apple-darwin_4.1.2-r8352-build0.tar.bz2?raw=true",
+              "checksum": "SHA-256:ebc5e58a9765ad37d688009e7c1431d87881db774cbab3cf14cc624b8f965365",
+              "size": "19721952"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
+              "archiveFileName": "ba-elf-ba2-gcc_x86_64-pc-linux-gnu_4.1.2-r8352-build0.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20150723/ba-elf-ba2-gcc_x86_64-pc-linux-gnu_4.1.2-r8352-build0.tar.bz2?raw=true",
+              "checksum": "SHA-256:0fb707357b32aba9cd1061d95b1d8fdf28cee92cc93efbea9aef609602503dd0",
+              "size": "35502426"
+            }
+          ]
+        },
+        {
+          "name": "jenprog",
+          "version": "1.1.0-20150712",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "jenprog_i686-mingw32_1.1.0-20150712.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20150723/jenprog_i686-mingw32_1.1.0-20150712.tar.bz2?raw=true",
+              "checksum": "SHA-256:9ac96f165b1ce1ed76693328f49b8dae6fb7c73cb977b4bca55b1f5eacb78614",
+              "size": "6764214"
+            },
+            {
+              "host": "x86_64-apple-darwin",
+              "archiveFileName": "jenprog_x86_64-apple-darwin_1.1.0-20150712.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20150723/jenprog_x86_64-apple-darwin_1.1.0-20150712.tar.bz2?raw=true",
+              "checksum": "SHA-256:255e35ffe6f65593420ce7e05c7b081d1fdb1dead0a48c2d3aca014ebe45c2be",
+              "size": "4497434"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
+              "archiveFileName": "jenprog_x86_64-pc-linux-gnu_1.1.0-20150712.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20150723/jenprog_x86_64-pc-linux-gnu_1.1.0-20150712.tar.bz2?raw=true",
+              "checksum": "SHA-256:df92952fae8093a8564267c6523259b670694f8568edddab1d6141dcba9931d9",
+              "size": "2685865"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
