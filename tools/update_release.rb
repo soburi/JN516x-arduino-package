@@ -98,9 +98,9 @@ open(JSONFILE) do |f|
 
   tags.each do |tt|
     entry = {}
-    entry["name"] = "JN516x"
+    entry["name"] = "JN516x Boards"
 		entry["architecture"] =  "jn516x"
-		entry["category"] =  "JN516x"
+		entry["category"] =  "Contributed"
 		entry["version"] =  tt.gsub(/^#{TAG}-/, '')
     url = "#{GHURL}/archive/#{tt}.tar.gz"
 		entry["url"] = url
