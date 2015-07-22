@@ -13,7 +13,7 @@
           "version": "0.0.20150429",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150429.tar.gz",
           "archiveFileName": "testing-0.0.20150429.tar.gz",
-          "checksum": "SHA-256:14a04b34af81b49bf9324b53b0e1f5e5f04147eb26cb8b5441868b6e8c6fc7eb",
+          "checksum": "SHA-256:d54c6288d91a8e4294b7401bea056878e93ae63910448f72da37b20e56a2a2ce",
           "size": "35842",
           "boards": [
             {
@@ -46,7 +46,7 @@
           "version": "0.0.20150501",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150501.tar.gz",
           "archiveFileName": "testing-0.0.20150501.tar.gz",
-          "checksum": "SHA-256:847c36a76b8b12b66f927ccf9d58b46cf7ce2c87e7f6efda4a683270a754839a",
+          "checksum": "SHA-256:013f87d151bbd2f1374bc31a75b4baac1b64c3decb9e3b4cbbb5f2ec11c966c2",
           "size": "36473",
           "boards": [
             {
@@ -79,7 +79,7 @@
           "version": "0.0.20150502",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150502.tar.gz",
           "archiveFileName": "testing-0.0.20150502.tar.gz",
-          "checksum": "SHA-256:d727c6002f47104c211e412ff0ea41bae0afb80e5af76c448b992aa5d65a9eaa",
+          "checksum": "SHA-256:88d4ec599432d1945e99ed92dacf732dcf64ed479daf318397a7a12671bfdca2",
           "size": "36468",
           "boards": [
             {
@@ -112,7 +112,7 @@
           "version": "0.0.20150503",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150503.tar.gz",
           "archiveFileName": "testing-0.0.20150503.tar.gz",
-          "checksum": "SHA-256:4bbe45fb97f5a42e83879825123ca2f849e11eaf69886122ce7b9afa78c30fef",
+          "checksum": "SHA-256:3aeb2cf765b3e56461b0d4b184bbd7960c696aec235962c4b833569812a6540e",
           "size": "41501",
           "boards": [
             {
@@ -145,7 +145,7 @@
           "version": "0.0.20150508",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150508.tar.gz",
           "archiveFileName": "testing-0.0.20150508.tar.gz",
-          "checksum": "SHA-256:df9857032f8ba60f5348faa307ce34ab0d90475805c6ec79cf0481c34d7efa19",
+          "checksum": "SHA-256:d1f812cf518e445f9b1a793c7b7f899d377580c2d1e23926ce23de35a1912e04",
           "size": "42623",
           "boards": [
             {
@@ -178,7 +178,7 @@
           "version": "0.0.20150510",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150510.tar.gz",
           "archiveFileName": "testing-0.0.20150510.tar.gz",
-          "checksum": "SHA-256:865f5ae47bf4f2be97368cc6dba9812555c6d3c2c8488b090c405f877b075eaa",
+          "checksum": "SHA-256:254040a93a76098f08e3e2f9d2194bedea4444cc8c7add6bad08e65b031a9ea0",
           "size": "43457",
           "boards": [
             {
@@ -211,7 +211,7 @@
           "version": "0.0.20150519",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150519.tar.gz",
           "archiveFileName": "testing-0.0.20150519.tar.gz",
-          "checksum": "SHA-256:3959cdf9ae25132ffd1d26e8a043e20f80d44614218e48b36e79b138be0e58fa",
+          "checksum": "SHA-256:d93902777a2e3400c8db36c2f27f08db07d7a8710554408f6d4ec20e1106d9c6",
           "size": "54395",
           "boards": [
             {
@@ -244,7 +244,7 @@
           "version": "0.0.20150530",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150530.tar.gz",
           "archiveFileName": "testing-0.0.20150530.tar.gz",
-          "checksum": "SHA-256:534f546b2332fa899d4b79fd1ca4754344577f68b61339365e689afdbbe6347f",
+          "checksum": "SHA-256:62d72ccc7a34c2260accca4fa28b867998e013759dcf4bb9067776f4ee893c2a",
           "size": "54215",
           "boards": [
             {
@@ -277,7 +277,7 @@
           "version": "0.0.20150531",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150531.tar.gz",
           "archiveFileName": "testing-0.0.20150531.tar.gz",
-          "checksum": "SHA-256:ecf03a0836836bbdd469c8364e4ef5430cf398a54154f07c1ce4535218579c89",
+          "checksum": "SHA-256:cdeb7ae8e8518f9de8ba5fec7bb8711ced9022021c2673b6c989cb3e4b0ea949",
           "size": "54225",
           "boards": [
             {
@@ -310,7 +310,7 @@
           "version": "0.0.20150614",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150614.tar.gz",
           "archiveFileName": "testing-0.0.20150614.tar.gz",
-          "checksum": "SHA-256:79ab1b045220ba1576184b433dc6d6f883b110385917f4c85a2a8f43812a35a5",
+          "checksum": "SHA-256:429993c56cc97e2fe9cd281705c5ad198ee7862a6f39ae3dfffbcd765ca74b43",
           "size": "54620",
           "boards": [
             {
@@ -343,7 +343,7 @@
           "version": "0.0.20150714",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150714.tar.gz",
           "archiveFileName": "testing-0.0.20150714.tar.gz",
-          "checksum": "SHA-256:616c71ee26290b605dd020eebdeadb5fb4ea0f28f8310f0ae191019b84aa4161",
+          "checksum": "SHA-256:57107f942c864474083b4df98e2a661dc8e6f7ed8e0183a6b1c31a4ea7555958",
           "size": "69180",
           "boards": [
             {
@@ -376,7 +376,7 @@
           "version": "0.0.20150721",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150721.tar.gz",
           "archiveFileName": "testing-0.0.20150721.tar.gz",
-          "checksum": "SHA-256:581db54b7ad7884e667fe872bacf2d5f6e19f9b0d70c165279f1b87f80470afe",
+          "checksum": "SHA-256:628ed45ce7634d04e6294e7fb5d2519186be4f173a1387bfad046195bd0eda6e",
           "size": "70921",
           "boards": [
             {
