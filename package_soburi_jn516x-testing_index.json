@@ -7,9 +7,9 @@
       "email": "soburi@gmail.com",
       "platforms": [
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150429",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150429.tar.gz",
           "archiveFileName": "testing-0.0.20150429.tar.gz",
@@ -40,9 +40,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150501",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150501.tar.gz",
           "archiveFileName": "testing-0.0.20150501.tar.gz",
@@ -73,9 +73,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150502",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150502.tar.gz",
           "archiveFileName": "testing-0.0.20150502.tar.gz",
@@ -106,9 +106,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150503",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150503.tar.gz",
           "archiveFileName": "testing-0.0.20150503.tar.gz",
@@ -139,9 +139,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150508",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150508.tar.gz",
           "archiveFileName": "testing-0.0.20150508.tar.gz",
@@ -172,9 +172,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150510",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150510.tar.gz",
           "archiveFileName": "testing-0.0.20150510.tar.gz",
@@ -205,9 +205,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150519",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150519.tar.gz",
           "archiveFileName": "testing-0.0.20150519.tar.gz",
@@ -238,9 +238,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150530",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150530.tar.gz",
           "archiveFileName": "testing-0.0.20150530.tar.gz",
@@ -271,9 +271,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150531",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150531.tar.gz",
           "archiveFileName": "testing-0.0.20150531.tar.gz",
@@ -304,9 +304,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150614",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150614.tar.gz",
           "archiveFileName": "testing-0.0.20150614.tar.gz",
@@ -337,9 +337,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150714",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150714.tar.gz",
           "archiveFileName": "testing-0.0.20150714.tar.gz",
@@ -370,9 +370,9 @@
           ]
         },
         {
-          "name": "JN516x",
+          "name": "JN516x Boards",
           "architecture": "jn516x",
-          "category": "JN516x",
+          "category": "Contributed",
           "version": "0.0.20150721",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150721.tar.gz",
           "archiveFileName": "testing-0.0.20150721.tar.gz",
