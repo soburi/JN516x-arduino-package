@@ -31,6 +31,9 @@ extern "C" {
 typedef uint8_t Uart;
 typedef uint8_t IRQn_Type;
 
+typedef uint8_t Pio;
+typedef enum { PioType_NONE } EPioType;
+
 
 #ifdef __cplusplus
 }

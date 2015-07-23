@@ -22,7 +22,6 @@
   $Id$
 */
 
-#define ARDUINO_MAIN
 #include "Arduino.h"
 
 #include "wiring_private.h"
@@ -96,9 +95,6 @@ void init()
 	}
 
 	u32AHI_Init();
-
-	//WatchDog
-	vAHI_WatchdogStop();
 
 	//SysCtrl
 	vAHI_SysCtrlRegisterCallback(sysctrl_callback);

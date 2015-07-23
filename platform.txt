@@ -49,36 +49,86 @@ jennic.links={jennic.links1} {jennic.links2} {jennic.links3} {jennic.links4}
 jennic.libpath={jennic.libpath1} {jennic.libpath2}
 
 
+
+
+contiki.defines1=-DCONTIKI=1 -DCONTIKI_TARGET_JN516X=1 -DNETSTACK_CONF_WITH_IPV6=1
+contiki.defines2=-DUIP_CONF_IPV6_RPL=1 -DDONGLE_NODE
+contiki.defines3=-DFRAME802154_CONF_VERSION=FRAME802154_IEEE802154E_2012
+
+contiki.defines={contiki.defines1} {contiki.defines2} {contiki.defines3}
+
+ctk.inc01=-I{build.system.path}/contiki/platform/jn516x
+ctk.inc02=-I{build.system.path}/contiki/platform/jn516x/dev
+ctk.inc03=-I{build.system.path}/contiki/platform/jn516x/lib
+ctk.inc04=-I{build.system.path}/contiki/platform/jn516x/dev/dongle
+ctk.inc05=-I{build.system.path}/contiki/core
+ctk.inc06=-I{build.system.path}/contiki/core/dev
+ctk.inc07=-I{build.system.path}/contiki/core/lib
+ctk.inc08=-I{build.system.path}/contiki/core/net
+ctk.inc09=-I{build.system.path}/contiki/core/net/ip
+ctk.inc10=-I{build.system.path}/contiki/core/net/ipv6
+ctk.inc11=-I{build.system.path}/contiki/core/net/llsec
+ctk.inc12=-I{build.system.path}/contiki/core/net/llsec/noncoresec
+ctk.inc13=-I{build.system.path}/contiki/core/net/mac
+ctk.inc14=-I{build.system.path}/contiki/core/net/mac/contikimac
+ctk.inc15=-I{build.system.path}/contiki/core/net/mac/tsch
+ctk.inc16=-I{build.system.path}/contiki/core/net/rime
+ctk.inc17=-I{build.system.path}/contiki/core/net/rpl
+ctk.inc18=-I{build.system.path}/contiki/core/sys
+ctk.inc19=-I{build.system.path}/contiki/core/cfs
+ctk.inc20=-I{build.system.path}/contiki/core/ctk
+ctk.inc21=-I{build.system.path}/contiki/core/lib/ctk
+ctk.inc22=-I{build.system.path}/contiki/core/loader
+ctk.inc23=-I{build.system.path}/contiki/core/sys
+
+contiki.includes={ctk.inc01} {ctk.inc02} {ctk.inc03} {ctk.inc04} {ctk.inc05} {ctk.inc06} {ctk.inc07} {ctk.inc08} {ctk.inc09} {ctk.inc10} {ctk.inc11} {ctk.inc12} {ctk.inc13} {ctk.inc14} {ctk.inc15} {ctk.inc16} {ctk.inc17} {ctk.inc18} {ctk.inc19} {ctk.inc20} {ctk.inc21} {ctk.inc22} {ctk.inc23}
+contiki.links={build.system.path}/contiki-jn{build.jennic_mcu_model_no}.a
+
+
+
+# JN516x compile variables
+# --------------------- 
+
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
 compiler.warning_flags.default=
 compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
+
+
 compiler.c.cmd=ba-elf-gcc
-compiler.c.flags={jennic.ba2.flags} -fomit-frame-pointer -fshort-enums -fdata-sections -ffunction-sections {jennic.defines} {compiler.warning_flags}
+compiler.c.flags={jennic.ba2.flags} -g -Os -fomit-frame-pointer -fshort-enums -fdata-sections -ffunction-sections {jennic.defines} {contiki.defines} {compiler.warning_flags}
+
+
 compiler.c.elf.cmd=ba-elf-gcc
-compiler.c.elf.flags=-Os -Wl,--gc-sections
+compiler.c.elf.flags=-Os -Wl,--gc-sections -fomit-frame-pointer -fshort-enums
+compiler.S.flags=-c -g -x assembler-with-cpp
 compiler.cpp.cmd=ba-elf-g++
 compiler.cpp.flags={compiler.c.flags} -fno-threadsafe-statics -fno-rtti -fno-exceptions
 compiler.ar.cmd=ba-elf-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=ba-elf-objcopy
 compiler.objcopy.eep.flags=-S -O binary
-compiler.elf2hex.cmd=ba-elf-objcopy
 compiler.elf2hex.flags=-O ihex
+compiler.elf2hex.cmd=ba-elf-objcopy
+compiler.ldflags=
 compiler.size.cmd=ba-elf-size
 
-# this can be overriden in boards.txt
+# This can be overriden in boards.txt
 build.extra_flags=
 
 # These can be overridden in platform.local.txt
 compiler.c.extra_flags=
 compiler.c.elf.extra_flags=
+compiler.S.extra_flags=
 compiler.cpp.extra_flags=
 compiler.ar.extra_flags=
 compiler.objcopy.eep.extra_flags=
 compiler.elf2hex.extra_flags=
+
+# JN516x compile patterns
+# --------------------
 
 ## Compile c files
 recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.flags} {compiler.c.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
@@ -86,8 +136,11 @@ recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_C
 ## Compile c++ files
 recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu}  -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.flags} {compiler.cpp.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
 
+## Compile S files
+recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+
 ## Create archives
-recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
 recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -nostartfiles -march=ba2 -L{build.variant.path}/ldscript  -L{build.variant.path}/../_jn516x_/ldscript {jennic.libpath} "-L{build.path}" -TArduinize.ld -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group -lm -lgcc {jennic.links}  {build.path}/{archive_file} -Wl,--end-group "-Wl,-Map,{build.path}/{build.project_name}.map"
@@ -95,12 +148,23 @@ recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.f
 ## Create bin
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
 
-## Create hex
+## Create output files (.hex)
 recipe.elf2hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+
+## Save hex
+recipe.output.tmp_file={build.project_name}.bin
+recipe.output.save_file={build.project_name}.{build.variant}.bin
 
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex=\.text\s+([0-9]+).*
+
+## Preprocessor
+preproc.includes.flags=-w -x c++ -M -MG -MP
+recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.includes.flags} -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags}  {jennic.includes} {contiki.includes} {includes} "{source_file}"
+
+preproc.macros.flags=-w -x c++ -E -CC
+recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.macros.flags} -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {jennic.includes} {contiki.includes} {includes} "{source_file}"
 
 tools.jenprog.path={runtime.tools.jenprog.path}
 tools.jenprog.cmd.path={path}/jenprog
