@@ -73,6 +73,7 @@ typedef enum _EExt_Interrupts
 
 typedef void (*voidFuncPtr)( void ) ;
 
+#if 0
 /* Define attribute */
 #if defined   ( __CC_ARM   ) /* Keil uVision 4 */
     #define WEAK (__attribute__ ((weak)))
@@ -155,7 +156,6 @@ typedef enum _ETCChannel
 #define PIN_ATTR_PWM           (1UL<<3)
 #define PIN_ATTR_TIMER         (1UL<<4)
 
-#if 0
 /* Types used for the tables below */
 typedef struct _PinDescription
 {

@@ -125,17 +125,20 @@ extern "C" {
 #define POWER_STATUS_NONE_14		(0x1 << 14)
 #define POWER_STATUS_NONE_15		(0x1 << 15)
 
+#define PIN_ADC1 0xA1
+#define PIN_ADC2 0xA2
+#define PIN_ADC3 0
+#define PIN_ADC4 1
 
+static const uint8_t ADC1   = PIN_ADC1;
+static const uint8_t ADC2   = PIN_ADC2;
+static const uint8_t ADC3   = PIN_ADC3;
+static const uint8_t ADC4   = PIN_ADC4;
 
-static const uint8_t ADC1   = 0xA1;
-static const uint8_t ADC2   = 0xA2;
-static const uint8_t ADC3   = 0;
-static const uint8_t ADC4   = 1;
-
-static const uint8_t A0   = ADC1;
-static const uint8_t A1   = ADC2;
-static const uint8_t A2   = ADC3;
-static const uint8_t A3   = ADC4;
+static const uint8_t A0   = PIN_ADC1;
+static const uint8_t A1   = PIN_ADC2;
+static const uint8_t A2   = PIN_ADC3;
+static const uint8_t A3   = PIN_ADC4;
 
 static const uint8_t PWM1 = 5;
 static const uint8_t PWM2 = 0xD0;
