@@ -409,8 +409,8 @@
           "version": "0.0.20150825",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20150825.tar.gz",
           "archiveFileName": "testing-0.0.20150825.tar.gz",
-          "checksum": "SHA-256:6e38d346fd788ffdc9a2fe3eebf645fc904cf834e68fc57101db8df60a166d18",
-          "size": "70984",
+          "checksum": "SHA-256:de2d0b218035390819da19c6dcd36d074c3d346c14ceafea5bc53a3b2fbd68ee",
+          "size": "71011",
           "boards": [
             {
               "name": "Generic JN516x board"
