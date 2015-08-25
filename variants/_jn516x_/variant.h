@@ -127,10 +127,20 @@ extern "C" {
 
 
 
-static const uint8_t A1   = 0xA1;
-static const uint8_t A2   = 0xA2;
-static const uint8_t A3   = 0;
-static const uint8_t A4   = 1;
+static const uint8_t ADC1   = 0xA1;
+static const uint8_t ADC2   = 0xA2;
+static const uint8_t ADC3   = 0;
+static const uint8_t ADC4   = 1;
+
+static const uint8_t A0   = ADC1;
+static const uint8_t A1   = ADC2;
+static const uint8_t A2   = ADC3;
+static const uint8_t A3   = ADC4;
+
+static const uint8_t PWM1 = 5;
+static const uint8_t PWM2 = 0xD0;
+static const uint8_t PWM3 = 0xD1;
+static const uint8_t PWM4 = 8;
 
 void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
 void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
