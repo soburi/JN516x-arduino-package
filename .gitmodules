@@ -1,0 +1,3 @@
+[submodule "system/contiki/src"]
+	path = system/contiki/src
+	url = https://github.com/contiki-os/contiki

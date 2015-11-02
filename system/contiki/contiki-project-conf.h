@@ -1,0 +1,9 @@
+#undef TARGET_WITH_UART0
+#undef TARGET_WITH_UART1
+#define TARGET_WITH_UART0 1
+#define TARGET_WITH_UART1 1
+
+#undef NETSTACK_CONF_MAC
+#undef NETSTACK_CONF_RDC
+#define NETSTACK_CONF_MAC csma_driver 
+#define NETSTACK_CONF_RDC nullrdc_driver

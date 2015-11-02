@@ -1,2 +1,4 @@
 *~
 *.bak
+system/contiki/obj_jn516x
+system/contiki/contiki-jn516x.a

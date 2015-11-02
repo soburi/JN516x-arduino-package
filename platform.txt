@@ -48,6 +48,7 @@ jennic.includes={jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic
 jennic.links={jennic.links1} {jennic.links2} {jennic.links3} {jennic.links4}
 jennic.libpath={jennic.libpath1} {jennic.libpath2}
 
+contiki.links={build.system.path}/contiki-jn{build.jennic_mcu_model_no}.a
 
 
 
@@ -57,32 +58,33 @@ contiki.defines3=-DFRAME802154_CONF_VERSION=FRAME802154_IEEE802154E_2012
 
 contiki.defines={contiki.defines1} {contiki.defines2} {contiki.defines3}
 
-ctk.inc01=-I{build.system.path}/contiki/platform/jn516x
-ctk.inc02=-I{build.system.path}/contiki/platform/jn516x/dev
-ctk.inc03=-I{build.system.path}/contiki/platform/jn516x/lib
-ctk.inc04=-I{build.system.path}/contiki/platform/jn516x/dev/dongle
-ctk.inc05=-I{build.system.path}/contiki/core
-ctk.inc06=-I{build.system.path}/contiki/core/dev
-ctk.inc07=-I{build.system.path}/contiki/core/lib
-ctk.inc08=-I{build.system.path}/contiki/core/net
-ctk.inc09=-I{build.system.path}/contiki/core/net/ip
-ctk.inc10=-I{build.system.path}/contiki/core/net/ipv6
-ctk.inc11=-I{build.system.path}/contiki/core/net/llsec
-ctk.inc12=-I{build.system.path}/contiki/core/net/llsec/noncoresec
-ctk.inc13=-I{build.system.path}/contiki/core/net/mac
-ctk.inc14=-I{build.system.path}/contiki/core/net/mac/contikimac
-ctk.inc15=-I{build.system.path}/contiki/core/net/mac/tsch
-ctk.inc16=-I{build.system.path}/contiki/core/net/rime
-ctk.inc17=-I{build.system.path}/contiki/core/net/rpl
-ctk.inc18=-I{build.system.path}/contiki/core/sys
-ctk.inc19=-I{build.system.path}/contiki/core/cfs
-ctk.inc20=-I{build.system.path}/contiki/core/ctk
-ctk.inc21=-I{build.system.path}/contiki/core/lib/ctk
-ctk.inc22=-I{build.system.path}/contiki/core/loader
-ctk.inc23=-I{build.system.path}/contiki/core/sys
+ctk.inc01=-I{build.system.path}/contiki/include/
+ctk.inc02=-I{build.system.path}/contiki/include/platform/jn516x
+ctk.inc03=-I{build.system.path}/contiki/include/platform/jn516x/dev
+ctk.inc04=-I{build.system.path}/contiki/include/platform/jn516x/lib
+ctk.inc05=-I{build.system.path}/contiki/include/platform/jn516x/dev/dongle
+ctk.inc06=-I{build.system.path}/contiki/include/core
+ctk.inc07=-I{build.system.path}/contiki/include/core/dev
+ctk.inc08=-I{build.system.path}/contiki/include/core/lib
+ctk.inc09=-I{build.system.path}/contiki/include/core/net
+ctk.inc10=-I{build.system.path}/contiki/include/core/net/ip
+ctk.inc11=-I{build.system.path}/contiki/include/core/net/ipv6
+ctk.inc12=-I{build.system.path}/contiki/include/core/net/llsec
+ctk.inc13=-I{build.system.path}/contiki/include/core/net/llsec/noncoresec
+ctk.inc14=-I{build.system.path}/contiki/include/core/net/mac
+ctk.inc15=-I{build.system.path}/contiki/include/core/net/mac/contiki/includemac
+ctk.inc16=-I{build.system.path}/contiki/include/core/net/mac/tsch
+ctk.inc17=-I{build.system.path}/contiki/include/core/net/rime
+ctk.inc18=-I{build.system.path}/contiki/include/core/net/rpl
+ctk.inc19=-I{build.system.path}/contiki/include/core/sys
+ctk.inc20=-I{build.system.path}/contiki/include/core/cfs
+ctk.inc21=-I{build.system.path}/contiki/include/core/ctk
+ctk.inc22=-I{build.system.path}/contiki/include/core/lib/ctk
+ctk.inc23=-I{build.system.path}/contiki/include/core/loader
+ctk.inc24=-I{build.system.path}/contiki/include/core/sys
 
-contiki.includes={ctk.inc01} {ctk.inc02} {ctk.inc03} {ctk.inc04} {ctk.inc05} {ctk.inc06} {ctk.inc07} {ctk.inc08} {ctk.inc09} {ctk.inc10} {ctk.inc11} {ctk.inc12} {ctk.inc13} {ctk.inc14} {ctk.inc15} {ctk.inc16} {ctk.inc17} {ctk.inc18} {ctk.inc19} {ctk.inc20} {ctk.inc21} {ctk.inc22} {ctk.inc23}
-contiki.links={build.system.path}/contiki-jn{build.jennic_mcu_model_no}.a
+contiki.includes={ctk.inc01} {ctk.inc02} {ctk.inc03} {ctk.inc04} {ctk.inc05} {ctk.inc06} {ctk.inc07} {ctk.inc08} {ctk.inc09} {ctk.inc10} {ctk.inc11} {ctk.inc12} {ctk.inc13} {ctk.inc14} {ctk.inc15} {ctk.inc16} {ctk.inc17} {ctk.inc18} {ctk.inc19} {ctk.inc20} {ctk.inc21} {ctk.inc22} {ctk.inc23} {ctk.inc24}
+contiki.links={build.system.path}/contiki/lib/contiki-jn{build.jennic_mcu_model_no}.a
 
 
 
@@ -143,7 +145,7 @@ recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} -DF_CPU=
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -nostartfiles -march=ba2 -L{build.variant.path}/ldscript  -L{build.variant.path}/../_jn516x_/ldscript {jennic.libpath} "-L{build.path}" -TArduinize.ld -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group -lm -lgcc {jennic.links}  {build.path}/{archive_file} -Wl,--end-group "-Wl,-Map,{build.path}/{build.project_name}.map"
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -nostartfiles -march=ba2 -L{build.variant.path}/ldscript -L{build.variant.path}/../_jn516x_/ldscript {jennic.libpath} "-L{build.path}" -TArduinize.ld -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group -lm -lgcc {jennic.links} {contiki.links} {build.path}/{archive_file} -Wl,--end-group "-Wl,-Map,{build.path}/{build.project_name}.map"
 
 ## Create bin
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
