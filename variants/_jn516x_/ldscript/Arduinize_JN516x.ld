@@ -136,7 +136,7 @@ SECTIONS
   . = ALIGN (CONSTANT (MAXPAGESIZE)) - ((CONSTANT (MAXPAGESIZE) - .) & (CONSTANT (MAXPAGESIZE) - 1)); . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE));
 */
   /* Exception handling  */
-  .eh_frame       : AT ((LOADADDR(.sdata) + SIZEOF(.sdata) + 3) & ~ 3) { KEEP (*(.eh_frame)) }
+  .eh_frame       : AT ((LOADADDR(.sdata) + SIZEOF(.sdata) + 3) & ~ 3) { KEEP (*(.eh_frame)) } >flash
   .gcc_except_table   : AT ((LOADADDR(.eh_frame) + SIZEOF(.eh_frame) + 3) & ~ 3) { *(.gcc_except_table .gcc_except_table.*) }
   .exception_ranges   : AT ((LOADADDR(.gcc_except_table) + SIZEOF(.gcc_except_table) + 3) & ~ 3) { *(.exception_ranges .exception_ranges*) }
   /* Thread Local Storage sections  */
@@ -310,7 +310,7 @@ _heap_start   = __heap_start;
 _heap_end     = __heap_end;
 _ram_top      = ABSOLUTE(ORIGIN(ram)) + LENGTH(ram);
 
-_ctors_start  = ABSOLUTE(LOADADDR(.ctors) );
+ctors_start  = ABSOLUTE(LOADADDR(.ctors) );
 
 __app_ram_start = 0x01001580; /* Page 5, word 8 (16-byte words, 16 words per page) */
-PROVIDE(_heap_location  = _u32HeapStart);
+PROVIDE(heap_location  = u32HeapStart);
