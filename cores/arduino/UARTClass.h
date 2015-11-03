@@ -31,7 +31,7 @@
 #define SERIAL_8M1 UARTClass::Mode_8M1
 #define SERIAL_8S1 UARTClass::Mode_8S1
 
-#define HW_BUFSIZE 128
+#include <dev/uart0.h>
 
 class UARTClass : public HardwareSerial
 {
@@ -59,7 +59,7 @@ class UARTClass : public HardwareSerial
     void setInterruptPriority(uint32_t priority);
     uint32_t getInterruptPriority();
 
-    void IrqHandler(const uint32_t status);
+    int RxHandler(const uint8_t c);
 
     operator bool() { return true; }; // UART always active
 
@@ -69,12 +69,12 @@ class UARTClass : public HardwareSerial
     RingBuffer *_rx_buffer;
     RingBuffer *_tx_buffer;
 
-    //Uart* _pUart;
+    Uart* _pUart;
     //IRQn_Type _dwIrq;
     uint32_t _dwId;
 
-    uint8_t _rx_native_buf[HW_BUFSIZE];
-    uint8_t _tx_native_buf[HW_BUFSIZE];
+    uint8_t _rx_native_buf[UART_RX_BUFFER_SIZE];
+    uint8_t _tx_native_buf[UART_TX_BUFFER_SIZE];
 };
 
 #endif // _UART_CLASS_

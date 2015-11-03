@@ -15,6 +15,10 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+extern "C" {
+#include <dev/uart0.h>
+#include <dev/uart1.h>
+}
 
 #include "variant.h"
 
@@ -26,14 +30,22 @@
 RingBuffer rx_buffer1;
 RingBuffer tx_buffer1;
 
-UARTClass Serial(NULL, 0, E_AHI_UART_0, &rx_buffer1, &tx_buffer1);
+Uart uart0_funcs = {
+	uart0_active,
+	uart0_set_input,
+	uart0_writeb,
+	uart0_init,
+	UART0_RxHandler
+};
+
+UARTClass Serial(&uart0_funcs, 0, E_AHI_UART_0, &rx_buffer1, &tx_buffer1);
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
 
 // IT handlers
-void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap)
+int UART0_RxHandler(uint8_t c)
 {
-  Serial.IrqHandler(u32ItemBitmap);
+  return Serial.RxHandler(c);
 }
 
 // ----------------------------------------------------------------------------
@@ -46,15 +58,23 @@ RingBuffer rx_buffer2;
 RingBuffer tx_buffer2;
 
 
+Uart uart1_funcs = {
+	uart1_active,
+	uart1_set_input,
+	uart1_writeb,
+	uart1_init,
+	UART1_RxHandler
+};
 
-UARTClass Serial1(NULL, 0, E_AHI_UART_1, &rx_buffer2, &tx_buffer2);
+UARTClass Serial1(&uart1_funcs, 0, E_AHI_UART_1, &rx_buffer2, &tx_buffer2);
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
 
+
 // IT handlers
-void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap)
+int UART1_RxHandler(uint8_t c)
 {
-  Serial1.IrqHandler(u32ItemBitmap);
+  return Serial.RxHandler(c);
 }
 
 // ----------------------------------------------------------------------------

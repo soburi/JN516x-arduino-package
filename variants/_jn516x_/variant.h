@@ -151,8 +151,8 @@ static const uint8_t PWM2 = 0xD0;
 static const uint8_t PWM3 = 0xD1;
 static const uint8_t PWM4 = 8;
 
-void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
-void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
+int UART0_RxHandler(uint8_t c);
+int UART1_RxHandler(uint8_t c);
 
 bool warmBoot();
 bool waked();

@@ -28,7 +28,14 @@ extern "C" {
 #define   UART_MR_PAR_MARK (0x3u << 9) /**< \brief (UART_MR) Mark: parity forced to 1 */
 #define   UART_MR_PAR_NO (0x4u << 9) /**< \brief (UART_MR) No parity */
 
-typedef uint8_t Uart;
+typedef struct {
+	uint8_t (*active)(void);
+	void (*set_input)(int (*input)(unsigned char));
+	void (*writeb)(unsigned char);
+	void (*init)(uint8_t);
+	int (*input)(uint8_t c);
+} Uart;
+
 typedef uint8_t IRQn_Type;
 
 typedef uint8_t Pio;
