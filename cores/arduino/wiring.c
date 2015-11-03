@@ -29,45 +29,37 @@
 #include <contiki.h>
 #include <net/netstack.h>
 
-#define clock2usec(a) ( (a) / clockCyclesPerMicrosecond() )
-#define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clock2usec(0x0FFFFFFF))
-#define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
-#define TICK_TIMER_MAX (0x0fffffff)
+#define USEC2TICKCOUNT(us) (us*16)
+#define MSEC2TIMERCOUNT(ms) (ms*125)
+
+#define CLOCK_TIMER E_AHI_TIMER_1
+#define CLOCK_INTERVAL (125 * 10)
+#define MAX_TICKS (CLOCK_INTERVAL)
 
 unsigned long millis()
 {
-	unsigned long m;
-	m = MILLIS_INC * ticktimer_overflow_count +
-		(clock2usec(u32AHI_TickTimerRead())/1000);
-	DBG_PRINTF("millis: ");
-	DBG_PRINTF("%d\r\n", m);
-	DBG_PRINTF("\r\n");
-	return m;
+	return clock_seconds() * 1000 + (RTIMER_NOW() % RTIMER_ARCH_SECOND) / (RTIMER_ARCH_SECOND/1000);
 }
 
 unsigned long micros() {
-	unsigned long m;
-
-	m = MICROSECONDS_PER_TICKTIMER_OVERFLOW * ticktimer_overflow_count +
-		clock2usec(u32AHI_TickTimerRead());
-	return m;
+	return RTIMER_NOW()/(RTIMER_ARCH_SECOND/1000000);
 }
 
 void delay(unsigned long ms)
 {
-	uint32_t start = (uint32_t)micros();
+  unsigned int i = MSEC2TIMERCOUNT(ms);
+  volatile clock_time_t start_tick = clock_time();
+  volatile uint32_t t = u16AHI_TimerReadCount(CLOCK_TIMER);
 
-	while (ms > 0) {
-		yield();
-		if (((uint32_t)micros() - start) >= 1000) {
-			ms--;
-			start += 1000;
-		}
-	}
-
-	DBG_PRINTF("delay: ");
-	DBG_PRINTF("%d\r\n", micros());
-	DBG_PRINTF("\r\n");
+  /* beware of wrapping */
+  if(MAX_TICKS - t < i) {
+    while(u16AHI_TimerReadCount(CLOCK_TIMER) < MAX_TICKS && u16AHI_TimerReadCount(CLOCK_TIMER) != 0) ;
+    i -= MAX_TICKS - t;
+    t = 0;
+  }
+  while(u16AHI_TimerReadCount(CLOCK_TIMER) - t < i && clock_time() - start_tick < (i/CLOCK_INTERVAL) ) {
+    watchdog_periodic();
+  }
 }
 
 /* Delay for the given number of microseconds.  Assumes a 8 or 16 MHz clock. */
