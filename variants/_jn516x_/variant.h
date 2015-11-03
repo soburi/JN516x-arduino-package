@@ -160,9 +160,17 @@ bool waked();
 extern uint32_t wakeTimerCalibrationValue();
 extern void setWakeTimerCalibrationValue(uint32_t value);
 
+#define ARDUINO_LOOP loop_
+
+#define PUBLIC_PROCESS_THREAD(name, ev, data) 				\
+PT_THREAD(process_thread_##name(struct pt *process_pt,	\
+				       process_event_t ev,	\
+				       process_data_t data))
+
+#define LOOP() PUBLIC_PROCESS_THREAD(loop_, ev, data)
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* _VARIANT_TWELITE_ */
-

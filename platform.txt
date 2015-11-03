@@ -13,8 +13,7 @@ jennic.path.windows=C:/NXP/bstudio_nxp/sdk/JN-SW-4163/
 jennic.path.linux=/opt/jn516x-sdk/
 jennic.path.compos={jennic.path}/Components/
 
-jennic.ba2.flags1=-mbranch-cost=3 -march=ba2 -mredzone-size=4
-jennic.ba2.flags={jennic.ba2.flags1}
+jennic.ba2.flags=-mbranch-cost=3 -march=ba2 -mcpu=jn51xx -mredzone-size=4
 
 jennic.chip.defines1=-DJN516x=5160 -D{build.mcu}={build.jennic_mcu_model_no} -DJENNIC_CHIP_NAME=_{build.mcu}
 jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu}
@@ -23,32 +22,54 @@ jennic.chip.defines3=-DJENNIC_CHIP_FAMILY={build.jennic_mcu_family} -DJENNIC_CHI
 jennic.defines1=-DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0
 jennic.defines2=-DJENNIC_SW_EXTERNAL_FLASH=0 -DJN516X_DMA_UART_BACKWARDS_COMPATIBLE_API=1 -DUART_BACKWARDS_COMPATIBLE_API=1 -DJENNIC_STACK_MAC -DJENNIC_MAC_MiniMac
 
-jennic.includes1=-I{jennic.path.compos}/6LP/Include -I{jennic.path.compos}/Aes/Include -I{jennic.path.compos}/AES_CCM_SW_PATCH/Include -I{jennic.path.compos}/AES_SW/Include
-jennic.includes2=-I{jennic.path.compos}/AppApi/Include -I{jennic.path.compos}/AppQueueApi/Include -I{jennic.path.compos}/Boot/Include
-jennic.includes3=-I{jennic.path.compos}/Common/Include -I{jennic.path.compos}/DBG/Include -I{jennic.path.compos}/Flash/Include
-jennic.includes4=-I{jennic.path.compos}/HardwareApi/Include -I{jennic.path.compos}/JenNet/Include -I{jennic.path.compos}/JIP/Include
-jennic.includes5=-I{jennic.path.compos}/MAC/Include -I{jennic.path.compos}/MicroSpecific/Include -I{jennic.path.compos}/MiniMAC/Include -I{jennic.path.compos}/MMAC/Include
-jennic.includes6=-I{jennic.path.compos}/OS/Include -I{jennic.path.compos}/PATCH/Include -I{jennic.path.compos}/PDM/Include
-jennic.includes7=-I{jennic.path.compos}/Random/Include -I{jennic.path.compos}/Recal/Include
-jennic.includes8=-I{jennic.path.compos}/TimerServer/Include -I{jennic.path.compos}/TOF/Include -I{jennic.path.compos}/Utilities/Include
-jennic.includes9=-I{jennic.path.compos}/ProductionTestApi/Include -I{jennic.path.compos}/Xcv/Include
+jn.inc_c=-I{jennic.path.compos}/common/Include
+jn.inc01=-I{jennic.path.compos}/Aes/Include
+jn.inc02=-I{jennic.path.compos}/AES_SW/Include
+jn.inc03=-I{jennic.path.compos}/AppApi/Include
+jn.inc04=-I{jennic.path.compos}/AppQueueApi/Include
+jn.inc05=-I{jennic.path.compos}/Boot/Include
+jn.inc06=-I{jennic.path.compos}/DBG/Include
+jn.inc07=-I{jennic.path.compos}/HardwareApi/Include
+jn.inc08=-I{jennic.path.compos}/MAC/Include
+jn.inc09=-I{jennic.path.compos}/MicroSpecific/Include
+jn.inc10=-I{jennic.path.compos}/MMAC/Include
+jn.inc11=-I{jennic.path.compos}/ProductionTestApi/Include
+jn.inc12=-I{jennic.path.compos}/PDM/Include
+jn.inc13=-I{jennic.path.compos}/Random/Include
+jn.inc14=-I{jennic.path.compos}/Recal/Include
+jn.inc15=-I{jennic.path.compos}/TimerServer/Include
+jn.inc16=-I{jennic.path.compos}/TOF/Include
+jn.inc17=-I{jennic.path.compos}/Utilities/Include
+jn.inc18=-I{jennic.path.compos}/Xcv/Include
 
-jennic.links1=-lAppApi_{build.jennic_mcu_family} -lMAC_{build.jennic_mcu_family} -lTof_{build.jennic_mcu_family} -lXcv_{build.jennic_mcu_family}
-jennic.links2=-lAES_SW_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family}
-jennic.links3=-lHardwareApi_{build.jennic_mcu_family} -lMicroSpecific_{build.jennic_mcu_family} -lBoot_{build.jennic_mcu_family}
-jennic.links4=-lRandom_{build.jennic_mcu_family} -lRecal_{build.jennic_mcu_family} -lDBG_{build.jennic_mcu_family}
-#jennic.links5=-l6LP_{build.jennic_mcu_family} -lJenNet_{build.jennic_mcu_family}
-#jennic.links6=-lJIP_{build.jennic_mcu_family} -lMMAC_{build.jennic_mcu_family} -lPDM_EEPROM_{build.jennic_mcu_family} -lPDM_EXTERNAL_FLASH_{build.jennic_mcu_family}
+jn.lib01=-lAes_{build.jennic_mcu_family}
+jn.lib02=-lAES_SW_{build.jennic_mcu_family}
+jn.lib03=-lAppApi_{build.jennic_mcu_family}
+jn.lib04=-lAppQueueApi_{build.jennic_mcu_family}
+jn.lib05=-lBoot_{build.jennic_mcu_family}
+jn.lib06=-lDBG_{build.jennic_mcu_family}
+jn.lib07=-lHardwareApi_{build.jennic_mcu_family}
+jn.lib08=-lJPT_JN{build.jennic_mcu_model_no}
+jn.lib09=-lMAC_{build.jennic_mcu_family}
+jn.lib10=-lMicroSpecific_{build.jennic_mcu_family}
+jn.lib11=-lMMAC_{build.jennic_mcu_family}
+jn.lib12=-lPDM_EEPROM_{build.jennic_mcu_family}_NO_RTOS
+jn.lib13=-lRandom_{build.jennic_mcu_family}
+jn.lib14=-lRecal_{build.jennic_mcu_family}
+jn.lib15=-lTimerServer_{build.jennic_mcu_family}
+jn.lib16=-lTOF_{build.jennic_mcu_family}
+jn.lib17=-lUtilities_{build.jennic_mcu_family}
+jn.lib18=-lXcv_{build.jennic_mcu_family}
 
 jennic.libpath1=-L{jennic.path}/Chip/{build.mcu}/Build -L{jennic.path}/Chip/{build.mcu}/Library -L{jennic.path}/Components/Library
 jennic.libpath2=-L{jennic.path}/Stack/MAC/Build
 
 jennic.defines={jennic.chip.defines1} {jennic.chip.defines2} {jennic.chip.defines3} {jennic.defines1} {jennic.defines2}
-jennic.includes={jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic.includes4} {jennic.includes5} {jennic.includes6} {jennic.includes7} {jennic.includes8} {jennic.includes9}
-jennic.links={jennic.links1} {jennic.links2} {jennic.links3} {jennic.links4}
+jennic.includes={jn.inc_c} {jn.inc01} {jn.inc02} {jn.inc03} {jn.inc04} {jn.inc05} {jn.inc06} {jn.inc07} {jn.inc08} {jn.inc09} {jn.inc10} {jn.inc11} {jn.inc12} {jn.inc13} {jn.inc14} {jn.inc15} {jn.inc16} {jn.inc17} {jn.inc18}
+jennic.links={jn.lib01} {jn.lib02} {jn.lib03} {jn.lib04} {jn.lib05} {jn.lib06} {jn.lib07} {jn.lib08} {jn.lib09} {jn.lib10} {jn.lib11} {jn.lib12} {jn.lib13} {jn.lib14} {jn.lib15} {jn.lib16} {jn.lib17} {jn.lib18}
+
 jennic.libpath={jennic.libpath1} {jennic.libpath2}
 
-contiki.links={build.system.path}/contiki-jn{build.jennic_mcu_model_no}.a
 
 
 
@@ -133,10 +154,10 @@ compiler.elf2hex.extra_flags=
 # --------------------
 
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.flags} {compiler.c.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.flags} {compiler.c.extra_flags} {build.extra_flags} {jennic.includes} {contiki.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu}  -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.flags} {compiler.cpp.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.flags} {compiler.cpp.extra_flags} {build.extra_flags} {jennic.includes} {contiki.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
 
 ## Compile S files
 recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
@@ -145,7 +166,7 @@ recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} -DF_CPU=
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -nostartfiles -march=ba2 -L{build.variant.path}/ldscript -L{build.variant.path}/../_jn516x_/ldscript {jennic.libpath} "-L{build.path}" -TArduinize.ld -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group -lm -lgcc {jennic.links} {contiki.links} {build.path}/{archive_file} -Wl,--end-group "-Wl,-Map,{build.path}/{build.project_name}.map"
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -nostartfiles {jennic.ba2.flags} -L{build.variant.path}/ldscript -L{build.variant.path}/../_jn516x_/ldscript {jennic.libpath} "-L{build.path}" -TArduinize.ld -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group -lm -lgcc {jennic.links} {contiki.links} {build.path}/{archive_file} -Wl,--end-group "-Wl,-Map,{build.path}/{build.project_name}.map"
 
 ## Create bin
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"

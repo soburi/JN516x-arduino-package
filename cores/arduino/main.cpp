@@ -17,6 +17,18 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#define AUTOSTART_ENABLE 1
+
+#include <AppHardwareApi.h>
+#include <BbcAndPhyRegs.h>
+
+#include <stdio.h>
+
+extern "C" {
+#include <contiki.h>
+#include <lib/random.h>
+}
+
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
@@ -55,12 +67,33 @@ int main( void )
 #endif
 
 	setup();
+	
+	autostart_start(autostart_processes);
+	
+	int r;
+	while(1) {
+		r = process_run();
+	}
+	
+	return 0;
+}
 
+// non static declaration
+#undef PROCESS_THREAD
+#define PROCESS_THREAD PUBLIC_PROCESS_THREAD
+
+PROCESS(loop_, "loop_");
+AUTOSTART_PROCESSES(&loop_);
+
+PROCESS_THREAD(loop_, ev, data) __attribute__((weak));
+PROCESS_THREAD(loop_, ev, data)
+{
+	PROCESS_BEGIN();
 	for (;;)
 	{
 		loop();
 		if (serialEventRun) serialEventRun();
 	}
 
-	return 0;
+	PROCESS_END();
 }
