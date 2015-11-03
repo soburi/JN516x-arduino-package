@@ -107,3 +107,11 @@ tools.jenprog.cmd.path={path}/jenprog
 tools.jenprog.upload.params.verbose=
 tools.jenprog.upload.params.quiet=
 tools.jenprog.upload.pattern="{cmd.path}" -t {serial.port} -p {build.path}/{build.project_name}.bin
+
+tools.jn51xxprogrammer.path.windows=C:/NXP/ProductionFlashProgrammer
+tools.jn51xxprogrammer.cmd.path.windows={path}/JN51xxProgrammer.exe
+tools.jn51xxprogrammer.path.linux=/opt/JennicModuleProgrammer
+tools.jn51xxprogrammer.cmd.path.linux={path}/JennicModuleProgrammer
+tools.jn51xxprogrammer.upload.params.verbose=-V 99
+tools.jn51xxprogrammer.upload.params.quiet=-V 0
+tools.jn51xxprogrammer.upload.pattern="{cmd.path}" {upload.verbose} -I 38400 -P 1000000 -s {serial.port} -f {build.path}/{build.project_name}.bin
