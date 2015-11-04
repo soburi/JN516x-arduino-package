@@ -66,6 +66,7 @@ extern void delay( uint32_t dwMs ) ;
  */
 static inline void delayMicroseconds(uint32_t) __attribute__((always_inline, unused));
 static inline void delayMicroseconds(uint32_t usec){
+    (void)usec;
     /*
      * Based on Paul Stoffregen's implementation
      * for Teensy 3.0 (http://www.pjrc.com/)

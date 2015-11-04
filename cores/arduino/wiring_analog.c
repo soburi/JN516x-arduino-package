@@ -29,6 +29,7 @@
 #include <AppHardwareApi.h>
 void analogReference(eAnalogReference mode)
 {
+	(void)mode;
 	vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE, E_AHI_AP_INT_DISABLE, 
 	                 E_AHI_AP_SAMPLE_2, E_AHI_AP_CLOCKDIV_500KHZ,
 			 E_AHI_AP_INTREF);

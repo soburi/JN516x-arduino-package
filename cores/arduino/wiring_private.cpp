@@ -12,6 +12,8 @@ uint32_t ticktimer_overflow_count = 0;
 
 void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
 {
+	(void)u32Device;
+	(void)u32ItemBitmap;
 	ticktimer_overflow_count++;
 }
 
@@ -22,6 +24,7 @@ void_callback_void handler_table[DIO_NUM] = {nop};
 
 static void DIO_interrupt_handler(uint32_t device, uint32_t bits)
 {
+	(void)device;
 	DBG_PRINTF("DIO_interrupt_handler ");
 	DBG_PRINTF("%x", bits);
 	DBG_PRINTF("\n");

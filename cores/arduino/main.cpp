@@ -67,6 +67,7 @@ int main( void )
 	while(1) {
 		r = process_run();
 	}
+	(void)r;
 	
 	return 0;
 }
@@ -75,12 +76,17 @@ int main( void )
 #undef PROCESS_THREAD
 #define PROCESS_THREAD PUBLIC_PROCESS_THREAD
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 PROCESS(loop_, "loop_");
+#pragma GCC diagnostic pop
 AUTOSTART_PROCESSES(&loop_);
 
 PROCESS_THREAD(loop_, ev, data) __attribute__((weak));
 PROCESS_THREAD(loop_, ev, data)
 {
+	(void)ev;
+	(void)data;
 	PROCESS_BEGIN();
 	for (;;)
 	{

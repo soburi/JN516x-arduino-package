@@ -31,11 +31,11 @@
 
 UARTClass::UARTClass( Uart *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer )
 {
+  (void)dwIrq;
   _rx_buffer = pRx_buffer;
   _tx_buffer = pTx_buffer;
 
   _pUart=pUart;
-  //_dwIrq=dwIrq;
   _dwId=dwId;
 }
 

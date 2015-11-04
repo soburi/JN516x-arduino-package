@@ -19,8 +19,11 @@
 #ifndef _VARIANT_
 #define _VARIANT_
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <dbg.h>
 #include <dbg_uart.h>
+#pragma GCC diagnostic pop
 
 #include "Arduino.h"
 #ifdef __cplusplus

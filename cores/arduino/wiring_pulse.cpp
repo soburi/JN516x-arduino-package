@@ -29,6 +29,9 @@
  */
 uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
 {
+	(void)pin;
+	(void)state;
+	(void)timeout;
 #if 0 //TODO
 	// cache the port and bit of the pin in order to speed up the
 	// pulse width measuring loop and achieve finer resolution.  calling
@@ -65,6 +68,9 @@ uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
  */
 uint32_t pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout)
 {
+	(void)pin;
+	(void)state;
+	(void)timeout;
 #if 0 //TODO
 	// cache the port and bit of the pin in order to speed up the
 	// pulse width measuring loop and achieve finer resolution.  calling
