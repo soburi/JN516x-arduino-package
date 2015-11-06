@@ -15,14 +15,9 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-extern "C" {
-#include <dev/uart0.h>
-#include <dev/uart1.h>
-}
-
 #include "variant.h"
 
-#include <AppHardwareApi.h>
+#include "platform.h"
 
 /*
  * UART objects

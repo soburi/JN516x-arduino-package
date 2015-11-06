@@ -19,18 +19,11 @@
 
 #define AUTOSTART_ENABLE 1
 
-#include <AppHardwareApi.h>
-#include <BbcAndPhyRegs.h>
-
-#include <stdio.h>
-
-extern "C" {
-#include <contiki.h>
-#include <lib/random.h>
-}
-
 #define ARDUINO_MAIN
 #include "Arduino.h"
+
+#include "platform.h"
+
 
 /*
  * Cortex-M3 Systick IT handler

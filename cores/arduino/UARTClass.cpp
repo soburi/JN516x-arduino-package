@@ -25,10 +25,7 @@
 #include <AppHardwareApi.h>
 //#define DEBUGPRINT_DISABLE(x)
 
-extern "C" {
-#include <contiki.h>
-#include <dev/uart-driver.h>
-}
+#include "platform.h"
 
 // Constructors ////////////////////////////////////////////////////////////////
 

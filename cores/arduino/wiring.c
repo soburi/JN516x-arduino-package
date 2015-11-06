@@ -26,8 +26,7 @@
 
 #include "wiring_private.h"
 
-#include <contiki.h>
-#include <net/netstack.h>
+#include "platform.h"
 
 #define USEC2TICKCOUNT(us) (us*16)
 #define MSEC2TIMERCOUNT(ms) (ms*125)

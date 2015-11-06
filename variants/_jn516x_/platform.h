@@ -1,9 +1,18 @@
-#ifndef _VARIANT_CHIP_H_
-#define _VARIANT_CHIP_H_
+#ifndef _VARIANT_PLATFORM_H
+#define _VARIANT_PLATFORM_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#undef F_CPU
+#include <contiki-project-conf.h>
+#include <contiki.h>
+#include <net/netstack.h>
+#include <dev/watchdog.h>
+#include <dev/uart0.h>
+#include <dev/uart1.h>
+#include <lib/random.h>
 
 #include <jendefs.h>
 #include <MicroSpecific.h>
@@ -41,9 +50,8 @@ typedef uint8_t IRQn_Type;
 typedef uint8_t Pio;
 typedef enum { PioType_NONE } EPioType;
 
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_VARIANT_CHIP_H_
+#endif //PLATFORM_DEPEND_INCLUDES_H

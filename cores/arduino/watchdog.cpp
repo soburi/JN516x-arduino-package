@@ -18,7 +18,7 @@
 
 #include <stdint.h>
 
-#include <chip.h>
+#include "platform.h"
 
 #include "watchdog.h"
 #include <AppHardwareApi.h>

@@ -38,8 +38,8 @@
 extern "C"{
 #endif // __cplusplus
 
-// Includes Atmel CMSIS
-#include <chip.h>
+// Include Atmel headers
+#include "sam.h"
 
 #include "wiring_constants.h"
 

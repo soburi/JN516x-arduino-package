@@ -22,8 +22,7 @@
 #include "HardwareSerial.h"
 #include "RingBuffer.h"
 
-// Includes Atmel CMSIS
-#include <chip.h>
+#include "platform.h"
 
 #define SERIAL_8N1 UARTClass::Mode_8N1
 #define SERIAL_8E1 UARTClass::Mode_8E1
@@ -31,7 +30,11 @@
 #define SERIAL_8M1 UARTClass::Mode_8M1
 #define SERIAL_8S1 UARTClass::Mode_8S1
 
+#undef F_CPU
+extern "C" {
 #include <dev/uart0.h>
+#include <dev/uart1.h>
+}
 
 class UARTClass : public HardwareSerial
 {
