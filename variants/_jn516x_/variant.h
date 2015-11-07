@@ -27,14 +27,14 @@
 
 #include "Arduino.h"
 #ifdef __cplusplus
-#include "UARTClass.h"
+#include "Uart.h"
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
 
-extern UARTClass Serial;
-extern UARTClass Serial1;
+extern Uart Serial;
+extern Uart Serial1;
 //extern USARTClass Serial2;
 //extern USARTClass Serial3;
 

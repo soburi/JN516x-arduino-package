@@ -43,7 +43,15 @@ typedef struct {
 	void (*writeb)(unsigned char);
 	void (*init)(uint8_t);
 	int (*input)(uint8_t c);
-} Uart;
+	uint8_t port;
+	uint8_t received;
+} SERCOM;
+
+typedef uint8_t SercomRXPad;
+typedef uint8_t SercomUartTXPad;
+typedef uint8_t SercomNumberStopBit;
+typedef uint8_t SercomUartCharSize;
+typedef uint8_t SercomParityMode;
 
 typedef uint8_t IRQn_Type;
 

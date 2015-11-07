@@ -25,22 +25,27 @@
 RingBuffer rx_buffer1;
 RingBuffer tx_buffer1;
 
-Uart uart0_funcs = {
+SERCOM uart0_funcs = {
 	uart0_active,
 	uart0_set_input,
 	uart0_writeb,
 	uart0_init,
-	UART0_RxHandler
+	UART0_RxHandler,
+	E_AHI_UART_0,
+	0
 };
 
-UARTClass Serial(&uart0_funcs, 0, E_AHI_UART_0, &rx_buffer1, &tx_buffer1);
+Uart Serial(&uart0_funcs, 0, 0, 0, 0);
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
 
 // IT handlers
 int UART0_RxHandler(uint8_t c)
 {
-  return Serial.RxHandler(c);
+  uart0_funcs.received = c;
+  Serial.IrqHandler();
+  uart0_funcs.received = 0;
+  return 0;
 }
 
 // ----------------------------------------------------------------------------
@@ -53,15 +58,17 @@ RingBuffer rx_buffer2;
 RingBuffer tx_buffer2;
 
 
-Uart uart1_funcs = {
+SERCOM uart1_funcs = {
 	uart1_active,
 	uart1_set_input,
 	uart1_writeb,
 	uart1_init,
-	UART1_RxHandler
+	UART1_RxHandler,
+	E_AHI_UART_1,
+	0
 };
 
-UARTClass Serial1(&uart1_funcs, 0, E_AHI_UART_1, &rx_buffer2, &tx_buffer2);
+Uart Serial1(&uart1_funcs, 0, 0, 0, 0);
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
 
@@ -69,7 +76,10 @@ void serialEvent1() { }
 // IT handlers
 int UART1_RxHandler(uint8_t c)
 {
-  return Serial.RxHandler(c);
+  uart1_funcs.received = c;
+  Serial1.IrqHandler();
+  uart1_funcs.received = 0;
+  return 0;
 }
 
 // ----------------------------------------------------------------------------

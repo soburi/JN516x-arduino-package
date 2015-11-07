@@ -75,7 +75,7 @@ void loop( void ) ;
 #endif
 #include "delay.h"
 #ifdef __cplusplus
-//  #include "Uart.h"
+  #include "Uart.h"
 #endif
 
 // Include board variant
