@@ -1,6 +1,5 @@
 /*
-  main.cpp - Main loop for Arduino sketches
-  Copyright (c) 2005-2013 Arduino Team.  All right reserved.
+  Copyright (c) 2015 Arduino LLC.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -9,8 +8,8 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
@@ -22,19 +21,11 @@
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
-#include "platform.h"
+#include "watchdog.h"
 
-
-/*
- * Cortex-M3 Systick IT handler
- */
-/*
-extern void SysTick_Handler( void )
-{
-  // Increment tick count each ms
-  TimeTick_Increment() ;
+extern "C" {
+#include <contiki.h>
 }
-*/
 
 // Weak empty variant initialization function.
 // May be redefined by variant files.
@@ -46,21 +37,21 @@ void initVariant() { }
  */
 int main( void )
 {
-	// Initialize watchdog
-	watchdogSetup();
+  // Initialize watchdog
+  watchdogSetup();
 
-	init();
+  init();
 
-	initVariant();
+  initVariant();
 
-	delay(1);
-
+  delay(1);
 #if defined(USBCON)
-	USBDevice.attach();
+  USBDevice.init();
+  USBDevice.attach();
 #endif
 
-	setup();
-	
+  setup();
+
 	autostart_start(autostart_processes);
 	
 	int r;
@@ -81,18 +72,17 @@ int main( void )
 PROCESS(loop_, "loop_");
 #pragma GCC diagnostic pop
 AUTOSTART_PROCESSES(&loop_);
-
 PROCESS_THREAD(loop_, ev, data) __attribute__((weak));
 PROCESS_THREAD(loop_, ev, data)
 {
-	(void)ev;
-	(void)data;
-	PROCESS_BEGIN();
-	for (;;)
-	{
-		loop();
-		if (serialEventRun) serialEventRun();
-	}
+  (void)ev;
+  (void)data;
+  PROCESS_BEGIN();
+  for (;;)
+  {
+    loop();
+    if (serialEventRun) serialEventRun();
+  }
 
-	PROCESS_END();
+  PROCESS_END();
 }

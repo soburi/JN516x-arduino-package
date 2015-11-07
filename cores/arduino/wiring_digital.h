@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2014 Arduino.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -8,7 +8,7 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
@@ -23,11 +23,13 @@
  extern "C" {
 #endif
 
+#include "WVariant.h"
+
 /**
  * \brief Configures the specified pin to behave either as an input or an output. See the description of digital pins for details.
  *
  * \param ulPin The number of the pin whose mode you wish to set
- * \param ulMode Either INPUT or OUTPUT
+ * \param ulMode Can be INPUT, OUTPUT, INPUT_PULLUP or INPUT_PULLDOWN
  */
 extern void pinMode( uint32_t dwPin, uint32_t dwMode ) ;
 

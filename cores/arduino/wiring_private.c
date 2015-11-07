@@ -8,19 +8,9 @@
 	E_AHI_DIO12_INT | E_AHI_DIO13_INT | E_AHI_DIO14_INT | E_AHI_DIO15_INT | \
 	E_AHI_DIO16_INT | E_AHI_DIO17_INT | E_AHI_DIO18_INT | E_AHI_DIO19_INT )
 
-uint32_t ticktimer_overflow_count = 0;
-
-void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
-{
-	(void)u32Device;
-	(void)u32ItemBitmap;
-	ticktimer_overflow_count++;
-}
-
-
 static void nop() { }
 
-void_callback_void handler_table[DIO_NUM] = {nop};
+voidFuncPtr handler_table[DIO_NUM] = {nop};
 
 static void DIO_interrupt_handler(uint32_t device, uint32_t bits)
 {

@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2014 Arduino.  All right reserved.
+  Copyright (c) 2015 Arduino LLC.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -16,18 +16,16 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _WIRING_MATH_
-#define _WIRING_MATH_
+#pragma once
 
-extern long random( long ) ;
-extern long random( long, long ) ;
-extern void randomSeed( uint32_t dwSeed ) ;
-extern long map( long, long, long, long, long ) ;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-extern uint16_t makeWord( uint16_t w ) ;
-extern uint16_t makeWord( uint8_t h, uint8_t l ) ;
+void initiateReset(int ms);
+void tickReset();
+void cancelReset();
 
-#define word(...) makeWord(__VA_ARGS__)
-
-
-#endif /* _WIRING_MATH_ */
+#ifdef __cplusplus
+}
+#endif

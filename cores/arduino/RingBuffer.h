@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2014 Arduino.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -8,7 +8,7 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
@@ -25,18 +25,26 @@
 // using a ring buffer (I think), in which head is the index of the location
 // to which to write the next incoming character and tail is the index of the
 // location from which to read.
-#define SERIAL_BUFFER_SIZE 128
+#define SERIAL_BUFFER_SIZE 64
 
 class RingBuffer
 {
   public:
-    volatile uint8_t _aucBuffer[SERIAL_BUFFER_SIZE] ;
-    volatile int _iHead ;
-    volatile int _iTail ;
+    uint8_t _aucBuffer[SERIAL_BUFFER_SIZE] ;
+    int _iHead ;
+    int _iTail ;
 
   public:
     RingBuffer( void ) ;
     void store_char( uint8_t c ) ;
+	void clear();
+	int read_char();
+	int available();
+	int peek();
+	bool isFull();
+
+  private:
+	int nextIndex(int index);
 } ;
 
 #endif /* _RING_BUFFER_ */

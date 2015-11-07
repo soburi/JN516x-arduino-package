@@ -48,7 +48,7 @@ typedef struct {
 typedef uint8_t IRQn_Type;
 
 typedef uint8_t Pio;
-typedef enum { PioType_NONE } EPioType;
+//typedef enum { PioType_NONE } EPioType;
 
 #ifdef __cplusplus
 }

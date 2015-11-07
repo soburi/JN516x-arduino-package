@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2015 Arduino LLC.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -8,7 +8,7 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
@@ -16,20 +16,27 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _WIRING_ANALOG_
-#define _WIRING_ANALOG_
+#pragma once
+
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*
- * \brief SAM3 products have only one reference for ADC
+ * \brief SAMD products have only one reference for ADC
  */
 typedef enum _eAnalogReference
 {
   AR_DEFAULT,
+  AR_INTERNAL,
+  AR_EXTERNAL,
+  AR_INTERNAL1V0,
+  AR_INTERNAL1V65,
+  AR_INTERNAL2V23
 } eAnalogReference ;
+
 
 /*
  * \brief Configures the reference voltage used for analog input (i.e. the value used as the top of the input range).
@@ -75,5 +82,3 @@ extern void analogOutputInit( void ) ;
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* _WIRING_ANALOG_ */
