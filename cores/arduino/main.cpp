@@ -20,6 +20,8 @@
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
+#include "watchdog.h"
+
 /*
  * Cortex-M3 Systick IT handler
  */

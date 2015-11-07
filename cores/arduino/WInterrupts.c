@@ -2,11 +2,12 @@
 
 #include "wiring_private.h"
 
+#include <AppHardwareApi.h>
 
 static void nop() { }
 
 
-void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
+void attachInterrupt(uint32_t pin, voidFuncPtr callback, uint32_t mode)
 {
 	if(pin > DIO_NUM) return;
 	

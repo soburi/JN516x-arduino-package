@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2015 Arduino LLC.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -8,7 +8,7 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
@@ -16,19 +16,20 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "Arduino.h"
-#include "wiring_private.h"
+#include <Arduino.h>
+
+// See pulse_asm.S
+extern unsigned long countPulseASM(const volatile uint32_t *port, uint32_t bit, uint32_t stateMask, unsigned long maxloops);
 
 /* Measures the length (in microseconds) of a pulse on the pin; state is HIGH
  * or LOW, the type of pulse to measure.  Works on pulses from 2-3 microseconds
  * to 3 minutes in length, but must be called at least a few dozen microseconds
- * before the start of the pulse.
- *
- * ATTENTION:
- * This function performs better with short pulses in noInterrupt() context
- */
-uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
+ * before the start of the pulse. */
+uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout)
 {
+	(void)pin;
+	(void)state;
+	(void)timeout;
 #if 0 //TODO
 	// cache the port and bit of the pin in order to speed up the
 	// pulse width measuring loop and achieve finer resolution.  calling
@@ -55,45 +56,3 @@ uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
 	return 0;
 }
 
-/* Measures the length (in microseconds) of a pulse on the pin; state is HIGH
- * or LOW, the type of pulse to measure.  Works on pulses from 2-3 microseconds
- * to 3 minutes in length, but must be called at least a few dozen microseconds
- * before the start of the pulse.
- *
- * ATTENTION:
- * this function relies on micros() so cannot be used in noInterrupt() context
- */
-uint32_t pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout)
-{
-#if 0 //TODO
-	// cache the port and bit of the pin in order to speed up the
-	// pulse width measuring loop and achieve finer resolution.  calling
-	// digitalRead() instead yields much coarser resolution.
-	PinDescription p = g_APinDescription[pin];
-	uint32_t bit = p.ulPin;
-	uint32_t stateMask = state ? bit : 0;
-
-	unsigned long startMicros = micros();
-
-	// wait for any previous pulse to end
-	while ((p.pPort->PIO_PDSR & bit) == stateMask) {
-		if (micros() - startMicros > timeout)
-			return 0;
-	}
-
-	// wait for the pulse to start
-	while ((p.pPort->PIO_PDSR & bit) != stateMask) {
-		if (micros() - startMicros > timeout)
-			return 0;
-	}
-
-	unsigned long start = micros();
-	// wait for the pulse to stop
-	while ((p.pPort->PIO_PDSR & bit) == stateMask) {
-		if (micros() - startMicros > timeout)
-			return 0;
-	}
-	return micros() - start;
-#endif
-	return 0;
-}

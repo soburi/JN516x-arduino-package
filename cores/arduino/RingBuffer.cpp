@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2014 Arduino.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -8,7 +8,7 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
@@ -21,14 +21,13 @@
 
 RingBuffer::RingBuffer( void )
 {
-    memset( (void *)_aucBuffer, 0, SERIAL_BUFFER_SIZE ) ;
-    _iHead=0 ;
-    _iTail=0 ;
+    memset( _aucBuffer, 0, SERIAL_BUFFER_SIZE ) ;
+    clear();
 }
 
 void RingBuffer::store_char( uint8_t c )
 {
-  int i = (uint32_t)(_iHead + 1) % SERIAL_BUFFER_SIZE ;
+  int i = nextIndex(_iHead);
 
   // if we should be storing the received character into the location
   // just before the tail (meaning that the head would advance to the
@@ -41,3 +40,47 @@ void RingBuffer::store_char( uint8_t c )
   }
 }
 
+void RingBuffer::clear()
+{
+	_iHead = 0;
+	_iTail = 0;
+}
+
+int RingBuffer::read_char()
+{
+	if(_iTail == _iHead)
+		return -1;
+
+	uint8_t value = _aucBuffer[_iTail];
+	_iTail = nextIndex(_iTail);
+
+	return value;
+}
+
+int RingBuffer::available()
+{
+	int delta = _iHead - _iTail;
+
+	if(delta < 0)
+		return SERIAL_BUFFER_SIZE + delta;
+	else
+		return delta;
+}
+
+int RingBuffer::peek()
+{
+	if(_iTail == _iHead)
+		return -1;
+
+	return _aucBuffer[_iTail];
+}
+
+int RingBuffer::nextIndex(int index)
+{
+	return (uint32_t)(index + 1) % SERIAL_BUFFER_SIZE;
+}
+
+bool RingBuffer::isFull()
+{
+	return (nextIndex(_iHead) == _iTail);
+}
