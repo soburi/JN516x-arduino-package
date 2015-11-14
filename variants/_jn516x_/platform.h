@@ -49,6 +49,7 @@ PT_THREAD(process_thread_##name(struct pt *process_pt,	\
 	PROCESS_BEGIN();
 
 #define ARDUINO_LOOP_END \
+	if (serialEventRun) serialEventRun(); \
 	PROCESS_END();\
 }
 
