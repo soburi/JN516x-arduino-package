@@ -52,6 +52,14 @@ PT_THREAD(process_thread_##name(struct pt *process_pt,	\
 	PROCESS_END();\
 }
 
+#define delay_e(x) \
+{ \
+	static struct etimer _et; \
+	etimer_set(&_et, x * CLOCK_SECOND/1000); \
+	PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&_et) ); \
+	etimer_reset(&_et); \
+	(void)x;\
+}
 
 #ifdef __cplusplus
 }
