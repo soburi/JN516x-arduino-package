@@ -1,0 +1,55 @@
+{
+  "packages": [
+    {
+      "name": "jn516x",
+      "maintainer": "soburi",
+      "websiteURL": "https://github.com/soburi/JN516x-arduino-package",
+      "email": "soburi@gmail.com",
+      "platforms": [
+        {
+          "name": "JN516x Boards",
+          "architecture": "jn516x",
+          "category": "Contributed",
+          "version": "0.0.20151115",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20151115.tar.gz",
+          "archiveFileName": "intiki-0.0.20151115.tar.gz",
+          "checksum": "SHA-256:5065b1009129c0f965e4e4cea6bff95ae7adedd20b9c76b98f56895066abfdf3",
+          "size": "746450",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "intiki",
+              "version": "0.0.1"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "name": "intiki",
+          "version": "0.0.1",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "intiki_i686-mingw32_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/intiki_i686-mingw32_0.0.1.tar.bz2",
+              "checksum": "SHA-256:66b4a34c4cc3499d06e3b89509416128d291c24a41b19a8475c861305f68d528",
+              "size": "4382930"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
