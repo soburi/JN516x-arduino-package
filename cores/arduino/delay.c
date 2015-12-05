@@ -1,46 +1,53 @@
+/*
+  Copyright (c) 2016 TOKITA Hiroshi.  All right reserved.
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
 #include "delay.h"
 #include "Arduino.h"
 
+#include "platform.h"
+
 #include "wiring_private.h"
-#define clock2usec(a) ( (a) / clockCyclesPerMicrosecond() )
-#define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clock2usec(0x0FFFFFFF))
-#define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
-#define TICK_TIMER_MAX (0x0fffffff)
 
-unsigned long millis()
+uint32_t millis( void )
 {
-    unsigned long m;
-    m = MILLIS_INC * ticktimer_overflow_count +
-        (clock2usec(u32AHI_TickTimerRead())/1000);
-    DBG_PRINTF("millis: ");
-    DBG_PRINTF("%d\r\n", m);
-    DBG_PRINTF("\r\n");
-    return m;
+	return clock_seconds() * 1000 + (RTIMER_NOW() % RTIMER_ARCH_SECOND) * 1000 / RTIMER_ARCH_SECOND;
 }
 
-unsigned long micros() {
-    unsigned long m;
-
-    m = MICROSECONDS_PER_TICKTIMER_OVERFLOW * ticktimer_overflow_count +
-        clock2usec(u32AHI_TickTimerRead());
-    return m;
-}
-
-void delay(unsigned long ms)
+uint32_t micros( void )
 {
-    uint32_t start = (uint32_t)micros();
-
-    while (ms > 0) {
-        yield();
-        if (((uint32_t)micros() - start) >= 1000) {
-            ms--;
-            start += 1000;
-        }
-    }
-
-    DBG_PRINTF("delay: ");
-    DBG_PRINTF("%d\r\n", micros());
-    DBG_PRINTF("\r\n");
+	return RTIMER_NOW() * 1000000/RTIMER_ARCH_SECOND;
 }
 
+static struct etimer delay_timer;
 
+static void delay_timer_start(void* data)
+{
+	uint32_t ms = *(uint32_t*)data;
+	etimer_set(&delay_timer, CLOCK_SECOND * ms /1000);
+}
+
+static int delay_timer_expired(process_event_t ev, process_data_t data, void* param)
+{
+	(void)ev; (void)data; (void)param;
+	return etimer_expired(&delay_timer);
+}
+
+void delay( uint32_t ms )
+{
+	yield_until(delay_timer_start, &ms, delay_timer_expired, NULL);
+}

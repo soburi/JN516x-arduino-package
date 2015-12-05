@@ -1,3 +1,21 @@
+/*
+  Copyright (c) TOKITA Hiroshi.  All right reserved.
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
 #pragma once
 
 #ifdef __cplusplus
@@ -5,6 +23,11 @@ extern "C"{
 #endif
 
 #include "platform.h"
+#include <sys/mt.h>
+#include <sys/process.h>
+#include <lib/sensors.h>
+#include <lib/list.h>
+#include <dev/button-sensor.h>
 
 #include "WInterrupts.h"
 #include "wiring_constants.h"
@@ -16,6 +39,44 @@ extern voidFuncPtr handler_table[DIO_NUM];
 
 extern void ticktimer_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
 extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
+
+typedef int (*fp_condition)(process_event_t, process_data_t, void*);
+typedef void (*fp_run)(void*);
+
+enum main_thread_wait_type
+{
+	WT_NONE,
+	WT_WAIT_UNTIL,
+	WT_YIELD_UNTIL,
+	WT_YIELD,
+	WT_PAUSE
+};
+
+extern void yield_to_main_thread(enum main_thread_wait_type type, fp_run run, void* run_param, fp_condition condition, void* condition_param);
+extern void yield_until(fp_run run, void* run_param, fp_condition condition, void* condition_param);
+
+extern void yield_continue(fp_run run, void* run_param);
+
+extern void post_continue();
+
+typedef struct
+{
+	struct start_process_list_t* next;
+	struct process* process;
+} start_process_t;
+
+extern void add_start_process(start_process_t* p);
+
+struct buttonCallback
+{
+	const struct sensors_sensor* button;
+	voidFuncPtr callback;
+	uint32_t mode;
+};
+struct buttonCallback* button2ButtonCallback(struct sensors_sensor*);
+
+struct sensors_sensor* gpioPin2Button(uint32_t pin);
+
 
 #ifdef __cplusplus
 } // extern "C"
