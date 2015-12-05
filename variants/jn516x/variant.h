@@ -27,16 +27,28 @@
 
 #include "Arduino.h"
 #ifdef __cplusplus
-#include "UARTClass.h"
+#include "Uart.h"
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
 
-extern UARTClass Serial;
-extern UARTClass Serial1;
-//extern USARTClass Serial2;
-//extern USARTClass Serial3;
+#define HAS_UART_0
+#define HAS_UART_1
+
+extern Uart& Serial;
+#ifdef HAS_UART_0
+extern Uart Serial0;
+#endif
+#ifdef HAS_UART_1
+extern Uart Serial1;
+#endif
+#ifdef HAS_UART_2
+extern Uart Serial2;
+#endif
+#ifdef HAS_UART_3
+extern Uart Serial3;
+#endif
 
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
@@ -153,9 +165,6 @@ static const uint8_t PWM1 = 5;
 static const uint8_t PWM2 = 0xD0;
 static const uint8_t PWM3 = 0xD1;
 static const uint8_t PWM4 = 8;
-
-void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
-void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap);
 
 bool warmBoot();
 bool waked();
