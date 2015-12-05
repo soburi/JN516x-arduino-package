@@ -1,2 +1,7 @@
 *~
 *.bak
+*.local.txt
+system/contiki/obj_*/
+system/contiki/contiki-*.a
+system/contiki/symbols.c
+system/contiki/symbols.h
