@@ -1,5 +1,5 @@
 /*
-  Copyright (c) TOKITA Hiroshi.  All right reserved.
+  Copyright (c) 2016 TOKITA Hiroshi.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -68,6 +68,26 @@ struct buttonCallback
 struct buttonCallback* button2ButtonCallback(struct sensors_sensor*);
 
 struct sensors_sensor* gpioPin2Button(uint32_t pin);
+
+
+struct SERCOM {
+	int     (*input)( uint8_t c);
+	void    (*init)(void*, uint32_t, uint8_t, uint8_t, uint8_t, uint8_t);
+	void    (*set_input)(void*, int (*input)(unsigned char));
+	void    (*writeb)(void*, unsigned char);
+	uint8_t (*busy)(void*);
+	void    (*deinit)(void*);
+	void*	portinfo;
+	uint8_t received;
+};
+
+typedef struct SERCOM SERCOM;
+
+typedef uint8_t SercomRXPad;
+typedef uint8_t SercomUartTXPad;
+typedef uint8_t SercomNumberStopBit;
+typedef uint8_t SercomUartCharSize;
+typedef uint8_t SercomParityMode;
 
 
 #ifdef __cplusplus
