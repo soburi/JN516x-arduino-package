@@ -95,6 +95,12 @@ extern "C" {
 #define SPI0 NULL
 #define ID_SPI0 -1
 
+/*
+ * Wire Interfaces
+ */
+#define WIRE_INTERFACES_COUNT 1
+#define WIRE_INTERFACE       0
+
 #define VARIANT_MCK                     84000000
 
 
@@ -130,10 +136,10 @@ extern "C" {
 #define PIN_ADC3 0
 #define PIN_ADC4 1
 
-static const uint8_t ADC1   = PIN_ADC1;
-static const uint8_t ADC2   = PIN_ADC2;
-static const uint8_t ADC3   = PIN_ADC3;
-static const uint8_t ADC4   = PIN_ADC4;
+//static const uint8_t ADC1   = PIN_ADC1;
+//static const uint8_t ADC2   = PIN_ADC2;
+//static const uint8_t ADC3   = PIN_ADC3;
+//static const uint8_t ADC4   = PIN_ADC4;
 
 static const uint8_t A0   = PIN_ADC1;
 static const uint8_t A1   = PIN_ADC2;

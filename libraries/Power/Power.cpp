@@ -75,6 +75,8 @@ void PowerManager::sleep(uint32_t sleepmode, uint32_t ms)
 		vAHI_WakeTimerStop(E_AHI_WAKE_TIMER_1);
 	}
 
+	vAHI_WatchdogStop();
+
 	vAHI_Sleep((teAHI_SleepMode)sleepmode);
 
 	while(true) ;

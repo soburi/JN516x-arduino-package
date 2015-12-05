@@ -25,10 +25,11 @@ extern "C" {
 #include "Wire.h"
 
 
-TwoWire::TwoWire(Twi *_twi, void(*_beginCb)(void)) :
+TwoWire::TwoWire(Twi *_twi, void(*_beginCb)(void), void(*_endCb)(void)) :
 	twi(_twi), rxBufferIndex(0), rxBufferLength(0), txAddress(0),
 			txBufferLength(0), srvBufferIndex(0), srvBufferLength(0), status(
-					UNINITIALIZED), onBeginCallback(_beginCb), twiClock(TWI_CLOCK) {
+					UNINITIALIZED), onBeginCallback(_beginCb), 
+						onEndCallback(_endCb), twiClock(TWI_CLOCK) {
 }
 
 void TwoWire::begin(void) {
@@ -52,12 +53,19 @@ void TwoWire::begin(int address) {
 	begin((uint8_t) address);
 }
 
+void TwoWire::end(void) {
+	//TODO
+
+	if (onEndCallback)
+		onEndCallback();
+}
+
 void TwoWire::setClock(uint32_t frequency) {
 	twiClock = frequency;
 	// Can't immidiately refrect.
 }
 
-uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop) {
+uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddress, uint8_t isize, uint8_t sendStop) {
 	if (quantity > BUFFER_LENGTH)
 		quantity = BUFFER_LENGTH;
 
@@ -94,6 +102,10 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop
 	rxBufferLength = readed;
 
 	return readed;
+}
+
+uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop) {
+	return requestFrom((uint8_t) address, (uint8_t) quantity, (uint32_t) 0, (uint8_t) 0, (uint8_t) sendStop);
 }
 
 uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity) {
@@ -295,7 +307,11 @@ static void Wire_Init(void) {
 	vAHI_SiRegisterCallback(SiInterruptHandler);
 }
 
-TwoWire Wire = TwoWire(NULL, Wire_Init);
+static void Wire_Deinit(void) {
+	//TODO
+}
+
+TwoWire Wire = TwoWire(WIRE_INTERFACE, Wire_Init, Wire_Deinit);
 
 #endif
 
@@ -319,7 +335,18 @@ static void Wire1_Init(void) {
 	NVIC_EnableIRQ(WIRE1_ISR_ID);
 }
 
-TwoWire Wire1 = TwoWire(WIRE1_INTERFACE, Wire1_Init);
+static void Wire1_Deinit(void) {
+	NVIC_DisableIRQ(WIRE1_ISR_ID);
+	NVIC_ClearPendingIRQ(WIRE1_ISR_ID);
+
+	pmc_disable_periph_clk(WIRE1_INTERFACE_ID);
+
+	// no need to undo PIO_Configure, 
+	// as Peripheral A was enable by default before,
+	// and pullups were not enabled
+}
+
+TwoWire Wire1 = TwoWire(WIRE1_INTERFACE, Wire1_Init, Wire1_Deinit);
 
 void WIRE1_ISR_HANDLER(void) {
 	Wire1.onService();
