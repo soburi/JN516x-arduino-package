@@ -16,38 +16,31 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "delay.h"
+#include <stdint.h>
+
 #include "Arduino.h"
 
-#include "platform.h"
+extern int main(void);
 
-#include "wiring_private.h"
+typedef void (*funcptr)(); 
+extern funcptr ctors_start;
 
-uint32_t millis( void )
+void AppColdStart(void)
 {
-	return clock_seconds() * 1000 + (RTIMER_NOW() % RTIMER_ARCH_SECOND) * 1000 / RTIMER_ARCH_SECOND;
+	// call global initializers.
+	unsigned long* ptr = (unsigned long*)(&ctors_start);
+
+	// Terminate with .end_ctors section header.
+	while(*ptr) {
+		funcptr fp = (funcptr)(*ptr++);
+		fp();
+	}
+	main();
 }
 
-uint32_t micros( void )
+void AppWarmStart(void)
 {
-	return RTIMER_NOW() * 1000000/RTIMER_ARCH_SECOND;
+	main();
 }
 
-static struct etimer delay_timer;
 
-static void delay_timer_start(void* data)
-{
-	uint32_t ms = *(uint32_t*)data;
-	etimer_set(&delay_timer, CLOCK_SECOND * ms /1000);
-}
-
-static int delay_timer_expired(process_event_t ev, process_data_t data, void* param)
-{
-	(void)ev; (void)data; (void)param;
-	return etimer_expired(&delay_timer);
-}
-
-void delay( uint32_t ms )
-{
-	yield_until(delay_timer_start, &ms, delay_timer_expired, NULL);
-}

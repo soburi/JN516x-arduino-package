@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) TOKITA Hiroshi.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -19,8 +19,11 @@
 #ifndef _VARIANT_
 #define _VARIANT_
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <dbg.h>
 #include <dbg_uart.h>
+#pragma GCC diagnostic pop
 
 #include "Arduino.h"
 #ifdef __cplusplus
@@ -160,9 +163,14 @@ bool waked();
 extern uint32_t wakeTimerCalibrationValue();
 extern void setWakeTimerCalibrationValue(uint32_t value);
 
+static __inline__ void delayMicroseconds( uint32_t usec )
+{
+	(void)usec;
+	return;
+}
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* _VARIANT_TWELITE_ */
-
