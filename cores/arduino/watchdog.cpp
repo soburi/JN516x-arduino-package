@@ -17,38 +17,33 @@
 */
 
 #include <stdint.h>
-
 #include "platform.h"
-
 #include "watchdog.h"
-#include <AppHardwareApi.h>
-#include <math.h>
+extern "C" {
+#include <core/dev/watchdog.h>
+}
 
 void watchdogEnable (uint32_t timeout)
 {
-	int32_t prescale = log2(timeout/8-1)+1;
-	prescale += 1; //roundup
-	prescale = prescale <  0 ?  0 : prescale;
-	prescale = prescale > 12 ? 12 : prescale;
-
-	vAHI_WatchdogStart(prescale);
+	(void)timeout;
+	watchdog_start();
 }
 
 void watchdogDisable(void)
 {
-	vAHI_WatchdogStop();
+	watchdog_stop();
 }
 
 void watchdogReset(void)
 {
-	vAHI_WatchdogRestart();
+	watchdog_periodic();
 }
 
 
 extern "C"
 void _watchdogDefaultSetup (void)
 {
-	vAHI_WatchdogStop();
+	watchdog_stop();
 }
 void watchdogSetup (void) __attribute__ ((weak, alias("_watchdogDefaultSetup")));
 
