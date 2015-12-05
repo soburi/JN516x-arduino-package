@@ -43,7 +43,7 @@ typedef uint16_t word;
 extern "C"{
 #endif // __cplusplus
 
-// Includes Atmel CMSIS
+// Include Atmel headers
 #include "sam.h"
 
 #include "wiring_constants.h"
@@ -75,7 +75,7 @@ void loop( void ) ;
 #endif
 #include "delay.h"
 #ifdef __cplusplus
-//  #include "Uart.h"
+  #include "Uart.h"
 #endif
 
 // Include board variant
