@@ -11,7 +11,9 @@ jn5161.build.board=JN5161
 jn5161.build.f_cpu=32000000L
 jn5161.build.f_internal_sysclock=16000000L
 jn5161.build.core=arduino
-jn5161.build.variant=jn5161
+jn5161.build.variant=jn516x
+jn5161.build.contiki.platform=jn516x
+jn5161.build.contiki.buildconfig=jn5161
 
 
 jn5164.name=Generic JN5164
@@ -24,7 +26,9 @@ jn5164.build.board=JN5164
 jn5164.build.f_cpu=32000000L
 jn5164.build.f_internal_sysclock=16000000L
 jn5164.build.core=arduino
-jn5164.build.variant=jn5164
+jn5164.build.variant=jn516x
+jn5164.build.contiki.platform=jn516x
+jn5164.build.contiki.buildconfig=jn5164
 
 
 jn5168.name=Generic JN5168
@@ -37,7 +41,9 @@ jn5168.build.board=JN5168
 jn5168.build.f_cpu=32000000L
 jn5168.build.f_internal_sysclock=16000000L
 jn5168.build.core=arduino
-jn5168.build.variant=jn5168
+jn5168.build.variant=jn516x
+jn5168.build.contiki.platform=jn516x
+jn5168.build.contiki.buildconfig=jn5168
 
 
 twelite.name=TOCOS TWE-Lite
@@ -51,7 +57,9 @@ twelite.build.f_cpu=32000000L
 twelite.build.f_internal_sysclock=16000000L
 twelite.build.usb_product="TWE-Lite-R"
 twelite.build.core=arduino
-twelite.build.variant=twelite
+twelite.build.variant=jn516x
+twelite.build.contiki.platform=jn516x
+twelite.build.contiki.buildconfig=jn5164
 
 
 meshbee.name=SeeedStudio Mesh Bee
@@ -64,4 +72,6 @@ meshbee.build.board=MESH_BEE
 meshbee.build.f_cpu=32000000L
 meshbee.build.f_internal_sysclock=16000000L
 meshbee.build.core=arduino
-meshbee.build.variant=meshbee
+meshbee.build.variant=jn516x
+meshbee.build.contiki.platform=jn516x
+meshbee.build.contiki.buildconfig=jn5168
