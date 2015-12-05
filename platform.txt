@@ -1,53 +1,5 @@
-name=NXP JN51xx Platform
-
-# toolchain path
-#compiler.path={runtime.tools.ba-elf-ba2-gcc.path}/bin/
-compiler.path.windows=C:/NXP/bstudio_nxp/sdk/Tools/ba-elf-ba2-r36379/bin/
-compiler.path.linux=/opt/ba-elf-ba2/bin/
-
-# SDK path
-
-#jennic.path=/opt/Jennic
-#jennic.path.windows=C:/Jennic
-jennic.path.windows=C:/NXP/bstudio_nxp/sdk/JN-SW-4163/
-jennic.path.linux=/opt/jn516x-sdk/
-jennic.path.compos={jennic.path}/Components/
-
-jennic.ba2.flags1=-mbranch-cost=3 -march=ba2 -mredzone-size=4
-jennic.ba2.flags={jennic.ba2.flags1}
-
-jennic.chip.defines1=-DJN516x=5160 -D{build.mcu}={build.jennic_mcu_model_no} -DJENNIC_CHIP_NAME=_{build.mcu}
-jennic.chip.defines2=-DJENNIC_CHIP={build.mcu} -DJENNIC_CHIP_{build.mcu}
-jennic.chip.defines3=-DJENNIC_CHIP_FAMILY={build.jennic_mcu_family} -DJENNIC_CHIP_FAMILY_{build.jennic_mcu_family} -DJENNIC_CHIP_FAMILY_NAME=_{build.jennic_mcu_family} -DEMBEDDED
-
-jennic.defines1=-DWATCHDOG_ENABLED -DJENNIC_HW_BBC_RXINCCA=1 -DJENNIC_HW_BBC_DMA=1 -DJENNIC_HW_BBC_ISA=0
-jennic.defines2=-DJENNIC_SW_EXTERNAL_FLASH=0 -DJN516X_DMA_UART_BACKWARDS_COMPATIBLE_API=1 -DUART_BACKWARDS_COMPATIBLE_API=1 -DJENNIC_STACK_MAC -DJENNIC_MAC_MiniMac
-
-jennic.includes1=-I{jennic.path.compos}/6LP/Include -I{jennic.path.compos}/Aes/Include -I{jennic.path.compos}/AES_CCM_SW_PATCH/Include -I{jennic.path.compos}/AES_SW/Include
-jennic.includes2=-I{jennic.path.compos}/AppApi/Include -I{jennic.path.compos}/AppQueueApi/Include -I{jennic.path.compos}/Boot/Include
-jennic.includes3=-I{jennic.path.compos}/Common/Include -I{jennic.path.compos}/DBG/Include -I{jennic.path.compos}/Flash/Include
-jennic.includes4=-I{jennic.path.compos}/HardwareApi/Include -I{jennic.path.compos}/JenNet/Include -I{jennic.path.compos}/JIP/Include
-jennic.includes5=-I{jennic.path.compos}/MAC/Include -I{jennic.path.compos}/MicroSpecific/Include -I{jennic.path.compos}/MiniMAC/Include -I{jennic.path.compos}/MMAC/Include
-jennic.includes6=-I{jennic.path.compos}/OS/Include -I{jennic.path.compos}/PATCH/Include -I{jennic.path.compos}/PDM/Include
-jennic.includes7=-I{jennic.path.compos}/Random/Include -I{jennic.path.compos}/Recal/Include
-jennic.includes8=-I{jennic.path.compos}/TimerServer/Include -I{jennic.path.compos}/TOF/Include -I{jennic.path.compos}/Utilities/Include
-jennic.includes9=-I{jennic.path.compos}/ProductionTestApi/Include -I{jennic.path.compos}/Xcv/Include
-
-jennic.links1=-lAppApi_{build.jennic_mcu_family} -lMAC_{build.jennic_mcu_family} -lTof_{build.jennic_mcu_family} -lXcv_{build.jennic_mcu_family}
-jennic.links2=-lAES_SW_{build.jennic_mcu_family} -lAes_{build.jennic_mcu_family} -lTimerServer_{build.jennic_mcu_family}
-jennic.links3=-lHardwareApi_{build.jennic_mcu_family} -lMicroSpecific_{build.jennic_mcu_family} -lBoot_{build.jennic_mcu_family}
-jennic.links4=-lRandom_{build.jennic_mcu_family} -lRecal_{build.jennic_mcu_family} -lDBG_{build.jennic_mcu_family}
-#jennic.links5=-l6LP_{build.jennic_mcu_family} -lJenNet_{build.jennic_mcu_family}
-#jennic.links6=-lJIP_{build.jennic_mcu_family} -lMMAC_{build.jennic_mcu_family} -lPDM_EEPROM_{build.jennic_mcu_family} -lPDM_EXTERNAL_FLASH_{build.jennic_mcu_family}
-
-jennic.libpath1=-L{jennic.path}/Chip/{build.mcu}/Build -L{jennic.path}/Chip/{build.mcu}/Library -L{jennic.path}/Components/Library
-jennic.libpath2=-L{jennic.path}/Stack/MAC/Build
-
-jennic.defines={jennic.chip.defines1} {jennic.chip.defines2} {jennic.chip.defines3} {jennic.defines1} {jennic.defines2}
-jennic.includes={jennic.includes1} {jennic.includes2} {jennic.includes3} {jennic.includes4} {jennic.includes5} {jennic.includes6} {jennic.includes7} {jennic.includes8} {jennic.includes9}
-jennic.links={jennic.links1} {jennic.links2} {jennic.links3} {jennic.links4}
-jennic.libpath={jennic.libpath1} {jennic.libpath2}
-
+name=ContikiOS Platform
+version=1.6.9
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
@@ -55,23 +7,11 @@ compiler.warning_flags.default=
 compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
-compiler.c.cmd=ba-elf-gcc
-compiler.c.flags={jennic.ba2.flags} -g -Os -fomit-frame-pointer -fshort-enums -fdata-sections -ffunction-sections {jennic.defines} {compiler.warning_flags}
-
-
-compiler.c.elf.cmd=ba-elf-gcc
-compiler.c.elf.flags=-Os -Wl,--gc-sections -fomit-frame-pointer -fshort-enums
-compiler.S.flags=-c -g -x assembler-with-cpp
-compiler.cpp.cmd=ba-elf-g++
-compiler.cpp.flags={compiler.c.flags} -fno-threadsafe-statics -fno-rtti -fno-exceptions
-compiler.ar.cmd=ba-elf-ar
+compiler.c.flags=
+compiler.S.flags=
+compiler.cpp.flags=
 compiler.ar.flags=rcs
-compiler.objcopy.cmd=ba-elf-objcopy
-compiler.objcopy.eep.flags=-S -O binary
-compiler.elf2hex.flags=-O ihex
-compiler.elf2hex.cmd=ba-elf-objcopy
 compiler.ldflags=
-compiler.size.cmd=ba-elf-size
 
 # This can be overriden in boards.txt
 build.extra_flags=
@@ -82,58 +22,70 @@ compiler.c.elf.extra_flags=
 compiler.S.extra_flags=
 compiler.cpp.extra_flags=
 compiler.ar.extra_flags=
-compiler.objcopy.eep.extra_flags=
-compiler.elf2hex.extra_flags=
 
-# JN516x compile patterns
+# Makefile generate patterns
 # --------------------
 
+build.unix.cmds.path={runtime.tools.msys2-contiki-build.path}
+build.usr.bin.path={build.unix.cmds.path}/usr/bin
+build.make.vars=
+build.make.goals=all
+build.contiki-makehelper.path={runtime.tools.contiki-makehelper.path}
+build.contiki-makehelper.verbose=0
+
+contiki-makehelper.cmd-v={build.contiki-makehelper.path}/contiki-makehelper -verbose {build.contiki-makehelper.verbose}
+make.paths=-build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.system.path "{build.system.path}" -build.variant.path "{build.variant.path}" -build.core.path "{build.core.path}" -build.path "{build.path}" -build.variant {build.variant} -runtime.platform.path {runtime.platform.path} -platform.version {version} -template {build.contiki-makehelper.path}/Makefile.template
+make.args=TARGET={build.variant} {build.make.vars}
+
+arduino.defines=-DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch}
+
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.flags} {compiler.c.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
+recipe.c.o.pattern={contiki-makehelper.cmd-v} -recipe c.o   {make.paths} -source "{source_file}" -target "{object_file}" -- {compiler.c.flags} {compiler.c.extra_flags} {build.extra_flags} {arduino.defines} {includes}
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" -c -o "{object_file}" -DF_CPU={build.f_cpu}  -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.flags} {compiler.cpp.extra_flags} {build.extra_flags} {jennic.includes} {includes} -I{build.variant.path} "{source_file}" -MMD
+recipe.cpp.o.pattern={contiki-makehelper.cmd-v} -recipe cpp.o {make.paths} -source "{source_file}" -target "{object_file}" -- {compiler.cpp.flags} {compiler.cpp.extra_flags} {build.extra_flags} {arduino.defines} {includes}
 
 ## Compile S files
-recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.S.o.pattern={contiki-makehelper.cmd-v} -recipe S.o {make.paths} -source "{source_file}" -target "{object_file}" -- {compiler.S.flags} {compiler.S.extra_flags} {build.extra_flags} {ardino.defines} {includes}
 
 ## Create archives
-recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
+recipe.ar.pattern={contiki-makehelper.cmd-v} -recipe ar    {make.paths} -source "{object_file}" -target "{archive_file_path}" -- {compiler.ar.flags} {compiler.ar.extra_flags}
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,-u_AppColdStart -Wl,-u_AppWarmStart -nostartfiles -march=ba2 -L{build.variant.path}/ldscript  -L{build.variant.path}/../_jn516x_/ldscript {jennic.libpath} "-L{build.path}" -TArduinize.ld -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group -lm -lgcc {jennic.links}  {build.path}/{archive_file} -Wl,--end-group "-Wl,-Map,{build.path}/{build.project_name}.map"
-
-## Create bin
-recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
-
-## Create output files (.hex)
-recipe.elf2hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+recipe.c.combine.pattern={contiki-makehelper.cmd-v} -recipe ld    {make.paths} -target "{build.path}/{build.project_name}.elf" -project_name {build.project_name} -archive_file {archive_file}
 
 ## Save hex
 recipe.output.tmp_file={build.project_name}.bin
 recipe.output.save_file={build.project_name}.{build.variant}.bin
 
 ## Compute size
-recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
+recipe.size.pattern={contiki-makehelper.cmd-v} -recipe make {make.paths} {make.args} size
 recipe.size.regex=\.text\s+([0-9]+).*
+
+preproc.common.flags={compiler.cpp.flags} -DF_CPU={build.f_cpu} {arduino.defines} {compiler.cpp.extra_flags} {build.extra_flags} -includes {includes} -make-args {make.args}
+
 
 ## Preprocessor
 preproc.includes.flags=-w -x c++ -M -MG -MP
-recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.includes.flags} -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags}  {jennic.includes} {includes} "{source_file}"
-
+recipe.preproc.includes={contiki-makehelper.cmd-v} -recipe preproc.includes {make.paths} -source "{source_file}" -target /dev/null -- {preproc.includes.flags} {preproc.common.flags}
 preproc.macros.flags=-w -x c++ -E -CC
-recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.macros.flags} -DF_CPU={build.f_cpu} -DF_INTERNAL_SYSCLOCK={build.f_internal_sysclock} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {jennic.includes} {includes} "{source_file}"
+recipe.preproc.macros={contiki-makehelper.cmd-v} -recipe preproc.macros {make.paths} -source "{source_file}" -target "{preprocessed_file_path}" -- {preproc.macros.flags} {preproc.common.flags}
 
-tools.jenprog.path={runtime.tools.jenprog.path}
-tools.jenprog.cmd.path={path}/jenprog
-tools.jenprog.upload.params.verbose=
-tools.jenprog.upload.params.quiet=
-tools.jenprog.upload.pattern="{cmd.path}" -t {serial.port} -p {build.path}/{build.project_name}.bin
+recipe.hooks.sketch.prebuild.1.pattern={contiki-makehelper.cmd-v} -recipe stage -stage sketch {make.paths}
+recipe.hooks.libraries.prebuild.1.pattern={contiki-makehelper.cmd-v} -recipe stage -stage libraries {make.paths}
+recipe.hooks.core.prebuild.1.pattern={contiki-makehelper.cmd-v} -recipe stage -stage core {make.paths}
+recipe.hooks.linking.prelink.1.pattern={contiki-makehelper.cmd-v} -recipe stage -stage link {make.paths}
+recipe.hooks.objcopy.preobjcopy.1.pattern={contiki-makehelper.cmd-v} -recipe makefile {make.paths} -contiki.target.main "{build.core.path}/startup.c"
+recipe.hooks.objcopy.preobjcopy.2.pattern={contiki-makehelper.cmd-v} -recipe make {make.paths} -- {make.args} {build.make.goals}
 
-tools.jn51xxprogrammer.path.windows=C:/NXP/ProductionFlashProgrammer
-tools.jn51xxprogrammer.cmd.path.windows={path}/JN51xxProgrammer.exe
-tools.jn51xxprogrammer.path.linux=/opt/JennicModuleProgrammer
-tools.jn51xxprogrammer.cmd.path.linux={path}/JennicModuleProgrammer
-tools.jn51xxprogrammer.upload.params.verbose=-V 99
-tools.jn51xxprogrammer.upload.params.quiet=-V 0
-tools.jn51xxprogrammer.upload.pattern="{cmd.path}" {upload.verbose} -I 38400 -P 1000000 -s {serial.port} -f {build.path}/{build.project_name}.bin
+tools.contiki-makehelper.path={runtime.tools.contiki-makehelper.path}
+tools.contiki-makehelper.cmd.path={path}/contiki-makehelper
+tools.contiki-makehelper.cmd.path.windows={path}\contiki-makehelper.exe
+tools.contiki-makehelper.upload.pattern="{cmd.path}" -verbose {build.contiki-makehelper.verbose} -recipe make -build.path "{build.path}" -build.variant {build.variant} -build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.uploader.path "{build.uploader.path}" TARGET={build.variant} {build.make.vars} {build.project_name}.upload
+tools.contiki-makehelper.build.unix.cmds.path={runtime.tools.msys2-contiki-build.path}
+tools.contiki-makehelper.build.usr.bin.path={build.unix.cmds.path}/usr/bin
+tools.contiki-makehelper.build.contiki-makehelper.verbose=0
+
+
+tools.contiki-makehelper.upload.params.verbose=
+tools.contiki-makehelper.upload.params.quiet=

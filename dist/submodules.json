@@ -1,0 +1,32 @@
+[
+  {
+    "path": "system/contiki",
+    "url": "https://github.com/soburi/contiki",
+    "revision": "929b96a42be8d0b5bb02777e6f30e8f4128202b7"
+  },
+  {
+    "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc13xxware",
+    "url": "https://github.com/g-oikonomou/cc13xxware",
+    "revision": "6bdb6da3fa9682303799e5c3b1f755398e87fc99"
+  },
+  {
+    "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc26xxware",
+    "url": "https://github.com/g-oikonomou/cc26xxware",
+    "revision": "0270b50ac750f8f3348a98f900a470e7a65ffce8"
+  },
+  {
+    "path": "system/contiki/platform/stm32nucleo-spirit1/stm32cube-lib",
+    "url": "https://github.com/STclab/stm32nucleo-spirit1-lib",
+    "revision": "34e784ff39a5dc4da288ce696235f41b1db4bf5c"
+  },
+  {
+    "path": "system/contiki/tools/cc2538-bsl",
+    "url": "https://github.com/JelmerT/cc2538-bsl",
+    "revision": "6185d8b16f10047053fd57000a552340273d7d85"
+  },
+  {
+    "path": "system/contiki/tools/mspsim",
+    "url": "https://github.com/contiki-os/mspsim",
+    "revision": "47ae45cb0f36337115e32adb2a5ba0bf6e1e4437"
+  }
+]
