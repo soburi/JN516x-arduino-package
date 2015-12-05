@@ -17,47 +17,61 @@
 */
 
 #include "variant.h"
+#include "platform.h"
 
-#include <AppHardwareApi.h>
+#define D_PLATFORM_UART(x) platform_uart ## x
+#define D_PLATFORM_UART_F(x,y) platform_uart ## x ## _ ## y
+#define D_SERIAL(x) Serial ## x
+#define D_SERIALEVENT(x) serialEvent ## x
 
-/*
- * UART objects
- */
-RingBuffer rx_buffer1;
-RingBuffer tx_buffer1;
+#define DECL_UART(x)\
+static int UART ## x ## _RxHandler(uint8_t);\
+extern "C" void D_PLATFORM_UART_F(x,init)(void*, uint32_t, uint8_t, uint8_t, uint8_t, uint8_t); \
+extern "C" void D_PLATFORM_UART_F(x,set_input)(void*, int (*input)(uint8_t)); \
+extern "C" void D_PLATFORM_UART_F(x,writeb)(void*, uint8_t); \
+extern "C" uint8_t D_PLATFORM_UART_F(x,busy)(void*); \
+extern "C" void D_PLATFORM_UART_F(x,deinit)(void*); \
+SERCOM D_PLATFORM_UART(x) = {\
+	UART##x##_RxHandler, \
+	D_PLATFORM_UART_F(x,init), \
+	D_PLATFORM_UART_F(x,set_input), \
+	D_PLATFORM_UART_F(x,writeb), \
+	D_PLATFORM_UART_F(x,busy), \
+	D_PLATFORM_UART_F(x,deinit), \
+	NULL, \
+	0 \
+};\
+\
+static int UART ## x ## _RxHandler(uint8_t c) \
+{ \
+  D_PLATFORM_UART(x).received = c; \
+  D_SERIAL(x).IrqHandler(); \
+  D_PLATFORM_UART(x).received = 0; \
+  return 0; \
+} \
+\
+Uart D_SERIAL(x)(&D_PLATFORM_UART(x) , 0, 0, 0, 0);\
+void D_SERIALEVENT(x)() __attribute__((weak));\
+void D_SERIALEVENT(x)() { }\
 
-UARTClass Serial(NULL, 0, E_AHI_UART_0, &rx_buffer1, &tx_buffer1);
+#ifdef HAS_UART_0
+DECL_UART(0)
+#endif
+#ifdef HAS_UART_1
+DECL_UART(1)
+#endif
+#ifdef HAS_UART_2
+DECL_UART(2)
+#endif
+#ifdef HAS_UART_3
+DECL_UART(3)
+#endif
+
+//alias
+Uart& Serial = Serial0;
 void serialEvent() __attribute__((weak));
-void serialEvent() { }
+void serialEvent() { serialEvent0(); }
 
-// IT handlers
-void UART0_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap)
-{
-  Serial.IrqHandler(u32ItemBitmap);
-}
-
-// ----------------------------------------------------------------------------
-/*
- * USART objects
- */
-RingBuffer rx_buffer2;
-
-
-RingBuffer tx_buffer2;
-
-
-
-UARTClass Serial1(NULL, 0, E_AHI_UART_1, &rx_buffer2, &tx_buffer2);
-void serialEvent1() __attribute__((weak));
-void serialEvent1() { }
-
-// IT handlers
-void UART1_Handler(uint32_t u32DeviceId, uint32_t u32ItemBitmap)
-{
-  Serial1.IrqHandler(u32ItemBitmap);
-}
-
-// ----------------------------------------------------------------------------
 
 void serialEventRun(void)
 {
@@ -67,23 +81,67 @@ void serialEventRun(void)
 
 // ----------------------------------------------------------------------------
 
-bool warmBoot()
+void platform_uart0_init(void* port, uint32_t baudrate, uint8_t parity, uint8_t stopbit, uint8_t wordlen, uint8_t flowctrl)
 {
-	return (u16AHI_PowerStatus() & POWER_STATUS_RAM_RETAINING) ? 1 : 0;
+	int baud;
+	switch(baudrate)
+	{
+	case 4800:   baud = UART_RATE_4800;   break;
+	case 9600:   baud = UART_RATE_9600;   break;
+	case 19200:  baud = UART_RATE_19200;  break;
+	case 38400:  baud = UART_RATE_38400;  break;
+	case 76800:  baud = UART_RATE_76800;  break;
+	case 115200: baud = UART_RATE_115200; break;
+	default:     baud = -1;               break;
+	}
+	
+	(void)port; (void)parity; (void)stopbit; (void)wordlen; (void)flowctrl;
+	uart0_init(baud);
 }
 
-bool waked()
+void platform_uart0_set_input(void* port, int (*input)(uint8_t))
 {
-	return (u16AHI_PowerStatus() & POWER_STATUS_WAKED) ? 1 : 0;
+	(void)port;
+	uart0_set_input(input);
+}
+void platform_uart0_writeb(void* port, uint8_t c)
+{
+	(void)port;
+	uart0_writeb(c);
+}
+uint8_t platform_uart0_busy(void* port)
+{
+	(void)port;
+	return uart0_active();
+}
+void platform_uart0_deinit(void* port)
+{
+	(void)port;
 }
 
-uint32_t waketimer_calibration_value = 0;
 
-uint32_t wakeTimerCalibrationValue()
+void platform_uart1_init(void* port, uint32_t baudrate, uint8_t parity, uint8_t stopbit, uint8_t wordlen, uint8_t flowctrl)
 {
-	return waketimer_calibration_value;
+	(void)port; (void)parity; (void)stopbit; (void)wordlen; (void)flowctrl;
+	uart1_init(baudrate);
 }
-void setWakeTimerCalibrationValue(uint32_t value)
+
+void platform_uart1_set_input(void* port, int (*input)(uint8_t))
 {
-	waketimer_calibration_value = value;
+	(void)port;
+	uart1_set_input(input);
+}
+void platform_uart1_writeb(void* port, uint8_t c)
+{
+	(void)port;
+	uart1_writeb(c);
+}
+uint8_t platform_uart1_busy(void* port)
+{
+	(void)port;
+	return uart1_active();
+}
+void platform_uart1_deinit(void* port)
+{
+	(void)port;
 }

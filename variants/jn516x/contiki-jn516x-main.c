@@ -114,7 +114,7 @@ static uint8_t is_gateway;
 #endif
 
 /*---------------------------------------------------------------------------*/
-#define DEBUG 1
+#define DEBUG 0
 #if DEBUG
 #define PRINTF(...) do { printf(__VA_ARGS__); } while(0)
 #else
@@ -316,7 +316,7 @@ initVariant( void )
 
   process_init();
   ctimer_init();
-  uart0_init(UART_BAUD_RATE); /* Must come before first PRINTF */
+  //uart0_init(UART_BAUD_RATE); /* Must come before first PRINTF */
 
 #if USE_EXTERNAL_OSCILLATOR
   init_xosc();
