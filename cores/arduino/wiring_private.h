@@ -4,8 +4,7 @@
 extern "C"{
 #endif
 
-// Includes Atmel CMSIS
-#include <chip.h>
+#include "platform.h"
 
 #include "WInterrupts.h"
 #include "wiring_constants.h"

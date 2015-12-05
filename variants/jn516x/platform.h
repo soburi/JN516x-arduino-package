@@ -1,5 +1,5 @@
-#ifndef _VARIANT_CHIP_H_
-#define _VARIANT_CHIP_H_
+#ifndef _VARIANT_PLATFORM_H
+#define _VARIANT_PLATFORM_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,8 +13,6 @@ extern "C" {
 #define __disable_irq() MICRO_DISABLE_INTERRUPTS()
 #define __enable_irq()  MICRO_ENABLE_INTERRUPTS()
 
-
-
 #define   US_MR_CHRL_5_BIT (0x0u << 6) /**< \brief (US_MR) Character length is 5 bits */
 #define   US_MR_CHRL_6_BIT (0x1u << 6) /**< \brief (US_MR) Character length is 6 bits */
 #define   US_MR_CHRL_7_BIT (0x2u << 6) /**< \brief (US_MR) Character length is 7 bits */
@@ -27,16 +25,15 @@ extern "C" {
 #define   UART_MR_PAR_SPACE (0x2u << 9) /**< \brief (UART_MR) Space: parity forced to 0 */
 #define   UART_MR_PAR_MARK (0x3u << 9) /**< \brief (UART_MR) Mark: parity forced to 1 */
 #define   UART_MR_PAR_NO (0x4u << 9) /**< \brief (UART_MR) No parity */
-
 typedef uint8_t Uart;
+
 typedef uint8_t IRQn_Type;
 
 typedef uint8_t Pio;
-typedef enum { PioType_NONE } EPioType;
-
+//typedef enum { PioType_NONE } EPioType;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_VARIANT_CHIP_H_
+#endif //PLATFORM_DEPEND_INCLUDES_H

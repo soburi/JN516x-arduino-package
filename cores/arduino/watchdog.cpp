@@ -18,7 +18,7 @@
 
 #include <stdint.h>
 
-#include <chip.h>
+#include "platform.h"
 
 #include "watchdog.h"
 #include <AppHardwareApi.h>
@@ -26,7 +26,7 @@
 
 void watchdogEnable (uint32_t timeout)
 {
-	uint8_t prescale = (uint8_t)log2(timeout/8-1)+1;
+	int32_t prescale = log2(timeout/8-1)+1;
 	prescale += 1; //roundup
 	prescale = prescale <  0 ?  0 : prescale;
 	prescale = prescale > 12 ? 12 : prescale;

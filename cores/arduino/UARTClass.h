@@ -23,7 +23,7 @@
 #include "RingBuffer.h"
 
 // Includes Atmel CMSIS
-#include <chip.h>
+#include "sam.h"
 
 #define SERIAL_8N1 UARTClass::Mode_8N1
 #define SERIAL_8E1 UARTClass::Mode_8E1

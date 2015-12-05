@@ -44,7 +44,7 @@ extern "C"{
 #endif // __cplusplus
 
 // Includes Atmel CMSIS
-#include <chip.h>
+#include "sam.h"
 
 #include "wiring_constants.h"
 
