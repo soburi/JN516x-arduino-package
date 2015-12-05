@@ -1,46 +1,39 @@
 #include "delay.h"
 #include "Arduino.h"
 
+#include "platform.h"
+
 #include "wiring_private.h"
-#define clock2usec(a) ( (a) / clockCyclesPerMicrosecond() )
-#define MICROSECONDS_PER_TICKTIMER_OVERFLOW (clock2usec(0x0FFFFFFF))
-#define MILLIS_INC (MICROSECONDS_PER_TICKTIMER_OVERFLOW / 1000)
-#define TICK_TIMER_MAX (0x0fffffff)
 
-unsigned long millis()
+uint32_t millis( void )
 {
-    unsigned long m;
-    m = MILLIS_INC * ticktimer_overflow_count +
-        (clock2usec(u32AHI_TickTimerRead())/1000);
-    DBG_PRINTF("millis: ");
-    DBG_PRINTF("%d\r\n", m);
-    DBG_PRINTF("\r\n");
-    return m;
+	return clock_seconds() * 1000 + (RTIMER_NOW() % RTIMER_ARCH_SECOND) * 1000 / RTIMER_ARCH_SECOND;
 }
 
-unsigned long micros() {
-    unsigned long m;
-
-    m = MICROSECONDS_PER_TICKTIMER_OVERFLOW * ticktimer_overflow_count +
-        clock2usec(u32AHI_TickTimerRead());
-    return m;
-}
-
-void delay(unsigned long ms)
+uint32_t micros( void )
 {
-    uint32_t start = (uint32_t)micros();
-
-    while (ms > 0) {
-        yield();
-        if (((uint32_t)micros() - start) >= 1000) {
-            ms--;
-            start += 1000;
-        }
-    }
-
-    DBG_PRINTF("delay: ");
-    DBG_PRINTF("%d\r\n", micros());
-    DBG_PRINTF("\r\n");
+	return RTIMER_NOW() * 1000000/RTIMER_ARCH_SECOND;
 }
 
+static struct etimer delay_timer;
 
+static void delay_timer_start(void* data)
+{
+	uint32_t ms = *(uint32_t*)data;
+	etimer_set(&delay_timer, CLOCK_SECOND * ms /1000);
+}
+
+static int delay_timer_expired(process_event_t ev, process_data_t data, void* param)
+{
+	(void)ev; (void)data; (void)param;
+	return etimer_expired(&delay_timer);
+}
+
+void delay( uint32_t ms )
+{
+	main_thread_wait.type = WT_YIELD_UNTIL;
+	main_thread_wait.run_param = &ms;
+	main_thread_wait.run = delay_timer_start;
+	main_thread_wait.condition = delay_timer_expired;
+	mt_yield();
+}

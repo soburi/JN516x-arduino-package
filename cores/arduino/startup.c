@@ -1,28 +1,36 @@
-#include <stdint.h>
+#include <stdio.h>
 
-#include "Arduino.h"
+extern int arduino_main();
 
-extern int main(void);
+int contiki_argc = 0;
+char **contiki_argv;
 
-typedef void (*funcptr)(); 
-extern funcptr ctors_start;
-
-void AppColdStart(void)
+int main(int argc, char **argv)
 {
-	// call global initializers.
-	unsigned long* ptr = (unsigned long*)(&ctors_start);
+#if NETSTACK_CONF_WITH_IPV6
+#if UIP_CONF_IPV6_RPL
+	fprintf(stderr,CONTIKI_VERSION_STRING " started with IPV6, RPL\n");
+#else
+	fprintf(stderr,CONTIKI_VERSION_STRING " started with IPV6\n");
+#endif
+#else
+	fprintf(stderr,CONTIKI_VERSION_STRING " started\n");
+#endif
 
-	// Terminate with .end_ctors section header.
-	while(*ptr) {
-		funcptr fp = (funcptr)(*ptr++);
-		fp();
-	}
-	main();
+	/* crappy way of remembering and accessing argc/v */
+	contiki_argc = argc;
+	contiki_argv = argv;
+
+	/* native under windows is hardcoded to use the first one or two args */
+	/* for wpcap configuration so this needs to be "removed" from         */
+	/* contiki_args (used by the native-border-router) */
+#if defined(_WIN32_) || defined(__CYGWIN__)
+	contiki_argc--;
+	contiki_argv++;
+#ifdef UIP_FALLBACK_INTERFACE
+	contiki_argc--;
+	contiki_argv++;
+#endif
+#endif
+	arduino_main();
 }
-
-void AppWarmStart(void)
-{
-	main();
-}
-
-
