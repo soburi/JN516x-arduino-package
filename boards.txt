@@ -1,3 +1,15 @@
+stm32nucleo-spirit1.name=STM32 Nucleo-L152RE with Spirit1
+stm32nucleo-spirit1.upload.tool=contiki-makehelper
+stm32nucleo-spirit1.upload.protocol=contiki-makehelper
+stm32nucleo-spirit1.build.mcu=stm32l152
+stm32nucleo-spirit1.build.board=stm32nucleo_spirit1
+stm32nucleo-spirit1.build.f_cpu=32000000L
+stm32nucleo-spirit1.build.core=arduino
+stm32nucleo-spirit1.build.variant=stm32nucleo-spirit1
+stm32nucleo-spirit1.build.compiler.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
+stm32nucleo-spirit1.build.make.vars=WITHOUT_SPIRIT1=1
+stm32nucleo-spirit1.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
+
 jn516x.name=NXP JN516x
 jn516x.upload.tool=contiki-makehelper
 jn516x.upload.protocol=contiki-makehelper
