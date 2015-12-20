@@ -24,10 +24,18 @@ extern "C"{
 
 //extern void itoa( int n, char s[] ) ;
 
+#ifndef STDLIB_HAS_ITOA
 extern char* itoa( int value, char *string, int radix ) ;
+#endif
+#ifndef STDLIB_HAS_LTOA
 extern char* ltoa( long value, char *string, int radix ) ;
+#endif
+#ifndef STDLIB_HAS_UTOA
 extern char* utoa( unsigned long value, char *string, int radix ) ;
+#endif
+#ifndef STDLIB_HAS_ULTOA
 extern char* ultoa( unsigned long value, char *string, int radix ) ;
+#endif
 
 #ifdef __cplusplus
 } // extern "C"

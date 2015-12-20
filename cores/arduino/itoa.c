@@ -67,11 +67,15 @@ extern void itoa( int n, char s[] )
 }
 */
 
+#ifndef STDLIB_HAS_ITOA
 extern char* itoa( int value, char *string, int radix )
 {
   return ltoa( value, string, radix ) ;
 }
+#endif
 
+
+#ifndef STDLIB_HAS_LTOA
 extern char* ltoa( long value, char *string, int radix )
 {
   char tmp[33];
@@ -121,12 +125,17 @@ extern char* ltoa( long value, char *string, int radix )
 
   return string;
 }
+#endif
 
+
+#ifndef STDLIB_HAS_UTOA
 extern char* utoa( unsigned long value, char *string, int radix )
 {
   return ultoa( value, string, radix ) ;
 }
+#endif
 
+#ifndef STDLIB_HAS_ULTOA
 extern char* ultoa( unsigned long value, char *string, int radix )
 {
   char tmp[33];
@@ -164,6 +173,7 @@ extern char* ultoa( unsigned long value, char *string, int radix )
 
   return string;
 }
+#endif
 
 #ifdef __cplusplus
 } // extern "C"
