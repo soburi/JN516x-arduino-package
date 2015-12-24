@@ -14,14 +14,6 @@ extern "C"{
 #include "WInterrupts.h"
 #include "wiring_constants.h"
 
-#define DIO_NUM 20
-
-extern uint32_t ticktimer_overflow_count;
-extern voidFuncPtr handler_table[DIO_NUM];
-
-extern void ticktimer_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
-extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
-
 typedef int (*fp_condition)(process_event_t, process_data_t, void*);
 typedef void (*fp_run)(void*);
 

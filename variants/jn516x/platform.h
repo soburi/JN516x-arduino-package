@@ -43,6 +43,16 @@ typedef uint8_t IRQn_Type;
 typedef uint8_t Pio;
 //typedef enum { PioType_NONE } EPioType;
 
+#define DIO_NUM 20
+
+typedef void (*void_fp_void)(void);
+
+extern void_fp_void handler_table[DIO_NUM];
+extern uint32_t ticktimer_overflow_count;
+
+extern void ticktimer_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
+extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
+
 #ifdef __cplusplus
 }
 #endif
