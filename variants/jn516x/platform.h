@@ -5,8 +5,19 @@
 extern "C" {
 #endif
 
+#undef F_CPU
+
+#include <contiki.h>
+#include <net/netstack.h>
+#include <dev/watchdog.h>
+#include <dev/uart0.h>
+#include <dev/uart1.h>
+#include <lib/random.h>
+
 #include <jendefs.h>
 #include <MicroSpecific.h>
+
+#define F_INTERNAL_SYSCLOCK (F_CPU/2)
 
 #define SystemCoreClock F_INTERNAL_SYSCLOCK
 
