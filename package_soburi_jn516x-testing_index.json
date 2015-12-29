@@ -536,7 +536,7 @@
             {
               "host": "i686-mingw32",
               "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
-              "url": "https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_i686-mingw32_r8352.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
               "checksum": "SHA-256:cb7984a0c6b814209df5eb0d283bbed20b2fb3c3a277d01886833019b44381f2",
               "size": "7902892"
             },
