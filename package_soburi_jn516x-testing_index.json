@@ -536,21 +536,21 @@
             {
               "host": "i686-mingw32",
               "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
-              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20151107/msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2?raw=true",
+              "url": "https://dl.dropboxusercontent.com/u/498101/ba-elf-ba2-gcc_i686-mingw32_r8352.tar.bz2",
               "checksum": "SHA-256:cb7984a0c6b814209df5eb0d283bbed20b2fb3c3a277d01886833019b44381f2",
               "size": "7902892"
             },
             {
               "host": "x86_64-apple-darwin",
               "archiveFileName": "msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2",
-              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20151107/msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2?raw=true",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2",
               "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
               "size": "185"
             },
             {
               "host": "x86_64-pc-linux-gnu",
               "archiveFileName": "msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
-              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20151107/msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2?raw=true",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
               "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
               "size": "185"
             }
