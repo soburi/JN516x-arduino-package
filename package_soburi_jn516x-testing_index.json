@@ -434,6 +434,44 @@
               "version": "1.1.0-20150712"
             }
           ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "jn516x",
+          "category": "Contributed",
+          "version": "0.0.20151107",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20151107.tar.gz",
+          "archiveFileName": "testing-0.0.20151107.tar.gz",
+          "checksum": "SHA-256:aa2eb3c4c68b3938c6bef5b10e37b7cd2327c374702a8855eb682c7bf3d1d5d7",
+          "size": "70897",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "jn516x",
+              "name": "ba-elf-ba2-gcc",
+              "version": "4.1.2-r8352-build0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "jenprog",
+              "version": "1.1.0-20150712"
+            },
+            {
+              "packager": "jn516x",
+              "name": "msys2-contiki-build",
+              "version": "0.0.0"
+            }
+          ]
         }
       ],
       "tools": [
@@ -488,6 +526,33 @@
               "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20150723/jenprog_x86_64-pc-linux-gnu_1.1.0-20150712.tar.bz2?raw=true",
               "checksum": "SHA-256:df92952fae8093a8564267c6523259b670694f8568edddab1d6141dcba9931d9",
               "size": "2685865"
+            }
+          ]
+        },
+        {
+          "name": "msys2-contiki-build",
+          "version": "0.0.0",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20151107/msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2?raw=true",
+              "checksum": "SHA-256:cb7984a0c6b814209df5eb0d283bbed20b2fb3c3a277d01886833019b44381f2",
+              "size": "7902892"
+            },
+            {
+              "host": "x86_64-apple-darwin",
+              "archiveFileName": "msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20151107/msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2?raw=true",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
+              "archiveFileName": "msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
+              "url": "https://github.com/soburi/JN516x-arduino-package/blob/repository-0.0.20151107/msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2?raw=true",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
             }
           ]
         }
