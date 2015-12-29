@@ -468,6 +468,11 @@
             },
             {
               "packager": "jn516x",
+              "name": "contiki-makehelper",
+              "version": "0.0.0"
+            },
+            {
+              "packager": "jn516x",
               "name": "msys2-contiki-build",
               "version": "0.0.0"
             }
@@ -555,7 +560,36 @@
               "size": "185"
             }
           ]
+        },
+	{
+          "name": "contiki-makehelper",
+          "version": "0.0.0",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.0.tar.bz2",
+              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
+              "size": "878423"
+            },
+            {
+              "host": "x86_64-apple-darwin",
+              "archiveFileName": "contiki-makehelper_x86_64-apple-darwin_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_x86_64-apple-darwin_0.0.0.tar.bz2",
+              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
+              "size": "878423"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
+              "archiveFileName": "contiki-makehelper_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
+              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
+              "size": "878423"
+            }
+          ]
         }
+
+
       ]
     }
   ]
