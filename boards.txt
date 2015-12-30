@@ -7,6 +7,7 @@ stm32nucleo-spirit1.build.f_cpu=32000000L
 stm32nucleo-spirit1.build.core=arduino
 stm32nucleo-spirit1.build.variant=stm32nucleo-spirit1
 stm32nucleo-spirit1.build.compiler.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
+stm32nucleo-spirit1.build.uploader.path="C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility"
 stm32nucleo-spirit1.build.make.vars=WITHOUT_SPIRIT1=1
 stm32nucleo-spirit1.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 
