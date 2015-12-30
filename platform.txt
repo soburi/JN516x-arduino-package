@@ -33,7 +33,7 @@ build.contiki-makehelper.path={runtime.tools.contiki-makehelper.path}
 build.contiki-makehelper.verbose=0
 
 contiki-makehelper.cmd-v={build.contiki-makehelper.path}/contiki-makehelper -verbose {build.contiki-makehelper.verbose}
-make.paths=-build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path {build.compiler.path} -build.system.path {build.system.path} -build.variant.path {build.variant.path} -build.core.path {build.core.path} -build.path {build.path} -build.variant {build.variant} -template {build.contiki-makehelper.path}/Makefile.template
+make.paths=-build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.system.path "{build.system.path}" -build.variant.path "{build.variant.path}" -build.core.path "{build.core.path}" -build.path "{build.path}" -build.variant {build.variant} -template {build.contiki-makehelper.path}/Makefile.template
 make.args=TARGET={build.variant} {build.make.vars}
 
 arduino.defines=-DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch}
@@ -74,15 +74,16 @@ recipe.hooks.sketch.prebuild.1.pattern={contiki-makehelper.cmd-v} -recipe stage 
 recipe.hooks.libraries.prebuild.1.pattern={contiki-makehelper.cmd-v} -recipe stage -stage libraries {make.paths}
 recipe.hooks.core.prebuild.1.pattern={contiki-makehelper.cmd-v} -recipe stage -stage core {make.paths}
 recipe.hooks.linking.prelink.1.pattern={contiki-makehelper.cmd-v} -recipe stage -stage link {make.paths}
-recipe.hooks.objcopy.preobjcopy.1.pattern={contiki-makehelper.cmd-v} -recipe makefile {make.paths} -exclude-from-core {build.core.path}/startup.c
+recipe.hooks.objcopy.preobjcopy.1.pattern={contiki-makehelper.cmd-v} -recipe makefile {make.paths} -exclude-from-core "{build.core.path}/startup.c"
 recipe.hooks.objcopy.preobjcopy.2.pattern={contiki-makehelper.cmd-v} -recipe make {make.paths} -- {make.args} {build.make.goals}
 
 tools.contiki-makehelper.path={runtime.tools.contiki-makehelper.path}
 tools.contiki-makehelper.cmd.path={path}/contiki-makehelper
 tools.contiki-makehelper.cmd.path.windows={path}\contiki-makehelper.exe
-tools.contiki-makehelper.upload.pattern={cmd.path} -verbose {build.contiki-makehelper.verbose} -recipe make -build.path {build.path} -build.variant {build.variant} -build.usr.bin.path {build.usr.bin.path} -build.compiler.path {build.compiler.path} TARGET={build.variant} {build.make.vars} {build.project_name}.upload
+tools.contiki-makehelper.upload.pattern="{cmd.path}" -verbose {build.contiki-makehelper.verbose} -recipe make -build.path "{build.path}" -build.variant {build.variant} -build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.uploader.path "{build.uploader.path}" TARGET={build.variant} {build.make.vars} {build.project_name}.upload
 tools.contiki-makehelper.build.unix.cmds.path={runtime.tools.msys2-contiki-build.path}
-tools.contiki-makehelper.build.usr.bin.path={build.make.cmds.path}/usr/bin
+tools.contiki-makehelper.build.usr.bin.path={build.unix.cmds.path}/usr/bin
+tools.contiki-makehelper.build.contiki-makehelper.verbose=0
 
 
 tools.contiki-makehelper.upload.params.verbose=
