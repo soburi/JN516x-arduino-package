@@ -13,8 +13,8 @@
           "version": "0.0.20151203",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20151230.tar.gz",
           "archiveFileName": "intiki-0.0.20151230.tar.gz",
-          "checksum": "SHA-256:3ad9b19a592ae07a51227d198d2510d5de0bbb7cd444e300123b44cc0aaf7304",
-          "size": "148943",
+          "checksum": "SHA-256:b123500377a533c815a91c9bd9e685a8095eb188140e46e43484aec72bd86ec3",
+          "size": "76740",
           "boards": [
             {
               "name": "Generic JN516x board"
