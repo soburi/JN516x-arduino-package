@@ -1,0 +1,106 @@
+{
+  "packages": [
+    {
+      "name": "jn516x",
+      "maintainer": "soburi",
+      "websiteURL": "https://github.com/soburi/JN516x-arduino-package",
+      "email": "soburi@gmail.com",
+      "platforms": [
+        {
+          "name": "JN516x Boards",
+          "architecture": "jn516x",
+          "category": "Contributed",
+          "version": "0.0.20151107",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/testing-0.0.20151107.tar.gz",
+          "archiveFileName": "testing-0.0.20151107.tar.gz",
+          "checksum": "SHA-256:aa2eb3c4c68b3938c6bef5b10e37b7cd2327c374702a8855eb682c7bf3d1d5d7",
+          "size": "70897",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "arm-none-eabi-gcc",
+              "version": "4.8.3-2014q1"
+            },
+            {
+              "packager": "jn516x",
+              "name": "contiki-makehelper",
+              "version": "0.0.0"
+            },
+            {
+              "packager": "jn516x",
+              "name": "msys2-contiki-build",
+              "version": "0.0.0"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "name": "msys2-contiki-build",
+          "version": "0.0.0",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
+              "checksum": "SHA-256:cb7984a0c6b814209df5eb0d283bbed20b2fb3c3a277d01886833019b44381f2",
+              "size": "7902892"
+            },
+            {
+              "host": "x86_64-apple-darwin",
+              "archiveFileName": "msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
+              "archiveFileName": "msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
+            }
+          ]
+        },
+	{
+          "name": "contiki-makehelper",
+          "version": "0.0.0",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.0.tar.bz2",
+              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
+              "size": "878423"
+            },
+            {
+              "host": "x86_64-apple-darwin",
+              "archiveFileName": "contiki-makehelper_x86_64-apple-darwin_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_x86_64-apple-darwin_0.0.0.tar.bz2",
+              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
+              "size": "878423"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
+              "archiveFileName": "contiki-makehelper_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
+              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
+              "size": "878423"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
