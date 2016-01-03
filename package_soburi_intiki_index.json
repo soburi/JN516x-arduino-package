@@ -54,8 +54,8 @@
               "host": "i686-mingw32",
               "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
               "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
-              "checksum": "SHA-256:cb7984a0c6b814209df5eb0d283bbed20b2fb3c3a277d01886833019b44381f2",
-              "size": "7902892"
+              "checksum": "SHA-256:c60e5262bbc47de48a1595ce1cba2d60bffc1d7c20040958a8cc9d997cd6153c",
+              "size": "1744062"
             },
             {
               "host": "x86_64-apple-darwin",
