@@ -92,8 +92,8 @@
               "host": "i686-mingw32",
               "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
               "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
-              "checksum": "SHA-256:c60e5262bbc47de48a1595ce1cba2d60bffc1d7c20040958a8cc9d997cd6153c",
-              "size": "1744062"
+              "checksum": "SHA-256:cb7984a0c6b814209df5eb0d283bbed20b2fb3c3a277d01886833019b44381f2",
+              "size": "7902892"
             },
             {
               "host": "x86_64-apple-darwin",
@@ -119,8 +119,8 @@
               "host": "i686-mingw32",
               "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.0.tar.bz2",
               "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.0.tar.bz2",
-              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
-              "size": "878423"
+              "checksum": "SHA-256:c60e5262bbc47de48a1595ce1cba2d60bffc1d7c20040958a8cc9d997cd6153c",
+              "size": "1744062"
             },
             {
               "host": "x86_64-apple-darwin",
