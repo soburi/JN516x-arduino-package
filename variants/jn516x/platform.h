@@ -57,6 +57,9 @@ extern uint32_t ticktimer_overflow_count;
 extern void ticktimer_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
 extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
 
+#define PLATFORM_SPI_HEADER "platform_spi.h"
+#define PLATFORM_WIRE_HEADER "platform_wire.h"
+
 #ifdef __cplusplus
 }
 #endif
