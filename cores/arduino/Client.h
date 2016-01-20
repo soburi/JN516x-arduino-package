@@ -40,6 +40,7 @@ public:
   virtual operator bool() = 0;
 protected:
   uint8_t* rawIPAddress(IPAddress& addr) { return addr.raw_address(); };
+  const uip_ipaddr_t* uipIPAddress(const IPAddress& addr) { return addr.uip_address(); };
 };
 
 #endif
