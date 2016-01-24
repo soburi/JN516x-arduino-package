@@ -1,0 +1,56 @@
+#######################################
+# Syntax Coloring Map For MicroIP
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MicroIP		KEYWORD1	MicroIPClass
+MicroIPClient	KEYWORD1	MicroIPClient
+MicroIPServer	KEYWORD1	MicroIPServer
+MicroIPUDP	KEYWORD1	MicroIPUDP
+RPL		KEYWORD1	MicroIPRPL
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+
+localIP		KEYWORD2
+subnetMask	KEYWORD2
+gatewayIP	KEYWORD2
+dnsServerIP	KEYWORD2
+
+interfaceID	KEYWORD2
+prefix		KEYWORD2
+prefixLength	KEYWORD2
+lookup		KEYWORD2
+setHostname	KEYWORD2
+addDNS		KEYWORD2
+removeDNS	KEYWORD2
+
+status		KEYWORD2
+connect		KEYWORD2
+write		KEYWORD2
+available	KEYWORD2
+read		KEYWORD2
+peek		KEYWORD2
+flush		KEYWORD2
+stop		KEYWORD2
+connected	KEYWORD2
+
+begin		KEYWORD2
+stop		KEYWORD2
+beginPacket	KEYWORD2
+endPacket	KEYWORD2
+parsePacket	KEYWORD2
+remoteIP	KEYWORD2
+remotePort	KEYWORD2
+
+maintain	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
