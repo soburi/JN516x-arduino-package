@@ -11,10 +11,10 @@
           "architecture": "contiki",
           "category": "Contributed",
           "version": "0.0.20160108",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160108.tar.gz",
-          "archiveFileName": "intiki-0.0.20160108.tar.gz",
-          "checksum": "SHA-256:128f966d6b6621a8643f4c0022629cc9e2a0869e50783751ba8b0cdc3c3c061c",
-          "size": " 77177",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160207.tar.gz",
+          "archiveFileName": "intiki-0.0.20160207.tar.gz",
+          "checksum": "SHA-256:4ae5ba723f3f87a387da96ebf56340aae0595f94e3145aeaab373730c46ef0ec",
+          "size": "68885",
           "boards": [
             {
               "name": "Generic JN516x board"
@@ -35,45 +35,7 @@
             {
               "packager": "intiki",
               "name": "contiki-makehelper",
-              "version": "0.0.0"
-            },
-            {
-              "packager": "intiki",
-              "name": "msys2-contiki-build",
-              "version": "0.0.0"
-            }
-          ]
-        },
-        {
-          "name": "JN516x Boards",
-          "architecture": "contiki",
-          "category": "Contributed",
-          "version": "0.0.20151203",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20151230.tar.gz",
-          "archiveFileName": "intiki-0.0.20151230.tar.gz",
-          "checksum": "SHA-256:b123500377a533c815a91c9bd9e685a8095eb188140e46e43484aec72bd86ec3",
-          "size": "76740",
-          "boards": [
-            {
-              "name": "Generic JN516x board"
-            },
-            {
-              "name": "TOCOS TWE Lite"
-            },
-            {
-              "name": "SeeedStudio Mesh Bee"
-            }
-          ],
-          "toolsDependencies": [
-            {
-              "packager": "arduino",
-              "name": "arm-none-eabi-gcc",
-              "version": "4.8.3-2014q1"
-            },
-            {
-              "packager": "intiki",
-              "name": "contiki-makehelper",
-              "version": "0.0.0"
+              "version": "0.0.1"
             },
             {
               "packager": "intiki",
@@ -94,20 +56,6 @@
               "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.0.tar.bz2",
               "checksum": "SHA-256:cb7984a0c6b814209df5eb0d283bbed20b2fb3c3a277d01886833019b44381f2",
               "size": "7902892"
-            },
-            {
-              "host": "x86_64-apple-darwin",
-              "archiveFileName": "msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2",
-              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_x86_64-apple-darwin_0.0.0.tar.bz2",
-              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
-              "size": "185"
-            },
-            {
-              "host": "x86_64-pc-linux-gnu",
-              "archiveFileName": "msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
-              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
-              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
-              "size": "185"
             }
           ]
         },
@@ -117,24 +65,10 @@
           "systems": [
             {
               "host": "i686-mingw32",
-              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.0.tar.bz2",
-              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.0.tar.bz2",
-              "checksum": "SHA-256:f42bd4746da4ac975e86a6ec3fcbc88324f5ba19e8e97ae63631826fa05e363e",
-              "size": "1745095"
-            },
-            {
-              "host": "x86_64-apple-darwin",
-              "archiveFileName": "contiki-makehelper_x86_64-apple-darwin_0.0.0.tar.bz2",
-              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_x86_64-apple-darwin_0.0.0.tar.bz2",
-              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
-              "size": "878423"
-            },
-            {
-              "host": "x86_64-pc-linux-gnu",
-              "archiveFileName": "contiki-makehelper_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
-              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_x86_64-pc-linux-gnu_0.0.0.tar.bz2",
-              "checksum": "SHA-256:ddb752bcf4b8d1e9199e2c4a0107d7866ceaf7e8a6c602592138da1e451a4def",
-              "size": "878423"
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
+              "checksum": "SHA-256:e53ece4f0bc586feeaf96934e0c38ca329417da2745c9fbc0e21ce7d6cce4803",
+              "size": " 1748304"
             }
           ]
         }
