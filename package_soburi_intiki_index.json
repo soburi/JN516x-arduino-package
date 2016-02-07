@@ -54,8 +54,8 @@
               "host": "i686-mingw32",
               "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
               "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
-              "checksum": "SHA-256:16847644c48563d8a7272c4c2c8f49b706aa8957e8a39c22314c5168a2277c29",
-              "size": " 8356230"
+              "checksum": "SHA-256:da706209d1353696989fede83702fd9f435290fd3a3fdb11536f6e8455ef9cdb",
+              "size": "11513680"
             }
           ]
         },
@@ -68,7 +68,7 @@
               "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
               "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
               "checksum": "SHA-256:e53ece4f0bc586feeaf96934e0c38ca329417da2745c9fbc0e21ce7d6cce4803",
-              "size": " 1748304"
+              "size": "1748304"
             }
           ]
         }
