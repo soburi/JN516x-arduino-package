@@ -1,49 +1,39 @@
 ﻿About
 =====
 
-This is arduino add-on package for NXP JN516x platform.
-
+This is Arduino add-on package for NXP JN516x platform.
+This version is built on [Contiki](http://contiki-os.org/).
 
 Install
 =======
 
-Install JN516x plugin to arduino
+Install JN516x plugin to Arduino
 --------------------------------
 
-### for Arduino 1.6.4 or newer versions.
+### For Arduino 1.6.7 or newer versions.
 
-*  Use this additional package definition by 'Additional Boards Manager URLs' option that is on Arduino's preferences.
-[http://soburi.github.io/JN516x-arduino-package/package_soburi_jn516x_index.json](http://soburi.github.io/JN516x-arduino-package/package_soburi_jn516x_index.json)
+Use this additional package definition of 'Additional Boards Manager URLs' option that is on Arduino's preferences.
+* [http://soburi.github.io/JN516x-arduino-package/package_soburi_intiki_index.json](http://soburi.github.io/JN516x-arduino-package/package_soburi_intiki_index.json)
 
-### for Arduino 1.6.3 or older versions.
+This package does download external package on first build time.
 
-- Extract [plugin archive](https://github.com/soburi/JN516x-arduino-package/archive/master.zip)
-into _[arduino\_root]/hardware/soburi_ folder.
-- Extract [toolchain archive](https://dl.dropboxusercontent.com/u/498101/jn516x-tools_i686-mingw32_r8352.tar.bz2) into into _[arduino\_root]/hardware/tools_ folder.
-- Put a platform.local.txt that contains following line,
-```
-runtime.tools.jn516x-tools.path={runtime.ide.path}/hardware/tools/jn516x-tools/
-```
-into a plugin archive extracted folder.
+Install Compiler and SDK.
+----------------------------
 
+Download and install compiler, sdk and flash programmer from [ NXP's JN516x page](http://www.nxp.com/ja/products/interface-and-connectivity/wireless-connectivity/2.4-ghz-wireless-solutions/ieee-802.15.4-for-jn516x:IEEE802.15.4).
 
-Install JN516x SDK
-------------------
-Install JN516x-JenNet-IP Stack SDK.
+* [BeyondStudio for NXP](http://cache.nxp.com/documents/other/JN-SW-4141.zip)
 
-* [JN-SW-4065-JN516x-JenNet-IP-SDK-v979](http://www.nxp.com/documents/other/JN-SW-4065.zip)
+* [JN516x IEEE 802.15.4 SDK](http://cache.nxp.com/documents/other/JN-SW-4163.zip)
 
-### Windows
-
-Simply install to default destination (C:\Jennic).
-
-### MacOSX and Linux
-
-Use [wine](https://www.winehq.org/) to launch installer program.
-Install to Z:\opt\Jennic(point to /opt/Jennic in filesystem).
+* [JN51xx Producton Flash Programmer](http://cache.nxp.com/documents/other/JN-SW-4107.zip)
 
 
-API implement status
+### For Windows
+
+Install to installer's default destination (C:\NXP).
+
+API implements status
 ====================
 
 Already implemented
