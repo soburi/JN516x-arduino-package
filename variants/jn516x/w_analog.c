@@ -68,7 +68,7 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 
 	uint32_t timer = 0;
 	switch(ulPin) {
-		case 5:    timer = E_AHI_TIMER_1; break;
+		//case 5:    timer = E_AHI_TIMER_1; break;
 		case 8:    timer = E_AHI_TIMER_4; break;
 		case 0xD0: timer = E_AHI_TIMER_2; break;
 		case 0xD1: timer = E_AHI_TIMER_3; break;
