@@ -10,11 +10,11 @@
           "name": "JN516x Boards",
           "architecture": "contiki",
           "category": "Contributed",
-          "version": "0.0.20160207",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160207.tar.gz",
-          "archiveFileName": "intiki-0.0.20160207.tar.gz",
-          "checksum": "SHA-256:2c04ca2cf0d9d5fb9361759138cde14a4015737cd3743edc2f08f21c2ca3ba87",
-          "size": "68891",
+          "version": "0.0.20160209",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160208.tar.gz",
+          "archiveFileName": "intiki-0.0.20160208.tar.gz",
+          "checksum": "SHA-256:b2214ef5c450d2f4b98482818cca1431b067ae4d98fc61067f50320be3865455",
+          "size": "68907",
           "boards": [
             {
               "name": "Generic JN516x board"
@@ -67,8 +67,8 @@
               "host": "i686-mingw32",
               "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
               "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
-              "checksum": "SHA-256:e53ece4f0bc586feeaf96934e0c38ca329417da2745c9fbc0e21ce7d6cce4803",
-              "size": "1748304"
+              "checksum": "SHA-256:eb16e968417cf9478c4a574b749ddb7bcab1d6b49e1ccbeca5fcc01ce7ea653d",
+              "size": "1748341"
             }
           ]
         }
