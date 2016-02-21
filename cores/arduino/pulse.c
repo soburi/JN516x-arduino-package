@@ -16,7 +16,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <watchdog.h>
+#include <stdint.h>
 
 uint32_t _pulseInDefault(uint32_t pin, uint32_t state, uint32_t timeout)
 {
