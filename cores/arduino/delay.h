@@ -60,7 +60,7 @@ extern void delay( uint32_t dwMs ) ;
  *
  * \param dwUs the number of microseconds to pause (uint32_t)
  */
-static __inline__ void delayMicroseconds( uint32_t ) __attribute__((always_inline, unused)) ;
+extern void delayMicroseconds( uint32_t );
 #if 0
 static __inline__ void delayMicroseconds( uint32_t usec )
 {

@@ -172,7 +172,7 @@ bool waked();
 extern uint32_t wakeTimerCalibrationValue();
 extern void setWakeTimerCalibrationValue(uint32_t value);
 
-static __inline__ void delayMicroseconds( uint32_t usec )
+__inline__ void delayMicroseconds( uint32_t usec )
 {
 	(void)usec;
 	return;
