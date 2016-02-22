@@ -31,12 +31,11 @@ extern "C" {
 
 #include "watchdog.h"
 
-extern "C" void initVariant() __attribute__((weak));
-void initVariant() { }
+extern "C" void initVariant();
 
 extern "C" int arduino_main();
 
-extern "C" int process_loop() __attribute__((weak));
+extern "C" int process_loop();
 
 static void arduino_loop(void* none);
 
@@ -90,15 +89,6 @@ int arduino_main()
 	start_process_list();
 
 	return process_loop();
-}
-
-int process_loop()
-{
-	int r;
-	while(1) {
-		r = process_run();
-	}
-	return r;
 }
 
 static void arduino_loop(void* none)

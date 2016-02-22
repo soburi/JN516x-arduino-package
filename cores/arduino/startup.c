@@ -15,11 +15,29 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#include <contiki.h>
+#include <core/sys/process.h>
 
 extern int arduino_main();
 int main() __attribute__((weak));
+void initVariant() __attribute__((weak));
+int process_loop() __attribute__((weak));
 
 int main()
 {
 	return arduino_main();
 }
+
+void initVariant()
+{
+}
+
+int process_loop()
+{
+	int r;
+	while(1) {
+		r = process_run();
+	}
+	return r;
+}
+
