@@ -16,29 +16,10 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-
 extern int arduino_main();
+int main() __attribute__((weak));
 
-int contiki_argc = 0;
-char **contiki_argv;
-
-int main(int argc, char **argv)
+int main()
 {
-	/* crappy way of remembering and accessing argc/v */
-	contiki_argc = argc;
-	contiki_argv = argv;
-
-	/* native under windows is hardcoded to use the first one or two args */
-	/* for wpcap configuration so this needs to be "removed" from         */
-	/* contiki_args (used by the native-border-router) */
-#if defined(_WIN32_) || defined(__CYGWIN__)
-	contiki_argc--;
-	contiki_argv++;
-#ifdef UIP_FALLBACK_INTERFACE
-	contiki_argc--;
-	contiki_argv++;
-#endif
-#endif
 	return arduino_main();
 }
