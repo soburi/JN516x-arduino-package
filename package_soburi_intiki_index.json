@@ -43,6 +43,44 @@
               "version": "0.0.1"
             }
           ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "contiki",
+          "category": "Contributed",
+          "version": "0.0.20160228",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160228.tar.gz",
+          "archiveFileName": "intiki-0.0.20160228.tar.gz",
+          "checksum": "SHA-256:39c40d360a079284253b4b53f9e510b5afbe102e8f734dff5b1851afe2acdc36",
+          "size": "69576",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "arm-none-eabi-gcc",
+              "version": "4.8.3-2014q1"
+            },
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.2"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            }
+          ]
         }
       ],
       "tools": [
@@ -69,6 +107,19 @@
               "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
               "checksum": "SHA-256:eb16e968417cf9478c4a574b749ddb7bcab1d6b49e1ccbeca5fcc01ce7ea653d",
               "size": "1748341"
+            }
+          ]
+        },
+	{
+          "name": "contiki-makehelper",
+          "version": "0.0.2",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.2.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.2.tar.bz2",
+              "checksum": "SHA-256:1b1ad42faa573cc6876fc9a90def11e40670b5d74d6adf874216e0e72d837129",
+              "size": "1750723"
             }
           ]
         }
