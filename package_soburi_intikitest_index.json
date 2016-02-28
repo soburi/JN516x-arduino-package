@@ -67,8 +67,8 @@
               "host": "i686-mingw32",
               "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.2.tar.bz2",
               "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.2.tar.bz2",
-              "checksum": "SHA-256:6e9c64c3ba2f1176889b9199a3cb4f5ef3f48687dcf85cf5889fffe4152ae52c",
-              "size": "1750954"
+              "checksum": "SHA-256:1b1ad42faa573cc6876fc9a90def11e40670b5d74d6adf874216e0e72d837129",
+              "size": "1750723"
             }
           ]
         }
