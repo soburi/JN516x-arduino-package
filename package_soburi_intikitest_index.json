@@ -1,0 +1,78 @@
+{
+  "packages": [
+    {
+      "name": "intiki",
+      "maintainer": "soburi",
+      "websiteURL": "https://github.com/soburi/JN516x-arduino-package",
+      "email": "soburi@gmail.com",
+      "platforms": [
+        {
+          "name": "JN516x Boards",
+          "architecture": "contiki",
+          "category": "Contributed",
+          "version": "0.0.20160228",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160228.tar.gz",
+          "archiveFileName": "intiki-0.0.20160228.tar.gz",
+          "checksum": "SHA-256:701071787e5c07c9f949c50577a3e27d0bf9cdcd68b0d1c46b9c22b62fcbe884",
+          "size": "69575",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "arm-none-eabi-gcc",
+              "version": "4.8.3-2014q1"
+            },
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.2"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "name": "msys2-contiki-build",
+          "version": "0.0.1",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+              "checksum": "SHA-256:da706209d1353696989fede83702fd9f435290fd3a3fdb11536f6e8455ef9cdb",
+              "size": "11513680"
+            }
+          ]
+        },
+	{
+          "name": "contiki-makehelper",
+          "version": "0.0.2",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.2.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.2.tar.bz2",
+              "checksum": "SHA-256:6e9c64c3ba2f1176889b9199a3cb4f5ef3f48687dcf85cf5889fffe4152ae52c",
+              "size": "1750954"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
