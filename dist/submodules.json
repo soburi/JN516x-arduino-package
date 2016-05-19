@@ -2,7 +2,7 @@
   {
     "path": "system/contiki",
     "url": "https://github.com/soburi/contiki",
-    "revision": "5b9d41a428f32307839da935bbcb02bbe91acac2"
+    "revision": "a61d7b9f7dc477e7df130842a5286f569a05c4bb"
   },
   {
     "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc13xxware",
@@ -22,7 +22,7 @@
   {
     "path": "system/contiki/tools/cc2538-bsl",
     "url": "https://github.com/JelmerT/cc2538-bsl",
-    "revision": "6185d8b16f10047053fd57000a552340273d7d85"
+    "revision": "4340542370d3e319d692f9f969c5683231fce438"
   },
   {
     "path": "system/contiki/tools/mspsim",
