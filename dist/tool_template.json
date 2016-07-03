@@ -1,0 +1,28 @@
+[
+  {
+    "name": "msys2-contiki-build",
+    "version": "0.0.1",
+    "systems": [
+      {
+        "url": "https://dl.dropboxusercontent.com/u/498101/${NAME}_${ARCH}_${VERSION}.tar.bz2",
+        "host": "XXXXXXXXXXXXXXXX",
+        "archiveFileName": "XXXXX",
+        "checksum": "XXXXXXXXXXXX",
+        "size": "XXXXXXXXXXXXXXXX"
+      }
+    ]
+  },
+  {
+    "name": "contiki-makehelper",
+    "version": "0.0.3",
+    "systems": [
+      {
+        "url": "https://github.com/soburi/${NAME}/releases/download/${VERSION}/${NAME}_${ARCH}_${VERSION}.tar.bz2",
+        "host": "XXXXXXXXXXXXXXXX",
+        "archiveFileName": "XXXXX",
+        "checksum": "XXXXXXXXXXXX",
+        "size": "XXXXXXXXXXXXXXXX"
+      }
+    ]
+  }
+]

@@ -24,7 +24,7 @@ script:
 - bash -c "cd ~ && BZIP2=-9 tar cfj ${PWD}/${ARCHIVENAME}.tar.bz2 ${EXCLUDEGIT} ${ARCHIVENAME}/"
 after_script:
 - if [ ${TRAVIS_TEST_RESULT} -ne 0 ] ; then echo ${TRAVIS_TEST_RESULT} ; exit ${TRAVIS_TEST_RESULT} ; fi
-- ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} > ../tmp.json || exit $?
+- ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} > ../tmp.json || exit $?
 - git fetch --all || exit $?
 - git checkout gh-origin/gh-pages -b gh-pages || exit $?
 - cp ../tmp.json ${PKGJSON} || exit $?
