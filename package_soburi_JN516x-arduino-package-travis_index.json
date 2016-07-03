@@ -271,13 +271,6 @@
       ],
       "tools": [
         {
-          "name": "contiki-makehelper",
-          "version": "0.0.3",
-          "systems": [
-
-          ]
-        },
-        {
           "name": "msys2-contiki-build",
           "version": "0.0.1",
           "systems": [
