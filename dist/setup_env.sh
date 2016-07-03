@@ -7,7 +7,7 @@ if [ "${TRAVIS_TAG}" == "" ] ; then
   PKGJSON=package_${GHREPO_USER}_${GHREPO_NAME}-${TRAVIS_BRANCH}_index.json
   ARCHIVENAME=${TRAVIS_COMMIT}
   ARCHIVEURL="https://github.com/${TRAVIS_REPO_SLUG}/archive/${ARCHIVENAME}.tar.gz"
-  RELEASEVER=${TRAVIS_BRANCH}-$(date -d @`git log -1 ${TRAVIS_COMMIT} --pretty=medium --format=%ct` +%Y%m%d%H%M%S)
+  RELEASEVER=${TRAVIS_BRANCH}-0.0.$(date -d @`git log -1 ${TRAVIS_COMMIT} --pretty=medium --format=%ct` +%y%m%d%H%M)
   BM_FORCEOPT='-f'
 else
   RELEASELINE_=$(echo ${TRAVIS_TAG} | sed 's/-.*$//')
