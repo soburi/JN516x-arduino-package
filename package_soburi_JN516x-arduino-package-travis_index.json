@@ -6,7 +6,7 @@
           "name": "JN516x Boards",
           "architecture": "contiki",
           "category": "Contributed",
-          "version": "20160703065956",
+          "version": "0.0.20160703065956",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/8785447ef841dcc8a3abeb3113482c2954e7b17c.tar.gz",
           "archiveFileName": "JN516x-arduino-package-travis-20160703065956.tar.gz",
           "checksum": "SHA-256:7e1c826b080ef2c8786480d2b7a136c7d8870d1226c05a6e527688613d5b3193",
