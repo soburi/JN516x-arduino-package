@@ -1,0 +1,33 @@
+language: c
+env:
+  global:
+    secure: msCet324eLDX02fA+IHr0xkTWs9Pjt5Xln8fCs3HMDCa+ADNWT5fu18GkYpkSZXysZwte7et06qfThkpmr8vejBzX0yFrZI01AWNAiKinKy/VkYWFpL0SViW4F2phOMsLWGLnGy3FCszi/UY9FXAzO96Ak43sGm9Raw34Fq1Hu/LX+TRVZ3MmqNvFkn6VgDJn8hXJIrh+tQPn/lFL0xcycWmFeI52h3sJ/Upq0tXVLCQtvO/QZ0fW5k2Ded78L6XZ1nvaFKgBB6e7t/TtuhM6Z+xbSmO8Gl5x5QdCK4YzjEOZYYWX802LhbIaWOQvPXHJeXfSS2MFZQZo+j3qxC2II8vVjNq0ynOC2A8cUqaZUkq/HOz3j3uGH26U7qgpycjmo6Po0+dYTeBF3mL+8oDAepZSDM2cPAaERLzyIqdLiP6dqaDm01tBig49SDBH/vyvUgvRfCqGLGxoUEHbuoEZ+SbFnkuxVbUODl6YKxcGjAQ17UnZguoSogVal2m8aWCtYEjulINXNgWbWTt9mcuxB3bo1dnHRSyFDPV6jJwCFVM/rF0oKN5IqkjworTkEeWjppxvrr/JW4kbR4zlAkQ8hXFwF9sNt8yhfgmpqc6oLpygOSZBhA1SDhdMoIiCDcRoDLY9uztuiG3pHI0rZk4uFWprGL932suspvGuav0LL0=
+deploy:
+  provider: releases
+  api_key:
+    secure: biduyjA+M2bNpzgX8A7DlDB7uJeZ+LE1Kt0JKiYCJy+TkudxsOjIwSrOdwhoEDBD2Wx2+kUDTFT2eL1c5c6DpuXnO+Q1FEGR+Bb+HGZvEnzJBOTQIkq68Sb13oxAsAQZjpCGOq9lsvBh82spuMuokw61ZKB4bGzluBYRwwHAeaQ/DbayfQ1SLgwqxvPe8M+XuCigvVX9GkEtn7eWVPSQ9ox4J79qkZM0ZzzvOORRdKKzTKBSqiIsyIBq3qlbw/NyZ+ySJOg15goYh1652z5epvpvUTlRgKJSkw1NuZ3VbWjbQcCznf6h1irn3eWbf/pYDrkuxCsId7wgGuXV3ctBp6i0J3Sgp0hW2VsTaau16RfHOG6iynwOH9wyKpx8LIBfS4WKQ8k4rup1kYKCjhm3zVYIMaSLMOmFYCTefACwAY0013Em5i+BrNXV+7ly82f+aLwKiGZMaayBI8OSXBr7S3SeTw1EyaamvbH0v/ZHZx3sD+IcG30ifzh/kyRrlhmhbd94K1/Ri6AGiLe5mHPHBhDJ5m5KQZied+5SZfPvWfaEQjHpSdGWV+XNyG5cS7MCElkfiaDCXqS4xjMnhY4+6p+EwrEk3b15l/38af9LtGv+IcBbxucOdPUAuxnZAOMoB0FGUAp9bedKLf6o7zTqGakWUOGl0iMFRTqbMm9kMcM=
+  file: ${ARCHIVENAME}.tar.bz2
+  skip_cleanup: true
+  on:
+    tags: true
+before_script:
+- env
+- gem install git
+- source dist/setup_env.sh
+- git remote add gh-origin "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
+- git config --global user.email "travisci@example.com"
+- git config --global user.name "Travis-CI"
+script:
+- mkdir ~/${ARCHIVENAME}
+- cp -r * ~/${ARCHIVENAME}
+- EXCLUDEGIT=$(bash -c "cd ~ && find ${ARCHIVENAME}/ -name '.git' | xargs -i echo -n --exclude {}\ ")
+- bash -c "cd ~ && BZIP2=-9 tar cfj ${PWD}/${ARCHIVENAME}.tar.bz2 ${EXCLUDEGIT} ${ARCHIVENAME}/"
+after_script:
+- if [ ${TRAVIS_TEST_RESULT} -ne 0 ] ; then echo ${TRAVIS_TEST_RESULT} ; exit ${TRAVIS_TEST_RESULT} ; fi
+- ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} > ../tmp.json || exit $?
+- git fetch --all || exit $?
+- git checkout gh-origin/gh-pages -b gh-pages || exit $?
+- cp ../tmp.json ${PKGJSON} || exit $?
+- git add ${PKGJSON} || exit $?
+- git commit -m ${TRAVIS_BUILD_ID} || exit $?
+- git push gh-origin gh-pages || exit $?
