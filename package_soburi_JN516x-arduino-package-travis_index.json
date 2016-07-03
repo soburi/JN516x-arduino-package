@@ -6,6 +6,44 @@
           "name": "JN516x Boards",
           "architecture": "contiki",
           "category": "Contributed",
+          "version": "0.0.1607031011",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/fe31b755d6291788e73375a057559ca7bae032af.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-travis-0.0.1607031011.tar.gz",
+          "checksum": "SHA-256:8774960db00fc6ed0dc638ceecfd89ce6d9acf2f27937d76a2924eea623019a8",
+          "size": "73930",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "arm-none-eabi-gcc",
+              "version": "4.8.3-2014q1"
+            },
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.2"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "contiki",
+          "category": "Contributed",
           "version": "0.0.1607030713",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/d1f91daac9d641971c12c2089f7f5f769abc1c5b.tar.gz",
           "archiveFileName": "JN516x-arduino-package-travis-0.0.1607030713.tar.gz",
@@ -118,7 +156,45 @@
         }
       ],
       "tools": [
-
+        {
+          "name": "msys2-contiki-build",
+          "version": "0.0.1",
+          "systems": [
+            {
+              "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:da706209d1353696989fede83702fd9f435290fd3a3fdb11536f6e8455ef9cdb",
+              "size": "11513680"
+            }
+          ]
+        },
+        {
+          "name": "contiki-makehelper",
+          "version": "0.0.1",
+          "systems": [
+            {
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.1.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:eb16e968417cf9478c4a574b749ddb7bcab1d6b49e1ccbeca5fcc01ce7ea653d",
+              "size": "1748341"
+            }
+          ]
+        },
+        {
+          "name": "contiki-makehelper",
+          "version": "0.0.2",
+          "systems": [
+            {
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.2.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/contiki-makehelper_i686-mingw32_0.0.2.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:1b1ad42faa573cc6876fc9a90def11e40670b5d74d6adf874216e0e72d837129",
+              "size": "1750723"
+            }
+          ]
+        }
       ],
       "name": "defaultname",
       "maintainer": "defaultmaintainer",
