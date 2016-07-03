@@ -36,7 +36,7 @@ STDERR.puts("   pkg_url: #{pkg_url}\n")
 
 entry = open(template) {|j| JSON.load(j) }
 
-bmdata = JSON.load('{ "packages": [ { "platforms": [] }, { "tools": [] }  ] }')
+bmdata = JSON.load('{ "packages": [ { "platforms": [], "tools": [] }  ] }')
 begin
   bmdata = open(ghpage_url) {|f| JSON.load(f) }
 rescue => e
