@@ -6,12 +6,12 @@
   },
   {
     "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc13xxware",
-    "url": "https://github.com/g-oikonomou/cc13xxware",
+    "url": "https://github.com/g-oikonomou/cc13xxware.git",
     "revision": "6bdb6da3fa9682303799e5c3b1f755398e87fc99"
   },
   {
     "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc26xxware",
-    "url": "https://github.com/g-oikonomou/cc26xxware",
+    "url": "https://github.com/g-oikonomou/cc26xxware.git",
     "revision": "0270b50ac750f8f3348a98f900a470e7a65ffce8"
   },
   {
@@ -21,12 +21,12 @@
   },
   {
     "path": "system/contiki/tools/cc2538-bsl",
-    "url": "https://github.com/JelmerT/cc2538-bsl",
+    "url": "https://github.com/JelmerT/cc2538-bsl.git",
     "revision": "4340542370d3e319d692f9f969c5683231fce438"
   },
   {
     "path": "system/contiki/tools/mspsim",
-    "url": "https://github.com/contiki-os/mspsim",
+    "url": "https://github.com/contiki-os/mspsim.git",
     "revision": "47ae45cb0f36337115e32adb2a5ba0bf6e1e4437"
   }
 ]
