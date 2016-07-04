@@ -6,7 +6,7 @@ deploy:
   provider: releases
   api_key:
     secure: biduyjA+M2bNpzgX8A7DlDB7uJeZ+LE1Kt0JKiYCJy+TkudxsOjIwSrOdwhoEDBD2Wx2+kUDTFT2eL1c5c6DpuXnO+Q1FEGR+Bb+HGZvEnzJBOTQIkq68Sb13oxAsAQZjpCGOq9lsvBh82spuMuokw61ZKB4bGzluBYRwwHAeaQ/DbayfQ1SLgwqxvPe8M+XuCigvVX9GkEtn7eWVPSQ9ox4J79qkZM0ZzzvOORRdKKzTKBSqiIsyIBq3qlbw/NyZ+ySJOg15goYh1652z5epvpvUTlRgKJSkw1NuZ3VbWjbQcCznf6h1irn3eWbf/pYDrkuxCsId7wgGuXV3ctBp6i0J3Sgp0hW2VsTaau16RfHOG6iynwOH9wyKpx8LIBfS4WKQ8k4rup1kYKCjhm3zVYIMaSLMOmFYCTefACwAY0013Em5i+BrNXV+7ly82f+aLwKiGZMaayBI8OSXBr7S3SeTw1EyaamvbH0v/ZHZx3sD+IcG30ifzh/kyRrlhmhbd94K1/Ri6AGiLe5mHPHBhDJ5m5KQZied+5SZfPvWfaEQjHpSdGWV+XNyG5cS7MCElkfiaDCXqS4xjMnhY4+6p+EwrEk3b15l/38af9LtGv+IcBbxucOdPUAuxnZAOMoB0FGUAp9bedKLf6o7zTqGakWUOGl0iMFRTqbMm9kMcM=
-  file: ${ARCHIVENAME}.tar.bz2
+  file: ../${ARCHIVENAME}.tar.bz2
   skip_cleanup: true
   on:
     tags: true
@@ -18,12 +18,11 @@ before_script:
 - git config --global user.email "travisci@example.com"
 - git config --global user.name "Travis-CI"
 script:
-- mkdir ~/${ARCHIVENAME}
-- cp -r * ~/${ARCHIVENAME}
 # check submojule.json
 - ruby dist/ci_submodules.rb -c dist/submodules.json
-- EXCLUDEGIT=$(bash -c "cd ~ && find ${ARCHIVENAME}/ -name '.git' | xargs -i echo -n --exclude {}\ ")
-- bash -c "cd ~ && BZIP2=-9 tar cfj ${PWD}/${ARCHIVENAME}.tar.bz2 ${EXCLUDEGIT} ${ARCHIVENAME}/"
+# generate archive
+- EXCLUDEGIT=$(find . -name '.git' -printf '%f ' | xargs -i echo -n --exclude {})
+- BZIP2=-9 tar cfj ../${ARCHIVENAME}.tar.bz2 -C .. ${EXCLUDEGIT} $(basename ${PWD})
 after_script:
 - if [ ${TRAVIS_TEST_RESULT} -ne 0 ] ; then echo ${TRAVIS_TEST_RESULT} ; exit ${TRAVIS_TEST_RESULT} ; fi
 - ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} > ../tmp.json || exit $?
