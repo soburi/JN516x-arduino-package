@@ -1,4 +1,0 @@
-INCLUDE App_Stack_Size.ld
-INCLUDE AppBuildStart_JN5161.ld
-INCLUDE AppBuildExceptionHandlers_JN5161.ld
-INCLUDE Arduinize_JN516x.ld
