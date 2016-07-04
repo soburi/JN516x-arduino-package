@@ -12,7 +12,7 @@ deploy:
     tags: true
 before_script:
 - env
-- gem install git
+- gem install rugged
 - source dist/setup_env.sh
 - git remote add gh-origin "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
 - git config --global user.email "travisci@example.com"
@@ -20,6 +20,8 @@ before_script:
 script:
 - mkdir ~/${ARCHIVENAME}
 - cp -r * ~/${ARCHIVENAME}
+# check submojule.json
+- ruby dist/ci_submodules.rb -c dist/submodules.json
 - EXCLUDEGIT=$(bash -c "cd ~ && find ${ARCHIVENAME}/ -name '.git' | xargs -i echo -n --exclude {}\ ")
 - bash -c "cd ~ && BZIP2=-9 tar cfj ${PWD}/${ARCHIVENAME}.tar.bz2 ${EXCLUDEGIT} ${ARCHIVENAME}/"
 after_script:
