@@ -2,17 +2,17 @@
   {
     "path": "system/contiki",
     "url": "https://github.com/soburi/contiki",
-    "revision": "a61d7b9f7dc477e7df130842a5286f569a05c4bb"
+    "revision": "36b44635b594d9fd0a4b4d3fe67578a03365c5b2"
   },
   {
     "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc13xxware",
-    "url": "https://github.com/g-oikonomou/cc13xxware.git",
-    "revision": "6bdb6da3fa9682303799e5c3b1f755398e87fc99"
+    "url": "https://github.com/contiki-os/cc13xxware.git",
+    "revision": "f7bdc430225db8f9204c3f02faddd7f8f8752fe8"
   },
   {
     "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc26xxware",
-    "url": "https://github.com/g-oikonomou/cc26xxware.git",
-    "revision": "0270b50ac750f8f3348a98f900a470e7a65ffce8"
+    "url": "https://github.com/contiki-os/cc26xxware.git",
+    "revision": "0e8396b97921049575763dff45d564ff2cf6d0d6"
   },
   {
     "path": "system/contiki/platform/stm32nucleo-spirit1/stm32cube-lib",
@@ -22,7 +22,7 @@
   {
     "path": "system/contiki/tools/cc2538-bsl",
     "url": "https://github.com/JelmerT/cc2538-bsl.git",
-    "revision": "4340542370d3e319d692f9f969c5683231fce438"
+    "revision": "c6100a7794c7b530923145c03e37412013a4551e"
   },
   {
     "path": "system/contiki/tools/mspsim",
