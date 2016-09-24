@@ -19,4 +19,5 @@
 #include "HardwareSerial.h"
 
 void HardwareSerial::begin(unsigned long x) { (void)x; }
+void HardwareSerial::begin(unsigned long baudrate, uint16_t config) { (void)baudrate; (void)config; }
 void HardwareSerial::end() { }
