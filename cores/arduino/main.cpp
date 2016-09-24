@@ -20,6 +20,7 @@ extern "C" {
 #include <contiki.h>
 #include <core/sys/process.h>
 #include <core/sys/mt.h>
+#include <core/sys/autostart.h>
 #include <core/lib/list.h>
 }
 
@@ -32,12 +33,6 @@ extern "C" {
 #include "watchdog.h"
 
 extern "C" void initVariant();
-
-extern "C" int arduino_main();
-
-extern "C" int process_loop();
-
-static void arduino_loop(void* none);
 
 static struct main_thread_wait_t
 {
@@ -74,21 +69,33 @@ static void start_process_list()
 	}
 }
 
+static void exit_process_list()
+{
+	start_process_t* p;
+	for( p = (start_process_t*)list_head(start_processes);
+	     p != NULL;
+	     p = (start_process_t*)list_item_next(p) )
+	{
+		process_exit(p->process);
+	}
+}
+
+struct process * const autostart_processes[] = {NULL};
+void
+autostart_start(struct process * const processes[])
+{
+  start_process_list();
+}
+/*---------------------------------------------------------------------------*/
+void
+autostart_exit(struct process * const processes[])
+{
+  exit_process_list();
+}
+
 void add_start_process(start_process_t* p)
 {
 	list_add(start_processes, p);
-}
-
-int arduino_main()
-{
-	// Initialize watchdog
-	watchdogSetup();
-
-	initVariant();
-
-	start_process_list();
-
-	return process_loop();
 }
 
 static void arduino_loop(void* none)
@@ -111,6 +118,9 @@ PROCESS_THREAD(main_thread, ev, data)
 	static struct mt_thread arduino_thread;
 
 	PROCESS_BEGIN();
+
+	watchdogSetup();
+	initVariant();
 
 	mt_init();
 	mt_start(&arduino_thread, arduino_loop, NULL);
