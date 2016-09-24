@@ -47,12 +47,17 @@ if comparefile != nil
     exit 0
   else
     STDERR.puts('differ')
+    STDERR.puts("==============================\n")
+    STDERR.puts(jsobj)
+    STDERR.puts("==============================\n")
+    STDERR.puts(compare)
+    STDERR.puts("==============================\n")
     exit -1
   end
 end
 
 if outfile != nil
-  open(outfile) do |f|
+  open(outfile, 'w') do |f|
     f.write(JSON.pretty_unparse(jsobj) )
   end
   exit 0
