@@ -14,7 +14,7 @@
   },
   {
     "name": "contiki-makehelper",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "systems": [
       {
         "url": "https://github.com/soburi/${NAME}/releases/download/${VERSION}/${NAME}_${ARCH}_${VERSION}.tar.bz2",
