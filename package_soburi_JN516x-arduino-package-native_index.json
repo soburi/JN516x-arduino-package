@@ -6,6 +6,44 @@
           "name": "JN516x Boards",
           "architecture": "contiki",
           "category": "Contributed",
+          "version": "0.0.1609261620",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/7a8ae62c9bb5fb427284973633d6fe0776926627.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-native-0.0.1609261620.tar.gz",
+          "checksum": "SHA-256:3abd543608ba6f682815025960cabbbbb47119331387a2ff94dc39925850099d",
+          "size": "81409",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "arm-none-eabi-gcc",
+              "version": "4.8.3-2014q1"
+            },
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.3"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "contiki",
+          "category": "Contributed",
           "version": "0.0.1609261615",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/aa6559e21ca66e1068fbfdda27d092f09a08d96a.tar.gz",
           "archiveFileName": "JN516x-arduino-package-native-0.0.1609261615.tar.gz",
