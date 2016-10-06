@@ -1,0 +1,106 @@
+{
+  "packages": [
+    {
+      "platforms": [
+        {
+          "name": "JN516x Boards",
+          "architecture": "contiki",
+          "category": "Contributed",
+          "version": "0.0.1610062218",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/f1e8e2e6116f0f24c1d6e0a0e62eb2fc93d2e0d7.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-nativex-0.0.1610062218.tar.gz",
+          "checksum": "SHA-256:eed27fa02d69cf049c72a31bcdc7a69a4ef611379b67df2f225237bd8b0be9f8",
+          "size": "81530",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "arm-none-eabi-gcc",
+              "version": "4.8.3-2014q1"
+            },
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.3"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "name": "msys2-contiki-build",
+          "version": "0.0.1",
+          "systems": [
+            {
+              "archiveFileName": "msys2-contiki-build_x86_64-apple-darwin_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_x86_64-apple-darwin_0.0.1.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
+            },
+            {
+              "archiveFileName": "msys2-contiki-build_x86_64-pc-linux-gnu_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_x86_64-pc-linux-gnu_0.0.1.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
+            },
+            {
+              "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:da706209d1353696989fede83702fd9f435290fd3a3fdb11536f6e8455ef9cdb",
+              "size": "11513680"
+            }
+          ]
+        },
+        {
+          "name": "contiki-makehelper",
+          "version": "0.0.6",
+          "systems": [
+            {
+              "archiveFileName": "contiki-makehelper_x86_64-apple-darwin_0.0.6.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.6/contiki-makehelper_x86_64-apple-darwin_0.0.6.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:9ab1784f78767406fa0a229e5a7cb9ee054b2822dbc47b8709ccea5a4effbeef",
+              "size": "1727810"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_x86_64-pc-linux-gnu_0.0.6.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.6/contiki-makehelper_x86_64-pc-linux-gnu_0.0.6.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:8bd9782b4c962d9108e5ca13b9ad9dbefe2705b2586ec95a5d233ebf1287dbba",
+              "size": "1750878"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.6.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.6/contiki-makehelper_i686-mingw32_0.0.6.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:0f9ea549f7d5a1649cdd7cc9b31a6735a910687063604178a5b59cb1e630c6b2",
+              "size": "1739352"
+            }
+          ]
+        }
+      ],
+      "name": "defaultname",
+      "maintainer": "defaultmaintainer",
+      "websiteURL": "http://example.com",
+      "email": "default@example.com"
+    }
+  ]
+}
