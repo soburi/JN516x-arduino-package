@@ -104,6 +104,13 @@
               "host": "i686-mingw32",
               "checksum": "SHA-256:da706209d1353696989fede83702fd9f435290fd3a3fdb11536f6e8455ef9cdb",
               "size": "11513680"
+            },
+            {
+              "archiveFileName": "msys2-contiki-build_arm-linux-gnueabihf_0.0.1.tar.bz2",
+              "url": "https://dl.dropboxusercontent.com/u/498101/msys2-contiki-build_arm-linux-gnueabihf_0.0.1.tar.bz2",
+              "host": "arm-linux-gnueabihf",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
             }
           ]
         },
@@ -131,6 +138,13 @@
               "host": "i686-mingw32",
               "checksum": "SHA-256:0f9ea549f7d5a1649cdd7cc9b31a6735a910687063604178a5b59cb1e630c6b2",
               "size": "1739352"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_arm-linux-gnueabihf_0.0.6.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.6/contiki-makehelper_arm-linux-gnueabihf_0.0.6.tar.bz2",
+              "host": "arm-linux-gnueabihf",
+              "checksum": "SHA-256:ce5992e70a7626c8028a1aafb10f3da9a26aa1c28ebab170c291861780361153",
+              "size": "1670112"
             }
           ]
         }
