@@ -4,7 +4,7 @@
       "platforms": [
         {
           "name": "JN516x Boards",
-          "architecture": "contiki",
+          "architecture": "intiki",
           "category": "Contributed",
           "version": "0.0.1610062241",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/00ebe5280212e568f761349917d930436bd30bfe.tar.gz",
@@ -149,7 +149,7 @@
           ]
         }
       ],
-      "name": "intiki",
+      "name": "soburi",
       "maintainer": "defaultmaintainer",
       "websiteURL": "http://example.com",
       "email": "default@example.com"
