@@ -4,7 +4,7 @@
       "platforms": [
         {
           "name": "JN516x Boards",
-          "architecture": "intiki",
+          "architecture": "contiki",
           "category": "Contributed",
           "version": "0.0.1610062241",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/00ebe5280212e568f761349917d930436bd30bfe.tar.gz",
@@ -32,44 +32,6 @@
               "packager": "intiki",
               "name": "contiki-makehelper",
               "version": "0.0.6"
-            },
-            {
-              "packager": "intiki",
-              "name": "msys2-contiki-build",
-              "version": "0.0.1"
-            }
-          ]
-        },
-        {
-          "name": "JN516x Boards",
-          "architecture": "contiki",
-          "category": "Contributed",
-          "version": "0.0.1610062218",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/f1e8e2e6116f0f24c1d6e0a0e62eb2fc93d2e0d7.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-nativex-0.0.1610062218.tar.gz",
-          "checksum": "SHA-256:eed27fa02d69cf049c72a31bcdc7a69a4ef611379b67df2f225237bd8b0be9f8",
-          "size": "81530",
-          "boards": [
-            {
-              "name": "Generic JN516x board"
-            },
-            {
-              "name": "TOCOS TWE Lite"
-            },
-            {
-              "name": "SeeedStudio Mesh Bee"
-            }
-          ],
-          "toolsDependencies": [
-            {
-              "packager": "arduino",
-              "name": "arm-none-eabi-gcc",
-              "version": "4.8.3-2014q1"
-            },
-            {
-              "packager": "intiki",
-              "name": "contiki-makehelper",
-              "version": "0.0.3"
             },
             {
               "packager": "intiki",
@@ -149,8 +111,8 @@
           ]
         }
       ],
-      "name": "soburi",
-      "maintainer": "defaultmaintainer",
+      "name": "intiki",
+      "maintainer": "soburi",
       "websiteURL": "http://example.com",
       "email": "default@example.com"
     }
