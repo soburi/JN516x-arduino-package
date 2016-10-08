@@ -111,8 +111,8 @@
           ]
         }
       ],
-      "name": "defaultname",
-      "maintainer": "defaultmaintainer",
+      "name": "intiki",
+      "maintainer": "soburi",
       "websiteURL": "http://example.com",
       "email": "default@example.com"
     }
