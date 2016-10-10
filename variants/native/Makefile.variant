@@ -1,0 +1,13 @@
+CFLAGS  += -g -pthread
+LDFLAGS += -g -pthread -lstdc++
+
+ARDUINO_CFLAGS += -Wextra
+
+PLATFORM_CONF_H=$(ARDUINO_VARIANT_PATH)/$(ARDUINO_VARIANT)-platform-conf.h
+
+override target_makefile := $(CONTIKI)/platform/$(TARGET)/Makefile.$(TARGET)
+include $(CONTIKI)/platform/$(TARGET)/Makefile.$(TARGET)
+
+%.upload: %.elf
+	x-terminal-emulator -e sh -c "$(CURDIR)/$<"
+
