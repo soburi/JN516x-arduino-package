@@ -33,6 +33,7 @@ class Uart : public HardwareSerial
     void begin(unsigned long baudrate, uint32_t config);
     void end();
     int available();
+    int availableForWrite();
     int peek();
     int read();
     void flush();

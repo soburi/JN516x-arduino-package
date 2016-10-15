@@ -55,12 +55,12 @@ extern uint32_t micros( void ) ;
  */
 extern void delay( uint32_t dwMs ) ;
 
-#ifndef OVERLOAD_DELAYMICROSECONDS
 /**
  * \brief Pauses the program for the amount of time (in microseconds) specified as parameter.
  *
  * \param dwUs the number of microseconds to pause (uint32_t)
  */
+#ifndef OVERLOAD_DELAYMICROSECONDS
 extern void delayMicroseconds( uint32_t usec );
 #endif
 
