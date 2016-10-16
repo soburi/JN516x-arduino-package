@@ -66,7 +66,7 @@ void TwoWire::setClock(uint32_t frequency) {
 	// Can't immidiately refrect.
 }
 
-uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddress, uint8_t isize, uint8_t sendStop) {
+uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t /*iaddress*/, uint8_t /*isize*/, uint8_t /*sendStop*/) {
 	if (quantity > BUFFER_LENGTH)
 		quantity = BUFFER_LENGTH;
 
@@ -146,7 +146,7 @@ void TwoWire::beginTransmission(int address) {
 //	no call to endTransmission(true) is made. Some I2C
 //	devices will behave oddly if they do not see a STOP.
 //
-uint8_t TwoWire::endTransmission(uint8_t sendStop) {
+uint8_t TwoWire::endTransmission(uint8_t /*sendStop*/) {
 	uint8_t error = 0;
 	// transmit buffer (blocking)
 	DBG_PRINTF("vAHI_SiMasterWriteSlaveAddr %x\r\n", txAddress);
@@ -278,7 +278,7 @@ void TwoWire::onService(void) {
 
 #if WIRE_INTERFACES_COUNT > 0
 extern "C" {
-static void SiInterruptHandler(uint32 u32Device, uint32 u32ItemBitmap) {
+static void SiInterruptHandler(uint32 /*u32Device*/, uint32 u32ItemBitmap) {
 	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
 	}
 	if(u32ItemBitmap & E_AHI_SIM_BUSY_MASK) {

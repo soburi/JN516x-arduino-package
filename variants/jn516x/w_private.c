@@ -30,6 +30,7 @@ uint32_t ticktimer_overflow_count = 0;
 
 void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
 {
+	(void)u32Device; (void)u32ItemBitmap;
 	ticktimer_overflow_count++;
 }
 

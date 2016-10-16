@@ -56,12 +56,12 @@ static inline unsigned char __interruptsStatus(void) {
 }
 #endif
 
-void SPIClass::usingInterrupt(uint8_t interruptNumber)
+void SPIClass::usingInterrupt(uint8_t /*interruptNumber*/)
 {
 	//TODO
 }
 
-void SPIClass::beginTransaction(uint8_t pin, SPISettings settings)
+void SPIClass::beginTransaction(uint8_t /*pin*/, SPISettings /*settings*/)
 {
 	//TODO
 }
@@ -71,7 +71,7 @@ void SPIClass::endTransaction(void)
 	//TODO
 }
 
-void SPIClass::end(uint8_t _pin) {
+void SPIClass::end(uint8_t /*_pin*/) {
 	// read - disable restore
 }
 
@@ -97,7 +97,7 @@ void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider) {
 	divider[ch] = _divider;
 }
 
-byte SPIClass::transfer(byte _pin, uint8_t _data, SPITransferMode _mode) {
+byte SPIClass::transfer(byte _pin, uint8_t _data, SPITransferMode /*_mode*/) {
 	//TODO transfer mode 
 	uint32_t ch = BOARD_PIN_TO_SPI_CHANNEL(_pin);
 	DBG_PRINTF("SPIClass::transfer %x\r\n", ch);
@@ -141,7 +141,7 @@ byte SPIClass::transfer(byte _pin, uint8_t _data, SPITransferMode _mode) {
 	return ret;
 }
 
-void SPIClass::transfer(byte _pin, void *_buf, size_t _count, SPITransferMode _mode) {
+void SPIClass::transfer(byte /*_pin*/, void* /*_buf*/, size_t /*_count*/, SPITransferMode /*_mode*/) {
 	//TODO
 }
 
