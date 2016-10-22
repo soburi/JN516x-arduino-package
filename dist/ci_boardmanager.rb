@@ -5,7 +5,7 @@ require 'optparse'
 require 'open-uri'
 require 'pp'
 
-ARCHS = ["x86_64-apple-darwin", "x86_64-pc-linux-gnu", "i686-mingw32"]
+ARCHS = ["x86_64-apple-darwin", "x86_64-pc-linux-gnu", "i686-mingw32", "arm-linux-gnueabihf"]
 
 pkgtemplate = ''
 tooltemplatefile = ''

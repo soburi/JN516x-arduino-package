@@ -31,3 +31,6 @@ $(ARDUINO_OBJECTDIR)/%.o: %.c | $(ARDUINO_OBJECTDIR)/
 
 $(ARDUINO_PROJECT_NAME).$(TARGET).bin: $(ARDUINO_PROJECT_NAME).bin
 	cp $< $@
+
+override target_makefile := $(CONTIKI)/platform/$(TARGET)/Makefile.$(TARGET)
+include $(CONTIKI)/platform/$(TARGET)/Makefile.$(TARGET)
