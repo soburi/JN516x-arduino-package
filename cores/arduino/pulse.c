@@ -20,6 +20,7 @@
 
 uint32_t _pulseInDefault(uint32_t pin, uint32_t state, uint32_t timeout)
 {
+	(void)pin; (void)state; (void)timeout;
 	return 0;
 }
 

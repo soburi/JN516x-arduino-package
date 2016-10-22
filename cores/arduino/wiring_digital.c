@@ -32,6 +32,7 @@ uint32_t gpioPin2LedBits(uint32_t ulPin)
 
 void _pinModeDefault( uint32_t ulPin, uint32_t ulMode )
 {
+	(void)ulPin; (void)ulMode;
 }
 
 

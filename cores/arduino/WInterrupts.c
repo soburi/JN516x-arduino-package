@@ -25,8 +25,10 @@
 
 #include "wiring_private.h"
 
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 PROCESS(buttons_callback, "Buttons callback");
+#pragma GCC diagnostic pop
 
 static void winterrupts_c_constructor() __attribute__((constructor));
 static void winterrupts_c_constructor()
@@ -90,12 +92,14 @@ void _detachInterruptDefault(uint32_t pin)
 
 struct sensors_sensor* _gpioPin2ButtonDefault(uint32_t pin)
 {
+	(void)pin;
 	return (struct sensors_sensor*)&button_sensor;
 }
 
 struct buttonCallback buttonCB = {0};
 struct buttonCallback* _button2ButtonCallbackDefault(const struct sensors_sensor* button)
 {
+	(void)button;
 	return &buttonCB;
 }
 

@@ -32,8 +32,6 @@ extern "C" {
 
 #include "watchdog.h"
 
-extern "C" void initVariant();
-
 static struct main_thread_wait_t
 {
 	enum main_thread_wait_type type;
@@ -84,12 +82,14 @@ struct process * const autostart_processes[] = {NULL};
 void
 autostart_start(struct process * const processes[])
 {
+  (void)processes;
   start_process_list();
 }
 /*---------------------------------------------------------------------------*/
 void
 autostart_exit(struct process * const processes[])
 {
+  (void)processes;
   exit_process_list();
 }
 
