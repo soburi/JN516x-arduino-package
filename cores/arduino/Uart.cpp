@@ -20,45 +20,41 @@
 #include "Arduino.h"
 #include "wiring_private.h"
 
-Uart::Uart(SERCOM *_s, uint8_t _pinRX, uint8_t _pinTX, SercomRXPad _padRX, SercomUartTXPad _padTX)
+Uart::Uart(struct uart_device *_s)
 {
-  sercom=_s;
-  (void)_pinRX;
-  (void)_pinTX;
-  (void)_padRX;
-  (void)_padTX;
+  uart=_s;
 }
 
 void Uart::begin(unsigned long baudrate)
 {
-  begin(baudrate, (uint8_t)SERIAL_8N1);
+	begin(baudrate, SERIAL_8N1);
 }
 
-void Uart::begin(unsigned long baudrate, uint16_t config)
+void Uart::begin(unsigned long baudrate, uint32_t config)
 {
-	uint8_t parity  =  config && HARDSER_PARITY_MASK;
-	uint8_t stopbit = (config && HARDSER_STOP_BIT_MASK) >> 8;
-	uint8_t wordlen = (config && HARDSER_DATA_MASK)     >> 16;
+	uint8_t parity  =  config & HARDSER_PARITY_MASK;
+	uint8_t stopbit = (config & HARDSER_STOP_BIT_MASK) >> 4;
+	uint8_t wordlen = ((config & HARDSER_DATA_MASK) >> 8) + 4;
 	uint8_t flowctrl = 0;
 	
-	sercom->set_input(sercom->portinfo, sercom->input);
-	sercom->init(sercom->portinfo, baudrate, parity, stopbit, wordlen, flowctrl);
+	uart->init(uart->portinfo, baudrate, parity, stopbit, wordlen, flowctrl);
+	uart->set_input(uart->portinfo, uart->input);
 }
 
 void Uart::end()
 {
 	flush();
-	sercom->deinit(sercom->portinfo);
+	uart->deinit(uart->portinfo);
 }
 
 void Uart::flush()
 {
-	while (sercom->busy(sercom->portinfo) ) ;
+	while (uart->busy(uart->portinfo) ) ;
 }
 
 void Uart::IrqHandler()
 {
-	rxBuffer.store_char(sercom->received);
+	rxBuffer.store_char(uart->received);
 }
 
 int Uart::available()
@@ -78,6 +74,6 @@ int Uart::read()
 
 size_t Uart::write(const uint8_t data)
 {
-	sercom->writeb(sercom->portinfo, data);
+	uart->writeb(uart->portinfo, data);
 	return 1;
 }

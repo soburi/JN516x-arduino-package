@@ -1,5 +1,5 @@
 /*
-  Copyright (c) TOKITA Hiroshi.  All right reserved.
+  Copyright (c) 2016 TOKITA Hiroshi.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 #include "variant.h"
 #include "platform.h"
+#include "wiring_private.h"
 
 #define D_PLATFORM_UART(x) platform_uart ## x
 #define D_PLATFORM_UART_F(x,y) platform_uart ## x ## _ ## y
@@ -31,7 +32,7 @@ extern "C" void D_PLATFORM_UART_F(x,set_input)(void*, int (*input)(uint8_t)); \
 extern "C" void D_PLATFORM_UART_F(x,writeb)(void*, uint8_t); \
 extern "C" uint8_t D_PLATFORM_UART_F(x,busy)(void*); \
 extern "C" void D_PLATFORM_UART_F(x,deinit)(void*); \
-SERCOM D_PLATFORM_UART(x) = {\
+struct uart_device D_PLATFORM_UART(x) = {\
 	UART##x##_RxHandler, \
 	D_PLATFORM_UART_F(x,init), \
 	D_PLATFORM_UART_F(x,set_input), \
@@ -50,7 +51,7 @@ static int UART ## x ## _RxHandler(uint8_t c) \
   return 0; \
 } \
 \
-Uart D_SERIAL(x)(&D_PLATFORM_UART(x) , 0, 0, 0, 0);\
+Uart D_SERIAL(x)(&D_PLATFORM_UART(x));\
 void D_SERIALEVENT(x)() __attribute__((weak));\
 void D_SERIALEVENT(x)() { }\
 

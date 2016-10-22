@@ -70,7 +70,7 @@ struct buttonCallback* button2ButtonCallback(struct sensors_sensor*);
 struct sensors_sensor* gpioPin2Button(uint32_t pin);
 
 
-struct SERCOM {
+struct uart_device {
 	int     (*input)( uint8_t c);
 	void    (*init)(void*, uint32_t, uint8_t, uint8_t, uint8_t, uint8_t);
 	void    (*set_input)(void*, int (*input)(unsigned char));
@@ -80,14 +80,6 @@ struct SERCOM {
 	void*	portinfo;
 	uint8_t received;
 };
-
-typedef struct SERCOM SERCOM;
-
-typedef uint8_t SercomRXPad;
-typedef uint8_t SercomUartTXPad;
-typedef uint8_t SercomNumberStopBit;
-typedef uint8_t SercomUartCharSize;
-typedef uint8_t SercomParityMode;
 
 
 #ifdef __cplusplus
