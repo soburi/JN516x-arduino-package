@@ -32,8 +32,6 @@ extern "C" {
 
 #include "watchdog.h"
 
-extern "C" void initVariant();
-
 static struct main_thread_wait_t
 {
 	enum main_thread_wait_type type;
