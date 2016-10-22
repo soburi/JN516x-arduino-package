@@ -45,6 +45,19 @@ extern "C"
  *        Pins
  *----------------------------------------------------------------------------*/
 
+/*
+ * digitalPinToTimer(..) is AVR-specific and is not defined for SAMD
+ * architecture. If you need to check if a pin supports PWM you must
+ * use digitalPinHasPWM(..).
+ *
+ * https://github.com/arduino/Arduino/issues/1833
+ */
+// #define digitalPinToTimer(P)
+
+// LEDs
+#define PIN_LED2             (2)
+#define PIN_LED3             (3)
+#define LED_BUILTIN          PIN_LED2
 
 /*
  * Analog pins
