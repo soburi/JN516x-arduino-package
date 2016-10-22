@@ -62,6 +62,11 @@ int Uart::available()
 	return (uint32_t)(SERIAL_BUFFER_SIZE + rxBuffer._iHead - rxBuffer._iTail) % SERIAL_BUFFER_SIZE;
 }
 
+int Uart::availableForWrite()
+{
+  return 0; //TODO
+}
+
 int Uart::peek()
 {
 	return rxBuffer.peek();
