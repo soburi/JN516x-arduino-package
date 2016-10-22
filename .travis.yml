@@ -1,4 +1,12 @@
-language: c
+language: generic
+sudo: required
+dist: trusty
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-6
 env:
   global:
     secure: msCet324eLDX02fA+IHr0xkTWs9Pjt5Xln8fCs3HMDCa+ADNWT5fu18GkYpkSZXysZwte7et06qfThkpmr8vejBzX0yFrZI01AWNAiKinKy/VkYWFpL0SViW4F2phOMsLWGLnGy3FCszi/UY9FXAzO96Ak43sGm9Raw34Fq1Hu/LX+TRVZ3MmqNvFkn6VgDJn8hXJIrh+tQPn/lFL0xcycWmFeI52h3sJ/Upq0tXVLCQtvO/QZ0fW5k2Ded78L6XZ1nvaFKgBB6e7t/TtuhM6Z+xbSmO8Gl5x5QdCK4YzjEOZYYWX802LhbIaWOQvPXHJeXfSS2MFZQZo+j3qxC2II8vVjNq0ynOC2A8cUqaZUkq/HOz3j3uGH26U7qgpycjmo6Po0+dYTeBF3mL+8oDAepZSDM2cPAaERLzyIqdLiP6dqaDm01tBig49SDBH/vyvUgvRfCqGLGxoUEHbuoEZ+SbFnkuxVbUODl6YKxcGjAQ17UnZguoSogVal2m8aWCtYEjulINXNgWbWTt9mcuxB3bo1dnHRSyFDPV6jJwCFVM/rF0oKN5IqkjworTkEeWjppxvrr/JW4kbR4zlAkQ8hXFwF9sNt8yhfgmpqc6oLpygOSZBhA1SDhdMoIiCDcRoDLY9uztuiG3pHI0rZk4uFWprGL932suspvGuav0LL0=
@@ -17,6 +25,20 @@ before_script:
 - git remote add gh-origin "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
 - git config --global user.email "travisci@example.com"
 - git config --global user.name "Travis-CI"
+#
+- curl -l -L https://github.com/sstephenson/bats/archive/v0.4.0.tar.gz  | tar xfz - -C ~
+- ~/bats-0.4.0/install.sh ~
+- curl -l -L http://ftp.gnu.org/gnu/make/make-4.2.tar.bz2 | tar xfj - -C ~
+- cd ~/make-4.2 && ./configure && make && cp make ~/bin
+- cd -
+- export PATH=~/bin:$PATH
+- curl -l -L https://downloads.arduino.cc/arduino-1.6.12-linux64.tar.xz | tar xfJ - -C ~
+- curl -l -L $(ruby dist/ci_toolurl.rb dist/tool_template.json)  | tar xfj - -C ~
+- echo intiki.contiki-makehelper=0.0.5 >> ~/contiki-makehelper/builtin_tools_versions.txt 
+- mkdir ~/arduino-1.6.12/hardware/soburi/
+- ln -s $PWD ~/arduino-1.6.12/hardware/soburi/intiki
+
+
 script:
 # check submojule.json
 - ruby dist/ci_submodules.rb -c dist/submodules.json
@@ -27,6 +49,7 @@ after_script:
 - if [ ${TRAVIS_TEST_RESULT} -ne 0 ] ; then echo ${TRAVIS_TEST_RESULT} ; exit ${TRAVIS_TEST_RESULT} ; fi
 - ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} > ../tmp.json || exit $?
 - git fetch --all || exit $?
+- if [ "$TRAVIS_TAG" != "" ] ; then bats dist/compile_examples.bats ; fi
 - git checkout gh-origin/gh-pages -b gh-pages || exit $?
 - cp ../tmp.json ${PKGJSON} || exit $?
 - git add ${PKGJSON} || exit $?
