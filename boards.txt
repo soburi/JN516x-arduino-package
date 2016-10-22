@@ -25,3 +25,17 @@ jn516x.menu.config.twelite.build.config_vars=CHIP=JN5164
 jn516x.menu.config.meshbee=Mesh Bee
 jn516x.menu.config.meshbee.build.config_vars=CHIP=JN5168
 
+native.name=native
+native.upload.tool=contiki-makehelper
+native.upload.protocol=contiki-makehelper
+native.build.mcu=native
+native.build.board=native
+native.build.f_cpu=32000000L
+native.build.core=arduino
+native.build.variant=native
+native.build.compiler.path=""
+native.build.uploader.path=""
+native.build.make.vars=target_makefile={runtime.platform.path}/variants/{build.variant}/Makefile.variant
+native.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
+native.menu.config.raspi=RaspberryPi
+native.menu.config.raspi.build.config_vars=
