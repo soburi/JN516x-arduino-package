@@ -44,6 +44,7 @@ tooltemplate = open(tooltemplatefile) {|j| JSON.load(j) }
 
 bmdata = JSON.load('{ "packages": [ { "platforms": [], "tools": [] }  ] }')
 begin
+  raise if force
   bmdata = open(ghpage_url) {|f| JSON.load(f) }
 rescue => e
   bmdata['packages'][0]['name'] = 'defaultname'
@@ -51,7 +52,7 @@ rescue => e
   bmdata['packages'][0]['websiteURL'] = 'http://example.com'
   bmdata['packages'][0]['email'] = 'default@example.com'
   STDERR.puts(e)
-  raise e if not force
+  #raise e if not force
 end
 
 
