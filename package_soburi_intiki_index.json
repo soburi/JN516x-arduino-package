@@ -46,7 +46,7 @@
         },
         {
           "name": "JN516x Boards",
-          "architecture": "contiki",
+          "architecture": "intiki",
           "category": "Contributed",
           "version": "0.0.20160705",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/intiki-0.0.20160705/JN516x-arduino-package-intiki-0.0.20160705.tar.bz2",
@@ -84,7 +84,7 @@
         },
         {
           "name": "JN516x Boards",
-          "architecture": "contiki",
+          "architecture": "intiki",
           "category": "Contributed",
           "version": "0.0.20160208",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160208.tar.gz",
@@ -122,7 +122,7 @@
         },
         {
           "name": "JN516x Boards",
-          "architecture": "contiki",
+          "architecture": "intiki",
           "category": "Contributed",
           "version": "0.0.20160228",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160228.tar.gz",
@@ -160,7 +160,7 @@
         },
         {
           "name": "JN516x Boards",
-          "architecture": "contiki",
+          "architecture": "intiki",
           "category": "Contributed",
           "version": "0.0.20160519",
           "url": "https://github.com/soburi/JN516x-arduino-package/archive/intiki-0.0.20160519.tar.gz",
