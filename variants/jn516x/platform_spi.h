@@ -59,7 +59,7 @@ private:
 	void init_MightInline(uint32_t clock, BitOrder bitOrder, uint8_t dataMode) {
 		init_AlwaysInline(clock, bitOrder, dataMode);
 	}
-	void init_AlwaysInline(uint32_t clock, BitOrder bitOrder, uint8_t dataMode) __attribute__((__always_inline__)) {
+	void init_AlwaysInline(uint32_t clock, BitOrder bitOrder, uint8_t /*dataMode*/) __attribute__((__always_inline__)) {
 		border = bitOrder;
 		uint8_t div;
 		if (clock < (F_CPU / 255)) {

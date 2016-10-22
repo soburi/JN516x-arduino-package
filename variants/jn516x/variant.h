@@ -16,8 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _VARIANT_
-#define _VARIANT_
+#ifndef _VARIANT_JN516X_
+#define _VARIANT_JN516X_
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -28,59 +28,12 @@
 #include "Arduino.h"
 #ifdef __cplusplus
 #include "Uart.h"
-
-/*----------------------------------------------------------------------------
- *        Arduino objects - C++ only
- *----------------------------------------------------------------------------*/
-
-#define HAS_UART_0
-#define HAS_UART_1
-
-extern Uart& Serial;
-#ifdef HAS_UART_0
-extern Uart Serial0;
-#endif
-#ifdef HAS_UART_1
-extern Uart Serial1;
-#endif
-#ifdef HAS_UART_2
-extern Uart Serial2;
-#endif
-#ifdef HAS_UART_3
-extern Uart Serial3;
-#endif
-
-// These serial port names are intended to allow libraries and architecture-neutral
-// sketches to automatically default to the correct port name for a particular type
-// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
-// the first hardware serial port whose RX/TX pins are not dedicated to another use.
-//
-// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
-//
-// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
-//
-// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
-//
-// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
-//
-// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
-//                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR         Serial
-//#define SERIAL_PORT_USBVIRTUAL      SerialUSB
-#define SERIAL_PORT_HARDWARE_OPEN   Serial1
-//#define SERIAL_PORT_HARDWARE_OPEN1  Serial2
-//#define SERIAL_PORT_HARDWARE_OPEN2  Serial3
-#define SERIAL_PORT_HARDWARE        Serial
-#define SERIAL_PORT_HARDWARE1       Serial1
-//#define SERIAL_PORT_HARDWARE2       Serial2
-//#define SERIAL_PORT_HARDWARE3       Serial3
-
 #endif // __cplusplus
 
-
 #ifdef __cplusplus
-extern "C" {
-#endif
+extern "C"
+{
+#endif // __cplusplus
 
 #define DBG_PRINTF(...) DBG_vPrintf(DBG_VPRINTF_ENABLE, __VA_ARGS__)
 #ifdef DBG_ENABLE
@@ -88,6 +41,47 @@ extern "C" {
 #else
 #define DBG_VPRINTF_ENABLE false
 #endif
+/*----------------------------------------------------------------------------
+ *        Pins
+ *----------------------------------------------------------------------------*/
+
+/*
+ * digitalPinToTimer(..) is AVR-specific and is not defined for SAMD
+ * architecture. If you need to check if a pin supports PWM you must
+ * use digitalPinHasPWM(..).
+ *
+ * https://github.com/arduino/Arduino/issues/1833
+ */
+// #define digitalPinToTimer(P)
+
+// LEDs
+#define PIN_LED2             (2)
+#define PIN_LED3             (3)
+#define LED_BUILTIN          PIN_LED2
+
+/*
+ * Analog pins
+ */
+#define PIN_ADC1 0xA1
+#define PIN_ADC2 0xA2
+#define PIN_ADC3 0
+#define PIN_ADC4 1
+
+//static const uint8_t ADC1   = PIN_ADC1;
+//static const uint8_t ADC2   = PIN_ADC2;
+//static const uint8_t ADC3   = PIN_ADC3;
+//static const uint8_t ADC4   = PIN_ADC4;
+
+static const uint8_t A0   = PIN_ADC1;
+static const uint8_t A1   = PIN_ADC2;
+static const uint8_t A2   = PIN_ADC3;
+static const uint8_t A3   = PIN_ADC4;
+
+static const uint8_t PWM1 = 5;
+static const uint8_t PWM2 = 0xD0;
+static const uint8_t PWM3 = 0xD1;
+static const uint8_t PWM4 = 8;
+
 
 /*
  * SPI Interfaces
@@ -119,61 +113,63 @@ extern "C" {
 #define VARIANT_MCK                     84000000
 
 
-#define SYSTEM_WAKETIMER E_AHI_WAKE_TIMER_1
-#if SYSTEM_WAKETIMER == E_AHI_WAKE_TIMER_0
-#define SYSTEM_WAKETIMER_MASK E_AHI_WAKE_TIMER_MASK_0
-#else
-#define SYSTEM_WAKETIMER_MASK E_AHI_WAKE_TIMER_MASK_1
-#endif
-
-#define WTCOUNT2MSEC(cnt) ( (cnt) / 320000.f / (double)wakeTimerCalibrationValue() )
-#define MSEC2WTCOUNT(ms)  ( (ms)  * 320000.f / (double)wakeTimerCalibrationValue() )
-
-#define POWER_STATUS_WAKED		(0x1 << 0)
-#define POWER_STATUS_RAM_RETAINING	(0x1 << 1)
-#define POWER_STATUS_ANALOG_ON		(0x1 << 2)
-#define POWER_STATUS_PROTOCOL_ON	(0x1 << 3)
-#define POWER_STATUS_NONE_4		(0x1 << 4)
-#define POWER_STATUS_NONE_5		(0x1 << 5)
-#define POWER_STATUS_NONE_6		(0x1 << 6)
-#define POWER_STATUS_WATCHDOG_CAUSED	(0x1 << 7)
-#define POWER_STATUS_NONE_8		(0x1 << 8)
-#define POWER_STATUS_NONE_9		(0x1 << 9)
-#define POWER_STATUS_32KHZ_READY	(0x1 << 10)
-#define POWER_STATUS_WAKED_FROM_DEEP	(0x1 << 11)
-#define POWER_STATUS_NONE_12		(0x1 << 12)
-#define POWER_STATUS_NONE_13		(0x1 << 13)
-#define POWER_STATUS_NONE_14		(0x1 << 14)
-#define POWER_STATUS_NONE_15		(0x1 << 15)
-
-#define PIN_ADC1 0xA1
-#define PIN_ADC2 0xA2
-#define PIN_ADC3 0
-#define PIN_ADC4 1
-
-//static const uint8_t ADC1   = PIN_ADC1;
-//static const uint8_t ADC2   = PIN_ADC2;
-//static const uint8_t ADC3   = PIN_ADC3;
-//static const uint8_t ADC4   = PIN_ADC4;
-
-static const uint8_t A0   = PIN_ADC1;
-static const uint8_t A1   = PIN_ADC2;
-static const uint8_t A2   = PIN_ADC3;
-static const uint8_t A3   = PIN_ADC4;
-
-static const uint8_t PWM1 = 5;
-static const uint8_t PWM2 = 0xD0;
-static const uint8_t PWM3 = 0xD1;
-static const uint8_t PWM4 = 8;
-
-bool warmBoot();
-bool waked();
-
-extern uint32_t wakeTimerCalibrationValue();
-extern void setWakeTimerCalibrationValue(uint32_t value);
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _VARIANT_TWELITE_ */
+/*----------------------------------------------------------------------------
+ *        Arduino objects - C++ only
+ *----------------------------------------------------------------------------*/
+
+#ifdef __cplusplus
+
+/*	=========================
+ *	===== SERCOM DEFINITION
+ *	=========================
+*/
+#define HAS_UART_0
+#define HAS_UART_1
+
+extern Uart& Serial;
+#ifdef HAS_UART_0
+extern Uart Serial0;
+#endif
+#ifdef HAS_UART_1
+extern Uart Serial1;
+#endif
+#ifdef HAS_UART_2
+extern Uart Serial2;
+#endif
+#ifdef HAS_UART_3
+extern Uart Serial3;
+#endif
+
+#endif
+
+// These serial port names are intended to allow libraries and architecture-neutral
+// sketches to automatically default to the correct port name for a particular type
+// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+// the first hardware serial port whose RX/TX pins are not dedicated to another use.
+//
+// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+//
+// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+//
+// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+//
+// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+//
+// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+//                            pins are NOT connected to anything by default.
+//#define SERIAL_PORT_USBVIRTUAL      SerialUSB
+#define SERIAL_PORT_MONITOR         Serial
+#define SERIAL_PORT_HARDWARE_OPEN   Serial1
+//#define SERIAL_PORT_HARDWARE_OPEN1  Serial2
+//#define SERIAL_PORT_HARDWARE_OPEN2  Serial3
+#define SERIAL_PORT_HARDWARE        Serial
+#define SERIAL_PORT_HARDWARE1       Serial1
+//#define SERIAL_PORT_HARDWARE2       Serial2
+//#define SERIAL_PORT_HARDWARE3       Serial3
+
+#endif /* _VARIANT_JN516X_ */
+
