@@ -25,19 +25,9 @@ int process_loop() __attribute__((weak));
 
 int main()
 {
-	return arduino_main();
+	return 0;
 }
 
 void initVariant()
 {
 }
-
-int process_loop()
-{
-	int r;
-	while(1) {
-		r = process_run();
-	}
-	return r;
-}
-

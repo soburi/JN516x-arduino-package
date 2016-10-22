@@ -118,7 +118,7 @@ static uint8_t is_gateway;
 /* _EXTRA_LPM is the sleep mode, _LPM is the doze mode */
 #define ENERGEST_TYPE_EXTRA_LPM ENERGEST_TYPE_LPM
 
-//static void main_loop(void);
+static void main_loop(void);
 
 #if DCOSYNCH_CONF_ENABLED
 static unsigned long last_dco_calibration_time;
@@ -152,7 +152,7 @@ init_node_mac(void)
   node_mac[0] = psExtAddress.sExt.u32H >> (uint32_t)24;
 }
 /*---------------------------------------------------------------------------*/
-#if 0
+#define PROCESS_CONF_NO_PROCESS_NAMES 1
 #if !PROCESS_CONF_NO_PROCESS_NAMES
 static void
 print_processes(struct process *const processes[])
@@ -166,7 +166,6 @@ print_processes(struct process *const processes[])
   putchar('\n');
 }
 #endif /* !PROCESS_CONF_NO_PROCESS_NAMES */
-#endif
 /*---------------------------------------------------------------------------*/
 #if NETSTACK_CONF_WITH_IPV4
 static void
@@ -185,7 +184,6 @@ set_gateway(void)
 }
 #endif /* NETSTACK_CONF_WITH_IPV4 */
 /*---------------------------------------------------------------------------*/
-#if 0
 static void
 start_autostart_processes()
 {
@@ -194,7 +192,6 @@ start_autostart_processes()
 #endif /* !PROCESS_CONF_NO_PROCESS_NAMES */
   autostart_start(autostart_processes);
 }
-#endif
 /*---------------------------------------------------------------------------*/
 #if NETSTACK_CONF_WITH_IPV6
 static void
@@ -290,14 +287,11 @@ xosc_init(void)
 uint16_t TOS_NODE_ID = 0x1234; /* non-zero */
 uint16_t TOS_LOCAL_ADDRESS = 0x1234; /* non-zero */
 #endif /* WITH_TINYOS_AUTO_IDS */
-void
-initVariant( void )
+int
+main(void)
 {
-  /* Initialize random with a seed from the SoC random generator.
-   * This must be done before selecting the high-precision external oscillator.
-   */
-  vAHI_StartRandomNumberGenerator(E_AHI_RND_SINGLE_SHOT, E_AHI_INTS_DISABLED);
-  random_init(u16AHI_ReadRandomNumber());
+  /* Set stack overflow address for detecting overflow in runtime */
+  //vAHI_SetStackOverflow(TRUE, ((uint32_t *)&heap_location)[0]);
 
   /* Initialize random with a seed from the SoC random generator.
    * This must be done before selecting the high-precision external oscillator.
@@ -427,17 +421,17 @@ initVariant( void )
      auto-start processes */
   (void)u32AHI_Init();
 
-  //start_autostart_processes();
+  start_autostart_processes();
 
   //leds_off(LEDS_ALL);
 
-  //main_loop();
+  main_loop();
 
-  //return -1;
+  return -1;
 }
 
-int
-process_loop(void)
+static void
+main_loop(void)
 {
   int r;
   clock_time_t time_to_etimer;
@@ -516,9 +510,6 @@ process_loop(void)
   }
 }
 
-int argc=0;
-char** argv = NULL;
-extern int main(int argc, char** argv);
 typedef void (*funcptr)(); 
 extern funcptr ctors_start;
 
@@ -536,7 +527,7 @@ AppColdStart(void)
   }
 
   /* After reset or sleep with memory off */
-  main(argc, argv);
+  main();
 }
 /*---------------------------------------------------------------------------*/
 void
@@ -589,6 +580,6 @@ AppWarmStart(void)
   last_dco_calibration_time = clock_seconds();
 #endif
 
-  //main_loop();
+  main_loop();
 }
 /*---------------------------------------------------------------------------*/
