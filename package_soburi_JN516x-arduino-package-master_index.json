@@ -6,11 +6,11 @@
           "name": "JN516x Boards",
           "architecture": "contiki",
           "category": "Contributed",
-          "version": "0.0.1610231256",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/a22bf40abf43d387fb4fe5cf7ebf89e0170c4b85.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-master-0.0.1610231256.tar.gz",
-          "checksum": "SHA-256:e6e7716b1b17d46701f6e24ea0d1bbfd188a1ffd1cc1d470ae783a7256193f7f",
-          "size": "90081",
+          "version": "0.0.1610231302",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/8128fb78325ad6f0507a03f4c8357e15c5b9caa4.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-master-0.0.1610231302.tar.gz",
+          "checksum": "SHA-256:95960095ed2f9469b80b13523be91dfad85fe5ececd87b3f461e0dbdbbf94433",
+          "size": "90098",
           "boards": [
             {
               "name": "Generic JN516x board"
