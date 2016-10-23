@@ -39,3 +39,18 @@ native.build.make.vars=target_makefile={runtime.platform.path}/variants/{build.v
 native.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 native.menu.config.raspi=RaspberryPi
 native.menu.config.raspi.build.config_vars=
+
+minimal-net.name=minimal-net
+minimal-net.upload.tool=contiki-makehelper
+minimal-net.upload.protocol=contiki-makehelper
+minimal-net.build.mcu=minimal_net
+minimal-net.build.board=minimal_net
+minimal-net.build.f_cpu=32000000L
+minimal-net.build.core=arduino
+minimal-net.build.variant=minimal-net
+minimal-net.build.compiler.path=""
+minimal-net.build.uploader.path=""
+minimal-net.build.make.vars=target_makefile={runtime.platform.path}/variants/{build.variant}/Makefile.variant CONTIKI_WITH_IPV4=1
+minimal-net.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
+minimal-net.menu.config.raspi=RaspberryPi
+minimal-net.menu.config.raspi.build.config_vars=
