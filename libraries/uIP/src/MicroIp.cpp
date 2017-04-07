@@ -27,6 +27,7 @@ extern "C" {
 #include <net/ip/uip-debug.h>
 }
 
+#include "wiring_private.h"
 #include "MicroIp.h"
 
 struct resolv_params {

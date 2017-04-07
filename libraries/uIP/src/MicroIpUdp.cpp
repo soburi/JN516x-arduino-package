@@ -25,6 +25,7 @@ extern "C" {
 }
 
 #include "Arduino.h"
+#include "wiring_private.h"
 #include "Udp.h"
 #include "MicroIP.h"
 #include "MicroIPUDP.h"
@@ -228,6 +229,8 @@ void MicroIPUDP::receive(const uip_ipaddr_t *source_addr, uint16_t source_port,
 {
   const uint16_t store_size =static_cast<uint16_t>(datalen+sz_pack);
   struct receive_pack pack = { store_size, *source_addr, source_port };
+  (void) dest_addr;
+  (void) dest_port;
   PRINTF("MicroIPUDP::receive %d %d %d\n", sz_pack, store_size, datalen );
 
   if( store_size > ringbuf_size(&rxbuf) ) {
@@ -276,6 +279,7 @@ void MicroIPUDP::input_callback(struct udp_socket *c, void *ptr,
                                const uint8_t *data, uint16_t datalen)
 {
   MicroIPUDP* udp = reinterpret_cast<MicroIPUDP*>(ptr);
+  (void)c;
   udp->receive(source_addr, source_port, dest_addr, dest_port, data, datalen);
 }
 
