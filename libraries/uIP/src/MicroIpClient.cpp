@@ -25,6 +25,7 @@ extern "C" {
 }
 
 #include "Arduino.h"
+#include "wiring_private.h"
 #include "MicroIp.h"
 #include "MicroIpClient.h"
 
@@ -226,6 +227,8 @@ void MicroIPClient::do_tcp_socket_connect(void* ptr)
 int MicroIPClient::wait_tcp_socket_event(process_event_t ev, process_data_t data, void* ptr) {
   struct tcp_socket_params* params = reinterpret_cast<struct tcp_socket_params*>(ptr);
   MicroIPClient* client = const_cast<MicroIPClient*>(params->client);
+  (void)ev;
+  (void)data;
 
   PRINTF("wait_tcp_socket_event client->state=%d\n", client->state);
   if(client->event_wait) {
@@ -287,6 +290,7 @@ int MicroIPClient::listen(uint16_t port)
 int MicroIPClient::data_callback(struct tcp_socket *s, void *ptr, const uint8_t *input_data_ptr, int input_data_len) {
   PRINTF("MicroIPClient::data_callback %d\n", input_data_len);
   MicroIPClient* client = reinterpret_cast<MicroIPClient*>(ptr);
+  (void)s;
   int wb = client->receive(input_data_ptr, input_data_len);
   return (input_data_len - wb);
 }
@@ -294,6 +298,7 @@ int MicroIPClient::data_callback(struct tcp_socket *s, void *ptr, const uint8_t 
 void MicroIPClient::event_callback(struct tcp_socket *s, void *ptr, tcp_socket_event_t event) {
   PRINTF("MicroIPClient::event_callback %d\n", event);
   MicroIPClient* client = reinterpret_cast<MicroIPClient*>(ptr);
+  (void)s;
   client->state = event;
   client->event_wait= false;
   post_continue();
