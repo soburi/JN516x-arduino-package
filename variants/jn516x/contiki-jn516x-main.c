@@ -133,6 +133,8 @@ static uint32_t sleep_start_ticks;
 #else
 #define PRINTF(...) do {} while(0)
 #endif
+
+#define UART0_DEBUG_ENABLE 0
 /*---------------------------------------------------------------------------*/
 /* Reads MAC from SoC
  * Must be called before node_id_restore()
@@ -334,7 +336,9 @@ main(void)
 
   process_init();
   ctimer_init();
-  //uart0_init(UART_BAUD_RATE); /* Must come before first PRINTF */
+#if UART0_DEBUG_ENABLE
+  uart0_init(UART_BAUD_RATE); /* Must come before first PRINTF */
+#endif
 
 #if NETSTACK_CONF_WITH_IPV4
   slip_arch_init(UART_BAUD_RATE);
@@ -373,7 +377,9 @@ main(void)
   PRINTF("%s %s %s\n", NETSTACK_LLSEC.name, NETSTACK_MAC.name, NETSTACK_RDC.name);
 
 #ifndef UIP_FALLBACK_INTERFACE
+#if UART0_DEBUG_ENABLE
   uart0_set_input(serial_line_input_byte);
+#endif
   serial_line_init();
 #endif /* UIP_FALLBACK_INTERFACE */
 
@@ -465,7 +471,10 @@ main_loop(void)
 #endif /* DCOSYNCH_CONF_ENABLED */
 
     /* flush standard output before sleeping */
+#if UART0_DEBUG_ENABLE
     uart_driver_flush(E_AHI_UART_0, TRUE, FALSE);
+#endif
+
 
     /* calculate the time to the next etimer and rtimer */
     time_to_etimer = clock_arch_time_to_etimer();
@@ -544,7 +553,9 @@ AppWarmStart(void)
 
   clock_arch_calibrate();
   leds_init();
+#if UART0_DEBUG_ENABLE
   uart0_init(UART_BAUD_RATE); /* Must come before first PRINTF */
+#endif
   NETSTACK_RADIO.init();
   watchdog_init();
   watchdog_stop();
