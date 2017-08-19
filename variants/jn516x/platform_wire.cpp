@@ -1,7 +1,6 @@
 /*
- * TwoWire.h - TWI/I2C library for Arduino Due
- * Copyright (c) 2011 Cristian Maglie <c.maglie@arduino.cc>
- * All rights reserved.
+ * TWI/I2C library for Arduino Zero
+ * Copyright (c) 2015 Arduino LLC. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,257 +22,316 @@ extern "C" {
 }
 
 #include "platform_wire.h"
+#include <AppHardwareApi.h>
+#define SI_CLOCK2PRESCALER(clk) ( (16L/((clk)/1000000L)/5L)-1 )
 
 
-TwoWire::TwoWire(Twi *_twi, void(*_beginCb)(void), void(*_endCb)(void)) :
-	rxBufferIndex(0), rxBufferLength(0), txAddress(0),
-		txBufferLength(0), srvBufferIndex(0), srvBufferLength(0),
-			onBeginCallback(_beginCb), onEndCallback(_endCb),
-				twi(_twi), status(UNINITIALIZED), twiClock(TWI_CLOCK)
+typedef enum
 {
-}
+	WIRE_WRITE_FLAG = 0x0ul,
+	WIRE_READ_FLAG
+} SercomWireReadWriteFlag;
 
-void TwoWire::begin(void) {
-	if (onBeginCallback)
-		onBeginCallback();
-	
-	vAHI_SiSetLocation(false); 
-	vAHI_SiMasterConfigure(true, false, SI_CLOCK2PRESCALER(twiClock) ); // set to 100KHz
-	status = MASTER_IDLE;
-}
+typedef enum
+{
+	WIRE_MASTER_ACT_NO_ACTION = 0,
+	WIRE_MASTER_ACT_REPEAT_START,
+	WIRE_MASTER_ACT_READ,
+	WIRE_MASTER_ACT_STOP
+} SercomMasterCommandWire;
 
-void TwoWire::begin(uint8_t address) {
-	if (onBeginCallback)
-		onBeginCallback();
-
-	vAHI_SiSlaveConfigure(address, false, true, 0xFF, false)	;
-	status = SLAVE_IDLE;
-}
-
-void TwoWire::begin(int address) {
-	begin((uint8_t) address);
-}
-
-void TwoWire::end(void) {
-	//TODO
-
-	if (onEndCallback)
-		onEndCallback();
-}
-
-void TwoWire::setClock(uint32_t frequency) {
-	twiClock = frequency;
-	// Can't immidiately refrect.
-}
-
-uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t /*iaddress*/, uint8_t /*isize*/, uint8_t /*sendStop*/) {
-	if (quantity > BUFFER_LENGTH)
-		quantity = BUFFER_LENGTH;
-
-	DBG_PRINTF("vAHI_SiMasterWriteSlaveAddr %x\r\n", address);
-	vAHI_SiMasterWriteSlaveAddr(address, true);
-	vAHI_SiSetCmdReg(E_AHI_SI_START_BIT, E_AHI_SI_NO_STOP_BIT,
-			 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_SLAVE_WRITE,
-			 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-	while(bAHI_SiPollTransferInProgress()); /* wait while busy */
-
-	// perform blocking read into buffer
-	int readed = 0;
-
-	do {
-		if(readed == (quantity-1) ) {
-			vAHI_SiSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_STOP_BIT,
-					 E_AHI_SI_SLAVE_READ, E_AHI_SI_NO_SLAVE_WRITE,
-					 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-		}
-		else {
-			vAHI_SiSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_NO_STOP_BIT,
-					 E_AHI_SI_SLAVE_READ, E_AHI_SI_NO_SLAVE_WRITE,
-					 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-		}
-
-		while(bAHI_SiPollTransferInProgress()); /* wait while busy */
-
-		rxBuffer[readed++] = u8AHI_SiMasterReadData8();
-		DBG_PRINTF("u8AHI_SiMasterReadData8 %x\r\n", rxBuffer[readed-1]);
-	} while (readed < quantity);
-
-	// set rx buffer iterator vars
-	rxBufferIndex = 0;
-	rxBufferLength = readed;
-
-	return readed;
-}
-
-uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop) {
-	return requestFrom((uint8_t) address, (uint8_t) quantity, (uint32_t) 0, (uint8_t) 0, (uint8_t) sendStop);
-}
-
-uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity) {
-	return requestFrom((uint8_t) address, (uint8_t) quantity, (uint8_t) true);
-}
-
-uint8_t TwoWire::requestFrom(int address, int quantity) {
-	return requestFrom((uint8_t) address, (uint8_t) quantity, (uint8_t) true);
-}
-
-uint8_t TwoWire::requestFrom(int address, int quantity, int sendStop) {
-	return requestFrom((uint8_t) address, (uint8_t) quantity, (uint8_t) sendStop);
-}
-
-void TwoWire::beginTransmission(uint8_t address) {
-	status = MASTER_SEND;
-
-	// save address of target and empty buffer
-	txAddress = address;
-	txBufferLength = 0;
-}
-
-void TwoWire::beginTransmission(int address) {
-	beginTransmission((uint8_t) address);
-}
-
-//
-//	Originally, 'endTransmission' was an f(void) function.
-//	It has been modified to take one parameter indicating
-//	whether or not a STOP should be performed on the bus.
-//	Calling endTransmission(false) allows a sketch to
-//	perform a repeated start.
-//
-//	WARNING: Nothing in the library keeps track of whether
-//	the bus tenure has been properly ended with a STOP. It
-//	is very possible to leave the bus in a hung state if
-//	no call to endTransmission(true) is made. Some I2C
-//	devices will behave oddly if they do not see a STOP.
-//
-uint8_t TwoWire::endTransmission(uint8_t /*sendStop*/) {
-	uint8_t error = 0;
+int i2c_start( uint8_t txAddress, int readflag )
+{
 	// transmit buffer (blocking)
-	DBG_PRINTF("vAHI_SiMasterWriteSlaveAddr %x\r\n", txAddress);
-	vAHI_SiMasterWriteSlaveAddr(txAddress, false);
-	DBG_PRINTF("bAHI_SiMasterSetCmdReg\r\n");
+	DBG_PRINTF("vAHI_SiMasterWriteSlaveAddr %x\n", txAddress);
+	vAHI_SiMasterWriteSlaveAddr(txAddress, readflag);
 
 	bool ret = bAHI_SiMasterSetCmdReg(E_AHI_SI_START_BIT, E_AHI_SI_NO_STOP_BIT,
 			                  E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_SLAVE_WRITE,
 					  E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
 	(void)ret;//TODO
 	
-	DBG_PRINTF("bAHI_SiPollTransferInProgress\r\n");
-	while(bAHI_SiPollTransferInProgress()); /* wait while busy */
-	/* check to see if we get an ACK back*/
-	DBG_PRINTF("bAHI_SiPollRxNack\r\n");
-	if(bAHI_SiPollRxNack())
-		error = 2;	// error, got NACK on address transmit
-	
-	if (error == 0) {
-		uint16_t sent = 0;
-		while (sent < txBufferLength) {
-			DBG_PRINTF("sent %d\n", txBuffer[sent]);
-			vAHI_SiMasterWriteData8(txBuffer[sent++]);
-			if(sent == (txBufferLength) ) {
-				vAHI_SiSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_STOP_BIT,
-						 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_SLAVE_WRITE,
-						 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-			}
-			else {
-				vAHI_SiSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_NO_STOP_BIT,
-						 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_SLAVE_WRITE,
-						 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-
-			}
-			while(bAHI_SiPollTransferInProgress()); /* wait while busy */
-			/* check to see if we get an ACK back*/
-			if(bAHI_SiPollRxNack()) {
-				error = 3;	// error, got NACK during data transmmit
-				vAHI_SiSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_STOP_BIT,
-						 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_NO_SLAVE_WRITE,
-						 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-			}
-
-			DBG_PRINTF("sent done %d\n", sent);
-		}
+	while(bAHI_SiMasterPollTransferInProgress()); /* wait while busy */
+	/* check to see if we get an ACK back*/ 
+	if(bAHI_SiMasterCheckRxNack()) {
+		return 0;
 	}
-	
-	//if (error == 0) {
-	//	TWI_Stop(twi);
-	//	if (!TWI_WaitTransferComplete(twi, XMIT_TIMEOUT))
-	//		error = 4;	// error, finishing up
-	//}
 
-	txBufferLength = 0;		// empty buffer
-	status = MASTER_IDLE;
-	return error;
+	return 1;
 }
 
-//	This provides backwards compatibility with the original
-//	definition, and expected behaviour, of endTransmission
-//
-uint8_t TwoWire::endTransmission(void)
+
+void i2c_stop()
 {
-	return endTransmission(true);
+	vAHI_SiMasterSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_STOP_BIT,
+				 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_NO_SLAVE_WRITE,
+				 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
 }
 
-size_t TwoWire::write(uint8_t data) {
-	if (status == MASTER_SEND) {
-		if (txBufferLength >= BUFFER_LENGTH)
-			return 0;
-		txBuffer[txBufferLength++] = data;
-		return 1;
-	} else {
-		if (srvBufferLength >= BUFFER_LENGTH)
-			return 0;
-		srvBuffer[srvBufferLength++] = data;
-		return 1;
+int i2c_write_bytes(uint8_t* buffer, size_t length)
+{
+	// Send all buffer
+	for(int i=0; i<length; i++) {
+		vAHI_SiMasterWriteData8( buffer[i] );
+		vAHI_SiMasterSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_NO_STOP_BIT,
+				 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_SLAVE_WRITE,
+				 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
+		
+		while(bAHI_SiMasterPollTransferInProgress()); /* wait while busy */
+		/* check to see if we get an ACK back*/ 
+		if(bAHI_SiMasterCheckRxNack()) {
+			return -1;
+		}
+	}
+	return 0;
+}
+
+int i2c_write( uint8_t senddata )
+{
+	return i2c_write_bytes(&senddata, 1);
+}
+
+int i2c_read_bytes(uint8_t* buffer, size_t length) {
+	int i=0;
+	for (i=0; i<length; i++)
+	{
+		vAHI_SiMasterSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_NO_STOP_BIT,
+					 E_AHI_SI_SLAVE_READ, E_AHI_SI_NO_SLAVE_WRITE,
+					 i!=(length-1) ? E_AHI_SI_SEND_ACK : E_AHI_SI_SEND_NACK,
+					 E_AHI_SI_NO_IRQ_ACK);
+		while(bAHI_SiMasterPollTransferInProgress()); /* wait while busy */
+		buffer[i] = u8AHI_SiMasterReadData8();          // Read data and send the ACK
 	}
 }
 
-size_t TwoWire::write(const uint8_t *data, size_t quantity) {
-	if (status == MASTER_SEND) {
-		for (size_t i = 0; i < quantity; ++i) {
-			if (txBufferLength >= BUFFER_LENGTH)
-				return i;
-			txBuffer[txBufferLength++] = data[i];
-		}
-	} else {
-		for (size_t i = 0; i < quantity; ++i) {
-			if (srvBufferLength >= BUFFER_LENGTH)
-				return i;
-			srvBuffer[srvBufferLength++] = data[i];
-		}
-	}
-	return quantity;
+int i2c_read() {
+	uint8_t byte = 0;
+	i2c_read_bytes(&byte, 1);
+	return byte;
 }
 
-int TwoWire::available(void) {
-	return rxBufferLength - rxBufferIndex;
+void i2c_disable()
+{
+	vAHI_SiSlaveDisable();
+	vAHI_SiMasterDisable();
 }
 
-int TwoWire::read(void) {
-	if (rxBufferIndex < rxBufferLength)
-		return rxBuffer[rxBufferIndex++];
-	return -1;
+int i2c_master_enable(uint32_t twiClock)
+{
+	vAHI_SiMasterConfigure(true, false, SI_CLOCK2PRESCALER(twiClock) ); // set to 100KHz
+	return 0;
 }
 
-int TwoWire::peek(void) {
-	if (rxBufferIndex < rxBufferLength)
-		return rxBuffer[rxBufferIndex];
-	return -1;
+int i2c_slave_enable(uint8_t address)
+{
+	vAHI_SiSlaveConfigure(address, false, true, 0xFF, false);
+	return 0;
 }
 
-void TwoWire::flush(void) {
-	// Do nothing, use endTransmission(..) to force
-	// data transfer.
+int i2c_init()
+{
+	return 0;
 }
 
-void TwoWire::onReceive(void(*function)(int)) {
-	onReceiveCallback = function;
+struct Twi {
+	int     (*init)();
+	int	(*master_enable)(uint32_t);
+	int	(*slave_enable)(uint8_t);
+	void    (*disable)();
+	int	(*start)(uint8_t, int);
+	int	(*read_bytes)(uint8_t*, size_t);
+	int	(*write_bytes)(uint8_t*, size_t);
+	void	(*stop)();
+};
+
+
+struct Twi xtwi = {
+	i2c_init,
+	i2c_master_enable,
+	i2c_slave_enable,
+	i2c_disable,
+	i2c_start,
+	i2c_read_bytes,
+	i2c_write_bytes,
+	i2c_stop
+};
+
+
+TwoWire::TwoWire(Twi *_twi, void(*_beginCb)(void), void(*_endCb)(void)) :
+	txAddress(0), twi(&xtwi), twiClock(TWI_CLOCK)
+{
+  twi->init();
 }
 
-void TwoWire::onRequest(void(*function)(void)) {
-	onRequestCallback = function;
+void TwoWire::begin(void) {
+  twi->master_enable(twiClock);
+  master_mode = true;
 }
 
-void TwoWire::onService(void) {
+void TwoWire::begin(uint8_t address) {
+  twi->slave_enable(address);
+  master_mode = false;
+}
+
+void TwoWire::setClock(uint32_t frequency) {
+  twiClock = frequency;
+  if(master_mode)
+  {
+    twi->disable();
+    twi->master_enable(twiClock);
+  }
+}
+
+void TwoWire::end() {
+  twi->disable();
+}
+
+uint8_t TwoWire::requestFrom(uint8_t address, size_t quantity, bool stopBit)
+{
+  if(quantity == 0)
+  {
+    return 0;
+  }
+
+  size_t byteRead = 0;
+
+  rxBuffer.clear();
+
+  // clamp to buffer length
+  if(quantity > SERIAL_BUFFER_SIZE)
+  {
+    quantity = SERIAL_BUFFER_SIZE;
+  }
+
+  if(twi->start(address, WIRE_READ_FLAG))
+  {
+
+    twi->read_bytes(rxBuffer._aucBuffer, quantity);
+    rxBuffer._iHead = quantity;
+    if (stopBit)
+    {
+      twi->stop();   // Send Stop
+    }
+  }
+
+  return byteRead;
+}
+
+uint8_t TwoWire::requestFrom(uint8_t address, size_t quantity)
+{
+  return requestFrom(address, quantity, true);
+}
+
+void TwoWire::beginTransmission(uint8_t address) {
+  // save address of target and clear buffer
+  txAddress = address;
+  txBuffer.clear();
+
+  transmissionBegun = true;
+}
+
+// Errors:
+//  0 : Success
+//  1 : Data too long
+//  2 : NACK on transmit of address
+//  3 : NACK on transmit of data
+//  4 : Other error
+uint8_t TwoWire::endTransmission(bool stopBit)
+{
+  transmissionBegun = false ;
+
+  // Start I2C transmission
+  if ( !twi->start( txAddress, WIRE_WRITE_FLAG ) )
+  {
+    twi->stop();
+    return 2 ;  // Address error
+  }
+
+  // Send all buffer
+  if(txBuffer.available() )
+  {
+    //txBuffer always start 0.
+    if( twi->write_bytes(txBuffer._aucBuffer, txBuffer.available() ) )
+    {
+      twi->stop();
+      return 3 ;  // Nack or error
+    }
+  }
+  
+  if (stopBit)
+  {
+    twi->stop();
+  }   
+
+  return 0;
+}
+
+uint8_t TwoWire::endTransmission()
+{
+  return endTransmission(true);
+}
+
+size_t TwoWire::write(uint8_t ucData)
+{
+  // No writing, without begun transmission or a full buffer
+  if ( !transmissionBegun || txBuffer.isFull() )
+  {
+    setWriteError();
+    return 0 ;
+  }
+
+  txBuffer.store_char( ucData ) ;
+
+  return 1 ;
+}
+
+size_t TwoWire::write(const uint8_t *data, size_t quantity)
+{
+  //Try to store all data
+  for(size_t i = 0; i < quantity; ++i)
+  {
+    //Return the number of data stored, when the buffer is full (if write return 0)
+    if(!write(data[i]))
+      return i;
+  }
+
+  //All data stored
+  return quantity;
+}
+
+int TwoWire::available(void)
+{
+  return rxBuffer.available();
+}
+
+int TwoWire::read(void)
+{
+  return rxBuffer.read_char();
+}
+
+int TwoWire::peek(void)
+{
+  return rxBuffer.peek();
+}
+
+void TwoWire::flush(void)
+{
+  // Do nothing, use endTransmission(..) to force
+  // data transfer.
+}
+
+void TwoWire::onReceive(void(*function)(int))
+{
+  onReceiveCallback = function;
+}
+
+void TwoWire::onRequest(void(*function)(void))
+{
+  onRequestCallback = function;
+}
+
+void TwoWire::onService(void)
+{
 }
 
 #if WIRE_INTERFACES_COUNT > 0
@@ -318,39 +376,42 @@ TwoWire Wire = TwoWire(WIRE_INTERFACE, Wire_Init, Wire_Deinit);
 #endif
 
 #if WIRE_INTERFACES_COUNT > 1
-static void Wire1_Init(void) {
-	pmc_enable_periph_clk(WIRE1_INTERFACE_ID);
-	PIO_Configure(
-			g_APinDescription[PIN_WIRE1_SDA].pPort,
-			g_APinDescription[PIN_WIRE1_SDA].ulPinType,
-			g_APinDescription[PIN_WIRE1_SDA].ulPin,
-			g_APinDescription[PIN_WIRE1_SDA].ulPinConfiguration);
-	PIO_Configure(
-			g_APinDescription[PIN_WIRE1_SCL].pPort,
-			g_APinDescription[PIN_WIRE1_SCL].ulPinType,
-			g_APinDescription[PIN_WIRE1_SCL].ulPin,
-			g_APinDescription[PIN_WIRE1_SCL].ulPinConfiguration);
+  TwoWire Wire1(&PERIPH_WIRE1, PIN_WIRE1_SDA, PIN_WIRE1_SCL);
 
-	NVIC_DisableIRQ(WIRE1_ISR_ID);
-	NVIC_ClearPendingIRQ(WIRE1_ISR_ID);
-	NVIC_SetPriority(WIRE1_ISR_ID, 0);
-	NVIC_EnableIRQ(WIRE1_ISR_ID);
-}
-
-static void Wire1_Deinit(void) {
-	NVIC_DisableIRQ(WIRE1_ISR_ID);
-	NVIC_ClearPendingIRQ(WIRE1_ISR_ID);
-
-	pmc_disable_periph_clk(WIRE1_INTERFACE_ID);
-
-	// no need to undo PIO_Configure, 
-	// as Peripheral A was enable by default before,
-	// and pullups were not enabled
-}
-
-TwoWire Wire1 = TwoWire(WIRE1_INTERFACE, Wire1_Init, Wire1_Deinit);
-
-void WIRE1_ISR_HANDLER(void) {
-	Wire1.onService();
-}
+  void WIRE1_IT_HANDLER(void) {
+    Wire1.onService();
+  }
 #endif
+
+#if WIRE_INTERFACES_COUNT > 2
+  TwoWire Wire2(&PERIPH_WIRE2, PIN_WIRE2_SDA, PIN_WIRE2_SCL);
+
+  void WIRE2_IT_HANDLER(void) {
+    Wire2.onService();
+  }
+#endif
+
+#if WIRE_INTERFACES_COUNT > 3
+  TwoWire Wire3(&PERIPH_WIRE3, PIN_WIRE3_SDA, PIN_WIRE3_SCL);
+
+  void WIRE3_IT_HANDLER(void) {
+    Wire3.onService();
+  }
+#endif
+
+#if WIRE_INTERFACES_COUNT > 4
+  TwoWire Wire4(&PERIPH_WIRE4, PIN_WIRE4_SDA, PIN_WIRE4_SCL);
+
+  void WIRE4_IT_HANDLER(void) {
+    Wire4.onService();
+  }
+#endif
+
+#if WIRE_INTERFACES_COUNT > 5
+  TwoWire Wire5(&PERIPH_WIRE5, PIN_WIRE5_SDA, PIN_WIRE5_SCL);
+
+  void WIRE5_IT_HANDLER(void) {
+    Wire5.onService();
+  }
+#endif
+
