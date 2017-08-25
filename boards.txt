@@ -10,7 +10,7 @@ jn516x.build.core=arduino
 jn516x.build.variant=jn516x
 jn516x.build.compiler.path=C:/NXP/bstudio_nxp/sdk/Tools/ba-elf-ba2-r36379/bin
 jn516x.build.uploader.path=""
-jn516x.build.make.vars=target_makefile={runtime.platform.path}/variants/{build.variant}/Makefile.variant CONTIKI_TARGET_MAIN=startup.c LINKCMD={runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld TARGET_WITH_UART1=1 PLATFORM_CONF_H={runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h
+jn516x.build.make.vars=target_makefile={runtime.platform.path}/variants/{build.variant}/Makefile.variant CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c LINKCMD={runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld TARGET_WITH_UART1=1 PLATFORM_CONF_H={runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h
 jn516x.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 jn516x.menu.config.jn5169=JN5169
 jn516x.menu.config.jn5169.build.config_vars=CHIP=JN5169
