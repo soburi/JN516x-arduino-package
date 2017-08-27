@@ -12,6 +12,10 @@ jn516x.build.compiler.path=C:/NXP/bstudio_nxp/sdk/Tools/ba-elf-ba2-r36379/bin
 jn516x.build.uploader.path=""
 jn516x.build.make.vars=target_makefile={runtime.platform.path}/variants/{build.variant}/Makefile.variant CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c LINKCMD={runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld TARGET_WITH_UART1=1 PLATFORM_CONF_H={runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h'
 jn516x.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
+jn516x.menu.config.twelite=TWE Lite
+jn516x.menu.config.twelite.build.config_vars=CHIP=JN5164
+jn516x.menu.config.meshbee=Mesh Bee
+jn516x.menu.config.meshbee.build.config_vars=CHIP=JN5168
 jn516x.menu.config.jn5169=JN5169
 jn516x.menu.config.jn5169.build.config_vars=CHIP=JN5169
 jn516x.menu.config.jn5168=JN5168
@@ -20,10 +24,6 @@ jn516x.menu.config.jn5164=JN5164
 jn516x.menu.config.jn5164.build.config_vars=CHIP=JN5164
 jn516x.menu.config.jn5161=JN5161
 jn516x.menu.config.jn5161.build.config_vars=CHIP=JN5161
-jn516x.menu.config.twelite=TWE Lite
-jn516x.menu.config.twelite.build.config_vars=CHIP=JN5164
-jn516x.menu.config.meshbee=Mesh Bee
-jn516x.menu.config.meshbee.build.config_vars=CHIP=JN5168
 
 native.name=native
 native.upload.tool=contiki-makehelper
