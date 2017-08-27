@@ -1,0 +1,120 @@
+{
+  "packages": [
+    {
+      "platforms": [
+        {
+          "name": "JN516x Boards",
+          "architecture": "intiki",
+          "category": "Contributed",
+          "version": "0.0.1708271823",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/1ea58b7e20d7636173bf89e769f030e3ce26c246.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-sudofalse-0.0.1708271823.tar.gz",
+          "checksum": "SHA-256:dc95c7c891dbeffd6d470880d37813c9c2407dc30f40b48c760b5b9f575a32ca",
+          "size": "89691",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "arm-none-eabi-gcc",
+              "version": "4.8.3-2014q1"
+            },
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.7"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "name": "msys2-contiki-build",
+          "version": "0.0.1",
+          "systems": [
+            {
+              "archiveFileName": "msys2-contiki-build_x86_64-apple-darwin_0.0.1.tar.bz2",
+              "url": "https://github.com/soburi/msys2-contiki-build/releases/download/0.0.1/msys2-contiki-build_x86_64-apple-darwin_0.0.1.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
+            },
+            {
+              "archiveFileName": "msys2-contiki-build_x86_64-pc-linux-gnu_0.0.1.tar.bz2",
+              "url": "https://github.com/soburi/msys2-contiki-build/releases/download/0.0.1/msys2-contiki-build_x86_64-pc-linux-gnu_0.0.1.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
+            },
+            {
+              "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+              "url": "https://github.com/soburi/msys2-contiki-build/releases/download/0.0.1/msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:da706209d1353696989fede83702fd9f435290fd3a3fdb11536f6e8455ef9cdb",
+              "size": "11513680"
+            },
+            {
+              "archiveFileName": "msys2-contiki-build_arm-linux-gnueabihf_0.0.1.tar.bz2",
+              "url": "https://github.com/soburi/msys2-contiki-build/releases/download/0.0.1/msys2-contiki-build_arm-linux-gnueabihf_0.0.1.tar.bz2",
+              "host": "arm-linux-gnueabihf",
+              "checksum": "SHA-256:ebbcc805e10cf92d2dafb244dec306fdd2e1e4a4d3fa5305417c1efaa2bb4521",
+              "size": "185"
+            }
+          ]
+        },
+        {
+          "name": "contiki-makehelper",
+          "version": "0.0.9",
+          "systems": [
+            {
+              "archiveFileName": "contiki-makehelper_x86_64-apple-darwin_0.0.9.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.9/contiki-makehelper_x86_64-apple-darwin_0.0.9.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:69da13b434403005d4a0efeb6dacffe58b06a5f967fc01af8a1ebe747c9c6193",
+              "size": "1727892"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_x86_64-pc-linux-gnu_0.0.9.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.9/contiki-makehelper_x86_64-pc-linux-gnu_0.0.9.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:36e9eb88892958f34405d04f608035f2f81aa6dca1c8000a20d2c906d6dae38c",
+              "size": "1751755"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.9.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.9/contiki-makehelper_i686-mingw32_0.0.9.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:ca4ceace5afcce99d90dd3fb60d5923cc0729b6ecc1ec5d5efb4d00cdb496dbb",
+              "size": "1737967"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_arm-linux-gnueabihf_0.0.9.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.9/contiki-makehelper_arm-linux-gnueabihf_0.0.9.tar.bz2",
+              "host": "arm-linux-gnueabihf",
+              "checksum": "SHA-256:5155e731d177e159c76fc55763612d68152aefbf687a1e1a268904df04c5e341",
+              "size": "1671571"
+            }
+          ]
+        }
+      ],
+      "name": "defaultname",
+      "maintainer": "defaultmaintainer",
+      "websiteURL": "http://example.com",
+      "email": "default@example.com"
+    }
+  ]
+}
