@@ -2,7 +2,7 @@
 
 setup() {
 	echo "setup"
-	ADIR=~/arduino-1.6.12
+	ADIR=~/arduino-${ARDUINO_VERSION}
 	BUILDDIR=/tmp/compile_example
 	mkdir ${BUILDDIR}
 }
