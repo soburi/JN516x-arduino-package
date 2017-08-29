@@ -20,14 +20,9 @@
   ],
   "toolsDependencies": [
     {
-      "packager": "arduino",
-      "name": "arm-none-eabi-gcc",
-      "version": "4.8.3-2014q1"
-    },
-    {
       "packager": "intiki",
       "name": "contiki-makehelper",
-      "version": "0.0.7"
+      "version": "0.0.9"
     },
     {
       "packager": "intiki",

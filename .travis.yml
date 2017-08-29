@@ -34,8 +34,11 @@ before_script:
 - cd -
 - export PATH=~/bin:$PATH
 - curl -l -L https://downloads.arduino.cc/arduino-${ARDUINO_VERSION}-linux64.tar.xz | tar xfJ - -C ~
-- curl -l -L $(ruby dist/ci_toolurl.rb dist/tool_template.json)  | tar xfj - -C ~
-- echo intiki.contiki-makehelper=0.0.5 >> ~/contiki-makehelper/builtin_tools_versions.txt 
+- MAKEHELPER_VERSION=$(ruby dist/ci_makehelperversion.rb  dist/platform_template.json)
+- echo ${MAKEHELPER_VERSION}
+- ruby dist/ci_toolurl.rb dist/tool_template.json
+- curl -l -L $(ruby dist/ci_toolurl.rb dist/tool_template.json -v ${MAKEHELPER_VERSION})  | tar xfj - -C ~
+- echo intiki.contiki-makehelper=${MAKEHELPER_VERSION} >> ~/contiki-makehelper/builtin_tools_versions.txt
 - mkdir ~/arduino-${ARDUINO_VERSION}/hardware/soburi/
 - ln -s $PWD ~/arduino-${ARDUINO_VERSION}/hardware/soburi/intiki
 
@@ -48,7 +51,8 @@ script:
 - BZIP2=-9 tar cfj ../${ARCHIVENAME}.tar.bz2 -C .. ${EXCLUDEGIT} $(basename ${PWD})
 after_script:
 - if [ ${TRAVIS_TEST_RESULT} -ne 0 ] ; then echo ${TRAVIS_TEST_RESULT} ; exit ${TRAVIS_TEST_RESULT} ; fi
-- ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} > ../tmp.json || exit $?
+- echo ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} --package-name=intiki --package-maintainer=soburi --package-website='https://github.com/soburi/JN516x-arduino-package' --package-email='soburi@gmail.com' > ../tmp.json || exit $?
+- ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} --package-name=intiki --package-maintainer=soburi --package-website='https://github.com/soburi/JN516x-arduino-package' --package-email='soburi@gmail.com' > ../tmp.json || exit $?
 - git fetch --all || exit $?
 - if [ "$TRAVIS_TAG" != "" ] ; then bats dist/compile_examples.bats ; fi
 - git checkout gh-origin/gh-pages -b gh-pages || exit $?

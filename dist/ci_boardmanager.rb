@@ -14,6 +14,10 @@ pkg_url= ''
 release = ''
 repo_url = ''
 force = false
+pkg_name = 'defaultname'
+pkg_maintainer = 'defaultmaintainer'
+pkg_website = 'http://example.com'
+pkg_email = 'default@example.com'
 
 opt = OptionParser.new
 opt.on('-p FILE', '--package-template=FILE') {|o| pkgtemplate = o }
@@ -22,6 +26,10 @@ opt.on('-j FILE', '--json=FILE') {|o| jsonfile = o }
 opt.on('-u PACKAGE_URL', '--url=PACKAGE_URL') {|o| pkg_url= o }
 opt.on('-r RELEASE', '--release=RELEASE') {|o| release = o }
 opt.on('-g GH_REPO_URL', '--gh-repo=GH_REPO_URL') {|o| repo_url = o }
+opt.on('-n PACKAGE_NAME', '--package-name=PACKAGE_NAME') {|o| pkg_name = o }
+opt.on('-m PACKAGE_MAINTAINER', '--package-maintainer=PACKAGE_MAINTAINER') {|o| pkg_maintainer = o }
+opt.on('-w PACKAGE_WEBSITE', '--package-website=PACKAGE_WEBSITE') {|o| pkg_website = o }
+opt.on('-e PACKAGE_EMAIL', '--package-email=PACKAGE_EMAIL') {|o| pkg_email = o }
 opt.on('-f', '--force') {|o| force = o }
 opt.parse!(ARGV)
 
@@ -47,10 +55,10 @@ begin
   raise if force
   bmdata = open(ghpage_url) {|f| JSON.load(f) }
 rescue => e
-  bmdata['packages'][0]['name'] = 'defaultname'
-  bmdata['packages'][0]['maintainer'] = 'defaultmaintainer'
-  bmdata['packages'][0]['websiteURL'] = 'http://example.com'
-  bmdata['packages'][0]['email'] = 'default@example.com'
+  bmdata['packages'][0]['name'] = pkg_name
+  bmdata['packages'][0]['maintainer'] = pkg_maintainer
+  bmdata['packages'][0]['websiteURL'] = pkg_website
+  bmdata['packages'][0]['email'] = pkg_email
   STDERR.puts(e)
   #raise e if not force
 end
@@ -71,8 +79,11 @@ end
 
 newtools = tooltemplate.reduce([]) do |entries, tool|
   vers = []
-  vers.push(tool['version']) if tool['version'] != nil
-  vers.concat(tool['versions'] ) if tool['versions'] != nil
+  begin
+    vers.push(pkgentry['toolsDependencies'].select {|t| t['name'] == tool['name']}[0]['version'])
+  rescue
+    vers.push(tool['version']) if tool['version'] != nil
+  end
 
   toolname = tool['name']
   urltemplate = tool['systems'][0]['url']
