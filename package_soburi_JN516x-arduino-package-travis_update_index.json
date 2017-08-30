@@ -6,11 +6,11 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
-          "version": "0.0.1708291301",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/f1a90ca1dd93ecf8cd237e31f61cfaee8689dd36.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-travis_update-0.0.1708291301.tar.gz",
-          "checksum": "SHA-256:d2731a467dc4e984de61981eb9a26f2aa9c7fa9f2b7a68abf5da512d23b2a7e4",
-          "size": "90412",
+          "version": "0.0.1708301410",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/803e71232d3f5eebb960e00ea1fc60c254df8bbd.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-travis_update-0.0.1708301410.tar.gz",
+          "checksum": "SHA-256:102acdba438898c39223f24cb5947f05c0e52f60f9ee7f1817962e8b101a04b4",
+          "size": "88718",
           "boards": [
             {
               "name": "Generic JN516x board"
@@ -23,11 +23,6 @@
             }
           ],
           "toolsDependencies": [
-            {
-              "packager": "arduino",
-              "name": "arm-none-eabi-gcc",
-              "version": "4.8.3-2014q1"
-            },
             {
               "packager": "intiki",
               "name": "contiki-makehelper",
