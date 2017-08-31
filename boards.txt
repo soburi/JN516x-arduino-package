@@ -27,6 +27,23 @@ jn516x.menu.config.jn5164.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platfo
 jn516x.menu.config.jn5161=JN5161
 jn516x.menu.config.jn5161.build.config_vars=CHIP=JN5161 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
 
+twelite.name=Mono Wireless TWELITE
+twelite.upload.tool=contiki-makehelper
+twelite.upload.protocol=contiki-makehelper
+twelite.build.mcu=jn516x
+twelite.build.board=jn516x
+twelite.build.f_cpu=32000000L
+twelite.build.core=arduino
+twelite.build.variant=jn516x
+twelite.build.compiler.path=C:/MWSDK/Tools/ba-elf-ba2-r36379/bin
+twelite.build.uploader.path=""
+twelite.build.make.vars=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant' CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' SDK_BASE_DIR=C:/MWSDK/ChipLib/SW4063V1416 FLASH_PROGRAMMER=C:/MWSDK/Tools/ProductionFlashProgrammer/JN51xxProgrammer.exe
+twelite.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
+twelite.menu.config.TWELITE_BLUE=TWELITE BLUE
+twelite.menu.config.TWELITE_BLUE.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
+twelite.menu.config.TWELITE_RED=TWELITE RED
+twelite.menu.config.TWELITE_RED.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize_JN5169.ld'
+
 native.name=native
 native.upload.tool=contiki-makehelper
 native.upload.protocol=contiki-makehelper
