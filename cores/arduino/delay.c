@@ -23,12 +23,16 @@
 
 #include "wiring_private.h"
 
-uint32_t millis( void )
+unsigned long millis( void )
 {
 	return clock_seconds() * 1000 + (RTIMER_NOW() % RTIMER_ARCH_SECOND) * 1000 / RTIMER_ARCH_SECOND;
 }
 
-uint32_t micros( void )
+// Interrupt-compatible version of micros
+// Theory: repeatedly take readings of SysTick counter, millis counter and SysTick interrupt pending flag.
+// When it appears that millis counter and pending is stable and SysTick hasn't rolled over, use these
+// values to calculate micros. If there is a pending SysTick, add one to the millis counter in the calculation.
+unsigned long micros( void )
 {
 	return RTIMER_NOW() * 1000000/RTIMER_ARCH_SECOND;
 }
@@ -47,7 +51,7 @@ static int delay_timer_expired(process_event_t ev, process_data_t data, void* pa
 	return etimer_expired(&delay_timer);
 }
 
-void delay( uint32_t ms )
+void delay( unsigned long ms )
 {
 	yield_until(delay_timer_start, &ms, delay_timer_expired, NULL);
 }

@@ -65,6 +65,7 @@ int Uart::available()
 int Uart::availableForWrite()
 {
   return 0; //TODO
+  //return txBuffer.availableForStore();
 }
 
 int Uart::peek()
