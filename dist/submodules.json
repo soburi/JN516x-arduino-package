@@ -2,17 +2,17 @@
   {
     "path": "system/contiki",
     "url": "https://github.com/soburi/contiki",
-    "revision": "251f3fe74978676c74e188d95b42eaaddc8314f7"
+    "revision": "7a047f3b7ef9bfd4a281c9b479d2451cb122147b"
   },
   {
     "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc13xxware",
     "url": "https://github.com/contiki-os/cc13xxware.git",
-    "revision": "f7bdc430225db8f9204c3f02faddd7f8f8752fe8"
+    "revision": "0f44f949b4a7862ae3273739279df6297a4a4e45"
   },
   {
     "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc26xxware",
     "url": "https://github.com/contiki-os/cc26xxware.git",
-    "revision": "0e8396b97921049575763dff45d564ff2cf6d0d6"
+    "revision": "e816e3508b87744186acae2c5f792ad378836ae3"
   },
   {
     "path": "system/contiki/platform/stm32nucleo-spirit1/stm32cube-lib",
@@ -28,5 +28,10 @@
     "path": "system/contiki/tools/mspsim",
     "url": "https://github.com/contiki-os/mspsim.git",
     "revision": "47ae45cb0f36337115e32adb2a5ba0bf6e1e4437"
+  },
+  {
+    "path": "system/contiki/tools/sensniff",
+    "url": "https://github.com/g-oikonomou/sensniff.git",
+    "revision": "0d57c1129b601d29a58bffe6e34803af5e1701af"
   }
 ]
