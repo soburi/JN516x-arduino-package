@@ -15,9 +15,16 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+JN516X_OVERRIDE_DIR := $(ARDUINO_VARIANT_PATH)/override
+
+EXTERNALDIRS += $(JN516X_OVERRIDE_DIR)
+
 LDFLAGS += -L$(ARDUINO_VARIANT_PATH)/ldscript
 
 ARDUINO_CFLAGS += -Wextra
+
+ARDUINO_VARIANT_SRCS := $(filter-out $(JN516X_OVERRIDE_DIR)/%,$(ARDUINO_VARIANT_SRCS))
+
 
 CUSTOM_RULE_CPP_TO_ARDUINO_OBJECTDIR_O = 1
 $(ARDUINO_OBJECTDIR)/%.o: %.cpp | $(ARDUINO_OBJECTDIR)/

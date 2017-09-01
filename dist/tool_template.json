@@ -1,7 +1,7 @@
 [
   {
     "name": "msys2-contiki-build",
-    "version": "0.0.1",
+    "version": "XXXXX",
     "systems": [
       {
         "url": "https://github.com/soburi/${NAME}/releases/download/${VERSION}/${NAME}_${ARCH}_${VERSION}.tar.bz2",
@@ -14,7 +14,7 @@
   },
   {
     "name": "contiki-makehelper",
-    "version": "0.0.7",
+    "version": "XXXXX",
     "systems": [
       {
         "url": "https://github.com/soburi/${NAME}/releases/download/${VERSION}/${NAME}_${ARCH}_${VERSION}.tar.bz2",
