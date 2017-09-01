@@ -47,4 +47,16 @@ class Uart : public HardwareSerial
   private:
     struct uart_device *uart;
     RingBuffer rxBuffer;
+/*
+    RingBuffer txBuffer;
+
+    uint8_t uc_pinRX;
+    uint8_t uc_pinTX;
+    SercomRXPad uc_padRX;
+    SercomUartTXPad uc_padTX;
+
+    SercomNumberStopBit extractNbStopBit(uint16_t config);
+    SercomUartCharSize extractCharSize(uint16_t config);
+    SercomParityMode extractParity(uint16_t config);
+*/
 };
