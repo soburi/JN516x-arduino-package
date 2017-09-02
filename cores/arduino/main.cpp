@@ -28,6 +28,11 @@ extern "C" {
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
+// Weak empty variant initialization function.
+// May be redefined by variant files.
+void initVariant() __attribute__((weak));
+void initVariant() { }
+
 #include "wiring_private.h"
 
 #include "watchdog.h"
