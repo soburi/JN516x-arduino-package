@@ -23,6 +23,8 @@
 
 #include "wiring_private.h"
 
+#include <sys/clock.h>
+
 unsigned long millis( void )
 {
 	return clock_seconds() * 1000 + (RTIMER_NOW() % RTIMER_ARCH_SECOND) * 1000 / RTIMER_ARCH_SECOND;
@@ -55,3 +57,12 @@ void delay( unsigned long ms )
 {
 	yield_until(delay_timer_start, &ms, delay_timer_expired, NULL);
 }
+
+void _delayMicrosecondsDefault( unsigned int usec )
+{
+	clock_delay_usec(usec);
+}
+
+#ifndef OVERLOAD_DELAYMICROSECONDS
+void delayMicroseconds( unsigned int usec ) __attribute__((weak,alias("_delayMicrosecondsDefault")));
+#endif

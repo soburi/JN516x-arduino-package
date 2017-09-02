@@ -61,7 +61,7 @@ extern void delay( unsigned long dwMs ) ;
  * \param dwUs the number of microseconds to pause (uint32_t)
  */
 #ifndef OVERLOAD_DELAYMICROSECONDS
-extern void delayMicroseconds( uint32_t usec );
+extern void delayMicroseconds( unsigned int usec );
 #endif
 
 #ifdef __cplusplus

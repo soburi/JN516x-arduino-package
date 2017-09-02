@@ -35,8 +35,6 @@ void initVariant() { }
 
 #include "wiring_private.h"
 
-#include "watchdog.h"
-
 static struct main_thread_wait_t
 {
 	enum main_thread_wait_type type;
@@ -124,7 +122,6 @@ PROCESS_THREAD(main_thread, ev, data)
 
 	PROCESS_BEGIN();
 
-	watchdogSetup();
 	initVariant();
 
 	mt_init();
