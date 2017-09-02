@@ -115,6 +115,8 @@ static uint8_t is_gateway;
 #include "experiment-setup.h"
 #endif
 
+extern void set_pin_location();
+
 /* _EXTRA_LPM is the sleep mode, _LPM is the doze mode */
 #define ENERGEST_TYPE_EXTRA_LPM ENERGEST_TYPE_LPM
 
@@ -303,6 +305,9 @@ main(void)
 
   clock_init();
   rtimer_init();
+
+  /* set pin location after call vAHI_Init() */
+  set_pin_location();
 
 #if JN516X_EXTERNAL_CRYSTAL_OSCILLATOR
   /* initialize the 32kHz crystal and wait for ready */

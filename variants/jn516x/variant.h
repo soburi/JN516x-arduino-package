@@ -62,26 +62,26 @@ extern "C"
 /*
  * Analog pins
  */
-#define PIN_ADC1 0xA1
-#define PIN_ADC2 0xA2
-#define PIN_ADC3 0
-#define PIN_ADC4 1
+#define PIN_ADC1 (22)
+#define PIN_ADC2 (23)
+#define PIN_ADC3 (0)
+#define PIN_ADC4 (1)
 
-//static const uint8_t ADC1   = PIN_ADC1;
-//static const uint8_t ADC2   = PIN_ADC2;
-//static const uint8_t ADC3   = PIN_ADC3;
-//static const uint8_t ADC4   = PIN_ADC4;
+static const uint8_t ADC1   = PIN_ADC1;
+static const uint8_t ADC2   = PIN_ADC2;
+static const uint8_t ADC3   = PIN_ADC3;
+static const uint8_t ADC4   = PIN_ADC4;
 
 static const uint8_t A0   = PIN_ADC1;
 static const uint8_t A1   = PIN_ADC2;
 static const uint8_t A2   = PIN_ADC3;
 static const uint8_t A3   = PIN_ADC4;
 
-static const uint8_t PWM1 = 5;
-static const uint8_t PWM2 = 0xD0;
-static const uint8_t PWM3 = 0xD1;
-static const uint8_t PWM4 = 8;
+#define PIN_D0 (20)
+#define PIN_D1 (21)
 
+static const uint8_t D0   = PIN_D0;
+static const uint8_t D1   = PIN_D1;
 
 /*
  * SPI Interfaces

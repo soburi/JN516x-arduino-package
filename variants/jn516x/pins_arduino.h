@@ -1,5 +1,5 @@
 /*
-  Copyright (c) TOKITA Hiroshi.  All right reserved.
+  Copyright (c) 2014-2015 Arduino LLC.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -16,12 +16,6 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef Pins_Arduino_h
-#define Pins_Arduino_h
+// API compatibility
+#include "variant.h"
 
-static const uint8_t A1   = 0xA1;
-static const uint8_t A2   = 0xA2;
-static const uint8_t A3   = 0;
-static const uint8_t A4   = 1;
-
-#endif
