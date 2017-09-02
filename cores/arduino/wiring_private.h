@@ -32,8 +32,6 @@ extern "C" {
 #include "WInterrupts.h"
 #include "wiring_constants.h"
 
-extern void initVariant();
-
 typedef int (*fp_condition)(process_event_t, process_data_t, void*);
 typedef void (*fp_run)(void*);
 
