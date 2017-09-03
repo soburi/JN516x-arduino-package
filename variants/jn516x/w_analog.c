@@ -22,6 +22,9 @@
 #include <stdbool.h>
 
 #include <AppHardwareApi.h>
+
+#include "pin_location.h"
+
 void analogReference( eAnalogReference ulMode )
 {
 	(void)ulMode;
@@ -37,11 +40,20 @@ uint32_t analogRead( uint32_t ulPin )
 	DBG_PRINTF("analogRread:\r\n");
 
 	uint32_t adc = 0;
-	switch(ulPin) {
-		case 0:  adc = E_AHI_ADC_SRC_ADC_3; break;
-		case 1:  adc = E_AHI_ADC_SRC_ADC_4; break;
-		case 0xA1: adc = E_AHI_ADC_SRC_ADC_1; break;
-		case 0xA2: adc = E_AHI_ADC_SRC_ADC_2; break;
+
+	switch(1<<ulPin) {
+#if (PIN_ADC_1 == USE_ADC_1) || !(PIN_BITMAP & ~USE_ADC_1)
+		case USE_ADC_1: adc = E_AHI_ADC_SRC_ADC_1; break;
+#endif
+#if (PIN_ADC_2 == USE_ADC_2) || !(PIN_BITMAP & ~USE_ADC_2)
+		case USE_ADC_2: adc = E_AHI_ADC_SRC_ADC_2; break;
+#endif
+#if (PIN_ADC_4 == USE_ADC_4) || !(PIN_BITMAP & ~USE_ADC_4)
+		case USE_ADC_4:  adc = E_AHI_ADC_SRC_ADC_3; break;
+#endif
+#if (PIN_ADC_3 == USE_ADC_3) || !(PIN_BITMAP & ~USE_ADC_3)
+		case USE_ADC_3:  adc = E_AHI_ADC_SRC_ADC_4; break;
+#endif
 		default: return -1;
 	}
 
@@ -67,11 +79,45 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 	DBG_PRINTF("\r\n");
 
 	uint32_t timer = 0;
-	switch(ulPin) {
-		//case 5:    timer = E_AHI_TIMER_1; break;
-		case 8:    timer = E_AHI_TIMER_4; break;
-		case 0xD0: timer = E_AHI_TIMER_2; break;
-		case 0xD1: timer = E_AHI_TIMER_3; break;
+	switch(1<<ulPin) {
+#if 0 // TIMER_0, TIMER_1 used by contiki.
+#if (PIN_TIMER_0 == USE_TIMER_0
+		case USE_TIMER_0:    timer = E_AHI_TIMER_0; break;
+#endif
+#if (PIN_TIMER_0 == USE_TIMER_0_ALT
+		case USE_TIMER_0_ALT:    timer = E_AHI_TIMER_0; break;
+#endif
+#if (PIN_TIMER_1 == USE_TIMER_1
+		case USE_TIMER_1:    timer = E_AHI_TIMER_1; break;
+#endif
+#if (PIN_TIMER_1 == USE_TIMER_1_ALT
+		case USE_TIMER_1_ALT:    timer = E_AHI_TIMER_1; break;
+#endif
+#endif
+#if (PIN_TIMER_2 == USE_TIMER_2) || !(PIN_BITMAP & ~USE_TIMER_2)
+		case USE_TIMER_2: timer = E_AHI_TIMER_2; break;
+#endif
+#if (PIN_TIMER_2 == USE_TIMER_2_ALT)
+		case USE_TIMER_2_ALT: timer = E_AHI_TIMER_2; break;
+#endif
+#if (PIN_TIMER_2 == USE_TIMER_2_RELOC)
+		case USE_TIMER_2_RELOC: timer = E_AHI_TIMER_2; break;
+#endif
+#if (PIN_TIMER_3 == USE_TIMER_3) || !(PIN_BITMAP & ~USE_TIMER_3)
+		case USE_TIMER_3: timer = E_AHI_TIMER_3; break;
+#endif
+#if (PIN_TIMER_3 == USE_TIMER_3_ALT)
+		case USE_TIMER_3_ALT: timer = E_AHI_TIMER_3; break;
+#endif
+#if (PIN_TIMER_3 == USE_TIMER_3_RELOC)
+		case USE_TIMER_3_RELOC: timer = E_AHI_TIMER_3; break;
+#endif
+#if (PIN_TIMER_4 == USE_TIMER_4) || !(PIN_BITMAP & ~USE_TIMER_4)
+		case USE_TIMER_4: timer = E_AHI_TIMER_4; break;
+#endif
+#if (PIN_TIMER_4 == USE_TIMER_4_ALT)
+		case USE_TIMER_4_ALT: timer = E_AHI_TIMER_4; break;
+#endif
 		default: return;
 	}
 	vAHI_TimerEnable(timer, 0, false, false, true);
