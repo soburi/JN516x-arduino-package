@@ -21,169 +21,44 @@ extern "C" {
 #include <string.h>
 }
 
+#include <Arduino.h>
+#include <wiring_private.h>
+
 #include "platform_wire.h"
-#include <AppHardwareApi.h>
-#define SI_CLOCK2PRESCALER(clk) ( (16L/((clk)/1000000L)/5L)-1 )
 
-
-typedef enum
+enum
 {
 	WIRE_WRITE_FLAG = 0x0ul,
 	WIRE_READ_FLAG
-} SercomWireReadWriteFlag;
-
-typedef enum
-{
-	WIRE_MASTER_ACT_NO_ACTION = 0,
-	WIRE_MASTER_ACT_REPEAT_START,
-	WIRE_MASTER_ACT_READ,
-	WIRE_MASTER_ACT_STOP
-} SercomMasterCommandWire;
-
-int i2c_start( uint8_t txAddress, int readflag )
-{
-	// transmit buffer (blocking)
-	DBG_PRINTF("vAHI_SiMasterWriteSlaveAddr %x\n", txAddress);
-	vAHI_SiMasterWriteSlaveAddr(txAddress, readflag);
-
-	bool ret = bAHI_SiMasterSetCmdReg(E_AHI_SI_START_BIT, E_AHI_SI_NO_STOP_BIT,
-			                  E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_SLAVE_WRITE,
-					  E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-	(void)ret;//TODO
-	
-	while(bAHI_SiMasterPollTransferInProgress()); /* wait while busy */
-	/* check to see if we get an ACK back*/ 
-	if(bAHI_SiMasterCheckRxNack()) {
-		return 0;
-	}
-
-	return 1;
-}
-
-
-void i2c_stop()
-{
-	vAHI_SiMasterSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_STOP_BIT,
-				 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_NO_SLAVE_WRITE,
-				 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-}
-
-int i2c_write_bytes(uint8_t* buffer, size_t length)
-{
-	// Send all buffer
-	for(int i=0; i<length; i++) {
-		vAHI_SiMasterWriteData8( buffer[i] );
-		vAHI_SiMasterSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_NO_STOP_BIT,
-				 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_SLAVE_WRITE,
-				 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
-		
-		while(bAHI_SiMasterPollTransferInProgress()); /* wait while busy */
-		/* check to see if we get an ACK back*/ 
-		if(bAHI_SiMasterCheckRxNack()) {
-			return -1;
-		}
-	}
-	return 0;
-}
-
-int i2c_write( uint8_t senddata )
-{
-	return i2c_write_bytes(&senddata, 1);
-}
-
-int i2c_read_bytes(uint8_t* buffer, size_t length) {
-	int i=0;
-	for (i=0; i<length; i++)
-	{
-		vAHI_SiMasterSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_NO_STOP_BIT,
-					 E_AHI_SI_SLAVE_READ, E_AHI_SI_NO_SLAVE_WRITE,
-					 i!=(length-1) ? E_AHI_SI_SEND_ACK : E_AHI_SI_SEND_NACK,
-					 E_AHI_SI_NO_IRQ_ACK);
-		while(bAHI_SiMasterPollTransferInProgress()); /* wait while busy */
-		buffer[i] = u8AHI_SiMasterReadData8();          // Read data and send the ACK
-	}
-}
-
-int i2c_read() {
-	uint8_t byte = 0;
-	i2c_read_bytes(&byte, 1);
-	return byte;
-}
-
-void i2c_disable()
-{
-	vAHI_SiSlaveDisable();
-	vAHI_SiMasterDisable();
-}
-
-int i2c_master_enable(uint32_t twiClock)
-{
-	vAHI_SiMasterConfigure(true, false, SI_CLOCK2PRESCALER(twiClock) ); // set to 100KHz
-	return 0;
-}
-
-int i2c_slave_enable(uint8_t address)
-{
-	vAHI_SiSlaveConfigure(address, false, true, 0xFF, false);
-	return 0;
-}
-
-int i2c_init()
-{
-	return 0;
-}
-
-struct Twi {
-	int     (*init)();
-	int	(*master_enable)(uint32_t);
-	int	(*slave_enable)(uint8_t);
-	void    (*disable)();
-	int	(*start)(uint8_t, int);
-	int	(*read_bytes)(uint8_t*, size_t);
-	int	(*write_bytes)(uint8_t*, size_t);
-	void	(*stop)();
 };
 
-
-struct Twi xtwi = {
-	i2c_init,
-	i2c_master_enable,
-	i2c_slave_enable,
-	i2c_disable,
-	i2c_start,
-	i2c_read_bytes,
-	i2c_write_bytes,
-	i2c_stop
-};
-
-
-TwoWire::TwoWire(Twi *_twi, void(*_beginCb)(void), void(*_endCb)(void)) :
-	txAddress(0), twi(&xtwi), twiClock(TWI_CLOCK)
+TwoWire::TwoWire(struct i2c_device*_twi) :
+	i2c(_twi), clock(TWI_CLOCK)
 {
-  twi->init();
+  i2c->init(i2c->devinfo);
 }
 
 void TwoWire::begin(void) {
-  twi->master_enable(twiClock);
+  i2c->master_enable(i2c->devinfo, clock);
   master_mode = true;
 }
 
 void TwoWire::begin(uint8_t address) {
-  twi->slave_enable(address);
+  i2c->slave_enable(i2c->devinfo, address);
   master_mode = false;
 }
 
 void TwoWire::setClock(uint32_t frequency) {
-  twiClock = frequency;
+  clock = frequency;
   if(master_mode)
   {
-    twi->disable();
-    twi->master_enable(twiClock);
+    i2c->disable(i2c->devinfo);
+    i2c->master_enable(i2c->devinfo, clock);
   }
 }
 
 void TwoWire::end() {
-  twi->disable();
+  i2c->disable(i2c->devinfo);
 }
 
 uint8_t TwoWire::requestFrom(uint8_t address, size_t quantity, bool stopBit)
@@ -203,14 +78,15 @@ uint8_t TwoWire::requestFrom(uint8_t address, size_t quantity, bool stopBit)
     quantity = SERIAL_BUFFER_SIZE;
   }
 
-  if(twi->start(address, WIRE_READ_FLAG))
+  if(i2c->start(i2c->devinfo, address, WIRE_READ_FLAG))
   {
 
-    twi->read_bytes(rxBuffer._aucBuffer, quantity);
+    i2c->read_bytes(i2c->devinfo, rxBuffer._aucBuffer, quantity);
     rxBuffer._iHead = quantity;
+
     if (stopBit)
     {
-      twi->stop();   // Send Stop
+      i2c->stop(i2c->devinfo);   // Send Stop
     }
   }
 
@@ -241,9 +117,9 @@ uint8_t TwoWire::endTransmission(bool stopBit)
   transmissionBegun = false ;
 
   // Start I2C transmission
-  if ( !twi->start( txAddress, WIRE_WRITE_FLAG ) )
+  if ( !i2c->start(i2c->devinfo, txAddress, WIRE_WRITE_FLAG ) )
   {
-    twi->stop();
+    i2c->stop(i2c->devinfo);
     return 2 ;  // Address error
   }
 
@@ -251,16 +127,16 @@ uint8_t TwoWire::endTransmission(bool stopBit)
   if(txBuffer.available() )
   {
     //txBuffer always start 0.
-    if( twi->write_bytes(txBuffer._aucBuffer, txBuffer.available() ) )
+    if( i2c->write_bytes(i2c->devinfo, txBuffer._aucBuffer, txBuffer.available() ) )
     {
-      twi->stop();
+      i2c->stop(i2c->devinfo);
       return 3 ;  // Nack or error
     }
   }
   
   if (stopBit)
   {
-    twi->stop();
+    i2c->stop(i2c->devinfo);
   }   
 
   return 0;
@@ -335,44 +211,11 @@ void TwoWire::onService(void)
 }
 
 #if WIRE_INTERFACES_COUNT > 0
-extern "C" {
-static void SiInterruptHandler(uint32 /*u32Device*/, uint32 u32ItemBitmap) {
-	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_BUSY_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_AL_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_ICMD_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_TIP_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_INT_STATUS_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
-	}
-    /* Serial Interface Slave */
-#define E_AHI_SIS_ERROR_MASK            (1 << 4)
-#define E_AHI_SIS_LAST_DATA_MASK        (1 << 3)
-#define E_AHI_SIS_DATA_WA_MASK          (1 << 2)
-#define E_AHI_SIS_DATA_RTKN_MASK        (1 << 1)
-#define E_AHI_SIS_DATA_RR_MASK          (1 << 0)
-}
-}
-static void Wire_Init(void) {
-	vAHI_SiRegisterCallback(SiInterruptHandler);
-}
+  TwoWire Wire = TwoWire(WIRE_INTERFACE);
 
-static void Wire_Deinit(void) {
-	//TODO
-}
-
-TwoWire Wire = TwoWire(WIRE_INTERFACE, Wire_Init, Wire_Deinit);
-
+  void WIRE_IT_HANDLER(void) {
+    Wire.onService();
+  }
 #endif
 
 #if WIRE_INTERFACES_COUNT > 1

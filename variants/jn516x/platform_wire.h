@@ -23,9 +23,7 @@
 #include "Stream.h"
 #include "variant.h"
 
-#define WIRE_INTERFACES_COUNT 1
-struct Twi;
-
+#include "wiring_private.h"
 #include "RingBuffer.h"
 
  // WIRE_HAS_END means Wire has end()
@@ -34,7 +32,7 @@ struct Twi;
 class TwoWire : public Stream
 {
   public:
-    TwoWire(Twi *twi, void(*begin_cb)(void), void(*end_cb)(void));
+    TwoWire(struct i2c_device *i2cdev);
     void begin();
     void begin(uint8_t);
     void end();
@@ -66,6 +64,9 @@ class TwoWire : public Stream
     void onService(void);
 
   private:
+    struct i2c_device* i2c;
+    uint32_t clock;
+    bool master_mode;
 
     bool transmissionBegun;
 
@@ -82,12 +83,6 @@ class TwoWire : public Stream
 
     // TWI clock frequency
     static const uint32_t TWI_CLOCK = 100000;
-
-	// TWI instance
-	Twi *twi;
-
-	uint32_t twiClock;
-    bool master_mode;
 };
 
 #if WIRE_INTERFACES_COUNT > 0
