@@ -82,6 +82,18 @@ struct uart_device {
 };
 
 
+struct i2c_device {
+	int     (*init)(void*);
+	int	(*master_enable)(void*, uint32_t);
+	int	(*slave_enable)(void*, uint8_t);
+	void    (*disable)(void*);
+	int	(*start)(void*, uint8_t, int);
+	int	(*read_bytes)(void*, uint8_t*, size_t);
+	int	(*write_bytes)(void*, uint8_t*, size_t);
+	void	(*stop)(void*);
+	void*	devinfo;
+};
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

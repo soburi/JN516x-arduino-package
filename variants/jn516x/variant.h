@@ -108,7 +108,10 @@ static const uint8_t D1   = PIN_D1;
  * Wire Interfaces
  */
 #define WIRE_INTERFACES_COUNT 1
-#define WIRE_INTERFACE       0
+
+
+extern struct i2c_device i2c0;
+#define WIRE_INTERFACE       (&i2c0)
 
 #define VARIANT_MCK                     84000000
 
