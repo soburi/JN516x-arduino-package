@@ -132,6 +132,10 @@ static uint32_t sleep_start_ticks;
 #define DEBUG 0
 #if DEBUG
 #define PRINTF(...) do { printf(__VA_ARGS__); } while(0)
+#elif DBG_ENABLE
+#include <dbg.h>
+#include <dbg_uart.h>
+#define PRINTF(...) DBG_vPrintf(1, __VA_ARGS__)
 #else
 #define PRINTF(...) do {} while(0)
 #endif
@@ -343,6 +347,9 @@ main(void)
   ctimer_init();
 #if UART0_DEBUG_ENABLE
   uart0_init(UART_BAUD_RATE); /* Must come before first PRINTF */
+#endif
+#if DBG_ENABLE
+  DBG_vUartInit(DBG_E_UART_0, DBG_E_UART_BAUD_RATE_115200);
 #endif
 
 #if NETSTACK_CONF_WITH_IPV4

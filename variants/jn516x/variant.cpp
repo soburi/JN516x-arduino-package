@@ -96,8 +96,11 @@ void platform_uart0_init(void* port, uint32_t baudrate, uint8_t parity, uint8_t 
 	default:     baud = -1;               break;
 	}
 	
+	(void)baud;
 	(void)port; (void)parity; (void)stopbit; (void)wordlen; (void)flowctrl;
+#ifndef DBG_ENABLE
 	uart0_init(baud);
+#endif
 }
 
 void platform_uart0_set_input(void* port, int (*input)(uint8_t))
