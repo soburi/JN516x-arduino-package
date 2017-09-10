@@ -6,11 +6,11 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
-          "version": "0.0.",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/05ed18b479207451585672eb2200725b525a03ab.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-master-0.0..tar.gz",
-          "checksum": "SHA-256:ce4ad8ce273c47de9e57fee1f047853e10fa8ad8f620f90090f50cf3f1fc2d1f",
-          "size": "90753",
+          "version": "0.0.1709101507",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/84c7fd2641f7fdd615f0db2d07dafbccf64e9cce.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-master-0.0.1709101507.tar.gz",
+          "checksum": "SHA-256:07e22ae8af076d110f81f9fabb74568ffb28e586c55bba055f8088e0cac0ea1e",
+          "size": "90759",
           "boards": [
             {
               "name": "Generic JN516x board"
