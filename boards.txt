@@ -23,10 +23,10 @@ jn516x.menu.config.jn5161=JN5161
 jn516x.menu.config.jn5161.build.config_vars=CHIP=JN5161 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
 jn516x.menu.config.meshbee=Mesh Bee
 jn516x.menu.config.meshbee.build.config_vars=CHIP=JN5168 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
-jn516x.menu.trace.ON=Trace On
-jn516x.menu.trace.ON.build.trace=TRACE=1
 jn516x.menu.trace.OFF=Trace Off
 jn516x.menu.trace.OFF.build.trace=
+jn516x.menu.trace.ON=Trace On
+jn516x.menu.trace.ON.build.trace=TRACE=1
 
 twelite.name=Mono Wireless TWELITE
 twelite.upload.tool=contiki-makehelper
@@ -44,10 +44,10 @@ twelite.menu.config.TWELITE_BLUE=TWELITE BLUE
 twelite.menu.config.TWELITE_BLUE.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
 twelite.menu.config.TWELITE_RED=TWELITE RED
 twelite.menu.config.TWELITE_RED.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize_JN5169.ld'
-twelite.menu.trace.ON=Trace On
-twelite.menu.trace.ON.build.trace=TRACE=1
 twelite.menu.trace.OFF=Trace Off
 twelite.menu.trace.OFF.build.trace=
+twelite.menu.trace.ON=Trace On
+twelite.menu.trace.ON.build.trace=TRACE=1
 
 native.name=native
 native.upload.tool=contiki-makehelper
