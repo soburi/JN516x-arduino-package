@@ -99,6 +99,7 @@ void i2c_stop()
 	vAHI_SiMasterSetCmdReg(E_AHI_SI_NO_START_BIT, E_AHI_SI_STOP_BIT,
 				 E_AHI_SI_NO_SLAVE_READ, E_AHI_SI_NO_SLAVE_WRITE,
 				 E_AHI_SI_SEND_ACK, E_AHI_SI_NO_IRQ_ACK);
+	while(bAHI_SiMasterPollTransferInProgress()); /* wait while busy */
 }
 
 
