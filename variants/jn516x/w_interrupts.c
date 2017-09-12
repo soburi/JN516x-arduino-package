@@ -21,13 +21,23 @@
 #include "wiring_private.h"
 
 #include <AppHardwareApi.h>
+#include "variant.h"
 
 static void nop() { }
 
+extern void sysctrl_callback(uint32 u32Device, uint32 u32ItemBitmap);
 
 void attachInterrupt(uint32_t pin, voidFuncPtr callback, uint32_t mode)
 {
 	if(pin > DIO_NUM) return;
+
+	//TODO: Register callback on bootup.
+	static int initialized = 0;
+	if(!initialized) {
+		DBG_PRINTF("vAHI_SysCtrlRegisterCallback\r\n");
+		vAHI_SysCtrlRegisterCallback(sysctrl_callback);
+		initialized = 1;
+	}
 	
 	handler_table[pin] = callback;
 
