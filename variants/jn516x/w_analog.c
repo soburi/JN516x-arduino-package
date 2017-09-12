@@ -37,7 +37,17 @@ void analogReference( eAnalogReference ulMode )
 
 uint32_t analogRead( uint32_t ulPin )
 {
-	DBG_PRINTF("analogRread:\r\n");
+	DBG_PRINTF("analogRead(%d)\r\n", ulPin);
+
+	// TODO: Enable Analog Peripherals on bootup.
+	if (!bAHI_APRegulatorEnabled()) {
+		vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE,
+				E_AHI_AP_INT_DISABLE,
+				E_AHI_AP_SAMPLE_2,
+				E_AHI_AP_CLOCKDIV_500KHZ,
+				E_AHI_AP_INTREF);
+		while(!bAHI_APRegulatorEnabled());
+	}
 
 	uint32_t adc = 0;
 
@@ -57,26 +67,24 @@ uint32_t analogRead( uint32_t ulPin )
 		default: return -1;
 	}
 
+	DBG_PRINTF("vAHI_AdcEnable(%x)\r\n", adc);
 	vAHI_AdcEnable(E_AHI_ADC_SINGLE_SHOT, E_AHI_AP_INPUT_RANGE_2, adc);
+	DBG_PRINTF("vAHI_AdcStartSample()\r\n");
 	vAHI_AdcStartSample();
+	DBG_PRINTF("bAHI_AdcPoll()\r\n");
 	while(!bAHI_AdcPoll());
 
 	uint16_t read;
+	DBG_PRINTF("u16AHI_AdcRead()\r\n");
 	read = u16AHI_AdcRead();
 
-	DBG_PRINTF("read:");
-	DBG_PRINTF("%d\r\n", read);
-	DBG_PRINTF("\r\n");
+	DBG_PRINTF("return %d\r\n", read);
 	return read;
 }
 
 void analogWrite( uint32_t ulPin, uint32_t ulValue )
 {
-	DBG_PRINTF("analogWrite ");
-	DBG_PRINTF("%d\r\n", ulPin);
-	DBG_PRINTF(" ");
-	DBG_PRINTF("%d\r\n", ulValue);
-	DBG_PRINTF("\r\n");
+	DBG_PRINTF("analogWrite(%d, %d)\r\n", ulPin, ulValue);
 
 	uint32_t timer = 0;
 	switch(1<<ulPin) {
