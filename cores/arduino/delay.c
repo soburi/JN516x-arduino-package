@@ -36,7 +36,7 @@ unsigned long millis( void )
 // values to calculate micros. If there is a pending SysTick, add one to the millis counter in the calculation.
 unsigned long micros( void )
 {
-	return RTIMER_NOW() * 1000000/RTIMER_ARCH_SECOND;
+	return RTIMER_NOW() /(RTIMER_ARCH_SECOND/1000000);
 }
 
 static struct etimer delay_timer;
