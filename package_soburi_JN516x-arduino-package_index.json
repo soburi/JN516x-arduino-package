@@ -6,6 +6,39 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
+          "version": "rtimer_10000002",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/rtimer_10000002/JN516x-arduino-package-rtimer_10000002.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-rtimer_10000002.tar.bz2",
+          "checksum": "SHA-256:c9c3b4b778b7df8d13f4ad1f442bdcf86bb184bc48d142c7a7dede4ca372a487",
+          "size": "25748613",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.11"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "intiki",
+          "category": "Contributed",
           "version": "rtimer_1000000",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/rtimer_1000000/JN516x-arduino-package-rtimer_1000000.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-rtimer_1000000.tar.bz2",
