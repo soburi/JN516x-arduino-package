@@ -16,6 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifdef USE_WIRING_ANALOG_PSEUDO_IMPLEMENT
+
 #include "Arduino.h"
 #include "wiring_private.h"
 
@@ -43,3 +45,6 @@ void analogOutputInit( void ) __attribute__((weak,alias("_analogOutputInitDefaul
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* USE_WIRING_ANALOG_PSEUDO_IMPLEMENT */
+
