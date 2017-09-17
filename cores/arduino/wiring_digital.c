@@ -16,6 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifdef USE_WIRING_DIGITAL_PSEUDO_IMPLEMENT
+
 #include "Arduino.h"
 
 #include <dev/leds.h>
@@ -65,4 +67,6 @@ int digitalRead( uint32_t ulPin ) __attribute__((weak, alias("_digitalReadDefaul
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* USE_WIRING_DIGITAL_PSEUDO_IMPLEMENT */
 

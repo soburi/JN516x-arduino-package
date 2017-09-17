@@ -16,6 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifdef USE_WINTERRUPTS_PSEUDO_IMPLEMENT
+
 #include <contiki.h>
 #include <lib/sensors.h>
 #include <sys/process.h>
@@ -108,3 +110,6 @@ void detachInterrupt(uint32_t pin) __attribute__((weak,alias("_detachInterruptDe
 
 struct sensors_sensor* gpioPin2Button(uint32_t pin) __attribute__((weak,alias("_gpioPin2ButtonDefault")));
 struct buttonCallback* button2ButtonCallback(struct sensors_sensor*) __attribute__((weak,alias("_button2ButtonCallbackDefault")));
+
+#endif /* USE_WINTERRUPTS_PSEUDO_IMPLEMENT */
+
