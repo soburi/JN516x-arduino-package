@@ -134,3 +134,12 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 	vAHI_TimerStartRepeat(timer, 25000.0 * (ulValue/255.0), 25000);
 }
 
+void analogReadResolution(int res)
+{
+	(void)res;
+}
+
+void analogWriteResolution(int res)
+{
+	(void)res;
+}
