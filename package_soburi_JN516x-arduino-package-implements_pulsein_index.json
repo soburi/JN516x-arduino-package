@@ -6,11 +6,11 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
-          "version": "0.0.1709170915",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/95a296aa289142b8dfff13e97cb2f16a158d00ae.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-implements_pulsein-0.0.1709170915.tar.gz",
-          "checksum": "SHA-256:b3de9b3a6f273f4553821d9d44adac5469520a3f8a21ff93f18da8d547761756",
-          "size": "91342",
+          "version": "0.0.1709171333",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/44aa5f5030ba8f65153b6e84e87d11153816c9e4.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-implements_pulsein-0.0.1709171333.tar.gz",
+          "checksum": "SHA-256:9752b14578725378771b1daf07d66dd2a5a0235e4dc2b1bb081465a9e5fa5db6",
+          "size": "91309",
           "boards": [
             {
               "name": "Generic JN516x board"
