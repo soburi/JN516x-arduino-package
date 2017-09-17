@@ -35,6 +35,19 @@ extern "C" {
 #include <jendefs.h>
 #include <MicroSpecific.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#include <dbg.h>
+#include <dbg_uart.h>
+#pragma GCC diagnostic pop
+
+#define DBG_PRINTF(...) DBG_vPrintf(DBG_VPRINTF_ENABLE, __VA_ARGS__)
+#ifdef DBG_ENABLE
+#define DBG_VPRINTF_ENABLE true
+#else
+#define DBG_VPRINTF_ENABLE false
+#endif
+
 #define F_INTERNAL_SYSCLOCK (F_CPU/2)
 
 #define SystemCoreClock F_INTERNAL_SYSCLOCK
