@@ -55,6 +55,8 @@ extern "C" {
 #define __disable_irq() MICRO_DISABLE_INTERRUPTS()
 #define __enable_irq()  MICRO_ENABLE_INTERRUPTS()
 
+#define TONE_INTERVAL_OFFSET(freq) (-((RTIMER_SECOND / 1000000) * 8))
+
 typedef uint8_t IRQn_Type;
 
 typedef uint8_t Pio;

@@ -17,10 +17,64 @@
 */
 
 #include <stdint.h>
+#include "wiring_digital.h"
+#include "wiring_constants.h"
+#include "platform.h"
 
-void tone(uint32_t _pin, uint32_t frequency, uint32_t duration = 0) __attribute__((weak));
+extern "C" {
+#include <contiki.h>
+}
+
+#ifndef TONE_INTERVAL_OFFSET
+#define TONE_INTERVAL_OFFSET(f) 0
+#endif
+
+void tone(uint32_t _pin, uint32_t frequency, uint32_t duration) __attribute__((weak));
 void noTone(uint32_t _pin) __attribute__((weak));
 
-void tone(uint32_t, uint32_t, uint32_t) { }
-void noTone(uint32_t) { }
+static uint32_t output_pin;
+static uint32_t output_state;
+static uint32_t interval;
+static uint32_t count;
+static struct rtimer tone_rtimer;
+
+static void rtimer_callback(struct rtimer* /*timer*/, void* /*ptr*/)
+{
+	//DBG_PRINTF("rtimer_callback()\r\n");
+	if(count > 0) {
+		count--;
+	}
+	else if(count == 0) {
+		digitalWrite(output_pin, LOW);
+		return;
+	}
+	output_state = (output_state == HIGH ? LOW : HIGH);
+	digitalWrite(output_pin, output_state);
+	rtimer_clock_t next = RTIMER_NOW() + interval;
+	rtimer_set(&tone_rtimer, next, 0, rtimer_callback, NULL);
+}
+
+void tone(uint32_t pin, uint32_t frequency, uint32_t duration)
+{
+	DBG_PRINTF("tone(%d, %d, %d)\r\n", pin, frequency, duration);
+	output_pin = pin;
+	output_state = LOW;
+	digitalWrite(output_pin, output_state);
+	interval = (RTIMER_SECOND / (frequency*2)) + TONE_INTERVAL_OFFSET(frequency);
+	if(duration == 0) {
+		count = -1;
+	}
+	else {
+		count = frequency * 2 * duration / 1000;
+	}
+	rtimer_clock_t next = RTIMER_NOW() + interval;
+	DBG_PRINTF("rtimer_set(%d) interval:%d count:%d\r\n", next, 0, count);
+	rtimer_set(&tone_rtimer, next, 0, rtimer_callback, NULL);
+}
+
+void noTone(uint32_t pin)
+{
+	count = 0;
+	digitalWrite(pin, LOW);
+}
 
