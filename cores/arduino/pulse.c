@@ -17,10 +17,45 @@
 */
 
 #include <stdint.h>
+#include "Arduino.h"
+#include "wiring_private.h"
+
+static uint32_t pulsein_pin;
+static uint32_t pulsein_state;
+static uint32_t pulse_start_time;
+static uint32_t pulse_end_time;
+
+static void pulse_end_callback()
+{
+	pulse_end_time = micros();
+}
+
+static void pulse_start_callback()
+{
+	pulse_start_time = micros();
+	attachInterrupt(pulsein_pin, pulse_end_callback, pulsein_state == HIGH ? FALLING : RISING);
+}
 
 uint32_t _pulseInDefault(uint32_t pin, uint32_t state, uint32_t timeout)
 {
-	(void)pin; (void)state; (void)timeout;
+	DBG_PRINTF("_pulseInDefault(%d, %d, %d)\r\n", pin, state, timeout);
+	pulse_start_time = 0;
+	pulse_end_time = 0;
+	pulsein_pin = pin;
+	pulsein_state = state;
+	attachInterrupt(pulsein_pin, pulse_start_callback, pulsein_state == HIGH ? RISING : FALLING);
+	clock_delay_usec(timeout);
+	uint32_t end = timeout + micros();
+	while (micros() < end && pulse_end_time == 0) {
+		yield();
+	}
+	detachInterrupt(pulsein_pin);
+
+	DBG_PRINTF("end: %d start: %d width: %d)\r\n", pulse_end_time, pulse_start_time, pulse_end_time - pulse_start_time);
+	if(pulse_end_time != 0) {
+		return pulse_end_time - pulse_start_time;
+	}
+
 	return 0;
 }
 
