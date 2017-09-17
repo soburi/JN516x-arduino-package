@@ -19,11 +19,6 @@
 #ifndef _VARIANT_JN516X_
 #define _VARIANT_JN516X_
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#include <dbg.h>
-#include <dbg_uart.h>
-#pragma GCC diagnostic pop
 
 #include "Arduino.h"
 #ifdef __cplusplus
@@ -35,12 +30,6 @@ extern "C"
 {
 #endif // __cplusplus
 
-#define DBG_PRINTF(...) DBG_vPrintf(DBG_VPRINTF_ENABLE, __VA_ARGS__)
-#ifdef DBG_ENABLE
-#define DBG_VPRINTF_ENABLE true
-#else
-#define DBG_VPRINTF_ENABLE false
-#endif
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
