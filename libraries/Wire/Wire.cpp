@@ -81,7 +81,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, size_t quantity, bool stopBit)
   if(i2c->start(i2c->devinfo, address, WIRE_READ_FLAG))
   {
 
-    i2c->read_bytes(i2c->devinfo, rxBuffer._aucBuffer, quantity);
+    byteRead = i2c->read_bytes(i2c->devinfo, rxBuffer._aucBuffer, quantity);
     rxBuffer._iHead = quantity;
 
     if (stopBit)
