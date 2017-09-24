@@ -77,27 +77,13 @@ static const uint8_t D1   = PIN_D1;
  */
 #define SPI_INTERFACES_COUNT 1
 
-#define SPI_INTERFACE        SPI0
-#define SPI_INTERFACE_ID     ID_SPI0
-#define SPI_CHANNELS_NUM 4
-#define PIN_SPI_SS0          (19u)
-#define PIN_SPI_SS1          (0u)
-#define PIN_SPI_SS2          (1u)
-#define BOARD_SPI_SS0        PIN_SPI_SS0
-#define BOARD_SPI_SS1        PIN_SPI_SS1
-#define BOARD_SPI_SS2        PIN_SPI_SS2
-#define BOARD_SPI_DEFAULT_SS 0xFF
-
-#define BOARD_PIN_TO_SPI_CHANNEL(x) (x==19 ? 0 : (x==0 ? 1 : (x==1 ? 2 : (x==0xFF ? 5 : 0) ) ) )
-
-#define SPI0 NULL
-#define ID_SPI0 -1
+extern struct spi_device spi0;
+#define SPI_INTERFACE        (&spi0)
 
 /*
  * Wire Interfaces
  */
 #define WIRE_INTERFACES_COUNT 1
-
 
 extern struct i2c_device i2c0;
 #define WIRE_INTERFACE       (&i2c0)
