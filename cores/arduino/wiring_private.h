@@ -22,6 +22,9 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+#include <stdbool.h>
+
 #include "platform.h"
 #include <sys/mt.h>
 #include <sys/process.h>
@@ -91,6 +94,17 @@ struct i2c_device {
 	int	(*read_bytes)(void*, uint8_t*, size_t);
 	int	(*write_bytes)(void*, uint8_t*, size_t);
 	void	(*stop)(void*);
+	void*	devinfo;
+};
+
+struct spi_device {
+	int     (*init)(void*);
+	int	(*configure)(void*, bool, bool, bool, uint32_t);
+	int	(*start)(void*);
+	void	(*stop)(void*);
+	uint8_t (*transfer)(void*, uint8_t);
+	int	(*mask_interrupt_on_transaction)(void*, int);
+	int     (*deinit)(void*);
 	void*	devinfo;
 };
 

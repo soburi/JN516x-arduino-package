@@ -1,162 +1,181 @@
 /*
- * Copyright (c) 2010 by Cristian Maglie <c.maglie@arduino.cc>
- * Copyright (c) 2014 by Paul Stoffregen <paul@pjrc.com> (Transaction API)
- * SPI Master library for arduino.
+ * SPI Master library for Arduino Zero.
+ * Copyright (c) 2015 Arduino LLC
  *
- * This file is free software; you can redistribute it and/or modify
- * it under the terms of either the GNU General Public License version 2
- * or the GNU Lesser General Public License version 2.1, both as
- * published by the Free Software Foundation.
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 #include "platform_spi.h"
+#include "variant.h"
 
-SPIClass::SPIClass(Spi *_spi, uint32_t _id, void(*_initCb)(void)) :
-	spi(_spi), id(_id), initCb(_initCb), initialized(false)
+#ifndef SPI_CLOCK
+#define SPI_CLOCK SystemCoreClock
+#endif
+
+const SPISettings DEFAULT_SPI_SETTINGS = SPISettings();
+
+SPIClass::SPIClass(struct spi_device* _spi)
+         : spi(_spi)
+         , divider(SPI_CLOCK/DEFAULT_SPI_SETTINGS.clock)
+         , bitOrder(DEFAULT_SPI_SETTINGS.bitOrder)
+         , dataMode(DEFAULT_SPI_SETTINGS.dataMode)
+         , initialized(false)
 {
-	DBG_PRINTF("SPIClass::SPIClass\r\n");
-	// Empty
-	id = -1;
-
-	bitOrder[0] = bitOrder[1] = bitOrder[2] = bitOrder[3] = MSBFIRST;
-	    mode[0] =     mode[1] =     mode[2] =     mode[3] = SPI_MODE0;
-	 divider[0] =  divider[1] =  divider[2] =  divider[3] = SPI_CLOCK_DIV4;
+  DBG_PRINTF("SPIClass::SPIClass\r\n");
 }
 
-void SPIClass::begin() {
-	begin(BOARD_SPI_DEFAULT_SS);
+void SPIClass::begin()
+{
+  init();
+
+  divider = SPI_CLOCK/DEFAULT_SPI_SETTINGS.clock;
+  bitOrder = DEFAULT_SPI_SETTINGS.bitOrder;
+  dataMode = DEFAULT_SPI_SETTINGS.dataMode;
+
+  config(DEFAULT_SPI_SETTINGS);
 }
 
-void SPIClass::begin(uint8_t _pin) {
-	uint32_t ch = BOARD_PIN_TO_SPI_CHANNEL(_pin);
-	DBG_PRINTF("SPIClass::begin %x\r\n", ch);
-	if(!initialized) init();
+void SPIClass::init()
+{
+  DBG_PRINTF("SystemCoreClock %d\r\n", SystemCoreClock);
+  DBG_PRINTF("DEFAULT_SPI_SETTINGS.clock %d\r\n", DEFAULT_SPI_SETTINGS.clock);
+  if (initialized)
+    return;
+
+  spi->init(spi->devinfo);
+  initialized = true;
 }
 
-void SPIClass::init() {
-	DBG_PRINTF("SPIClass::init %x %x %x %x \r\n", LSBFIRST==bitOrder[0], !bool(0x2&mode[0]), bool(0x1&mode[0]), divider[0]);
-	vAHI_SpiConfigure(3, LSBFIRST==bitOrder[0], !bool(0x2&mode[0]), bool(0x1&mode[0]), divider[0],
-			     E_AHI_SPIM_INT_DISABLE, E_AHI_SPIM_AUTOSLAVE_DSABL);
-	tSpiConfiguration conf;
-	vAHI_SpiReadConfiguration(&conf);
-	DBG_PRINTF("   Read = %x\r\n", conf);
-	initialized = true;
+void SPIClass::config(SPISettings settings)
+{
+  spi->configure(spi->devinfo,
+                 settings.bitOrder == MSBFIRST ? 1 : 0,
+                 settings.dataMode & 0x1 ? 1 : 0,
+                 settings.dataMode & 0x2 ? 0 : 1,
+                 settings.clock);
 }
 
+void SPIClass::end()
+{
+  spi->deinit(spi->devinfo);
+  initialized = false;
+}
+
+#if 0
 #ifndef interruptsStatus
 #define interruptsStatus() __interruptsStatus()
 static inline unsigned char __interruptsStatus(void) __attribute__((always_inline, unused));
-static inline unsigned char __interruptsStatus(void) {
-	unsigned int primask, faultmask;
-	asm volatile ("mrs %0, primask" : "=r" (primask));
-	if (primask) return 0;
-	asm volatile ("mrs %0, faultmask" : "=r" (faultmask));
-	if (faultmask) return 0;
-	return 1;
+static inline unsigned char __interruptsStatus(void)
+{
+  // See http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0497a/CHDBIBGJ.html
+  return (__get_PRIMASK() ? 0 : 1);
 }
 #endif
+#endif
 
-void SPIClass::usingInterrupt(uint8_t /*interruptNumber*/)
+void SPIClass::usingInterrupt(int interruptNumber)
 {
-	//TODO
+  spi->mask_interrupt_on_transaction(spi->devinfo, interruptNumber);
 }
 
-void SPIClass::beginTransaction(uint8_t /*pin*/, SPISettings /*settings*/)
+void SPIClass::beginTransaction(SPISettings settings)
 {
-	//TODO
+  config(settings);
+  spi->start(spi->devinfo);
 }
 
 void SPIClass::endTransaction(void)
 {
-	//TODO
+  spi->stop(spi->devinfo);
 }
 
-void SPIClass::end(uint8_t /*_pin*/) {
-	// read - disable restore
+void SPIClass::setBitOrder(BitOrder order)
+{
+  bitOrder = order;
+  if(initialized)
+    config(SPISettings(SPI_CLOCK/divider, bitOrder, dataMode) );
 }
 
-void SPIClass::end() {
-	vAHI_SpiDisable();
+void SPIClass::setDataMode(uint8_t mode)
+{
+  dataMode = mode;
+  if(initialized)
+    config(SPISettings(SPI_CLOCK/divider, bitOrder, dataMode) );
 }
 
-void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder) {
-	uint32_t ch = BOARD_PIN_TO_SPI_CHANNEL(_pin);
-	DBG_PRINTF("SPIClass::setBitOrder %x\r\n", ch);
-	bitOrder[ch] = _bitOrder;
+void SPIClass::setClockDivider(uint8_t div)
+{
+  divider = div;
+  if(initialized)
+    config(SPISettings(SPI_CLOCK/divider, bitOrder, dataMode) );
 }
 
-void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode) {
-	uint32_t ch = BOARD_PIN_TO_SPI_CHANNEL(_pin);
-	DBG_PRINTF("SPIClass::setDataMode %x\r\n", ch);
-	mode[ch] = _mode;
+byte SPIClass::transfer(uint8_t data)
+{
+  return spi->transfer(spi->devinfo, data);
 }
 
-void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider) {
-	uint32_t ch = BOARD_PIN_TO_SPI_CHANNEL(_pin);
-	DBG_PRINTF("SPIClass::setClockDivider %x\r\n", ch);
-	divider[ch] = _divider;
+uint16_t SPIClass::transfer16(uint16_t data) {
+  union { uint16_t val; struct { uint8_t lsb; uint8_t msb; }; } t;
+
+  t.val = data;
+
+  if (bitOrder == LSBFIRST) {
+    t.lsb = transfer(t.lsb);
+    t.msb = transfer(t.msb);
+  } else {
+    t.msb = transfer(t.msb);
+    t.lsb = transfer(t.lsb);
+  }
+
+  return t.val;
 }
 
-byte SPIClass::transfer(byte _pin, uint8_t _data, SPITransferMode /*_mode*/) {
-	//TODO transfer mode 
-	uint32_t ch = BOARD_PIN_TO_SPI_CHANNEL(_pin);
-	DBG_PRINTF("SPIClass::transfer %x\r\n", ch);
-	if(id != ch) {
-		tSpiConfiguration conf;
-		vAHI_SpiReadConfiguration(&conf);
-		DBG_PRINTF("   Read = %x\r\n", conf);
-		uint8_t nmode =  ((0x2&mode[ch]) ? 0x00 : 0x2) | (0x1&mode[ch]);
-
-		/**
-		 * This is just a hacking.
-		 * TODO finding correct spec for tSpiConfiguration.
-		 * 31 30 29 28 27 26 25 24 |23 22 21 20 19 18 17 16
-		 * [???] [--- divider ---] |[?????????] [sel] ?? In
-		 * 15 14 13 12 11 10  9  8 | 7  6  5  4  3  2  1  0
-		 * [??????] Au Or [???????]|[????????????] Po Ph ??
-		 */
-		conf = (conf & 0xFFFFEFFF) | (bitOrder[ch] == LSBFIRST ? 0x1000 : 0x0);
-		conf = (conf & 0xFFFFFFF9) | (nmode << 1);
-		conf = (conf & 0x00FFFFFF) | (divider[ch] << 24);
-		DBG_PRINTF("Restore = %x\r\n", conf);
-		vAHI_SpiRestoreConfiguration(&conf);
-		id = ch;
-	}
-	DBG_PRINTF("vAHI_SpiSelect %x\r\n", ch);
-	vAHI_SpiSelect(ch > 3 ? 0 : 1<<ch);
-	tSpiConfiguration conf;
-	vAHI_SpiReadConfiguration(&conf);
-	DBG_PRINTF("   Read = %x\r\n", conf);
-
-	DBG_PRINTF("vAHI_SpiStartTransfer\r\n");
-	vAHI_SpiStartTransfer(8, _data);
-
-	DBG_PRINTF("vAHI_SpiWaitBusy\r\n");
-	vAHI_SpiWaitBusy();
-
-	DBG_PRINTF("u8AHI_SpiReadTransfer8\r\n");
-	uint8_t ret = u8AHI_SpiReadTransfer8();
-	DBG_PRINTF("ret = %x\r\n", ret);
-	vAHI_SpiStop();
-	return ret;
+void SPIClass::transfer(void *buf, size_t count)
+{
+  uint8_t *buffer = reinterpret_cast<uint8_t *>(buf);
+  for (size_t i=0; i<count; i++) {
+    *buffer = transfer(*buffer);
+    buffer++;
+  }
 }
 
-void SPIClass::transfer(byte /*_pin*/, void* /*_buf*/, size_t /*_count*/, SPITransferMode /*_mode*/) {
-	//TODO
+void SPIClass::attachInterrupt() {
+  // Should be enableInterrupt()
 }
 
-void SPIClass::attachInterrupt(void) {
-	// Should be enableInterrupt()
-}
-
-void SPIClass::detachInterrupt(void) {
-	// Should be disableInterrupt()
+void SPIClass::detachInterrupt() {
+  // Should be disableInterrupt()
 }
 
 #if SPI_INTERFACES_COUNT > 0
-static void SPI_0_Init(void) {
-}
-
-SPIClass SPI(SPI_INTERFACE, SPI_INTERFACE_ID, SPI_0_Init);
+  SPIClass SPI(SPI_INTERFACE);
+#endif
+#if SPI_INTERFACES_COUNT > 1
+  SPIClass SPI1(SPI1_INTERFACE);
+#endif
+#if SPI_INTERFACES_COUNT > 2
+  SPIClass SPI2(SPI2_INTERFACE);
+#endif
+#if SPI_INTERFACES_COUNT > 3
+  SPIClass SPI2(SPI2_INTERFACE);
+#endif
+#if SPI_INTERFACES_COUNT > 4
+  SPIClass SPI3(SPI3_INTERFACE);
+#endif
+#if SPI_INTERFACES_COUNT > 5
+  SPIClass SPI4(SPI4_INTERFACE);
 #endif
 
