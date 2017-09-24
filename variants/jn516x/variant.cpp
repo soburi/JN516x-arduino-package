@@ -19,7 +19,10 @@
 #include "variant.h"
 #include "platform.h"
 #include "wiring_private.h"
+extern "C" {
 #include "i2c-driver.h"
+#include "spi-driver.h"
+}
 
 #define D_PLATFORM_UART(x) platform_uart ## x
 #define D_PLATFORM_UART_F(x,y) platform_uart ## x ## _ ## y
@@ -230,6 +233,58 @@ struct i2c_device i2c0 = {
 	platform_i2c_read_bytes,
 	platform_i2c_write_bytes,
 	platform_i2c_stop,
+	NULL
+};
+
+int platform_spi_init(void* /*dev*/)
+{
+	spi_init();
+	return 0;
+}
+
+int platform_spi_deinit(void* /*dev*/)
+{
+	spi_deinit();
+	return 0;
+}
+
+int platform_spi_configure(void* /*dev*/, bool msbFirst, bool polarity, bool phase, uint32_t clock)
+{
+	spi_configure(0, !msbFirst, polarity, phase, (SystemCoreClock/clock)/2);
+	return 0;
+}
+
+int platform_spi_start(void* /*dev*/)
+{
+	spi_start(0);
+	return 0;
+}
+
+void platform_spi_stop(void* /*dev*/)
+{
+	spi_stop();
+}
+
+uint8_t platform_spi_transfer(void* /*dev*/, uint8_t data)
+{
+	spi_write(data);
+	uint8_t ret = spi_read();
+	return ret;
+}
+
+int platform_spi_mask_interrupt_on_transaction(void* /*dev*/, int /*interrupt*/)
+{
+	return 0;
+}
+
+struct spi_device spi0 = {
+	platform_spi_init,
+	platform_spi_configure,
+	platform_spi_start,
+	platform_spi_stop,
+	platform_spi_transfer,
+	platform_spi_mask_interrupt_on_transaction,
+	platform_spi_deinit,
 	NULL
 };
 
