@@ -34,6 +34,7 @@ extern "C" {
 
 #include <jendefs.h>
 #include <MicroSpecific.h>
+#include <AppHardwareApi.h>
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -71,6 +72,39 @@ extern uint32_t ticktimer_overflow_count;
 
 extern void ticktimer_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
 extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
+
+extern uint8_t segmentLength;
+extern uint16_t segmentNumber;
+
+static inline void eeprom_init()
+{
+	segmentNumber = u16AHI_InitialiseEEP(&segmentLength);
+	DBG_PRINTF("u16AHI_InitialiseEEP() num:%d, len:%d\n", segmentNumber, segmentLength);
+}
+
+static inline uint8_t eeprom_read_byte(const uint8_t* index)
+{
+	uint8_t buf;
+	int ret = iAHI_ReadDataFromEEPROMsegment( ((uint32_t)index)/segmentLength,
+						  ((uint32_t)index)%segmentLength, &buf, 1);
+	DBG_PRINTF("iAHI_ReadDataFromEEPROMsegment(%d, %d) ret:%d, buf:%x\n",
+			((uint32_t)index)/segmentLength,
+			((uint32_t)index)%segmentLength, ret, buf);
+	return buf;
+}
+
+static inline void eeprom_write_byte(const uint8_t* index, uint8_t data)
+{
+	int ret = iAHI_WriteDataIntoEEPROMsegment(((uint32_t)index)/segmentLength,
+						  ((uint32_t)index)%segmentLength, &data, 1);
+	DBG_PRINTF("iAHI_WriteDataFromEEPROMsegment(%d, %d) ret:%d\n",
+			((uint32_t)index)/segmentLength,
+			((uint32_t)index)%segmentLength, ret);
+}
+
+static inline size_t eeprom_size() {
+	return segmentLength * segmentNumber;
+}
 
 #define PLATFORM_SPI_HEADER "platform_spi.h"
 #define PLATFORM_WIRE_HEADER "platform_wire.h"
