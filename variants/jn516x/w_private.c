@@ -26,6 +26,9 @@
 	E_AHI_DIO12_INT | E_AHI_DIO13_INT | E_AHI_DIO14_INT | E_AHI_DIO15_INT | \
 	E_AHI_DIO16_INT | E_AHI_DIO17_INT | E_AHI_DIO18_INT | E_AHI_DIO19_INT )
 
+uint8_t segmentLength;
+uint16_t segmentNumber;
+
 uint32_t ticktimer_overflow_count = 0;
 
 void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
