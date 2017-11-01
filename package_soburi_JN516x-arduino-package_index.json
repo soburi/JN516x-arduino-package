@@ -6,6 +6,44 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
+          "version": "compilerx",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/compilerx/JN516x-arduino-package-compilerx.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-compilerx.tar.bz2",
+          "checksum": "SHA-256:2768e5361c0b385c73ccef9b11da716d888633106628db5063cb349a2272b410",
+          "size": "25751114",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.11"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            },
+            {
+              "packager": "intiki",
+              "name": "ba-elf-gcc",
+              "version": "4.7.4-r36379"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "intiki",
+          "category": "Contributed",
           "version": "rtimer_10000003",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/rtimer_10000003/JN516x-arduino-package-rtimer_10000003.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-rtimer_10000003.tar.bz2",
@@ -600,6 +638,26 @@
         }
       ],
       "tools": [
+        {
+          "name": "ba-elf-gcc",
+          "version": "4.7.4-r36379",
+          "systems": [
+            {
+              "archiveFileName": "ba-elf-gcc_x86_64-apple-darwin_4.7.4-r36379.tar.bz2",
+              "url": "https://github.com/soburi/ba-elf-gcc/releases/download/4.7.4-r36379/ba-elf-gcc_x86_64-apple-darwin_4.7.4-r36379.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:63b13461e323aae36b5c1331b73b49f5094467af5bc7d3cec2974e6851987008",
+              "size": "38466900"
+            },
+            {
+              "archiveFileName": "ba-elf-gcc_i686-mingw32_4.7.4-r36379.tar.bz2",
+              "url": "https://github.com/soburi/ba-elf-gcc/releases/download/4.7.4-r36379/ba-elf-gcc_i686-mingw32_4.7.4-r36379.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:8d8988ac5379ca7f12675a95474ad9a6b9344ace6ab1846282b0e7b6d70efe05",
+              "size": "124"
+            }
+          ]
+        },
         {
           "name": "contiki-makehelper",
           "version": "0.0.11",
