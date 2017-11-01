@@ -28,6 +28,11 @@
       "packager": "intiki",
       "name": "msys2-contiki-build",
       "version": "0.0.1"
+    },
+    {
+      "packager": "intiki",
+      "name": "BA2-toolchain",
+      "version": "4.7.4-r36379"
     }
   ]
 }
