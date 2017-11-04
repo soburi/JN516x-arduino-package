@@ -6,6 +6,44 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
+          "version": "COMPILER4",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/COMPILER4/JN516x-arduino-package-COMPILER4.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-COMPILER4.tar.bz2",
+          "checksum": "SHA-256:e54e91089fc6a7803428420971074a8539077b8851a9db882155a1e6b1d509b5",
+          "size": "25751487",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.11"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            },
+            {
+              "packager": "intiki",
+              "name": "BA2-toolchain",
+              "version": "4.7.4-r36379"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "intiki",
+          "category": "Contributed",
           "version": "compilerx",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/compilerx/JN516x-arduino-package-compilerx.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-compilerx.tar.bz2",
@@ -42,6 +80,26 @@
         }
       ],
       "tools": [
+        {
+          "name": "BA2-toolchain",
+          "version": "4.7.4-r36379",
+          "systems": [
+            {
+              "archiveFileName": "BA2-toolchain_x86_64-apple-darwin_4.7.4-r36379.tar.bz2",
+              "url": "https://github.com/soburi/BA2-toolchain/releases/download/4.7.4-r36379/BA2-toolchain_x86_64-apple-darwin_4.7.4-r36379.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:63b13461e323aae36b5c1331b73b49f5094467af5bc7d3cec2974e6851987008",
+              "size": "38466900"
+            },
+            {
+              "archiveFileName": "BA2-toolchain_i686-mingw32_4.7.4-r36379.tar.bz2",
+              "url": "https://github.com/soburi/BA2-toolchain/releases/download/4.7.4-r36379/BA2-toolchain_i686-mingw32_4.7.4-r36379.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:8d8988ac5379ca7f12675a95474ad9a6b9344ace6ab1846282b0e7b6d70efe05",
+              "size": "124"
+            }
+          ]
+        },
         {
           "name": "msys2-contiki-build",
           "version": "0.0.1",
