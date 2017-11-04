@@ -6,6 +6,44 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
+          "version": "compiler5",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/compiler5/JN516x-arduino-package-compiler5.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-compiler5.tar.bz2",
+          "checksum": "SHA-256:7638905473dad5e1fb8ebb3c4f066fa25d427bf1571e6a2c6d1f11b5f6726885",
+          "size": "25751274",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.11"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            },
+            {
+              "packager": "intiki",
+              "name": "BA2-toolchain",
+              "version": "4.7.4-r36379"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "intiki",
+          "category": "Contributed",
           "version": "COMPILER4",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/COMPILER4/JN516x-arduino-package-COMPILER4.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-COMPILER4.tar.bz2",
