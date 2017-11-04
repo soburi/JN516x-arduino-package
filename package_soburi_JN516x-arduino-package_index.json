@@ -6,7 +6,7 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
-          "version": "compiler5",
+          "version": "1.2.3",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/compiler5/JN516x-arduino-package-compiler5.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-compiler5.tar.bz2",
           "checksum": "SHA-256:7638905473dad5e1fb8ebb3c4f066fa25d427bf1571e6a2c6d1f11b5f6726885",
