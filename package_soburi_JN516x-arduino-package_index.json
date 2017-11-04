@@ -130,6 +130,13 @@
               "size": "38466900"
             },
             {
+              "archiveFileName": "BA2-toolchain_x86_64-pc-linux-gnu_4.7.4-r36379.tar.bz2",
+              "url": "https://github.com/soburi/BA2-toolchain/releases/download/4.7.4-r36379/BA2-toolchain_x86_64-pc-linux-gnu_4.7.4-r36379.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:43f17d2cf1d7e06a05d55585438756bd4c2a918d854b4ee33f3d98bfb7aaa292",
+              "size": "36418629"
+            },
+            {
               "archiveFileName": "BA2-toolchain_i686-mingw32_4.7.4-r36379.tar.bz2",
               "url": "https://github.com/soburi/BA2-toolchain/releases/download/4.7.4-r36379/BA2-toolchain_i686-mingw32_4.7.4-r36379.tar.bz2",
               "host": "i686-mingw32",
