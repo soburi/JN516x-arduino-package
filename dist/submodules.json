@@ -2,7 +2,7 @@
   {
     "path": "system/contiki",
     "url": "https://github.com/soburi/contiki",
-    "revision": "7a047f3b7ef9bfd4a281c9b479d2451cb122147b"
+    "revision": "441f679658fee95fd93013af51d884cce6c988ab"
   },
   {
     "path": "system/contiki/cpu/cc26xx-cc13xx/lib/cc13xxware",
