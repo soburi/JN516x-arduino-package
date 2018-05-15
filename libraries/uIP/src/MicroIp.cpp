@@ -63,7 +63,43 @@ int MicroIPClass::maintain(){
   return 0;
 }
 
-IPAddress MicroIPClass::localIP()
+IPAddress MicroIPClass::linklocalAddress()
+{
+  return linklocalAddress(ADDR_PREFERRED);
+}
+
+IPAddress MicroIPClass::linklocalAddress(int state)
+{
+  uip_ds6_addr_t* addr = uip_ds6_get_link_local(state);
+  if(addr != NULL)
+  {
+    return IPAddress(addr->ipaddr.u8);
+  }
+  else
+  {
+    return IPAddress();
+  }
+}
+
+IPAddress MicroIPClass::globalAddress()
+{
+  return globalAddress(ADDR_PREFERRED);
+}
+
+IPAddress MicroIPClass::globalAddress(int state)
+{
+  uip_ds6_addr_t* addr = uip_ds6_get_global(state);
+  if(addr != NULL)
+  {
+    return IPAddress(addr->ipaddr.u8);
+  }
+  else
+  {
+    return IPAddress();
+  }
+}
+
+IPAddress MicroIPClass::interfaceID()
 {
   //TODO
   IPAddress ret;

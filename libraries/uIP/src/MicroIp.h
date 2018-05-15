@@ -38,12 +38,17 @@ public:
   int begin();
   int maintain();
 
-  IPAddress localIP();
+  IPAddress localIP() { return globalAddress(); }
   IPAddress subnetMask();
   IPAddress gatewayIP();
   IPAddress dnsServerIP();
 
 #if NETSTACK_CONF_WITH_IPV6
+  IPAddress linklocalAddress(int state);
+  IPAddress linklocalAddress();
+  IPAddress globalAddress(int state);
+  IPAddress globalAddress();
+
   IPAddress interfaceID();
   IPAddress prefix();
   unsigned int prefixLength();
