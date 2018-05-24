@@ -59,12 +59,6 @@ public:
 #endif
 
 private:
-  static void do_resolv_lookup(void* ptr);
-  static void do_resolv_query(void* ptr);
-  static void do_resolv_set_hostname(void* ptr);
-  static void do_uip_nameserver_update(void* ptr);
-  static  int wait_resolv_event_found(process_event_t ev, process_data_t data, void* param);
-
   friend class MicroIPClient;
   friend class MicroIPServer;
 };

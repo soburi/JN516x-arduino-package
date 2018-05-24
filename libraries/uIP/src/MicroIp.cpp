@@ -30,6 +30,13 @@ extern "C" {
 #include "wiring_private.h"
 #include "MicroIp.h"
 
+static resolv_status_t set_connection_address(uip_ipaddr_t *ipaddr, const char* host);
+static void do_resolv_set_hostname(void* ptr);
+static void do_resolv_query(void* ptr);
+static int wait_resolv_event_found(process_event_t ev, process_data_t data, void* ptr);
+static void do_uip_nameserver_update(void* ptr);
+
+
 struct resolv_params {
   const char* host;
   uip_ipaddr_t* ipaddr;
@@ -121,7 +128,7 @@ IPAddress MicroIPClass::dnsServerIP()
   return ret;
 }
 
-void MicroIPClass::do_uip_nameserver_update(void* ptr)
+static void do_uip_nameserver_update(void* ptr)
 {
   struct update_nameserver_params *params= reinterpret_cast<struct update_nameserver_params*>(ptr);
   PRINT6ADDR(params->ipaddr);
@@ -139,21 +146,28 @@ void MicroIPClass::addDNS(const IPAddress& dnsaddr, uint32_t lifetime)
 IPAddress MicroIPClass::lookup(const char* host)
 {
   uip_ipaddr_t ipaddr;
-  struct resolv_params params = { host, &ipaddr, RESOLV_STATUS_ERROR };
+  static resolv_status_t status = RESOLV_STATUS_UNCACHED;
 
-  yield_continue(do_resolv_lookup, &params);
-  if(params.retval == RESOLV_STATUS_UNCACHED || params.retval == RESOLV_STATUS_EXPIRED) {
-    params.retval = RESOLV_STATUS_ERROR;
-    yield_until(do_resolv_query, &params, wait_resolv_event_found, &params);
-    yield_continue(do_resolv_lookup, &params);
+  while(status != RESOLV_STATUS_CACHED) {
+    status = set_connection_address(&ipaddr, host);
+
+    if(status == RESOLV_STATUS_UNCACHED || status == RESOLV_STATUS_EXPIRED) {
+
+      struct resolv_params params = { host, &ipaddr, RESOLV_STATUS_ERROR };
+      PRINTF("Wait resolv_event_found\n");
+      yield_until(do_resolv_query, &params, wait_resolv_event_found, &params);
+    } else if(status != RESOLV_STATUS_CACHED) {
+      PRINTF("Can't get connection address.\n");
+      return IN6ADDR_ANY_INIT;
+    }
   }
-  if(params.retval == RESOLV_STATUS_CACHED && params.ipaddr != NULL) {
-    return IPAddress(params.ipaddr->u8);
+  if(status == RESOLV_STATUS_CACHED) {
+    return IPAddress(ipaddr.u8);
   }
-  return INADDR_NONE;
+  return IN6ADDR_ANY_INIT;
 }
 
-void MicroIPClass::do_resolv_set_hostname(void* ptr)
+static void do_resolv_set_hostname(void* ptr)
 {
   const char* hostname = reinterpret_cast<const char*>(ptr);
   PRINTF("resolv_set_hostname %s\n", hostname);
@@ -168,37 +182,40 @@ void MicroIPClass::setHostname(const char* hostname)
   yield_continue(do_resolv_set_hostname, const_cast<char*>(hostname) );
 }
 
-void MicroIPClass::do_resolv_query(void* ptr)
+static void do_resolv_query(void* ptr)
 {
   struct resolv_params* params = reinterpret_cast<struct resolv_params*>(ptr);
   resolv_query(params->host);
 }
 
-void MicroIPClass::do_resolv_lookup(void* ptr)
+static resolv_status_t set_connection_address(uip_ipaddr_t *ipaddr, const char* host)
 {
-  struct resolv_params* params = reinterpret_cast<struct resolv_params*>(ptr);
   resolv_status_t status = RESOLV_STATUS_ERROR;
 
-  uip_ipaddr_t *resolved_addr = NULL;
-  status = resolv_lookup(params->host, &resolved_addr);
-  if(status == RESOLV_STATUS_UNCACHED || status == RESOLV_STATUS_EXPIRED) {
-    PRINTF("Attempting to look up %s\n",params->host);
-  } else if(status == RESOLV_STATUS_CACHED && resolved_addr != NULL) {
-    PRINTF("Lookup of \"%s\" succeded!\n", params->host);
-  } else if(status == RESOLV_STATUS_RESOLVING) {
-    PRINTF("Still looking up \"%s\"...\n", params->host);
+  if(uiplib_ipaddrconv(host, ipaddr) == 0) {
+    uip_ipaddr_t *resolved_addr = NULL;
+
+    //NOTE: resolv_lookup don't require process context.
+    status = resolv_lookup(host,&resolved_addr);
+    if(status == RESOLV_STATUS_UNCACHED || status == RESOLV_STATUS_EXPIRED) {
+      PRINTF("Attempting to look up %s\n",host);
+    } else if(status == RESOLV_STATUS_CACHED && resolved_addr != NULL) {
+      PRINTF("Lookup of \"%s\" succeded!\n",host);
+    } else if(status == RESOLV_STATUS_RESOLVING) {
+      PRINTF("Still looking up \"%s\"...\n",host);
+    } else {
+      PRINTF("Lookup of \"%s\" failed. status = %d\n",host, status);
+    }
+    if(resolved_addr)
+      uip_ipaddr_copy(ipaddr, resolved_addr);
   } else {
-    PRINTF("Lookup of \"%s\" failed. status = %d\n", params->host, status);
+    status = RESOLV_STATUS_CACHED;
   }
 
-  if(resolved_addr) {
-    uip_ipaddr_copy(params->ipaddr, resolved_addr);
-  }
-
-  params->retval = status;
+  return status;
 }
 
-int MicroIPClass::wait_resolv_event_found(process_event_t ev, process_data_t data, void* ptr)
+static int wait_resolv_event_found(process_event_t ev, process_data_t data, void* ptr)
 {
   struct resolv_params* params = reinterpret_cast<struct resolv_params*>(ptr);
   return ( (ev == resolv_event_found) && (strcasecmp(params->host, reinterpret_cast<char*>(data)) == 0) );
