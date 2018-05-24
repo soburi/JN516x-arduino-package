@@ -48,8 +48,6 @@ private:
   uint8_t rbuf[MICROIPUDP_RXBUF_SIZE];
   uint8_t tbuf[MICROIPUDP_TXBUF_SIZE];
   uint32_t txidx;
-  uip_ipaddr_t destIP;
-  uint16_t destPort;
 
 public:
   MicroIPUDP();  
@@ -90,7 +88,7 @@ private:
   static void do_udp_socket_register(void* ptr);
   static void do_udp_socket_bind(void* ptr);
   static void do_udp_socket_connect(void* ptr);
-  static void do_udp_socket_sendto(void* ptr);
+  static void do_udp_socket_send(void* ptr);
 };
 
 #endif

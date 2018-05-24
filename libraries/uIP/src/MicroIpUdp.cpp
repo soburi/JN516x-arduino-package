@@ -88,7 +88,7 @@ void MicroIPUDP::stop()
 int MicroIPUDP::beginPacket(const char *host, uint16_t port)
 {
   IPAddress remote = MicroIP.lookup(host);
-  if(remote == INADDR_NONE) {
+  if(remote == IN6ADDR_ANY_INIT) {
     return 0;
   }
   return beginPacket(remote, port);
@@ -97,17 +97,19 @@ int MicroIPUDP::beginPacket(const char *host, uint16_t port)
 int MicroIPUDP::beginPacket(IPAddress ip, uint16_t port)
 {
   txidx = 0;
+  uip_ipaddr_t dest;
 
-  uip_ipaddr_copy(&destIP, uipIPAddress(ip) );
-  destPort = port;
+  uip_ipaddr_copy(&dest, uipIPAddress(ip) );
+  struct udp_socket_params params = { this, &dest, port, 0 };
+  yield_continue(do_udp_socket_connect, &params);
 
   return 1;
 }
 
 int MicroIPUDP::endPacket()
 {
-  struct udp_socket_params params = { this, &destIP, destPort, 0 };
-  yield_continue(do_udp_socket_sendto, &params);
+  struct udp_socket_params params = { this, NULL, 0, 0 };
+  yield_continue(do_udp_socket_send, &params);
   txidx = 0;
   if(params.retval < 0) {
     return 0;
@@ -139,7 +141,7 @@ size_t MicroIPUDP::write(const uint8_t *buffer, size_t size)
 
 int MicroIPUDP::parsePacket()
 {
-  PRINTF("MicroIPUDP::parsePacket %d %d\n", ringbuf_elements(&rxbuf), available());
+  //PRINTF("MicroIPUDP::parsePacket %d %d\n", ringbuf_elements(&rxbuf), available());
   if( available() ) {
     //notify
     //discard current data
@@ -280,6 +282,23 @@ void MicroIPUDP::input_callback(struct udp_socket *c, void *ptr,
 {
   MicroIPUDP* udp = reinterpret_cast<MicroIPUDP*>(ptr);
   (void)c;
+
+  PRINTF("data=%p\n", data);
+  int i=0;
+  for(i=0; i< datalen; i++)
+  {
+    if(i%16 == 0)
+    {
+      PRINTF("    ");
+    }
+    if(i%8 == 0)
+    {
+      PRINTF("\n");
+    }
+    PRINTF("%02x ", data[i]);
+  }
+  PRINTF("\n");
+
   udp->receive(source_addr, source_port, dest_addr, dest_port, data, datalen);
 }
 
@@ -313,13 +332,15 @@ void MicroIPUDP::do_udp_socket_connect(void* ptr)
   params->retval = ret;
 }
 
-void MicroIPUDP::do_udp_socket_sendto(void* ptr)
+void MicroIPUDP::do_udp_socket_send(void* ptr)
 {
   struct udp_socket_params* params = reinterpret_cast<struct udp_socket_params*>(ptr);
 
-  PRINTF("do_udp_socket_sendto\n");
   MicroIPUDP* udp = const_cast<MicroIPUDP*>(params->udp);
-  PRINT6ADDR(params->ipaddr);
-  PRINTF("\n");
-  params->retval = udp_socket_sendto(&udp->sock, udp->tbuf, udp->txidx, params->ipaddr, params->port);
+
+  PRINTF("do_udp_socket_send ");
+  PRINT6ADDR(&udp->sock.udp_conn->ripaddr);
+  PRINTF(":%d\n", udp->sock.udp_conn->rport);
+
+  params->retval = udp_socket_send(&udp->sock, udp->tbuf, udp->txidx);
 }
