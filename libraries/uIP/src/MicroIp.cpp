@@ -31,7 +31,7 @@ extern "C" {
 #include "MicroIp.h"
 
 static resolv_status_t set_connection_address(uip_ipaddr_t *ipaddr, const char* host);
-static void do_resolv_set_hostname(void* ptr);
+static void do_set_hostname_and_query(void* ptr);
 static void do_resolv_query(void* ptr);
 static int wait_resolv_event_found(process_event_t ev, process_data_t data, void* ptr);
 static void do_uip_nameserver_update(void* ptr);
@@ -57,8 +57,17 @@ int MicroIPClass::begin()
 {
   uip_ipaddr_t ipaddr;
 
+  PRINTF("uip_ip6addr(UIP_DS6_DEFAULT_PREFIX, 0, 0, 0, 0, 0, 0, 0);\n");
   uip_ip6addr(&ipaddr, UIP_DS6_DEFAULT_PREFIX, 0, 0, 0, 0, 0, 0, 0);
+  PRINTF("uip_ds6_set_addr_iid(");
+  PRINT6ADDR(&ipaddr);
+  PRINTF(", ");
+  PRINTLLADDR(&uip_lladdr);
+  PRINTF(")\n");
   uip_ds6_set_addr_iid(&ipaddr, &uip_lladdr);
+  PRINTF("uip_ds6_addr_add(");
+  PRINT6ADDR(&ipaddr);
+  PRINTF(")\n");
   uip_ds6_addr_add(&ipaddr, 0, ADDR_AUTOCONF);
 
   process_start(&resolv_process, NULL);
@@ -149,10 +158,13 @@ IPAddress MicroIPClass::lookup(const char* host)
   static resolv_status_t status = RESOLV_STATUS_UNCACHED;
 
   while(status != RESOLV_STATUS_CACHED) {
+    PRINTF("set_connection_address(%s)\n", host);
     status = set_connection_address(&ipaddr, host);
+    PRINTF("set_connection_address status=%d addr=", status);
+    PRINT6ADDR(&ipaddr);
+    PRINTF("\n");
 
     if(status == RESOLV_STATUS_UNCACHED || status == RESOLV_STATUS_EXPIRED) {
-
       struct resolv_params params = { host, &ipaddr, RESOLV_STATUS_ERROR };
       PRINTF("Wait resolv_event_found\n");
       yield_until(do_resolv_query, &params, wait_resolv_event_found, &params);
@@ -167,24 +179,38 @@ IPAddress MicroIPClass::lookup(const char* host)
   return IN6ADDR_ANY_INIT;
 }
 
-static void do_resolv_set_hostname(void* ptr)
+static void do_set_hostname_and_query(void* ptr)
 {
-  const char* hostname = reinterpret_cast<const char*>(ptr);
-  PRINTF("resolv_set_hostname %s\n", hostname);
-  if( !process_is_running(&resolv_process) ) {
-    process_start(&resolv_process, NULL);
-  }
-  resolv_set_hostname(hostname);
+  struct resolv_params* params = reinterpret_cast<struct resolv_params*>(ptr);
+  resolv_set_hostname(params->host);
+  PRINTF("resolv_query(%s)\n", params->host);
+  resolv_query(params->host);
 }
 
 void MicroIPClass::setHostname(const char* hostname)
 {
-  yield_continue(do_resolv_set_hostname, const_cast<char*>(hostname) );
+#if RESOLV_CONF_SUPPORTS_MDNS
+  static char hostname_local[255];
+  uip_ipaddr_t ipaddr;
+
+  strcpy(hostname_local, hostname);
+  strcpy(hostname_local + strlen(hostname_local), ".local");
+
+  if(hostname)
+  {
+    // Issue self-hostname query to ensure which is can annouce hostname.
+    struct resolv_params params = { hostname_local, &ipaddr, RESOLV_STATUS_ERROR };
+    PRINTF("enter do_set_hostname_and_query\n");
+    yield_until(do_set_hostname_and_query, &params, wait_resolv_event_found, &params);
+    PRINTF("exit  do_set_hostname_and_query\n");
+  }
+#endif
 }
 
 static void do_resolv_query(void* ptr)
 {
   struct resolv_params* params = reinterpret_cast<struct resolv_params*>(ptr);
+  PRINTF("resolv_query(%s)\n", params->host);
   resolv_query(params->host);
 }
 
@@ -196,7 +222,12 @@ static resolv_status_t set_connection_address(uip_ipaddr_t *ipaddr, const char* 
     uip_ipaddr_t *resolved_addr = NULL;
 
     //NOTE: resolv_lookup don't require process context.
+    PRINTF("uiplib_ipaddrconv == 0\n");
+    PRINTF("resolv_lookup(%s)\n", host);
     status = resolv_lookup(host,&resolved_addr);
+    PRINTF("resolv_lookup status = %d resolved_addr = ", status);
+    PRINT6ADDR(resolved_addr);
+    PRINTF("\n");
     if(status == RESOLV_STATUS_UNCACHED || status == RESOLV_STATUS_EXPIRED) {
       PRINTF("Attempting to look up %s\n",host);
     } else if(status == RESOLV_STATUS_CACHED && resolved_addr != NULL) {
@@ -209,6 +240,7 @@ static resolv_status_t set_connection_address(uip_ipaddr_t *ipaddr, const char* 
     if(resolved_addr)
       uip_ipaddr_copy(ipaddr, resolved_addr);
   } else {
+    PRINTF("uiplib_ipaddrconv != 0\n");
     status = RESOLV_STATUS_CACHED;
   }
 
