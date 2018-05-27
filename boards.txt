@@ -1,5 +1,6 @@
 menu.config=Configuration
-menu.trace=Debug Trace
+menu.trace=Trace
+menu.rpl=RPL
 
 jn516x.name=NXP JN516x
 jn516x.upload.tool=contiki-makehelper
@@ -11,7 +12,7 @@ jn516x.build.core=arduino
 jn516x.build.variant=jn516x
 jn516x.build.compiler.path=C:/NXP/bstudio_nxp/sdk/Tools/ba-elf-ba2-r36379/bin
 jn516x.build.uploader.path=""
-jn516x.build.make.vars=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant' CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace}
+jn516x.build.make.vars=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant' CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl}
 jn516x.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 jn516x.menu.config.jn5169=JN5169
 jn516x.menu.config.jn5169.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize_JN5169.ld'
@@ -23,10 +24,14 @@ jn516x.menu.config.jn5161=JN5161
 jn516x.menu.config.jn5161.build.config_vars=CHIP=JN5161 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
 jn516x.menu.config.meshbee=Mesh Bee
 jn516x.menu.config.meshbee.build.config_vars=CHIP=JN5168 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
-jn516x.menu.trace.OFF=Trace Off
+jn516x.menu.trace.OFF=Off
 jn516x.menu.trace.OFF.build.trace=
-jn516x.menu.trace.ON=Trace On
+jn516x.menu.trace.ON=On
 jn516x.menu.trace.ON.build.trace=TRACE=1
+jn516x.menu.rpl.ON=Enable
+jn516x.menu.rpl.ON.build.rpl=CONTIKI_WITH_RPL=1
+jn516x.menu.rpl.OFF=Disable
+jn516x.menu.rpl.OFF.build.rpl=CONTIKI_WITH_RPL=0
 
 twelite.name=Mono Wireless TWELITE
 twelite.upload.tool=contiki-makehelper
@@ -38,16 +43,20 @@ twelite.build.core=arduino
 twelite.build.variant=jn516x
 twelite.build.compiler.path=C:/MWSDK/Tools/ba-elf-ba2-r36379/bin
 twelite.build.uploader.path=""
-twelite.build.make.vars=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant' CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} SDK_BASE_DIR=C:/MWSDK/ChipLib/SW4063V1416 FLASH_PROGRAMMER=C:/MWSDK/Tools/ProductionFlashProgrammer/JN51xxProgrammer.exe
+twelite.build.make.vars=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant' CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl} SDK_BASE_DIR=C:/MWSDK/ChipLib/SW4063V1416 FLASH_PROGRAMMER=C:/MWSDK/Tools/ProductionFlashProgrammer/JN51xxProgrammer.exe
 twelite.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 twelite.menu.config.TWELITE_BLUE=TWELITE BLUE
 twelite.menu.config.TWELITE_BLUE.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
 twelite.menu.config.TWELITE_RED=TWELITE RED
 twelite.menu.config.TWELITE_RED.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize_JN5169.ld'
-twelite.menu.trace.OFF=Trace Off
+twelite.menu.trace.OFF=Off
 twelite.menu.trace.OFF.build.trace=
-twelite.menu.trace.ON=Trace On
+twelite.menu.trace.ON=On
 twelite.menu.trace.ON.build.trace=TRACE=1
+twelite.menu.rpl.ON=Enable
+twelite.menu.rpl.ON.build.rpl=CONTIKI_WITH_RPL=1
+twelite.menu.rpl.OFF=Disable
+twelite.menu.rpl.OFF.build.rpl=CONTIKI_WITH_RPL=0
 
 native.name=native
 native.upload.tool=contiki-makehelper
