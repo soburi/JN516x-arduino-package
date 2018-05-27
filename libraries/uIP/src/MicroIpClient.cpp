@@ -58,7 +58,7 @@ MicroIPClient::MicroIPClient(struct tcp_socket* psock) {
 int MicroIPClient::connect(const char* host, uint16_t port) {
   PRINTF("MicroIPClient::connect(%s, %d)\n", host, port);
   IPAddress remote = MicroIP.lookup(host);
-  if(remote == INADDR_NONE) {
+  if(remote == IN6ADDR_ANY_INIT) {
     return 0;
   }
   return connect(remote, port);
