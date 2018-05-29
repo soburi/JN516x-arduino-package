@@ -174,7 +174,7 @@ PROCESS_THREAD(main_thread, ev, data)
 
 void yield()
 {
-	YIELD_TO_MAIN_THREAD(WT_PAUSE, NULL, NULL, NULL, NULL);
+	delay(0);
 }
 
 void yield_until(fp_run run, void* run_param, fp_condition condition, void* condition_param)
