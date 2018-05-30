@@ -28,6 +28,7 @@ extern "C" {
 
 int MicroIPRPL::begin(const IPAddress& prefix, uint32_t prefix_length)
 {
+#if UIP_CONF_IPV6_RPL
   rpl_dag_t *dag;
   uip_ipaddr_t ipaddr;
   uip_ipaddr_t prefix_;
@@ -40,17 +41,17 @@ int MicroIPRPL::begin(const IPAddress& prefix, uint32_t prefix_length)
 		  prefix[8],  prefix[9],prefix[10],prefix[11],
 		  prefix[12],prefix[13],prefix[14],prefix[15]);
 
-  uip_ip6addr_copy(&prefix_, &ipaddr);
-
-  uip_ds6_set_addr_iid(&ipaddr, &uip_lladdr);
-  uip_ds6_addr_add(&ipaddr, 0, ADDR_AUTOCONF);
-
   dag = rpl_set_root(RPL_DEFAULT_INSTANCE, &ipaddr);
   if(dag != NULL) {
     rpl_set_prefix(dag, &prefix_, prefix_length);
     PRINTF("created a new RPL dag\n");
+    return 1;
   }
-  return 1;
+#else
+  (void)prefix;
+  (void)prefix_length;
+#endif
+  return 0;
 }
 
 MicroIPRPL RPL;
