@@ -30,7 +30,7 @@ void Uart::begin(unsigned long baudrate)
 	begin(baudrate, SERIAL_8N1);
 }
 
-void Uart::begin(unsigned long baudrate, uint32_t config)
+void Uart::begin(unsigned long baudrate, uint16_t config)
 {
 	uint8_t parity  =  config & HARDSER_PARITY_MASK;
 	uint8_t stopbit = (config & HARDSER_STOP_BIT_MASK) >> 4;

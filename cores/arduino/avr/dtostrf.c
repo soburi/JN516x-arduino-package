@@ -1,7 +1,6 @@
 /*
   dtostrf - Emulation for dtostrf function from avr-libc
-  Copyright (c) 2013 Arduino.  All rights reserved.
-  Written by Cristian Maglie <c.maglie@arduino.cc>
+  Copyright (c) 2015 Arduino LLC.  All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public

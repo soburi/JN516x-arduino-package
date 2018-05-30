@@ -30,7 +30,7 @@ class Uart : public HardwareSerial
   public:
     Uart(struct uart_device *_s);
     void begin(unsigned long baudRate);
-    void begin(unsigned long baudrate, uint32_t config);
+    void begin(unsigned long baudrate, uint16_t config);
     void end();
     int available();
     int availableForWrite();
@@ -47,16 +47,21 @@ class Uart : public HardwareSerial
   private:
     struct uart_device *uart;
     RingBuffer rxBuffer;
-/*
+#if 0
     RingBuffer txBuffer;
 
     uint8_t uc_pinRX;
     uint8_t uc_pinTX;
     SercomRXPad uc_padRX;
     SercomUartTXPad uc_padTX;
+    uint8_t uc_pinRTS;
+    volatile uint32_t* pul_outsetRTS;
+    volatile uint32_t* pul_outclrRTS;
+    uint32_t ul_pinMaskRTS;
+    uint8_t uc_pinCTS;
 
     SercomNumberStopBit extractNbStopBit(uint16_t config);
     SercomUartCharSize extractCharSize(uint16_t config);
     SercomParityMode extractParity(uint16_t config);
-*/
+#endif
 };

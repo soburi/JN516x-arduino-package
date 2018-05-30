@@ -44,8 +44,8 @@ typedef uint16_t word;
 extern "C"{
 #endif // __cplusplus
 
-// Include platform headers
-#include "platform.h"
+// Include Atmel headers
+#include "sam.h"
 
 #include "wiring_constants.h"
 
