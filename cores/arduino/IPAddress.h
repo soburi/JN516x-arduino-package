@@ -79,11 +79,12 @@ public:
 #if !NETSTACK_CONF_WITH_IPV6
     IPAddress& operator=(uint32_t address);
 #endif
+
     virtual size_t printTo(Print& p) const;
 
+    friend class UDP;
     friend class Client;
     friend class Server;
-    friend class UDP;
 };
 
 const IPAddress INADDR_NONE;
