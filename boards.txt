@@ -15,7 +15,9 @@ jn516x.build.compiler.path.windows=C:/NXP/bstudio_nxp/sdk/Tools/ba-elf-ba2-r3637
 jn516x.build.uploader.path=""
 jn516x.build.options.target_makefile=target_makefile={runtime.platform.path}/variants/{build.variant}/Makefile.variant
 jn516x.build.options.target_makefile.windows=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant'
-jn516x.build.make.vars={build.options.target_makefile} CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl}
+jn516x.build.options.flashprogrammer=FLASH_PROGRAMMER={runtime.tools.jenprog.path}/JennicModuleProgrammer
+jn516x.build.options.flashprogrammer.windows=
+jn516x.build.make.vars={build.options.target_makefile} CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl} {build.options.flashprogrammer}
 jn516x.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 jn516x.menu.config.jn5169=JN5169
 jn516x.menu.config.jn5169.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize_JN5169.ld'
@@ -51,8 +53,8 @@ twelite.build.options.target_makefile=target_makefile={runtime.platform.path}/va
 twelite.build.options.target_makefile.windows=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant'
 twelite.build.options.sdkbase=SDK_BASE_DIR=/opt/MWSDK/ChipLib/SW4063V1416
 twelite.build.options.sdkbase.windows=SDK_BASE_DIR=C:/MWSDK/ChipLib/SW4063V1416
-twelite.build.options.flashprogrammer=
-twelite.build.options.flashprogrammer.windows=FLASH_PROGRAMMER=C:/MWSDK/Tools/ProductionFlashProgrammer/JN51xxProgrammer.exe
+twelite.build.options.flashprogrammer=FLASH_PROGRAMMER={runtime.tools.jenprog.path}/JennicModuleProgrammer
+twelite.build.options.flashprogrammer.windows=FLASH_PROGRMMER=C:/MWSDK/Tools/ProductionFlashProgrammer/JN51xxProgrammer.exe
 twelite.build.make.vars={build.options.target_makefile} CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl} {build.options.sdkbase} {build.options.flashprogrammer}
 twelite.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 twelite.menu.config.TWELITE_BLUE=TWELITE BLUE

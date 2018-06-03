@@ -37,5 +37,18 @@
         "size": "XXXXXXXXXXXXXXXX"
       }
     ]
+  },
+  {
+    "name": "jenprog",
+    "version": "XXXXX",
+    "systems": [
+      {
+        "url": "https://github.com/soburi/${NAME}/releases/download/${VERSION}/${NAME}_${ARCH}_${VERSION}.tar.bz2",
+        "host": "XXXXXXXXXXXXXXXX",
+        "archiveFileName": "XXXXX",
+        "checksum": "XXXXXXXXXXXX",
+        "size": "XXXXXXXXXXXXXXXX"
+      }
+    ]
   }
 ]
