@@ -6,11 +6,11 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
-          "version": "0.0.1806021309",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/ab6e045bdb126ac6f86804596ef5b97874d53952.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-master-0.0.1806021309.tar.gz",
-          "checksum": "SHA-256:74a9040a95bb2270ac1fefe161b43c2a3b4da300d73e2036f8ba1652a30c2fc0",
-          "size": "100794",
+          "version": "0.0.1806031412",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/dc78e36b81fc1c4bf369245442086bcd9b2c25a4.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-master-0.0.1806031412.tar.gz",
+          "checksum": "SHA-256:6e6466d3e0533f478b6d85e802bf840aae8daaee7aaee6d0c7a26d2472692569",
+          "size": "100842",
           "boards": [
             {
               "name": "Generic JN516x board"
@@ -37,6 +37,11 @@
               "packager": "intiki",
               "name": "BA2-toolchain",
               "version": "4.7.4-r36379"
+            },
+            {
+              "packager": "intiki",
+              "name": "jenprog",
+              "version": "0.0.20180603"
             }
           ]
         }
@@ -134,6 +139,40 @@
               "host": "i686-mingw32",
               "checksum": "SHA-256:8d8988ac5379ca7f12675a95474ad9a6b9344ace6ab1846282b0e7b6d70efe05",
               "size": "124"
+            }
+          ]
+        },
+        {
+          "name": "jenprog",
+          "version": "0.0.20180603",
+          "systems": [
+            {
+              "archiveFileName": "jenprog_x86_64-apple-darwin_0.0.20180603.tar.bz2",
+              "url": "https://github.com/soburi/jenprog/releases/download/0.0.20180603/jenprog_x86_64-apple-darwin_0.0.20180603.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:9cfd327177035c0383f19fbc0dfd27e794f96442f4821b74c51dfd266cf6609d",
+              "size": "13000"
+            },
+            {
+              "archiveFileName": "jenprog_x86_64-pc-linux-gnu_0.0.20180603.tar.bz2",
+              "url": "https://github.com/soburi/jenprog/releases/download/0.0.20180603/jenprog_x86_64-pc-linux-gnu_0.0.20180603.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:9cfd327177035c0383f19fbc0dfd27e794f96442f4821b74c51dfd266cf6609d",
+              "size": "13000"
+            },
+            {
+              "archiveFileName": "jenprog_i686-mingw32_0.0.20180603.tar.bz2",
+              "url": "https://github.com/soburi/jenprog/releases/download/0.0.20180603/jenprog_i686-mingw32_0.0.20180603.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:9cfd327177035c0383f19fbc0dfd27e794f96442f4821b74c51dfd266cf6609d",
+              "size": "13000"
+            },
+            {
+              "archiveFileName": "jenprog_arm-linux-gnueabihf_0.0.20180603.tar.bz2",
+              "url": "https://github.com/soburi/jenprog/releases/download/0.0.20180603/jenprog_arm-linux-gnueabihf_0.0.20180603.tar.bz2",
+              "host": "arm-linux-gnueabihf",
+              "checksum": "SHA-256:9cfd327177035c0383f19fbc0dfd27e794f96442f4821b74c51dfd266cf6609d",
+              "size": "13000"
             }
           ]
         }
