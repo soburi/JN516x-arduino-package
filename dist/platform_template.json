@@ -33,6 +33,11 @@
       "packager": "intiki",
       "name": "BA2-toolchain",
       "version": "4.7.4-r36379"
+    },
+    {
+      "packager": "intiki",
+      "name": "jenprog",
+      "version": "0.0.20180603"
     }
   ]
 }
