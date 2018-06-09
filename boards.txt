@@ -54,7 +54,7 @@ twelite.build.options.target_makefile.windows=target_makefile='{runtime.platform
 twelite.build.options.sdkbase=SDK_BASE_DIR=/opt/MWSDK/ChipLib/SW4063V1416
 twelite.build.options.sdkbase.windows=SDK_BASE_DIR=C:/MWSDK/ChipLib/SW4063V1416
 twelite.build.options.flashprogrammer=FLASH_PROGRAMMER={runtime.tools.jenprog.path}/JennicModuleProgrammer
-twelite.build.options.flashprogrammer.windows=FLASH_PROGRMMER=C:/MWSDK/Tools/ProductionFlashProgrammer/JN51xxProgrammer.exe
+twelite.build.options.flashprogrammer.windows=FLASH_PROGRAMMER={runtime.tools.jenprog.path}/JennicModuleProgrammer.exe
 twelite.build.make.vars={build.options.target_makefile} CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl} {build.options.sdkbase} {build.options.flashprogrammer}
 twelite.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 twelite.menu.config.TWELITE_BLUE=TWELITE BLUE
