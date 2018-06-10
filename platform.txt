@@ -28,6 +28,7 @@ compiler.ar.extra_flags=
 
 build.unix.cmds.path={runtime.tools.msys2-contiki-build.path}
 build.usr.bin.path={build.unix.cmds.path}/usr/bin
+build.usr.bin.path.macosx=/usr/local/bin
 build.make.command=make
 build.make.command.windows={build.usr.bin.path}/make
 build.make.command.macosx=gmake
