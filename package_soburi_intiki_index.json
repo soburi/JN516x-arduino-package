@@ -10,6 +10,49 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
+          "version": "0.0.20180610",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/intiki-0.0.20180610/JN516x-arduino-package-intiki-0.0.20180610.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-intiki-0.0.20180610.tar.bz2",
+          "checksum": "SHA-256:a1b6563b2f62d6ce691fad930d3a71566bcfae60e9862828709002a84f8fb148",
+          "size": "25754665",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.12"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            },
+            {
+              "packager": "intiki",
+              "name": "BA2-toolchain",
+              "version": "4.7.4-r36379"
+            },
+            {
+              "packager": "intiki",
+              "name": "jenprog",
+              "version": "1.1.20180609"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "intiki",
+          "category": "Contributed",
           "version": "0.0.20180609",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/intiki-0.0.20180609/JN516x-arduino-package-intiki-0.0.20180609.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-intiki-0.0.20180609.tar.bz2",
@@ -553,6 +596,40 @@
         }
       ],
       "tools": [
+        {
+          "name": "contiki-makehelper",
+          "version": "0.0.12",
+          "systems": [
+            {
+              "archiveFileName": "contiki-makehelper_x86_64-apple-darwin_0.0.12.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.12/contiki-makehelper_x86_64-apple-darwin_0.0.12.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:1f2bdae23c7f8b9fdeeaf8f14c74ec9107958e36116b725c97717a4eceea0cc3",
+              "size": "2152855"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_x86_64-pc-linux-gnu_0.0.12.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.12/contiki-makehelper_x86_64-pc-linux-gnu_0.0.12.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:c4b8e060691edb0e945e3d3fa5a0e7e742272541e599195732f9e9ea101316a3",
+              "size": "2171844"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_i686-mingw32_0.0.12.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.12/contiki-makehelper_i686-mingw32_0.0.12.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:3d0adc77a106a7ed3494d12d05381f315f5a1a2eb8380a35533c1bfde660b930",
+              "size": "2000388"
+            },
+            {
+              "archiveFileName": "contiki-makehelper_arm-linux-gnueabihf_0.0.12.tar.bz2",
+              "url": "https://github.com/soburi/contiki-makehelper/releases/download/0.0.12/contiki-makehelper_arm-linux-gnueabihf_0.0.12.tar.bz2",
+              "host": "arm-linux-gnueabihf",
+              "checksum": "SHA-256:54ca52e8dc876958e4991604e5ca45da5a90771cdc13e750ede68644c09d45f0",
+              "size": "1976723"
+            }
+          ]
+        },
         {
           "name": "BA2-toolchain",
           "version": "4.7.4-r36379",
