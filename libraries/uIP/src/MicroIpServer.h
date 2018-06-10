@@ -21,7 +21,7 @@
 
 #include "Server.h"
 
-#include "MicroIPClient.h"
+#include "MicroIpClient.h"
 
 class MicroIPServer : 
 public Server {

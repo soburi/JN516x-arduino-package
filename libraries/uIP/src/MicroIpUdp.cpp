@@ -27,8 +27,8 @@ extern "C" {
 #include "Arduino.h"
 #include "wiring_private.h"
 #include "Udp.h"
-#include "MicroIP.h"
-#include "MicroIPUDP.h"
+#include "MicroIp.h"
+#include "MicroIpUdp.h"
 
 struct udp_socket_params {
   const MicroIPUDP* udp;
