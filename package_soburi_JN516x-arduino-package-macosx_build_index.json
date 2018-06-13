@@ -6,11 +6,11 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
-          "version": "0.0.1806101307",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/c8f255b8fba1667b86c130160a63c148ab73aa7c.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-macosx_build-0.0.1806101307.tar.gz",
-          "checksum": "SHA-256:61a7142398dd97231af9258795dac3460ed58655409316a801aef49df7a9a8d0",
-          "size": "100864",
+          "version": "0.0.1806131643",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/4c0501c4b1255f95846207ccc2fd05605d1803a4.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-macosx_build-0.0.1806131643.tar.gz",
+          "checksum": "SHA-256:2ab66b69f84000832c933d3ffbdb02238a5c90236fd21546f2dbdffff8a659a3",
+          "size": "100867",
           "boards": [
             {
               "name": "Generic JN516x board"
@@ -41,7 +41,7 @@
             {
               "packager": "intiki",
               "name": "jenprog",
-              "version": "1.1.20180609"
+              "version": "1.1.20180614"
             }
           ]
         }
@@ -144,35 +144,35 @@
         },
         {
           "name": "jenprog",
-          "version": "1.1.20180609",
+          "version": "1.1.20180614",
           "systems": [
             {
-              "archiveFileName": "jenprog_x86_64-apple-darwin_1.1.20180609.tar.bz2",
-              "url": "https://github.com/soburi/jenprog/releases/download/1.1.20180609/jenprog_x86_64-apple-darwin_1.1.20180609.tar.bz2",
+              "archiveFileName": "jenprog_x86_64-apple-darwin_1.1.20180614.tar.bz2",
+              "url": "https://github.com/soburi/jenprog/releases/download/1.1.20180614/jenprog_x86_64-apple-darwin_1.1.20180614.tar.bz2",
               "host": "x86_64-apple-darwin",
-              "checksum": "SHA-256:fec0422070cb90a9b77ed01a900c782ac7c5b44889adc58b369ad8800d64d731",
-              "size": "13359"
+              "checksum": "SHA-256:0dc47a42cf7cf8d26d69151a61ad47a33d0d1abd6b52fc653fc1af0afaeebab9",
+              "size": "21116"
             },
             {
-              "archiveFileName": "jenprog_x86_64-pc-linux-gnu_1.1.20180609.tar.bz2",
-              "url": "https://github.com/soburi/jenprog/releases/download/1.1.20180609/jenprog_x86_64-pc-linux-gnu_1.1.20180609.tar.bz2",
+              "archiveFileName": "jenprog_x86_64-pc-linux-gnu_1.1.20180614.tar.bz2",
+              "url": "https://github.com/soburi/jenprog/releases/download/1.1.20180614/jenprog_x86_64-pc-linux-gnu_1.1.20180614.tar.bz2",
               "host": "x86_64-pc-linux-gnu",
-              "checksum": "SHA-256:fec0422070cb90a9b77ed01a900c782ac7c5b44889adc58b369ad8800d64d731",
-              "size": "13359"
+              "checksum": "SHA-256:0dc47a42cf7cf8d26d69151a61ad47a33d0d1abd6b52fc653fc1af0afaeebab9",
+              "size": "21116"
             },
             {
-              "archiveFileName": "jenprog_i686-mingw32_1.1.20180609.tar.bz2",
-              "url": "https://github.com/soburi/jenprog/releases/download/1.1.20180609/jenprog_i686-mingw32_1.1.20180609.tar.bz2",
+              "archiveFileName": "jenprog_i686-mingw32_1.1.20180614.tar.bz2",
+              "url": "https://github.com/soburi/jenprog/releases/download/1.1.20180614/jenprog_i686-mingw32_1.1.20180614.tar.bz2",
               "host": "i686-mingw32",
-              "checksum": "SHA-256:bffc068fc17221b2669893ea0f229e5b2a2bce8aaab741da36935fdde5174b0b",
-              "size": "2951964"
+              "checksum": "SHA-256:0dc47a42cf7cf8d26d69151a61ad47a33d0d1abd6b52fc653fc1af0afaeebab9",
+              "size": "21116"
             },
             {
-              "archiveFileName": "jenprog_arm-linux-gnueabihf_1.1.20180609.tar.bz2",
-              "url": "https://github.com/soburi/jenprog/releases/download/1.1.20180609/jenprog_arm-linux-gnueabihf_1.1.20180609.tar.bz2",
+              "archiveFileName": "jenprog_arm-linux-gnueabihf_1.1.20180614.tar.bz2",
+              "url": "https://github.com/soburi/jenprog/releases/download/1.1.20180614/jenprog_arm-linux-gnueabihf_1.1.20180614.tar.bz2",
               "host": "arm-linux-gnueabihf",
-              "checksum": "SHA-256:fec0422070cb90a9b77ed01a900c782ac7c5b44889adc58b369ad8800d64d731",
-              "size": "13359"
+              "checksum": "SHA-256:0dc47a42cf7cf8d26d69151a61ad47a33d0d1abd6b52fc653fc1af0afaeebab9",
+              "size": "21116"
             }
           ]
         }
