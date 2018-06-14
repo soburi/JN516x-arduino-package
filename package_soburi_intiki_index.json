@@ -709,6 +709,7 @@
         },
         {
           "name": "jenprog",
+          "version": "1.1.20180614",
           "systems": [
             {
               "archiveFileName": "jenprog_x86_64-apple-darwin_1.1.20180614.tar.bz2",
