@@ -89,6 +89,7 @@ tools.contiki-makehelper.cmd.path.windows={path}\contiki-makehelper.exe
 tools.contiki-makehelper.upload.pattern="{cmd.path}" -verbose {build.contiki-makehelper.verbose} -recipe make -build.path "{build.path}" -build.variant {build.variant} -build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.uploader.path "{build.uploader.path}" -serial.port {serial.port} TARGET={build.variant} {build.make.vars} {build.config_vars} {build.project_name}.upload
 tools.contiki-makehelper.build.unix.cmds.path={runtime.tools.msys2-contiki-build.path}
 tools.contiki-makehelper.build.usr.bin.path={build.unix.cmds.path}/usr/bin
+tools.contiki-makehelper.build.usr.bin.path.macosx=/usr/local/bin
 tools.contiki-makehelper.build.contiki-makehelper.verbose=0
 
 
