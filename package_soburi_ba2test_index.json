@@ -6,6 +6,49 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
+          "version": "0.0.6",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/ba2test-0.0.6/JN516x-arduino-package-ba2test-0.0.6.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-ba2test-0.0.6.tar.bz2",
+          "checksum": "SHA-256:021958294de34dd914c6731aedb9608f4745b7a8fb91339c41adf74c955aeca1",
+          "size": "25757037",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "contiki-makehelper",
+              "version": "0.0.14"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            },
+            {
+              "packager": "intiki",
+              "name": "BA2-toolchain",
+              "version": "4.7.4-r36379"
+            },
+            {
+              "packager": "intiki",
+              "name": "jenprog",
+              "version": "1.1.20180614"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "intiki",
+          "category": "Contributed",
           "version": "0.0.4",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/ba2test-0.0.4/JN516x-arduino-package-ba2test-0.0.4.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-ba2test-0.0.4.tar.bz2",
