@@ -10,28 +10,29 @@ Install
 Install JN516x plugin to Arduino
 --------------------------------
 
-### For Arduino 1.6.7 or newer versions.
-
 Use this additional package definition of 'Additional Boards Manager URLs' option that is on Arduino's preferences.
 * [http://soburi.github.io/JN516x-arduino-package/package_soburi_intiki_index.json](http://soburi.github.io/JN516x-arduino-package/package_soburi_intiki_index.json)
-
-This package does download external package on first build time.
 
 Install Compiler and SDK.
 ----------------------------
 
-Download and install compiler, sdk and flash programmer from [ NXP's JN516x page](http://www.nxp.com/ja/products/interface-and-connectivity/wireless-connectivity/2.4-ghz-wireless-solutions/ieee-802.15.4-for-jn516x:IEEE802.15.4).
+Download and install compiler, sdk and flash programmer from [ NXP's JN516x page](https://www.nxp.com/products/wireless-connectivity/proprietary-ieee-802.15.4-based/ieee-802.15.4-for-jn516x-7x:IEEE802.15.4).
 
-* [BeyondStudio for NXP](http://cache.nxp.com/documents/other/JN-SW-4141.zip)
+* [BeyondStudio for NXP](https://cache.nxp.com/secured/sdk/JN-SW-4141.zip?__gda__=1529072216_c38bbf7395e570fc9b3c09578d634af9&fileExt=.zip)
 
-* [JN516x IEEE 802.15.4 SDK](http://cache.nxp.com/documents/other/JN-SW-4163.zip)
+* [JN516x IEEE 802.15.4 SDK](https://cache.nxp.com/secured/sdk/JN-SW-4163.zip?__gda__=1529072150_ac3fdfa99c6ad205b36cb1c932c56441&fileExt=.zip)
 
-* [JN51xx Producton Flash Programmer](http://cache.nxp.com/documents/other/JN-SW-4107.zip)
+* [JN51xx Producton Flash Programmer](https://www.nxp.com/downloads/en/software-support/JN-SW-4107.zip)
 
 
 ### For Windows
 
 Install to installer's default destination (C:\NXP).
+
+### For Linux/MacOSX
+
+Install [JN516x IEEE 802.15.4 SDK](http://cache.nxp.com/documents/other/JN-SW-4163.zip) 
+contents (JN-SW-4163 directory, need to extract on windows) place under `/usr/jn516x-sdk/`.
 
 API implements status
 ====================
@@ -107,6 +108,10 @@ Not implemented yet.
 - noTone() _This function will follow the implementation status of Arduino Due._
 - pulseIn() _System dependent constants are not tuned._
 
+### stdlib
+
+- malloc()
+- free()
 
 Limitation by Hardware difference
 =================================
