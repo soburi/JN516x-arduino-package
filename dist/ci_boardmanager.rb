@@ -33,6 +33,10 @@ opt.on('-e PACKAGE_EMAIL', '--package-email=PACKAGE_EMAIL') {|o| pkg_email = o }
 opt.on('-f', '--force') {|o| force = o }
 opt.parse!(ARGV)
 
+STDERR.print("ci_boardmanager.rb ")
+ARGV.each {|a| STDERR.print(a); STDERR.print(" ") }
+STDERR.print("\n")
+
 slug = repo_url.sub(/https:\/\/github.com\//,'').sub(/\.git$/,'')
 user,repo = slug.split('/')
 ghpage_url = "https://#{user}.github.io/#{repo}/#{jsonfile}"

@@ -1,10 +1,12 @@
 #!/usr/bin/env bats
 
+
 setup() {
 	echo "setup"
 	ADIR=~/arduino-${ARDUINO_VERSION}
+	PATH=$ADIR:$PATH:~/BA2-toolchain/bin
 	BUILDDIR=/tmp/compile_example
-	mkdir ${BUILDDIR}
+	mkdir -p ${BUILDDIR}
 }
 
 teardown() {
@@ -15,10 +17,13 @@ teardown() {
 
 compile_example() {
 				${ADIR}/arduino-builder -hardware ${ADIR}/hardware/ \
+										-hardware ~/packages/ \
+										-tools ~/BA2-toolchain \
 										-tools ~/contiki-makehelper \
 										-tools ${ADIR}/tools-builder/ \
+										-tools ${ADIR}/hardware/tools/ \
 										-libraries ${ADIR}/libraries/ \
-										-fqbn soburi:intiki:native:config=raspi \
+										-fqbn "intiki:intiki:twelite:config=TWELITE_BLUE, trace=OFF, rpl=ON" \
 										-build-path=${BUILDDIR} \
 										${ADIR}/$1
 }
@@ -68,22 +73,18 @@ compile_example() {
 }
 
 @test "Compile examples/02.Digital/toneKeyboard/toneKeyboard.ino." {
-	skip
 	compile_example examples/02.Digital/toneKeyboard/toneKeyboard.ino
 }
 
 @test "Compile examples/02.Digital/toneMelody/toneMelody.ino." {
-	skip
 	compile_example examples/02.Digital/toneMelody/toneMelody.ino
 }
 
 @test "Compile examples/02.Digital/toneMultiple/toneMultiple.ino." {
-	skip
 	compile_example examples/02.Digital/toneMultiple/toneMultiple.ino
 }
 
 @test "Compile examples/02.Digital/tonePitchFollower/tonePitchFollower.ino." {
-	skip
 	compile_example examples/02.Digital/tonePitchFollower/tonePitchFollower.ino
 }
 
