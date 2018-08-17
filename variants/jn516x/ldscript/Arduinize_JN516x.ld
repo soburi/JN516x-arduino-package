@@ -308,6 +308,7 @@ _bss_len      = (_end      - _bss_start      + 3) & ~ 3;
 _image_len    = (_flash_end - _flash_start + _ram_data_len + 3) & ~ 3;
 _heap_start   = __heap_start;
 _heap_end     = __heap_end;
+_heap_limit   = __heap_end;
 _ram_top      = ABSOLUTE(ORIGIN(ram)) + LENGTH(ram);
 
 ctors_start  = ABSOLUTE(LOADADDR(.ctors) );
