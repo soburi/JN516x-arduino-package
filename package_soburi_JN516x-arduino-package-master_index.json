@@ -6,11 +6,11 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
-          "version": "0.0.1808172353",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/c7273b8abaafdd1a94cd08cb2ab1b0fcb95a8f65.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-master-0.0.1808172353.tar.gz",
-          "checksum": "SHA-256:7610889857fec274c449b5437fae23cba5de1be8985e06595102d091701f2b11",
-          "size": "101055",
+          "version": "0.0.1808180133",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/48567b4fae1797d626577513685475a686c0d63b.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-master-0.0.1808180133.tar.gz",
+          "checksum": "SHA-256:08ce5a2a35b5e4e319432cfed9c252a80bcf7db99a37d25612039566769322cf",
+          "size": "101421",
           "boards": [
             {
               "name": "Generic JN516x board"
@@ -137,6 +137,13 @@
               "archiveFileName": "BA2-toolchain_i686-mingw32_4.7.4-r36379.tar.bz2",
               "url": "https://github.com/soburi/BA2-toolchain/releases/download/4.7.4-r36379/BA2-toolchain_i686-mingw32_4.7.4-r36379.tar.bz2",
               "host": "i686-mingw32",
+              "checksum": "SHA-256:8d8988ac5379ca7f12675a95474ad9a6b9344ace6ab1846282b0e7b6d70efe05",
+              "size": "124"
+            },
+            {
+              "archiveFileName": "BA2-toolchain_arm-linux-gnueabihf_4.7.4-r36379.tar.bz2",
+              "url": "https://github.com/soburi/BA2-toolchain/releases/download/4.7.4-r36379/BA2-toolchain_arm-linux-gnueabihf_4.7.4-r36379.tar.bz2",
+              "host": "arm-linux-gnueabihf",
               "checksum": "SHA-256:8d8988ac5379ca7f12675a95474ad9a6b9344ace6ab1846282b0e7b6d70efe05",
               "size": "124"
             }
