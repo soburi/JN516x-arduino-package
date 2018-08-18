@@ -12,7 +12,8 @@ addons:
 env:
   global:
   - secure: s23FCXAYTELTC5XaizCh0rUkVF7kW/CQMgFhTL81me/v0lQsjhOlNR531KY8+RSHv3NXPRr32o/c4g4WURdxHE8BtggGU4/LzxqTTW6Ua9EEMumpQlIIpNi71qU5cTNv/B5LjvYiXBF3hl/SAvGt26EvMxTRwpQDPJm0ePWSEahMx+n5OzVh/C4RMnA4ZoJCVzEXQZ+NiuRtLu9JVwLpG7TRpecf2kBMtdz6VBgzOKvOY9zYaA+6ZW4qE/wC7e+5zWFyS9C9P9JU6D/0izrGiaT+amk8lZvjJCeBvNag/zIfySZy4aDHjwmoFB5vDWDQqGac/DSIv/xUAicCssoBkjvBk4YVxtKYEF6oXJg40XAWIErkz4AUp3wiHXtdTpovH0r8QT896jAwaU0zxdXXFjJidBXuO4DLMbxABj/9Ab4vzY7G6YcUHi9C9t5A7ISp0MAxB53MJcylWDCp5tpxbs1zbe5ndoxs1YrEvJIw4ezJ6u1NGJTwra/kSpdyIqYhRnCoK7z0HnkmPwykYhyMOz6K/g2DqJ8wtNU2642Zz4o4P5/pvgT/IWo1/qLnZvsQ+t4VvXNGKzupaJZG50rTrnlat4QTzwPa1gCpSeZiV+A5GtIdtYnhQYarl6b8EJI9SU2frsQ9fH7o9twppJlEb7bS4bJXcKk4cdRdN4MnXwE=
-  - ARDUINO_VERSION=1.8.4
+  - ARDUINO_VERSION=1.8.5
+  - SDK_BASE_DIR=~/MWSDK/ChipLib/SW4063V1416/
 deploy:
   provider: releases
   file: ../${ARCHIVENAME}.tar.bz2
@@ -34,13 +35,7 @@ before_script:
 - cd -
 - export PATH=~/bin:$PATH
 - curl -l -L https://downloads.arduino.cc/arduino-${ARDUINO_VERSION}-linux64.tar.xz | tar xfJ - -C ~
-- MAKEHELPER_VERSION=$(ruby dist/ci_makehelperversion.rb  dist/platform_template.json)
-- echo ${MAKEHELPER_VERSION}
-- ruby dist/ci_toolurl.rb dist/tool_template.json
-- curl -l -L $(ruby dist/ci_toolurl.rb dist/tool_template.json -v ${MAKEHELPER_VERSION})  | tar xfj - -C ~
-- echo intiki.contiki-makehelper=${MAKEHELPER_VERSION} >> ~/contiki-makehelper/builtin_tools_versions.txt
-- mkdir ~/arduino-${ARDUINO_VERSION}/hardware/soburi/
-- ln -s $PWD ~/arduino-${ARDUINO_VERSION}/hardware/soburi/intiki
+- if [ "$TRAVIS_TAG" != "" ] ; then bash dist/setup_tools.sh ; fi
 
 
 script:
@@ -54,7 +49,9 @@ after_script:
 - echo ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} --package-name=intiki --package-maintainer=soburi --package-website='https://github.com/soburi/JN516x-arduino-package' --package-email='soburi@gmail.com' > ../tmp.json || exit $?
 - ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} --package-name=intiki --package-maintainer=soburi --package-website='https://github.com/soburi/JN516x-arduino-package' --package-email='soburi@gmail.com' > ../tmp.json || exit $?
 - git fetch --all || exit $?
+- if [ "$TRAVIS_TAG" != "" ] ; then echo twelite.build.options.sdkbase=SDK_BASE_DIR=${HOME}/MWSDK/ChipLib/SW4063V1416 > boards.local.txt ; fi
 - if [ "$TRAVIS_TAG" != "" ] ; then bats dist/compile_examples.bats ; fi
+- rm -rf boards.local.txt
 - git checkout gh-origin/gh-pages -b gh-pages || exit $?
 - cp ../tmp.json ${PKGJSON} || exit $?
 - git add ${PKGJSON} || exit $?
