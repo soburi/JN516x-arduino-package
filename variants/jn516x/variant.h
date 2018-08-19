@@ -55,16 +55,26 @@ extern "C"
 #define PIN_ADC2 (23)
 #define PIN_ADC3 (0)
 #define PIN_ADC4 (1)
+#define PIN_ADC5 (2)
+#define PIN_ADC6 (3)
 
 static const uint8_t ADC1   = PIN_ADC1;
 static const uint8_t ADC2   = PIN_ADC2;
 static const uint8_t ADC3   = PIN_ADC3;
 static const uint8_t ADC4   = PIN_ADC4;
+#if JENNIC_CHIP_NAME == _JN5169
+static const uint8_t ADC5   = PIN_ADC5;
+static const uint8_t ADC6   = PIN_ADC6;
+#endif
 
 static const uint8_t A0   = PIN_ADC1;
 static const uint8_t A1   = PIN_ADC2;
 static const uint8_t A2   = PIN_ADC3;
 static const uint8_t A3   = PIN_ADC4;
+#if JENNIC_CHIP_NAME == _JN5169
+static const uint8_t A5   = PIN_ADC5;
+static const uint8_t A6   = PIN_ADC6;
+#endif
 
 #define PIN_D0 (20)
 #define PIN_D1 (21)
@@ -77,6 +87,16 @@ static const uint8_t D1   = PIN_D1;
  */
 #define SPI_INTERFACES_COUNT 1
 
+#define PIN_SPI_MISO  (1)
+#define PIN_SPI_MOSI  PIN_D1
+#define PIN_SPI_SCK   PIN_D0
+#define PIN_SPI_SS    (19)
+
+static const uint8_t MOSI = PIN_SPI_MOSI ;
+static const uint8_t MISO = PIN_SPI_MISO ;
+static const uint8_t SCK  = PIN_SPI_SCK ;
+static const uint8_t SS   = PIN_SPI_SS ;
+
 extern struct spi_device spi0;
 #define SPI_INTERFACE        (&spi0)
 
@@ -84,6 +104,12 @@ extern struct spi_device spi0;
  * Wire Interfaces
  */
 #define WIRE_INTERFACES_COUNT 1
+
+#define PIN_WIRE_SDA  (15)
+#define PIN_WIRE_SCL  (14)
+
+static const uint8_t SDA = PIN_WIRE_SDA;
+static const uint8_t SCL = PIN_WIRE_SCL;
 
 extern struct i2c_device i2c0;
 #define WIRE_INTERFACE       (&i2c0)
