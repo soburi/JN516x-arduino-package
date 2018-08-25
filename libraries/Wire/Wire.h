@@ -69,12 +69,6 @@ class TwoWire : public Stream
     bool master_mode;
 
     bool transmissionBegun;
-
-    // RX Buffer
-    RingBuffer rxBuffer;
-
-    //TX buffer
-    RingBuffer txBuffer;
     uint8_t txAddress;
 
     // Callback user functions

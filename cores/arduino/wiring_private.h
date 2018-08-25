@@ -90,10 +90,21 @@ struct i2c_device {
 	int	(*master_enable)(void*, uint32_t);
 	int	(*slave_enable)(void*, uint8_t);
 	void    (*disable)(void*);
-	int	(*start)(void*, uint8_t, int);
-	int	(*read_bytes)(void*, uint8_t*, size_t);
-	int	(*write_bytes)(void*, uint8_t*, size_t);
-	void	(*stop)(void*);
+	int	(*master_start)(void*, uint8_t, int);
+	int	(*master_read)(void*, size_t);
+	int	(*master_write)(void*);
+	void	(*master_stop)(void*);
+	int	(*slave_write)(void*);
+	int	(*rx_available)(void*);
+	void	(*rx_clear)(void*);
+	int	(*rx_read)(void*);
+	int	(*rx_peek)(void*);
+	int	(*tx_available)(void*);
+	void	(*tx_clear)(void*);
+	int	(*tx_put)(void*, uint8_t);
+	int	(*tx_full)(void*);
+	int	(*request_received)(void*);
+	int	(*data_received)(void*);
 	void*	devinfo;
 };
 

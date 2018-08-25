@@ -154,86 +154,27 @@ void platform_uart1_deinit(void* port)
 	(void)port;
 }
 
-static void SiInterruptHandler(uint32 u32Device, uint32 u32ItemBitmap) {
-	(void)u32Device;
-	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_BUSY_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_AL_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_ICMD_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_TIP_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_INT_STATUS_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
-	}
-	if(u32ItemBitmap & E_AHI_SIM_RXACK_MASK) {
-	}
-    /* Serial Interface Slave */
-#define E_AHI_SIS_ERROR_MASK            (1 << 4)
-#define E_AHI_SIS_LAST_DATA_MASK        (1 << 3)
-#define E_AHI_SIS_DATA_WA_MASK          (1 << 2)
-#define E_AHI_SIS_DATA_RTKN_MASK        (1 << 1)
-#define E_AHI_SIS_DATA_RR_MASK          (1 << 0)
-}
-
-int platform_i2c_init(void* dev)
-{
-	(void)dev;
-	vAHI_SiRegisterCallback(SiInterruptHandler);
-	return 0;
-}
-int platform_i2c_master_enable(void* dev, uint32_t twiClock)
-{
-	(void)dev;
-	return i2c_master_enable(twiClock);
-}
-int platform_i2c_slave_enable(void* dev, uint8_t address)
-{
-	(void)dev;
-	return i2c_slave_enable(address);
-}
-void platform_i2c_disable(void* dev)
-{
-	(void)dev;
-	i2c_disable();
-}
-int platform_i2c_start(void* dev, uint8_t txAddress, int readflag)
-{
-	(void)dev;
-	return i2c_start(txAddress, readflag);
-}
-int platform_i2c_write_bytes(void* dev, uint8_t* buffer, size_t length)
-{
-	(void)dev;
-	return i2c_write_bytes(buffer, length);
-}
-int platform_i2c_read_bytes(void* dev, uint8_t* buffer, size_t length)
-{
-	(void)dev;
-	return i2c_read_bytes(buffer, length);
-}
-void platform_i2c_stop(void* dev)
-{
-	(void)dev;
-	i2c_stop();
-}
-
 struct i2c_device i2c0 = {
-	platform_i2c_init,
-	platform_i2c_master_enable,
-	platform_i2c_slave_enable,
-	platform_i2c_disable,
-	platform_i2c_start,
-	platform_i2c_read_bytes,
-	platform_i2c_write_bytes,
-	platform_i2c_stop,
-	NULL
+	jn516x_i2c_init,
+	jn516x_i2c_master_enable,
+	jn516x_i2c_slave_enable,
+	jn516x_i2c_disable,
+	jn516x_i2c_master_start,
+	jn516x_i2c_master_read,
+	jn516x_i2c_master_write,
+	jn516x_i2c_master_stop,
+	jn516x_i2c_slave_write,
+	jn516x_i2c_rx_available,
+	jn516x_i2c_rx_clear,
+	jn516x_i2c_rx_read,
+	jn516x_i2c_rx_peek,
+	jn516x_i2c_tx_available,
+	jn516x_i2c_rx_clear,
+	jn516x_i2c_tx_put,
+	jn516x_i2c_tx_full,
+	jn516x_i2c_request_received,
+	jn516x_i2c_data_received,
+	&jn516x_i2c_info
 };
 
 int platform_spi_init(void* /*dev*/)
