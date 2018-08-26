@@ -20,15 +20,15 @@ jn516x.build.options.flashprogrammer.windows=FLASH_PROGRAMMER={runtime.tools.jen
 jn516x.build.make.vars={build.options.target_makefile} CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl} {build.options.flashprogrammer}
 jn516x.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 jn516x.menu.config.jn5169=JN5169
-jn516x.menu.config.jn5169.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize_JN5169.ld'
+jn516x.menu.config.jn5169.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN5169.ld'
 jn516x.menu.config.jn5168=JN5168
-jn516x.menu.config.jn5168.build.config_vars=CHIP=JN5168 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
+jn516x.menu.config.jn5168.build.config_vars=CHIP=JN5168 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
 jn516x.menu.config.jn5164=JN5164
-jn516x.menu.config.jn5164.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
+jn516x.menu.config.jn5164.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
 jn516x.menu.config.jn5161=JN5161
-jn516x.menu.config.jn5161.build.config_vars=CHIP=JN5161 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
+jn516x.menu.config.jn5161.build.config_vars=CHIP=JN5161 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
 jn516x.menu.config.meshbee=Mesh Bee
-jn516x.menu.config.meshbee.build.config_vars=CHIP=JN5168 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
+jn516x.menu.config.meshbee.build.config_vars=CHIP=JN5168 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
 jn516x.menu.trace.OFF=Off
 jn516x.menu.trace.OFF.build.trace=
 jn516x.menu.trace.ON=On
@@ -58,9 +58,9 @@ twelite.build.options.flashprogrammer.windows=FLASH_PROGRAMMER={runtime.tools.je
 twelite.build.make.vars={build.options.target_makefile} CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PLATFORM_CONF_H='{runtime.platform.path}/variants/{build.variant}/{build.variant}-platform-conf.h' PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl} {build.options.sdkbase} {build.options.flashprogrammer}
 twelite.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
 twelite.menu.config.TWELITE_BLUE=TWELITE BLUE
-twelite.menu.config.TWELITE_BLUE.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize.ld'
+twelite.menu.config.TWELITE_BLUE.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
 twelite.menu.config.TWELITE_RED=TWELITE RED
-twelite.menu.config.TWELITE_RED.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/Arduinize_JN5169.ld'
+twelite.menu.config.TWELITE_RED.build.config_vars=CHIP=JN5169 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN5169.ld'
 twelite.menu.trace.OFF=Off
 twelite.menu.trace.OFF.build.trace=
 twelite.menu.trace.ON=On
