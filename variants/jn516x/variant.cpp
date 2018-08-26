@@ -22,6 +22,8 @@
 extern "C" {
 #include "i2c-driver.h"
 #include "spi-driver.h"
+#include <uart0.h>
+#include <uart1.h>
 }
 
 #define D_PLATFORM_UART(x) platform_uart ## x
@@ -34,6 +36,7 @@ static int UART ## x ## _RxHandler(uint8_t);\
 extern "C" void D_PLATFORM_UART_F(x,init)(void*, uint32_t, uint8_t, uint8_t, uint8_t, uint8_t); \
 extern "C" void D_PLATFORM_UART_F(x,set_input)(void*, int (*input)(uint8_t)); \
 extern "C" void D_PLATFORM_UART_F(x,writeb)(void*, uint8_t); \
+extern "C" int D_PLATFORM_UART_F(x,txbuffer_availables)(void*); \
 extern "C" uint8_t D_PLATFORM_UART_F(x,busy)(void*); \
 extern "C" void D_PLATFORM_UART_F(x,deinit)(void*); \
 struct uart_device D_PLATFORM_UART(x) = {\
@@ -42,6 +45,7 @@ struct uart_device D_PLATFORM_UART(x) = {\
 	D_PLATFORM_UART_F(x,set_input), \
 	D_PLATFORM_UART_F(x,writeb), \
 	D_PLATFORM_UART_F(x,busy), \
+	D_PLATFORM_UART_F(x,txbuffer_availables), \
 	D_PLATFORM_UART_F(x,deinit), \
 	NULL, \
 	0 \
@@ -122,18 +126,21 @@ uint8_t platform_uart0_busy(void* port)
 	(void)port;
 	return uart0_active();
 }
+int platform_uart0_txbuffer_availables(void* port)
+{
+	(void)port;
+	return UART_TX_BUFFER_SIZE - u16AHI_UartReadTxFifoLevel(E_AHI_UART_0);
+}
 void platform_uart0_deinit(void* port)
 {
 	(void)port;
 }
-
 
 void platform_uart1_init(void* port, uint32_t baudrate, uint8_t parity, uint8_t stopbit, uint8_t wordlen, uint8_t flowctrl)
 {
 	(void)port; (void)parity; (void)stopbit; (void)wordlen; (void)flowctrl;
 	uart1_init(baudrate);
 }
-
 void platform_uart1_set_input(void* port, int (*input)(uint8_t))
 {
 	(void)port;
@@ -148,6 +155,11 @@ uint8_t platform_uart1_busy(void* port)
 {
 	(void)port;
 	return uart1_active();
+}
+int platform_uart1_txbuffer_availables(void* port)
+{
+	(void)port;
+	return UART1_TX_BUFFER_SIZE - u16AHI_UartReadTxFifoLevel(E_AHI_UART_1);
 }
 void platform_uart1_deinit(void* port)
 {
