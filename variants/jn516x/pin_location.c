@@ -146,6 +146,19 @@ void set_pin_location() {
 #  endif//SEL_1
 #endif
 
+#if (PIN_ADC_1 == USE_ADC_1) || \
+    (PIN_ADC_2 == USE_ADC_2) || \
+    (PIN_ADC_3 == USE_ADC_3) || \
+    (PIN_ADC_4 == USE_ADC_4)
+	if (!bAHI_APRegulatorEnabled()) {
+		vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE,
+				E_AHI_AP_INT_DISABLE,
+				E_AHI_AP_SAMPLE_2,
+				E_AHI_AP_CLOCKDIV_500KHZ,
+				E_AHI_AP_INTREF);
+		while(!bAHI_APRegulatorEnabled());
+	}
+#endif
 }
 
 

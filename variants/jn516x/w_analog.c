@@ -39,7 +39,6 @@ uint32_t analogRead( uint32_t ulPin )
 {
 	DBG_PRINTF("analogRead(%d)\r\n", ulPin);
 
-	// TODO: Enable Analog Peripherals on bootup.
 	if (!bAHI_APRegulatorEnabled()) {
 		vAHI_ApConfigure(E_AHI_AP_REGULATOR_ENABLE,
 				E_AHI_AP_INT_DISABLE,
