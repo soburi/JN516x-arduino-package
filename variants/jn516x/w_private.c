@@ -29,44 +29,10 @@
 uint8_t segmentLength;
 uint16_t segmentNumber;
 
-uint32_t ticktimer_overflow_count = 0;
-
-void ticktimer_callback(uint32 u32Device, uint32 u32ItemBitmap)
+void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap)
 {
-	(void)u32Device; (void)u32ItemBitmap;
-	ticktimer_overflow_count++;
-}
-
-
-static void nop() { }
-
-voidFuncPtr handler_table[DIO_NUM] = {nop};
-
-static void DIO_interrupt_handler(uint32_t device, uint32_t bits)
-{
-	(void)device;
-	DBG_PRINTF("DIO_interrupt_handler ");
-	DBG_PRINTF("%x", bits);
-	DBG_PRINTF("\n");
-	int i=0;
-	uint32_t dio_bits = (bits & 0x1FFFFF);
-	for(i=0; i<DIO_NUM; i++) {
-		if( dio_bits& (0x1U<<i) ) {
-			DBG_PRINTF("call ");
-			DBG_PRINTF("%d\r\n", i);
-			DBG_PRINTF("\n");
-			handler_table[i]();
-		}
+	DBG_PRINTF("sysctrl_callback(%x, %x)\n", u32Device, u32ItemBitmap);
+	if(u32ItemBitmap & ALL_DIO_INT_MASK) {
+		DIO_interrupt_handler(u32Device, u32ItemBitmap);
 	}
-	DBG_PRINTF("end DIO_interrupt_handler \n");
-}
-
-void sysctrl_callback(uint32 u32Device, uint32 u32ItemBitmap)
-{
-	DBG_PRINTF("sysctrl_callback ");
-	DBG_PRINTF("%x", u32Device);
-	DBG_PRINTF(" ");
-	DBG_PRINTF("%x", u32ItemBitmap);
-	DBG_PRINTF("\n");
-	if(u32ItemBitmap & ALL_DIO_INT_MASK) DIO_interrupt_handler(u32Device, u32ItemBitmap);
 }

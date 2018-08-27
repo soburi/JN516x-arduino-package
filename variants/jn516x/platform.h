@@ -65,13 +65,7 @@ typedef uint8_t Pio;
 
 #define DIO_NUM 20
 
-typedef void (*void_fp_void)(void);
-
-extern void_fp_void handler_table[DIO_NUM];
-extern uint32_t ticktimer_overflow_count;
-
-extern void ticktimer_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
-extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
+extern void DIO_interrupt_handler(uint32_t device, uint32_t bits);
 
 extern uint8_t segmentLength;
 extern uint16_t segmentNumber;
@@ -105,9 +99,6 @@ static inline void eeprom_write_byte(const uint8_t* index, uint8_t data)
 static inline size_t eeprom_size() {
 	return segmentLength * segmentNumber;
 }
-
-#define PLATFORM_SPI_HEADER "platform_spi.h"
-#define PLATFORM_WIRE_HEADER "platform_wire.h"
 
 #ifdef __cplusplus
 }

@@ -115,6 +115,7 @@ static uint8_t is_gateway;
 #include "experiment-setup.h"
 #endif
 
+extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
 extern void set_pin_location();
 
 /* _EXTRA_LPM is the sleep mode, _LPM is the doze mode */
@@ -310,6 +311,7 @@ main(void)
   clock_init();
   rtimer_init();
 
+  vAHI_SysCtrlRegisterCallback(sysctrl_callback);
   /* set pin location after call vAHI_Init() */
   set_pin_location();
 

@@ -25,20 +25,31 @@
 
 static void nop() { }
 
-extern void sysctrl_callback(uint32 u32Device, uint32 u32ItemBitmap);
+voidFuncPtr handler_table[DIO_NUM] = {nop};
+
+void DIO_interrupt_handler(uint32_t device, uint32_t bits)
+{
+	(void)device;
+	DBG_PRINTF("DIO_interrupt_handler ");
+	DBG_PRINTF("%x", bits);
+	DBG_PRINTF("\n");
+	int i=0;
+	uint32_t dio_bits = (bits & 0x1FFFFF);
+	for(i=0; i<DIO_NUM; i++) {
+		if( dio_bits& (0x1U<<i) ) {
+			DBG_PRINTF("call ");
+			DBG_PRINTF("%d\r\n", i);
+			DBG_PRINTF("\n");
+			handler_table[i]();
+		}
+	}
+	DBG_PRINTF("end DIO_interrupt_handler \n");
+}
 
 void attachInterrupt(uint32_t pin, voidFuncPtr callback, uint32_t mode)
 {
 	if(pin > DIO_NUM) return;
 
-	//TODO: Register callback on bootup.
-	static int initialized = 0;
-	if(!initialized) {
-		DBG_PRINTF("vAHI_SysCtrlRegisterCallback\r\n");
-		vAHI_SysCtrlRegisterCallback(sysctrl_callback);
-		initialized = 1;
-	}
-	
 	handler_table[pin] = callback;
 
 	vAHI_DioInterruptEnable((1UL<<pin), 0);
