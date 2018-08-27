@@ -79,6 +79,7 @@ struct uart_device {
 	void    (*set_input)(void*, int (*input)(unsigned char));
 	void    (*writeb)(void*, unsigned char);
 	uint8_t (*busy)(void*);
+	int	(*txbuffer_availables)(void*);
 	void    (*deinit)(void*);
 	void*	portinfo;
 	uint8_t received;
