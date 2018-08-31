@@ -32,12 +32,14 @@ extern "C" {
 #endif
 
 IPAddress::IPAddress()
+    : v6(_address.u16)
 {
     uint8_t addrbytes[] = INIT_IPBYTES(0, 0, 0, 0);
     memcpy(_address.u8, addrbytes, sizeof(addrbytes));
 }
 
 IPAddress::IPAddress(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3)
+    : v6(_address.u16)
 {
     uint8_t addrbytes[] = INIT_IPBYTES(b0, b1, b2, b3);
     memcpy(_address.u8, addrbytes, sizeof(addrbytes));
@@ -46,6 +48,7 @@ IPAddress::IPAddress(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3)
 #if NETSTACK_CONF_WITH_IPV6
 IPAddress::IPAddress(uint16_t d0, uint16_t d1, uint16_t d2, uint16_t d3,
                      uint16_t d4, uint16_t d5, uint16_t d6, uint16_t d7)
+    : v6(_address.u16)
 {
     _address.u16[0] = d0; _address.u16[1] = d1;
     _address.u16[2] = d2; _address.u16[3] = d3;
@@ -54,12 +57,14 @@ IPAddress::IPAddress(uint16_t d0, uint16_t d1, uint16_t d2, uint16_t d3,
 }
 
 IPAddress::IPAddress(const uint16_t *addr)
+    : v6(_address.u16)
 {
     memcpy(_address.u16, addr, sizeof(_address.u16));
 }
 #endif
 
 IPAddress::IPAddress(uint32_t addr)
+    : v6(_address.u16)
 {
     uint8_t addrbytes[] = INIT_IPBYTES(
         (uint8_t)((addr & 0xFF000000) >> 24),
@@ -70,6 +75,7 @@ IPAddress::IPAddress(uint32_t addr)
 }
 
 IPAddress::IPAddress(const uint8_t *addr)
+    : v6(_address.u16)
 {
     const uint8_t addrbytes[] = INIT_IPBYTES(addr[0], addr[1], addr[2], addr[3]);
     memcpy(_address.u8, addrbytes, sizeof(addrbytes));
@@ -129,46 +135,42 @@ IPAddress& IPAddress::operator=(const uint16_t *addr)
 size_t IPAddress::printTo(Print& p) const
 {
     size_t n = 0;
-#if !NETSTACK_CONF_WITH_IPV6
-    for (int i =0; i < 3; i++)
-    {
-        n += p.print(_address.u8[i], DEC);
-        n += p.print('.');
-    }
-    n += p.print(_address.u8[3], DEC);
-#else
-    if(ip64_addr_is_ipv4_mapped_addr(reinterpret_cast<const uip_ipaddr_t*>(&_address)))
-    {
-        n += p.print("::FFFF:");
-        n += p.print(_address.u8[12]);
-        n += p.print(".");
-        n += p.print(_address.u8[13]);
-        n += p.print(".");
-        n += p.print(_address.u8[14]);
-        n += p.print(".");
-        n += p.print(_address.u8[15]);
+    if( ip64_addr_is_ipv4_mapped_addr(reinterpret_cast<const uip_ipaddr_t*>(&_address)) ||
+         sizeof(_address.v4map.prefix) == 0) {
+        for (int i =0; i < 3; i++) {
+            n += p.print(_address.v4map.v4.bytes[i], DEC);
+            n += p.print('.');
+        }
+        n += p.print(_address.v4map.v4.bytes[3], DEC);
+        return n;
     }
     else
     {
-        unsigned int i;
-	int f;
-        for(i = 0, f = 0; i < sizeof(uip_ipaddr_t); i += 2) {
-            uint16_t a = (_address.u8[i] << 8) + _address.u8[i + 1];
-            if(a == 0 && f >= 0) {
-                if(f++ == 0) {
-                    n += p.print("::");
-                }
-            } else {
-                if(f > 0) {
-                    f = -1;
-                } else if(i > 0) {
-                    n += p.print(':');
-                }
-                n += p.print(a, HEX);
+        return p.print(v6);
+    }
+}
+
+size_t IPAddress::V6RawAccessor::printTo(Print& p) const
+{
+    size_t n = 0;
+    unsigned int i;
+    int f;
+    for(i = 0, f = 0; i < sizeof(uip_ipaddr_t)/2; i++) {
+        uint16_t a = addr[i];
+        if(a == 0 && f >= 0) {
+            if(f++ == 0) {
+                n += p.print("::");
             }
         }
+        else {
+            if(f > 0) {
+                f = -1;
+            } else if(i > 0) {
+                n += p.print(':');
+            }
+            n += p.print(a, HEX);
+        }
     }
-#endif
     return n;
 }
 

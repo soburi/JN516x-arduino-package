@@ -102,6 +102,25 @@ public:
     friend class Server;
     friend class DhcpClass;
     friend class DNSClient;
+
+    class V6RawAccessor : public Printable
+    {
+        uint16_t* addr;
+        V6RawAccessor(uint16_t* a) : addr(a) { }
+        uint16_t* raw_address() { return addr; }
+
+        public:
+        uint16_t operator[](int index) const { return addr[index]; }
+        uint16_t& operator[](int index) { return addr[index]; }
+        virtual size_t printTo(Print& p) const;
+
+        friend class IPAddress;
+    };
+
+#if !NETSTACK_CONF_WITH_IPV6
+private:
+#endif
+    V6RawAccessor v6;
 };
 
 const IPAddress INADDR_NONE(0,0,0,0);
