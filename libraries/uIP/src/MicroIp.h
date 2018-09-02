@@ -26,11 +26,20 @@
 #include "MicroIpServer.h"
 #include "MicroIpRPL.h"
 
-#define uip_ipaddr_IPAddress(addr, ipaddr) uip_ip6addr_u8(addr, \
-		ipaddr[0], ipaddr[1], ipaddr[2], ipaddr[3],\
-		ipaddr[4], ipaddr[5], ipaddr[6], ipaddr[7],\
-		ipaddr[8], ipaddr[9], ipaddr[10], ipaddr[11],\
-		ipaddr[12], ipaddr[13], ipaddr[14], ipaddr[15])
+#if NETSTACK_CONF_WITH_IPV6
+#define uip_ipaddr_IPAddress(addr, ipaddr) \
+    uip_ip6addr((addr), (ipaddr).v6[0], (ipaddr).v6[1], (ipaddr).v6[2], (ipaddr).v6[3],\
+                      (ipaddr).v6[4], (ipaddr).v6[5], (ipaddr).v6[6], (ipaddr).v6[7])
+
+#define IPAddress_from_uip(addr) \
+    IPAddress((addr).u16[0], (addr).u16[1], (addr).u16[2], (addr).u16[3], \
+              (addr).u16[4], (addr).u16[5], (addr).u16[6], (addr).u16[7])
+#else
+#define uip_ipaddr_IPAddress(addr, ipaddr) \
+    uip_(ipaddr)((addr), (ipaddr)[0], (ipaddr)[1], (ipaddr)[2], (ipaddr)[3])
+#define IPAddress_from_uip(addr) \
+    IPAddress((addr).u8[0], (addr).u8[1], (addr).u8[2], (addr).u8[3])
+#endif
 
 class MicroIPClass {
 public:

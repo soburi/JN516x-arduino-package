@@ -98,15 +98,8 @@ int MicroIPUDP::beginPacket(IPAddress ip, uint16_t port)
 {
   txidx = 0;
   uip_ipaddr_t dest;
-#if NETSTACK_CONF_WITH_IPV6
-  uip_ip6addr_u8(&dest,
-		  ip[0],  ip[1],  ip[2],  ip[3],
-		  ip[4],  ip[5],  ip[6],  ip[7],
-		  ip[8],  ip[9], ip[10], ip[11],
-		 ip[12], ip[13], ip[14], ip[15]);
-#else
-  uip_ipaddr(&dest, ip[0],  ip[1],  ip[2],  ip[3]);
-#endif
+  uip_ipaddr_IPAddress(&dest, ip);
+
   struct udp_socket_params params = { this, &dest, port, 0 };
   yield_continue(do_udp_socket_connect, &params);
 
