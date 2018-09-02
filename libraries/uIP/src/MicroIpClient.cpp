@@ -68,15 +68,7 @@ int MicroIPClient::connect(IPAddress ip, uint16_t port) {
   PRINTF("MicroIPClient::connect(ip,port)\n");
 
   uip_ipaddr_t ipaddr;
-#if NETSTACK_CONF_WITH_IPV6
-  uip_ip6addr_u8(&ipaddr,
-		  ip[0],  ip[1],  ip[2],  ip[3],
-		  ip[4],  ip[5],  ip[6],  ip[7],
-		  ip[8],  ip[9], ip[10], ip[11],
-		 ip[12], ip[13], ip[14], ip[15]);
-#else
-  uip_ipaddr(&ipaddr, ip[0],  ip[1],  ip[2],  ip[3]);
-#endif
+  uip_ipaddr_IPAddress(&ipaddr, ip);
   struct tcp_socket_params params = { this, &ipaddr, port, 0 };
 
   yield_continue(do_tcp_socket_register, &params);

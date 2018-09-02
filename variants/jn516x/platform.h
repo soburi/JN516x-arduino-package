@@ -25,13 +25,6 @@ extern "C" {
 
 #undef F_CPU
 
-#include <contiki.h>
-#include <net/netstack.h>
-#include <dev/watchdog.h>
-#include <dev/uart0.h>
-#include <dev/uart1.h>
-#include <lib/random.h>
-
 #include <jendefs.h>
 #include <MicroSpecific.h>
 #include <AppHardwareApi.h>

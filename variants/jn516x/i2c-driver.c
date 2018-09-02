@@ -6,6 +6,7 @@
 
 #include "platform.h"
 
+#include <sys/cc.h>
 #include <ringbuf.h>
 
 #define SI_CLOCK2PRESCALER(clk) ( (16L/((clk)/1000000L)/5L)-1 )

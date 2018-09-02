@@ -19,6 +19,7 @@
 extern "C" {
 #include <strings.h>
 #include <net/ip/resolv.h>
+#include <net/ip/uiplib.h>
 #include <net/ip/uip-nameserver.h>
 #include <net/ipv6/uip-nd6.h>
 #include <net/ipv6/uip-ds6.h>
@@ -89,12 +90,9 @@ IPAddress MicroIPClass::linklocalAddress(int state)
   uip_ds6_addr_t* addr = uip_ds6_get_link_local(state);
   if(addr != NULL)
   {
-    return IPAddress(addr->ipaddr.u8);
+    return IPAddress_from_uip(addr->ipaddr);
   }
-  else
-  {
-    return IPAddress();
-  }
+  return IPAddress();
 }
 
 IPAddress MicroIPClass::globalAddress()
@@ -107,12 +105,9 @@ IPAddress MicroIPClass::globalAddress(int state)
   uip_ds6_addr_t* addr = uip_ds6_get_global(state);
   if(addr != NULL)
   {
-    return IPAddress(addr->ipaddr.u8);
+    return IPAddress_from_uip(addr->ipaddr);
   }
-  else
-  {
-    return IPAddress();
-  }
+  return IPAddress();
 }
 
 IPAddress MicroIPClass::interfaceID()
@@ -174,7 +169,7 @@ IPAddress MicroIPClass::lookup(const char* host)
     }
   }
   if(status == RESOLV_STATUS_CACHED) {
-    return IPAddress(ipaddr.u8);
+    return IPAddress_from_uip(ipaddr);
   }
   return IN6ADDR_ANY_INIT;
 }

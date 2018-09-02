@@ -24,60 +24,74 @@
 #include "Printable.h"
 #include "WString.h"
 
-extern "C" {
-#include "uip.h"
-#include "uiplib.h"
-}
 // A class to make it easier to handle and pass around IP addresses
 
 class IPAddress : public Printable {
 private:
-    uip_ipaddr_t _address;
+    union {
+#if NETSTACK_CONF_WITH_IPV6
+      uint16_t u16[8];
+      uint8_t u8[16];
+      struct _v4map_data {
+        uint8_t prefix[12];
+        union _v4_data{
+          uint8_t bytes[4];
+          uint32_t dword;
+        } v4;
+      } v4map;
+#else
+      uint16_t u16[2];
+      uint8_t u8[4];
+      struct _v4map_data {
+        uint8_t prefix[0];
+        union _v4_data{
+          uint8_t bytes[4];
+          uint32_t dword;
+        } v4;
+      } v4map;
+#endif
+    } _address;
 
     // Access the raw byte array containing the address.  Because this returns a pointer
     // to the internal structure rather than a copy of the address this function should only
     // be used when you know that the usage of the returned uint8_t* will be transient and not
     // stored.
-    uint8_t* raw_address() { return _address.u8; };
-    const uip_ipaddr_t* uip_address() const { return &_address; };
+    uint8_t* raw_address() { return _address.v4map.v4.bytes; };
 
 public:
     // Constructors
     IPAddress();
     IPAddress(uint8_t first_octet, uint8_t second_octet, uint8_t third_octet, uint8_t fourth_octet);
+    IPAddress(uint32_t address);
+    IPAddress(const uint8_t *address);
 #if NETSTACK_CONF_WITH_IPV6
     IPAddress(uint16_t d1, uint16_t d2, uint16_t d3, uint16_t d4,
-		uint16_t d5, uint16_t d6, uint16_t d7, uint16_t d8);
+              uint16_t d5, uint16_t d6, uint16_t d7, uint16_t d8);
+    IPAddress(const uint16_t *address);
 #endif
-#if !NETSTACK_CONF_WITH_IPV6
-    IPAddress(uint32_t address);
-#endif
-
-    IPAddress(const uint8_t *address);
 
     bool fromString(const char *address);
     bool fromString(const String &address) { return fromString(address.c_str()); }
 
     // Overloaded cast operator to allow IPAddress objects to be used where a pointer
     // to a four-byte uint8_t array is expected
-#if !NETSTACK_CONF_WITH_IPV6
-    operator uint32_t() const { 
-       return (   _address.u8[0] << 24 | _address.u8[1] << 16
-		| _address.u8[2] <<  8 | _address.u8[3]);
-    }
-#endif
-    bool operator==(const IPAddress& addr) const { return uip_ipaddr_cmp(&_address, addr.uip_address() ); };
+    operator uint32_t() const { return _address.v4map.v4.dword; };
+    bool operator==(const IPAddress& addr) const { return ((*this) == addr._address.u16); };
     bool operator==(const uint8_t* addr) const;
+#if NETSTACK_CONF_WITH_IPV6
+    bool operator==(const uint16_t* addr) const;
+#endif
 
     // Overloaded index operator to allow getting and setting individual octets of the address
-    uint8_t operator[](int index) const { return _address.u8[index]; };
-    uint8_t& operator[](int index) { return _address.u8[index]; };
+    uint8_t operator[](int index) const { return _address.v4map.v4.bytes[index]; };
+    uint8_t& operator[](int index) { return _address.v4map.v4.bytes[index]; };
 
     // Overloaded copy operators to allow initialisation of IPAddress objects from other types
     IPAddress& operator=(const uint8_t *address);
-    IPAddress& operator=(const IPAddress& addr);
-#if !NETSTACK_CONF_WITH_IPV6
     IPAddress& operator=(uint32_t address);
+#if NETSTACK_CONF_WITH_IPV6
+    IPAddress& operator=(const IPAddress& addr);
+    IPAddress& operator=(const uint16_t *address);
 #endif
 
     virtual size_t printTo(Print& p) const;
@@ -90,7 +104,7 @@ public:
     friend class DNSClient;
 };
 
-const IPAddress INADDR_NONE;
+const IPAddress INADDR_NONE(0,0,0,0);
 #if NETSTACK_CONF_WITH_IPV6
 const IPAddress IN6ADDR_ANY_INIT(0, 0, 0, 0, 0, 0, 0, 0);
 const IPAddress IN6ADDR_LOOPBACK_INIT(0, 0, 0, 0, 0, 0, 0, 1);
