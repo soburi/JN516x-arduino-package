@@ -10,6 +10,49 @@
           "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
+          "version": "0.1.1",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/intiki-0.1.1/JN516x-arduino-package-intiki-0.1.1.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-intiki-0.1.1.tar.bz2",
+          "checksum": "SHA-256:93db9cf04f1e1767b36492d2482d5735c3e9693ea8171cac251d2f8942d86ac6",
+          "size": "25761037",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "intiki",
+              "version": "1.0.0"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            },
+            {
+              "packager": "intiki",
+              "name": "BA2-toolchain",
+              "version": "4.7.4-r36379"
+            },
+            {
+              "packager": "intiki",
+              "name": "jenprog",
+              "version": "1.1.20180614"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "intiki",
+          "category": "Contributed",
           "version": "0.0.20180818",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/intiki-0.0.20180818/JN516x-arduino-package-intiki-0.0.20180818.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-intiki-0.0.20180818.tar.bz2",
@@ -682,6 +725,40 @@
         }
       ],
       "tools": [
+        {
+          "name": "intiki",
+          "version": "1.0.0",
+          "systems": [
+            {
+              "archiveFileName": "intiki_x86_64-apple-darwin_1.0.0.tar.bz2",
+              "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_x86_64-apple-darwin_1.0.0.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:498f7ec68541b302db4fcb35ad3fc547e275a279048b79a488c931bbc2a3e17d",
+              "size": "1000188"
+            },
+            {
+              "archiveFileName": "intiki_x86_64-pc-linux-gnu_1.0.0.tar.bz2",
+              "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_x86_64-pc-linux-gnu_1.0.0.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:69657ebaf840ba3d08486200ed89e00288049a8647a021d9de669e22d0b9a4fe",
+              "size": "1011366"
+            },
+            {
+              "archiveFileName": "intiki_i686-mingw32_1.0.0.tar.bz2",
+              "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_i686-mingw32_1.0.0.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:87c86bd7d66b22d4632548879d874a874e76527a584ec0f725f767a5cfdcca02",
+              "size": "988870"
+            },
+            {
+              "archiveFileName": "intiki_arm-linux-gnueabihf_1.0.0.tar.bz2",
+              "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_arm-linux-gnueabihf_1.0.0.tar.bz2",
+              "host": "arm-linux-gnueabihf",
+              "checksum": "SHA-256:f75175f3bebae4ada1a35b1f2671a95dbd07cb6658f9bbfd21118de3e58f8ceb",
+              "size": "915368"
+            }
+          ]
+        },
         {
           "name": "contiki-makehelper",
           "version": "0.0.14",
