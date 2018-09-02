@@ -38,7 +38,7 @@ build.contiki-makehelper.path={runtime.tools.contiki-makehelper.path}
 build.contiki-makehelper.verbose=0
 
 contiki-makehelper.cmd-v={build.contiki-makehelper.path}/contiki-makehelper -verbose {build.contiki-makehelper.verbose}
-make.paths=-build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.system.path "{build.system.path}" -build.variant.path "{build.variant.path}" -build.core.path "{build.core.path}" -build.path "{build.path}" -build.variant {build.variant} -runtime.platform.path {runtime.platform.path} -platform.version {version} -make.command {build.make.command} -template {build.contiki-makehelper.path}/Makefile.template
+make.paths=-build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.system.path "{build.system.path}" -build.variant.path "{build.variant.path}" -build.core.path "{build.core.path}" -build.path "{build.path}" -build.variant {build.variant} -runtime.platform.path {runtime.platform.path} -platform.version {version} -make.command {build.make.command} -template {build.options.makefile_template}
 make.args=TARGET={build.variant} {build.make.vars} {build.config_vars}
 
 arduino.defines=-DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch}

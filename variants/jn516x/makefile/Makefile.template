@@ -1,0 +1,212 @@
+CONTIKI = $(ARDUINO_SYSTEM_PATH)/contiki
+
+CONTIKI_PROJECT =  $(patsubst %.pde,%,$(patsubst %.ino,%,$(ARDUINO_PROJECT_NAME)))
+
+define _dirdepline =
+$1: | $(dir $1)
+$(if $(filter $(dir $1),core/ libraries/ sketch $(OBJECTDIR) $(ARDUINO_OBJECTDIR)),,
+$(dir $1): | $(OBJECTDIR) $(ARDUINO_OBJECTDIR)/ core/ libraries/ sketch/
+)
+endef
+
+define dirdeps =
+$(foreach _,$(1), $(eval $(call _dirdepline,$_)))
+endef
+
+define copy-coredir-rule =
+$1%.c.o: $2%.o
+	$(Q)cp $$< $$@
+$1%.cpp.o: $2%.o
+	$(Q)cp $$< $$@
+$1%.S.o: $2%.o
+	$(Q)cp $$< $$@
+endef
+
+define copy-coredir-rule-each =
+  $(foreach _,$1, $(eval $(call copy-coredir-rule,$(ARDUINO_BUILD_PATH)/$_,$(ARDUINO_OBJECTDIR)/$(ARDUINO_CORE_PATH)/$(subst core/,,$_))))
+endef
+
+ARDUINO_CFLAGS = ### <<<ARDUINO_CFLAGS>>> ###
+
+ARDUINO_CFLAGS += $(EXTRA_CFLAGS)
+
+ARDUINO_PROJECT_NAME     = ### <<<ARDUINO_PROJECT_NAME>>>     ###
+ARDUINO_SYSTEM_PATH      = ### <<<ARDUINO_SYSTEM_PATH>>>      ###
+ARDUINO_BUILD_PATH       = ### <<<ARDUINO_BUILD_PATH>>>       ###
+ARDUINO_CORE_PATH        = ### <<<ARDUINO_CORE_PATH>>>        ###
+ARDUINO_VARIANT_PATH     = ### <<<ARDUINO_VARIANT_PATH>>>     ###
+ARDUINO_ARCHIVE_FILE     = ### <<<ARDUINO_ARCHIVE_FILE>>>     ###
+ARDUINO_VARIANT          = ### <<<ARDUINO_VARIANT>>>          ###
+ARDUINO_PLATFORM_VERSION = ### <<<ARDUINO_PLATFORM_VERSION>>> ###
+
+ifneq ($(PLATFORM_CONF_H),)
+CFLAGS += -DPLATFORM_CONF_H=\"$(PLATFORM_CONF_H)\"
+endif
+
+PROJECT_CONF_H ?= sketch/project_conf.h
+ifneq ($(wildcard $(PROJECT_CONF_H)),)
+CFLAGS += -DPROJECT_CONF_H=\"$(PROJECT_CONF_H)\"
+endif
+
+ifneq ($(PREINCLUDE_FILES),)
+$(foreach _,$(PREINCLUDE_FILES), $(eval CFLAGS += -include $_))
+endif
+
+ARDUINO_CORE_A = $(ARDUINO_ARCHIVE_FILE)
+ARDUINO_VARIANT_A = core/variant.a
+ARDUINO_LIBRARIES_A = libraries/libraries.a
+ARDUINO_SKETCH_A = sketch/sketch.a
+ARDUINO_EXTRA_A = extra.a
+
+ARDUINO_OBJECTDIR = obj_arduino
+
+ARDUINO_CORES_SRCS = \
+### <<<ARDUINO_CORES_SRCS>>> ###
+
+ARDUINO_VARIANT_SRCS = \
+### <<<ARDUINO_VARIANT_SRCS>>> ###
+
+ARDUINO_LIBRARIES_SRCS = \
+### <<<ARDUINO_LIBRARIES_SRCS>>> ###
+
+ARDUINO_SKETCH_SRCS = \
+### <<<ARDUINO_SKETCH_SRCS>>> ###
+
+ARDUINO_EXTRA_SRCS = 
+
+ARDUINO_CORE_SRCS_REL	= $(subst $(ARDUINO_CORE_PATH)/,, $(ARDUINO_CORES_SRCS))
+CORE_ARDUINO_CORE_OBJS	+= $(subst .c,.c.o,     $(addprefix $(ARDUINO_BUILD_PATH)/core/,$(filter %.c,$(ARDUINO_CORE_SRCS_REL) ) ) )
+CORE_ARDUINO_CORE_OBJS	+= $(subst .S,.S.o,     $(addprefix $(ARDUINO_BUILD_PATH)/core/,$(filter %.S,$(ARDUINO_CORE_SRCS_REL) ) ) )
+CORE_ARDUINO_CORE_OBJS	+= $(subst .cpp,.cpp.o, $(addprefix $(ARDUINO_BUILD_PATH)/core/,$(filter %.cpp,$(ARDUINO_CORE_SRCS_REL) ) ) )
+
+ARDUINO_VARIANT_OBJS   = $(subst .S,.o,$(subst .c,.o,$(subst .cpp,.o, $(addprefix $(ARDUINO_OBJECTDIR)/,$(ARDUINO_VARIANT_SRCS) ) ) ) )
+ARDUINO_CORE_OBJS      = $(subst .S,.o,$(subst .c,.o,$(subst .cpp,.o, $(addprefix $(ARDUINO_OBJECTDIR)/,$(ARDUINO_CORES_SRCS) ) ) ) )
+ARDUINO_LIBRARIES_OBJS = $(subst .S,.o,$(subst .c,.o,$(subst .cpp,.o, $(addprefix $(ARDUINO_OBJECTDIR)/,$(ARDUINO_LIBRARIES_SRCS) ) ) ) )
+ARDUINO_SKETCH_OBJS    = $(subst .S,.o,$(subst .c,.o,$(subst .cpp,.o, $(addprefix $(ARDUINO_OBJECTDIR)/,$(ARDUINO_SKETCH_SRCS) ) ) ) )
+ARDUINO_EXTRA_OBJS      = $(subst .S,.o,$(subst .c,.o,$(subst .cpp,.o, $(addprefix $(ARDUINO_OBJECTDIR)/,$(ARDUINO_EXTRA_SRCS) ) ) ) )
+
+ARDUINO_PREPROC_CFLAGS = $(filter-out -c -E -std=%, $(CFLAGS))
+
+ARDUINO_PREPROC_INCLUDES_FLAGS = \
+### <<<ARDUINO_PREPROC_INCLUDES_FLAGS>>> ###
+ARDUINO_PREPROC_INCLUDES_SOURCE = \
+### <<<ARDUINO_PREPROC_INCLUDES_SOURCE>>> ###
+ARDUINO_PREPROC_INCLUDES_OUTFILE = \
+### <<<ARDUINO_PREPROC_INCLUDES_OUTFILE>>> ###
+
+ARDUINO_PREPROC_MACROS_FLAGS = \
+### <<<ARDUINO_PREPROC_MACROS_FLAGS>>> ###
+ARDUINO_PREPROC_MACROS_SOURCE = \
+### <<<ARDUINO_PREPROC_MACROS_SOURCE>>> ###
+ARDUINO_PREPROC_MACROS_OUTFILE = \
+### <<<ARDUINO_PREPROC_MACROS_OUTFILE>>> ###
+
+TARGET ?= $(ARDUINO_VARIANT)
+
+RELSTR ?= $(ARDUINO_PLATFORM_VERSION)
+
+OUTPUT_NAME ?= $(ARDUINO_PROJECT_NAME)
+
+PROJECT_LIBRARIES += $(ARDUINO_SKETCH_A) $(ARDUINO_EXTRA_A) $(ARDUINO_LIBRARIES_A) $(ARDUINO_VARIANT_A) $(ARDUINO_CORE_A) $(EXTRA_LIBS)
+
+defalut: all
+
+all: $(OUTPUT_NAME).elf
+
+include $(CONTIKI)/Makefile.include
+
+.PHONY: clean_arduino
+clean_arduino:
+	$(Q)rm -rf ./core $(ARDUINO_CORE_OBJS) $(ARDUINO_LIBRARIES_OBJS)  $(ARDUINO_SKETCH_OBJS) $(ARDUINO_VARIANT_A) $(ARDUINO_LIBRARIES_A) $(ARDUINO_SKETCH_A) $(ARDUINO_OBJECTDIR) $(filter $(ARDUINO_BUILD_PATH)%, $(abspath $(ARDUINO_CORE_A)))
+
+
+clean: clean_arduino
+
+.PHONY: preproc.includes
+preproc.includes:
+	$(Q)$(CC) $(ARDUINO_PREPROC_INCLUDES_FLAGS) $(ARDUINO_PREPROC_CFLAGS) $(ARDUINO_PREPROC_INCLUDES_SOURCE) -o $(ARDUINO_PREPROC_INCLUDES_OUTFILE)
+
+.PHONY: preproc.macros
+preproc.macros:
+	$(Q)$(CC) $(ARDUINO_PREPROC_MACROS_FLAGS) $(ARDUINO_PREPROC_CFLAGS) $(ARDUINO_PREPROC_MACROS_SOURCE) -o $(ARDUINO_PREPROC_MACROS_OUTFILE)
+
+
+ifeq ($(CPPFLAGS), )
+CPPFLAGS = $(filter-out -std=%, $(CFLAGS)) -std=c++03 -fno-threadsafe-statics -fno-rtti -fno-exceptions
+endif
+
+ifeq ($(OBJCOPY), )
+OBJCOPY = $(subst gcc,objcopy,$(CC))
+endif
+
+ifeq ($(SIZE), )
+SIZE = $(subst gcc,size,$(CC))
+endif
+
+
+ifndef CUSTOM_RULE_CPP_TO_ARDUINO_OBJECTDIR_O
+ifdef CUSTOM_RULE_C_TO_OBJECTDIR_O
+$(error Non default %.o: %.c rules for arduino source are defined. Please define custom $(ARDUINO_OBJECTDIR)/%o: %.cpp rule.)
+endif
+$(ARDUINO_OBJECTDIR)/%.o: %.cpp
+	$(TRACE_CC)
+	$(Q)$(CC) $(ARDUINO_CFLAGS) $(CPPFLAGS) -MMD -c $< -o $@
+	@$(FINALIZE_DEPENDENCY)
+endif
+
+ifndef CUSTOM_RULE_C_TO_ARDUINO_OBJECTDIR_O
+ifdef CUSTOM_RULE_C_TO_OBJECTDIR_O
+$(error Non default %.o: %.c rules for arduino source are defined. Please define custom $(ARDUINO_OBJECTDIR)/%o: %.c rule.)
+endif
+$(ARDUINO_OBJECTDIR)/%.o: %.c
+	$(TRACE_CC)
+	$(Q)$(CC) $(ARDUINO_CFLAGS) $(CFLAGS) -MMD -c $< -o $@
+	@$(FINALIZE_DEPENDENCY)
+endif
+
+$(eval $(call copy-coredir-rule-each ,$(call uniq,$(dir $(addprefix core,$(subst $(ARDUINO_CORE_PATH),,$(ARDUINO_CORES_SRCS)))))))
+
+$(ARDUINO_CORE_A): $(CORE_ARDUINO_CORE_OBJS) $(ARDUINO_OBJECTDIR)/
+	$(Q)$(AR) rcf $@ $(CORE_ARDUINO_CORE_OBJS)
+
+$(ARDUINO_VARIANT_A): $(ARDUINO_VARIANT_OBJS) $(ARDUINO_OBJECTDIR)/
+	$(Q)$(AR) rcf $@ $(ARDUINO_VARIANT_OBJS)
+
+$(ARDUINO_LIBRARIES_A): $(ARDUINO_LIBRARIES_OBJS) $(ARDUINO_OBJECTDIR)/
+	$(Q)$(AR) rcf $@ $(ARDUINO_LIBRARIES_OBJS)
+
+$(ARDUINO_SKETCH_A): $(ARDUINO_SKETCH_OBJS) $(ARDUINO_OBJECTDIR)/
+	$(Q)$(AR) rcf $@ $(ARDUINO_SKETCH_OBJS)
+
+$(ARDUINO_EXTRA_A): $(ARDUINO_EXTRA_OBJS) $(ARDUINO_OBJECTDIR)/
+	$(Q)$(AR) rcf $@ $(ARDUINO_EXTRA_OBJS)
+
+
+$(OUTPUT_NAME).bin: $(CONTIKI_PROJECT).$(TARGET)
+	$(Q)$(OBJCOPY) -S -O binary $< $@
+
+$(OUTPUT_NAME).hex: $(CONTIKI_PROJECT).$(TARGET)
+	$(Q)$(OBJCOPY) -S -O ihex $< $@
+
+$(OUTPUT_NAME).elf: $(CONTIKI_PROJECT).$(TARGET)
+	$(Q)$(OBJCOPY) $< $@
+
+%/:
+	$(Q)mkdir -p $@
+
+$(call dirdeps,$(ARDUINO_LIBRARIES_A))
+$(call dirdeps,$(ARDUINO_CORE_OBJS))
+$(call dirdeps,$(ARDUINO_VARIANT_OBJS))
+$(call dirdeps,$(ARDUINO_LIBRARIES_OBJS))
+$(call dirdeps,$(ARDUINO_SKETCH_OBJS))
+$(call dirdeps,$(ARDUINO_EXTRA_OBJS))
+$(call dirdeps,$(CORE_ARDUINO_CORE_OBJS))
+
+.PHONY: size
+size: $(CONTIKI_PROJECT).$(TARGET)
+	$(SIZE) -A $<
+
+# Workaround for conflicts of "core/dev/spi.h" and "libraries/SPI/SPI.h" .
+ifeq ($(MAKECMDGOALS),preproc.macros)
+CFLAGS:=$(filter-out -I%$(CONTIKI)/core/dev, $(CFLAGS))
+endif

@@ -13,6 +13,8 @@ jn516x.build.variant=jn516x
 jn516x.build.compiler.path={runtime.tools.BA2-toolchain.path}/bin/
 jn516x.build.compiler.path.windows=C:/NXP/bstudio_nxp/sdk/Tools/ba-elf-ba2-r36379/bin
 jn516x.build.uploader.path=""
+jn516x.build.options.makefile_template={runtime.platform.path}/variants/{build.variant}/makefile/Makefile.template
+jn516x.build.options.makefile_template.windows='{runtime.platform.path}/variants/{build.variant}/makefile/Makefile.template'
 jn516x.build.options.target_makefile=target_makefile={runtime.platform.path}/variants/{build.variant}/Makefile.variant
 jn516x.build.options.target_makefile.windows=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant'
 jn516x.build.options.flashprogrammer=FLASH_PROGRAMMER={runtime.tools.jenprog.path}/JennicModuleProgrammer
@@ -49,6 +51,8 @@ twelite.build.variant=jn516x
 twelite.build.compiler.path={runtime.tools.BA2-toolchain.path}/bin/
 twelite.build.compiler.path.windows=C:/MWSDK/Tools/ba-elf-ba2-r36379/bin
 twelite.build.uploader.path=""
+twelite.build.options.makefile_template={runtime.platform.path}/variants/{build.variant}/makefile/Makefile.template
+twelite.build.options.makefile_template.windows='{runtime.platform.path}/variants/{build.variant}/makefile/Makefile.template'
 twelite.build.options.target_makefile=target_makefile={runtime.platform.path}/variants/{build.variant}/Makefile.variant
 twelite.build.options.target_makefile.windows=target_makefile='{runtime.platform.path}/variants/{build.variant}/Makefile.variant'
 twelite.build.options.sdkbase=SDK_BASE_DIR=/opt/MWSDK/ChipLib/SW4063V1416
