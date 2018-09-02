@@ -3,8 +3,8 @@ menu.trace=Trace
 menu.rpl=RPL
 
 jn516x.name=NXP JN516x
-jn516x.upload.tool=contiki-makehelper
-jn516x.upload.protocol=contiki-makehelper
+jn516x.upload.tool=intiki
+jn516x.upload.protocol=intiki
 jn516x.build.mcu=jn516x
 jn516x.build.board=jn516x
 jn516x.build.f_cpu=32000000L
@@ -41,8 +41,8 @@ jn516x.menu.rpl.OFF=Disable
 jn516x.menu.rpl.OFF.build.rpl=CONTIKI_WITH_RPL=0
 
 twelite.name=Mono Wireless TWELITE
-twelite.upload.tool=contiki-makehelper
-twelite.upload.protocol=contiki-makehelper
+twelite.upload.tool=intiki
+twelite.upload.protocol=intiki
 twelite.build.mcu=jn516x
 twelite.build.board=jn516x
 twelite.build.f_cpu=32000000L
@@ -75,8 +75,8 @@ twelite.menu.rpl.OFF=Disable
 twelite.menu.rpl.OFF.build.rpl=CONTIKI_WITH_RPL=0
 
 native.name=native
-native.upload.tool=contiki-makehelper
-native.upload.protocol=contiki-makehelper
+native.upload.tool=intiki
+native.upload.protocol=intiki
 native.build.mcu=native
 native.build.board=native
 native.build.f_cpu=32000000L
@@ -90,8 +90,8 @@ native.menu.config.raspi=RaspberryPi
 native.menu.config.raspi.build.config_vars=
 
 minimal-net.name=minimal-net
-minimal-net.upload.tool=contiki-makehelper
-minimal-net.upload.protocol=contiki-makehelper
+minimal-net.upload.tool=intiki
+minimal-net.upload.protocol=intiki
 minimal-net.build.mcu=minimal_net
 minimal-net.build.board=minimal_net
 minimal-net.build.f_cpu=32000000L

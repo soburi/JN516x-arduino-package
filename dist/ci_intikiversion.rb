@@ -5,6 +5,6 @@ require 'optparse'
 
 open(ARGV[0]) do |f|
   js = JSON.load(f)
-  ver = js['toolsDependencies'].select {|t| t['name'] == 'contiki-makehelper'}[0]['version']
+  ver = js['toolsDependencies'].select {|t| t['name'] == 'intiki'}[0]['version']
   print ver
 end
