@@ -22,7 +22,7 @@
     {
       "packager": "intiki",
       "name": "contiki-makehelper",
-      "version": "0.0.14"
+      "version": "0.0.15"
     },
     {
       "packager": "intiki",
