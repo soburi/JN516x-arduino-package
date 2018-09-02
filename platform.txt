@@ -35,10 +35,11 @@ build.make.command.macosx=gmake
 build.make.vars=
 build.make.goals=all
 build.contiki-makehelper.path={runtime.tools.contiki-makehelper.path}
-build.contiki-makehelper.verbose=0
+build.contiki-makehelper.verbose=-1
 
-contiki-makehelper.cmd-v={build.contiki-makehelper.path}/contiki-makehelper -verbose {build.contiki-makehelper.verbose}
-make.paths=-build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.system.path "{build.system.path}" -build.variant.path "{build.variant.path}" -build.core.path "{build.core.path}" -build.path "{build.path}" -build.variant {build.variant} -runtime.platform.path {runtime.platform.path} -platform.version {version} -make.command {build.make.command} -template {build.contiki-makehelper.path}/Makefile.template
+contiki-makehelper.cmd={build.contiki-makehelper.path}/contiki-makehelper
+contiki-makehelper.cmd-v={contiki-makehelper.cmd} {compiler.warning_flags} -verbose {build.contiki-makehelper.verbose}
+make.paths=-build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.system.path "{build.system.path}" -build.variant.path "{build.variant.path}" -build.core.path "{build.core.path}" -build.path "{build.path}" -build.variant {build.variant} -runtime.platform.path {runtime.platform.path} -platform.version {version} -make.command {build.make.command} -template {build.options.makefile_template}
 make.args=TARGET={build.variant} {build.make.vars} {build.config_vars}
 
 arduino.defines=-DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch}
@@ -86,11 +87,11 @@ recipe.hooks.objcopy.preobjcopy.3.pattern={contiki-makehelper.cmd-v} -recipe mak
 tools.contiki-makehelper.path={runtime.tools.contiki-makehelper.path}
 tools.contiki-makehelper.cmd.path={path}/contiki-makehelper
 tools.contiki-makehelper.cmd.path.windows={path}\contiki-makehelper.exe
-tools.contiki-makehelper.upload.pattern="{cmd.path}" -verbose {build.contiki-makehelper.verbose} -recipe make -build.path "{build.path}" -build.variant {build.variant} -build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.uploader.path "{build.uploader.path}" -serial.port {serial.port} TARGET={build.variant} {build.make.vars} {build.config_vars} {build.project_name}.upload
+tools.contiki-makehelper.upload.pattern="{cmd.path}" -recipe make -build.path "{build.path}" -build.variant {build.variant} -build.usr.bin.path "{build.usr.bin.path}" -build.compiler.path "{build.compiler.path}" -build.uploader.path "{build.uploader.path}" -serial.port {serial.port} TARGET={build.variant} {build.make.vars} {build.config_vars} {build.project_name}.upload
 tools.contiki-makehelper.build.unix.cmds.path={runtime.tools.msys2-contiki-build.path}
 tools.contiki-makehelper.build.usr.bin.path={build.unix.cmds.path}/usr/bin
 tools.contiki-makehelper.build.usr.bin.path.macosx=/usr/local/bin
-tools.contiki-makehelper.build.contiki-makehelper.verbose=0
+tools.contiki-makehelper.build.contiki-makehelper.verbose=-1
 
 
 tools.contiki-makehelper.upload.params.verbose=
