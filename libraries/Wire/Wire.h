@@ -1,6 +1,7 @@
 /*
  * TWI/I2C library for Arduino Zero
  * Copyright (c) 2015 Arduino LLC. All rights reserved.
+ * Copyright (c) 2015-2018 Tokita, Hiroshi
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
