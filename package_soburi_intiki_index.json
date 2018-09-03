@@ -790,8 +790,8 @@
               "archiveFileName": "intiki_i686-mingw32_1.0.0.tar.bz2",
               "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_i686-mingw32_1.0.0.tar.bz2",
               "host": "i686-mingw32",
-              "checksum": "SHA-256:87c86bd7d66b22d4632548879d874a874e76527a584ec0f725f767a5cfdcca02",
-              "size": "988870"
+              "checksum": "SHA-256:bb37f6865575d0f5229f99f86479f2e2c205c8bc9c1ae53e44d5f07e0ce13b33",
+              "size": "988599"
             },
             {
               "archiveFileName": "intiki_arm-linux-gnueabihf_1.0.0.tar.bz2",
