@@ -23,7 +23,7 @@ compile_example() {
 										-tools ${ADIR}/tools-builder/ \
 										-tools ${ADIR}/hardware/tools/ \
 										-libraries ${ADIR}/libraries/ \
-										-fqbn "intiki:intiki:twelite:config=TWELITE_BLUE, trace=OFF, rpl=ON" \
+										-fqbn "intiki:intiki:twelite:config=TWELITE_RED, trace=OFF, rpl=ON" \
 										-build-path=${BUILDDIR} \
 										${ADIR}/$1
 }
