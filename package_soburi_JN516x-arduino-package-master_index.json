@@ -6,11 +6,11 @@
           "name": "JN516x Boards",
           "architecture": "jn516x",
           "category": "Contributed",
-          "version": "0.0.1809031421",
-          "url": "https://github.com/soburi/JN516x-arduino-package/archive/a2fac0d81b44766bca4b061a8f7c6e4b76c7c322.tar.gz",
-          "archiveFileName": "JN516x-arduino-package-master-0.0.1809031421.tar.gz",
-          "checksum": "SHA-256:09eb66ce734afa99200c1ce5d1bd702c6565a824ee2d8c6fc186fe97f32bc382",
-          "size": "102731",
+          "version": "0.0.1809032137",
+          "url": "https://github.com/soburi/JN516x-arduino-package/archive/5595ae724337411a8240a1e1d86e2f7c5232bd35.tar.gz",
+          "archiveFileName": "JN516x-arduino-package-master-0.0.1809032137.tar.gz",
+          "checksum": "SHA-256:781cf19429169b43920ebf83e584d82531dc8f34823e8dee550260c1f36b228f",
+          "size": "102724",
           "boards": [
             {
               "name": "Generic JN516x board"
