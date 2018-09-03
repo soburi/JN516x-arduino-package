@@ -1,6 +1,6 @@
 {
   "name": "JN516x Boards",
-  "architecture": "intiki",
+  "architecture": "jn516x",
   "category": "Contributed",
   "version": "XXXXXXXXXXXXXX",
   "url": "XXXXXXXXXXXXXXXXXX",
@@ -21,8 +21,8 @@
   "toolsDependencies": [
     {
       "packager": "intiki",
-      "name": "contiki-makehelper",
-      "version": "0.0.15"
+      "name": "intiki",
+      "version": "1.0.0"
     },
     {
       "packager": "intiki",

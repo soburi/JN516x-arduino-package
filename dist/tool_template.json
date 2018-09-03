@@ -13,7 +13,7 @@
     ]
   },
   {
-    "name": "contiki-makehelper",
+    "name": "intiki",
     "version": "XXXXX",
     "systems": [
       {

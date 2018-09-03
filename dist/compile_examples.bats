@@ -19,7 +19,7 @@ compile_example() {
 				${ADIR}/arduino-builder -hardware ${ADIR}/hardware/ \
 										-hardware ~/packages/ \
 										-tools ~/BA2-toolchain \
-										-tools ~/contiki-makehelper \
+										-tools ~/intiki \
 										-tools ${ADIR}/tools-builder/ \
 										-tools ${ADIR}/hardware/tools/ \
 										-libraries ${ADIR}/libraries/ \
