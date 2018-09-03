@@ -1,6 +1,6 @@
 {
   "name": "JN516x Boards",
-  "architecture": "intiki",
+  "architecture": "jn516x",
   "category": "Contributed",
   "version": "XXXXXXXXXXXXXX",
   "url": "XXXXXXXXXXXXXXXXXX",
