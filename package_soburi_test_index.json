@@ -4,6 +4,49 @@
       "platforms": [
         {
           "name": "JN516x Boards",
+          "architecture": "jn516x",
+          "category": "Contributed",
+          "version": "1.2.3",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/test-1.2.3/JN516x-arduino-package-test-1.2.3.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-test-1.2.3.tar.bz2",
+          "checksum": "SHA-256:1557f2c2d805aadc9571a45e86f0de263200112949e30b71e5e25682a60f904d",
+          "size": "25763370",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "intiki",
+              "version": "1.0.0"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            },
+            {
+              "packager": "intiki",
+              "name": "BA2-toolchain",
+              "version": "4.7.4-r36379"
+            },
+            {
+              "packager": "intiki",
+              "name": "jenprog",
+              "version": "1.1.20180614"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
           "architecture": "intiki",
           "category": "Contributed",
           "version": "0.0.20180818",
@@ -47,6 +90,40 @@
         }
       ],
       "tools": [
+        {
+          "name": "intiki",
+          "version": "1.0.0",
+          "systems": [
+            {
+              "archiveFileName": "intiki_x86_64-apple-darwin_1.0.0.tar.bz2",
+              "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_x86_64-apple-darwin_1.0.0.tar.bz2",
+              "host": "x86_64-apple-darwin",
+              "checksum": "SHA-256:82109c3ee17923661100f7517bb90ede296626cad6eb30a565005c16f8373b70",
+              "size": "1000790"
+            },
+            {
+              "archiveFileName": "intiki_x86_64-pc-linux-gnu_1.0.0.tar.bz2",
+              "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_x86_64-pc-linux-gnu_1.0.0.tar.bz2",
+              "host": "x86_64-pc-linux-gnu",
+              "checksum": "SHA-256:08217ca1343e8134915a3ef4b9bc736bd836d080bc39939119a11b684b77ddc3",
+              "size": "1011027"
+            },
+            {
+              "archiveFileName": "intiki_i686-mingw32_1.0.0.tar.bz2",
+              "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_i686-mingw32_1.0.0.tar.bz2",
+              "host": "i686-mingw32",
+              "checksum": "SHA-256:bb37f6865575d0f5229f99f86479f2e2c205c8bc9c1ae53e44d5f07e0ce13b33",
+              "size": "988599"
+            },
+            {
+              "archiveFileName": "intiki_arm-linux-gnueabihf_1.0.0.tar.bz2",
+              "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_arm-linux-gnueabihf_1.0.0.tar.bz2",
+              "host": "arm-linux-gnueabihf",
+              "checksum": "SHA-256:f0c7bd191cc92abdf87db818b41268ef17fe0ab85a0f6bc7e291efccdac8a25e",
+              "size": "915109"
+            }
+          ]
+        },
         {
           "name": "msys2-contiki-build",
           "version": "0.0.1",
