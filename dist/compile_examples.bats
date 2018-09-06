@@ -229,7 +229,6 @@ compile_example() {
 }
 
 @test "Compile examples/08.Strings/StringComparisonOperators/StringComparisonOperators.ino." {
-	skip
 	compile_example examples/08.Strings/StringComparisonOperators/StringComparisonOperators.ino
 }
 
@@ -318,12 +317,10 @@ compile_example() {
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p06_LightTheremin/p06_LightTheremin.ino." {
-	skip
 	compile_example examples/10.StarterKit_BasicKit/p06_LightTheremin/p06_LightTheremin.ino
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p07_Keyboard/p07_Keyboard.ino." {
-	skip
 	compile_example examples/10.StarterKit_BasicKit/p07_Keyboard/p07_Keyboard.ino
 }
 
@@ -358,7 +355,6 @@ compile_example() {
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p15_HackingButtons/p15_HackingButtons.ino." {
-	skip
 	compile_example examples/10.StarterKit_BasicKit/p15_HackingButtons/p15_HackingButtons.ino
 }
 
