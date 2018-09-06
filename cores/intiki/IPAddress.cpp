@@ -136,12 +136,12 @@ size_t IPAddress::printTo(Print& p) const
 {
     size_t n = 0;
     if( ip64_addr_is_ipv4_mapped_addr(reinterpret_cast<const uip_ipaddr_t*>(&_address)) ||
-         sizeof(_address.v4map.prefix) == 0) {
+         sizeof(_address.prefix) == 0) {
         for (int i =0; i < 3; i++) {
-            n += p.print(_address.v4map.v4.bytes[i], DEC);
+            n += p.print(_address.bytes[i], DEC);
             n += p.print('.');
         }
-        n += p.print(_address.v4map.v4.bytes[3], DEC);
+        n += p.print(_address.bytes[3], DEC);
         return n;
     }
     else

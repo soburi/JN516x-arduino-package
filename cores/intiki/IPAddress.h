@@ -33,23 +33,23 @@ private:
 #if NETSTACK_CONF_WITH_IPV6
       uint16_t u16[8];
       uint8_t u8[16];
-      struct _v4map_data {
+      struct {
         uint8_t prefix[12];
-        union _v4_data{
+        union {
           uint8_t bytes[4];
           uint32_t dword;
-        } v4;
-      } v4map;
+        };
+      };
 #else
       uint16_t u16[2];
       uint8_t u8[4];
-      struct _v4map_data {
+      struct {
         uint8_t prefix[0];
-        union _v4_data{
+        union {
           uint8_t bytes[4];
           uint32_t dword;
-        } v4;
-      } v4map;
+        };
+      };
 #endif
     } _address;
 
@@ -57,7 +57,7 @@ private:
     // to the internal structure rather than a copy of the address this function should only
     // be used when you know that the usage of the returned uint8_t* will be transient and not
     // stored.
-    uint8_t* raw_address() { return _address.v4map.v4.bytes; };
+    uint8_t* raw_address() { return _address.bytes; };
 
 public:
     // Constructors
@@ -76,7 +76,7 @@ public:
 
     // Overloaded cast operator to allow IPAddress objects to be used where a pointer
     // to a four-byte uint8_t array is expected
-    operator uint32_t() const { return _address.v4map.v4.dword; };
+    operator uint32_t() const { return _address.dword; };
     bool operator==(const IPAddress& addr) const { return ((*this) == addr._address.u16); };
     bool operator==(const uint8_t* addr) const;
 #if NETSTACK_CONF_WITH_IPV6
@@ -84,8 +84,8 @@ public:
 #endif
 
     // Overloaded index operator to allow getting and setting individual octets of the address
-    uint8_t operator[](int index) const { return _address.v4map.v4.bytes[index]; };
-    uint8_t& operator[](int index) { return _address.v4map.v4.bytes[index]; };
+    uint8_t operator[](int index) const { return _address.bytes[index]; };
+    uint8_t& operator[](int index) { return _address.bytes[index]; };
 
     // Overloaded copy operators to allow initialisation of IPAddress objects from other types
     IPAddress& operator=(const uint8_t *address);
