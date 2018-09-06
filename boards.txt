@@ -29,8 +29,6 @@ jn516x.menu.config.jn5164=JN5164
 jn516x.menu.config.jn5164.build.config_vars=CHIP=JN5164 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
 jn516x.menu.config.jn5161=JN5161
 jn516x.menu.config.jn5161.build.config_vars=CHIP=JN5161 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
-jn516x.menu.config.meshbee=Mesh Bee
-jn516x.menu.config.meshbee.build.config_vars=CHIP=JN5168 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
 jn516x.menu.trace.OFF=Off
 jn516x.menu.trace.OFF.build.trace=
 jn516x.menu.trace.ON=On
@@ -73,3 +71,34 @@ twelite.menu.rpl.ON=Enable
 twelite.menu.rpl.ON.build.rpl=CONTIKI_WITH_RPL=1
 twelite.menu.rpl.OFF=Disable
 twelite.menu.rpl.OFF.build.rpl=CONTIKI_WITH_RPL=0
+
+meshbee.name=Seeed Studio Meshbee
+meshbee.upload.tool=intiki
+meshbee.upload.protocol=intiki
+meshbee.build.mcu=jn516x
+meshbee.build.board=jn516x
+meshbee.build.f_cpu=32000000L
+meshbee.build.core=intiki
+meshbee.build.variant=jn516x
+meshbee.build.compiler.path={runtime.tools.BA2-toolchain.path}/bin/
+meshbee.build.compiler.path.windows=C:/NXP/bstudio_nxp/sdk/Tools/ba-elf-ba2-r36379/bin
+meshbee.build.uploader.path=""
+meshbee.build.options.makefile_template={runtime.platform.path}/variants/{build.variant}/makefile/Makefile.template
+meshbee.build.options.makefile_template.windows='{runtime.platform.path}/variants/{build.variant}/makefile/Makefile.template'
+meshbee.build.options.target_makefile={runtime.platform.path}/variants/{build.variant}/makefile/Makefile.override
+meshbee.build.options.target_makefile.windows='{runtime.platform.path}/variants/{build.variant}/makefile/Makefile.override'
+meshbee.build.options.flashprogrammer=FLASH_PROGRAMMER={runtime.tools.jenprog.path}/JennicModuleProgrammer
+meshbee.build.options.flashprogrammer.windows=FLASH_PROGRAMMER={runtime.tools.jenprog.path}/JennicModuleProgrammer.exe
+meshbee.build.make.vars=target_makefile={build.options.target_makefile} CONTIKI_TARGET_MAIN=override-contiki-jn516x-main.c TARGET_WITH_UART1=1 PREINCLUDE_FILES='{build.core.path}/weak_pragmas.h' {build.trace} {build.rpl} {build.options.flashprogrammer}
+meshbee.build.make.goals={build.project_name}.bin {build.project_name}.hex {build.project_name}.elf
+meshbee.menu.config.meshbee=Mesh Bee
+meshbee.menu.config.meshbee.build.config_vars=CHIP=JN5168 LINKCMD='{runtime.platform.path}/variants/{build.variant}/ldscript/intiki_JN516x.ld'
+meshbee.menu.trace.OFF=Off
+meshbee.menu.trace.OFF.build.trace=
+meshbee.menu.trace.ON=On
+meshbee.menu.trace.ON.build.trace=TRACE=1
+meshbee.menu.rpl.ON=Enable
+meshbee.menu.rpl.ON.build.rpl=CONTIKI_WITH_RPL=1
+meshbee.menu.rpl.OFF=Disable
+meshbee.menu.rpl.OFF.build.rpl=CONTIKI_WITH_RPL=0
+
