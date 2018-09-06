@@ -44,14 +44,16 @@ script:
 # generate archive
 - EXCLUDEGIT=$(find . -name '.git' -printf '%f ' | xargs -i echo -n --exclude {})
 - BZIP2=-9 tar cfj ../${ARCHIVENAME}.tar.bz2 -C .. ${EXCLUDEGIT} $(basename ${PWD})
-after_script:
+- if [ "$TRAVIS_TAG" != "" ] ; then echo twelite.build.options.sdkbase=SDK_BASE_DIR=${HOME}/MWSDK/ChipLib/SW4063V1416 > boards.local.txt ; fi
+- if [ "$TRAVIS_TAG" != "" ] ; then bats dist/compile_package_examples.bats ; fi
+- if [ "$TRAVIS_TAG" != "" ] ; then bats dist/compile_arduino_examples.bats ; fi
+- if [ "$TRAVIS_TAG" != "" ] ; then bats dist/compile_libraries_examples.bats ; fi
+- rm -rf boards.local.txt
+after_success:
 - if [ ${TRAVIS_TEST_RESULT} -ne 0 ] ; then echo ${TRAVIS_TEST_RESULT} ; exit ${TRAVIS_TEST_RESULT} ; fi
 - echo ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} --package-name=intiki --package-maintainer=soburi --package-website='https://github.com/soburi/JN516x-arduino-package' --package-email='soburi@gmail.com' > ../tmp.json || exit $?
 - ruby dist/ci_boardmanager.rb ${BM_FORCEOPT} -g ${GHREPO} -t dist/tool_template.json -p dist/platform_template.json -j ${PKGJSON} -u ${ARCHIVEURL} -r ${RELEASEVER} --package-name=intiki --package-maintainer=soburi --package-website='https://github.com/soburi/JN516x-arduino-package' --package-email='soburi@gmail.com' > ../tmp.json || exit $?
 - git fetch --all || exit $?
-- if [ "$TRAVIS_TAG" != "" ] ; then echo twelite.build.options.sdkbase=SDK_BASE_DIR=${HOME}/MWSDK/ChipLib/SW4063V1416 > boards.local.txt ; fi
-- if [ "$TRAVIS_TAG" != "" ] ; then bats dist/compile_examples.bats ; fi
-- rm -rf boards.local.txt
 - git checkout gh-origin/gh-pages -b gh-pages || exit $?
 - cp ../tmp.json ${PKGJSON} || exit $?
 - git add ${PKGJSON} || exit $?

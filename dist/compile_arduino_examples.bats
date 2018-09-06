@@ -229,7 +229,6 @@ compile_example() {
 }
 
 @test "Compile examples/08.Strings/StringComparisonOperators/StringComparisonOperators.ino." {
-	skip
 	compile_example examples/08.Strings/StringComparisonOperators/StringComparisonOperators.ino
 }
 
@@ -266,38 +265,31 @@ compile_example() {
 }
 
 @test "Compile examples/09.USB/Keyboard/KeyboardLogout/KeyboardLogout.ino." {
-	skip
-	compile_example examples/09.USB/Keyboard/KeyboardLogout/KeyboardLogout.ino
+	skip; compile_example examples/09.USB/Keyboard/KeyboardLogout/KeyboardLogout.ino
 }
 
 @test "Compile examples/09.USB/Keyboard/KeyboardMessage/KeyboardMessage.ino." {
-	skip
-	compile_example examples/09.USB/Keyboard/KeyboardMessage/KeyboardMessage.ino
+	skip; compile_example examples/09.USB/Keyboard/KeyboardMessage/KeyboardMessage.ino
 }
 
 @test "Compile examples/09.USB/Keyboard/KeyboardReprogram/KeyboardReprogram.ino." {
-	skip
-	compile_example examples/09.USB/Keyboard/KeyboardReprogram/KeyboardReprogram.ino
+	skip; compile_example examples/09.USB/Keyboard/KeyboardReprogram/KeyboardReprogram.ino
 }
 
 @test "Compile examples/09.USB/Keyboard/KeyboardSerial/KeyboardSerial.ino." {
-	skip
-	compile_example examples/09.USB/Keyboard/KeyboardSerial/KeyboardSerial.ino
+	skip; compile_example examples/09.USB/Keyboard/KeyboardSerial/KeyboardSerial.ino
 }
 
 @test "Compile examples/09.USB/KeyboardAndMouseControl/KeyboardAndMouseControl.ino." {
-	skip
-	compile_example examples/09.USB/KeyboardAndMouseControl/KeyboardAndMouseControl.ino
+	skip; compile_example examples/09.USB/KeyboardAndMouseControl/KeyboardAndMouseControl.ino
 }
 
 @test "Compile examples/09.USB/Mouse/ButtonMouseControl/ButtonMouseControl.ino." {
-	skip
-	compile_example examples/09.USB/Mouse/ButtonMouseControl/ButtonMouseControl.ino
+	skip; compile_example examples/09.USB/Mouse/ButtonMouseControl/ButtonMouseControl.ino
 }
 
 @test "Compile examples/09.USB/Mouse/JoystickMouseControl/JoystickMouseControl.ino." {
-	skip
-	compile_example examples/09.USB/Mouse/JoystickMouseControl/JoystickMouseControl.ino
+	skip; compile_example examples/09.USB/Mouse/JoystickMouseControl/JoystickMouseControl.ino
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p02_SpaceshipInterface/p02_SpaceshipInterface.ino." {
@@ -313,17 +305,14 @@ compile_example() {
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p05_ServoMoodIndicator/p05_ServoMoodIndicator.ino." {
-	skip
-	compile_example examples/10.StarterKit_BasicKit/p05_ServoMoodIndicator/p05_ServoMoodIndicator.ino
+	skip; compile_example examples/10.StarterKit_BasicKit/p05_ServoMoodIndicator/p05_ServoMoodIndicator.ino
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p06_LightTheremin/p06_LightTheremin.ino." {
-	skip
 	compile_example examples/10.StarterKit_BasicKit/p06_LightTheremin/p06_LightTheremin.ino
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p07_Keyboard/p07_Keyboard.ino." {
-	skip
 	compile_example examples/10.StarterKit_BasicKit/p07_Keyboard/p07_Keyboard.ino
 }
 
@@ -344,13 +333,11 @@ compile_example() {
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p12_KnockLock/p12_KnockLock.ino." {
-	skip
-	compile_example examples/10.StarterKit_BasicKit/p12_KnockLock/p12_KnockLock.ino
+	skip; compile_example examples/10.StarterKit_BasicKit/p12_KnockLock/p12_KnockLock.ino
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p13_TouchSensorLamp/p13_TouchSensorLamp.ino." {
-	skip
-	compile_example examples/10.StarterKit_BasicKit/p13_TouchSensorLamp/p13_TouchSensorLamp.ino
+	skip; compile_example examples/10.StarterKit_BasicKit/p13_TouchSensorLamp/p13_TouchSensorLamp.ino
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p14_TweakTheArduinoLogo/p14_TweakTheArduinoLogo.ino." {
@@ -358,7 +345,6 @@ compile_example() {
 }
 
 @test "Compile examples/10.StarterKit_BasicKit/p15_HackingButtons/p15_HackingButtons.ino." {
-	skip
 	compile_example examples/10.StarterKit_BasicKit/p15_HackingButtons/p15_HackingButtons.ino
 }
 
