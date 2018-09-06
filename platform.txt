@@ -1,5 +1,5 @@
 name=ContikiOS Platform
-version=1.6.9
+version=1.0.1
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
