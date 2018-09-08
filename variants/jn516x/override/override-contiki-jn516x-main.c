@@ -117,6 +117,8 @@ static uint8_t is_gateway;
 
 extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
 extern void set_pin_location();
+extern uint32_t sleepmode;
+extern uint64_t sleepcount;
 
 /* _EXTRA_LPM is the sleep mode, _LPM is the doze mode */
 #define ENERGEST_TYPE_EXTRA_LPM ENERGEST_TYPE_LPM
@@ -522,6 +524,26 @@ main_loop(void)
       vAHI_Sleep(E_AHI_SLEEP_OSCON_RAMON);
     } else {
 #else
+
+      if(sleepmode != 0) {
+        if(sleepcount != 0) {
+          //DBG_PRINTF("vAHI_WakeTimerStartLarge %llu %u %u\r\n", MSEC2WTCOUNT(ms), ms, wakeTimerCalibrationValue() );
+          vAHI_WakeTimerEnable(WAKEUP_TIMER, TRUE);
+          vAHI_WakeTimerStartLarge(WAKEUP_TIMER, sleepcount);
+        }
+
+        if(sleepmode == E_AHI_SLEEP_OSCON_RAMOFF || sleepmode == E_AHI_SLEEP_OSCOFF_RAMOFF) {
+          vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_DISABLE);
+          vAHI_UartDisable(E_AHI_UART_0);
+          vAHI_UartDisable(E_AHI_UART_1);
+          watchdog_stop();
+        }
+
+        WAIT_FOR_EDGE(sleep_start);
+        sleep_start_ticks = u32AHI_TickTimerRead();
+        vAHI_Sleep((teAHI_SleepMode)sleepmode);
+        while(TRUE) ;
+      }
     {
 #endif /* JN516X_SLEEP_ENABLED */
       clock_arch_schedule_interrupt(time_to_etimer, ticks_to_rtimer);
@@ -566,7 +588,7 @@ AppWarmStart(void)
   rtimer_clock_t sleep_ticks_rtimer;
 
   clock_arch_calibrate();
-  leds_init();
+  //leds_init();
 #if UART0_DEBUG_ENABLE
   uart0_init(UART_BAUD_RATE); /* Must come before first PRINTF */
 #endif

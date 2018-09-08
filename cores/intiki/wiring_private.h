@@ -120,6 +120,13 @@ struct spi_device {
 	void*	devinfo;
 };
 
+struct power_device {
+	void (*sleep)(void*, uint32_t);
+	void (*deepsleep)(void*, uint32_t);
+	void (*idle)(void*, uint32_t);
+	void* devinfo;
+};
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
