@@ -117,8 +117,12 @@ static uint8_t is_gateway;
 
 extern void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap);
 extern void set_pin_location();
-extern uint32_t sleepmode;
-extern uint64_t sleepcount;
+
+uint32_t sleep_mode = -1;
+uint64_t sleep_count;
+uint32_t wake_gpio;
+uint8_t wake_timer;
+uint8_t wake_comparator;
 
 /* _EXTRA_LPM is the sleep mode, _LPM is the doze mode */
 #define ENERGEST_TYPE_EXTRA_LPM ENERGEST_TYPE_LPM
@@ -519,46 +523,46 @@ main_loop(void)
       WAIT_FOR_EDGE(sleep_start);
       sleep_start_ticks = u32AHI_TickTimerRead();
 
-      if(sleepmode < 0) {
+      if(sleep_mode < 0) {
         vAHI_WakeTimerStartLarge(WAKEUP_TIMER, max_sleep_time);
         ENERGEST_SWITCH(ENERGEST_TYPE_CPU, ENERGEST_TYPE_EXTRA_LPM);
         vAHI_Sleep(E_AHI_SLEEP_OSCON_RAMON);
       } else {
-        if(sleepcount != 0) {
-          vAHI_WakeTimerStartLarge(WAKEUP_TIMER, sleepcount);
+        if(sleep_count != 0) {
+          vAHI_WakeTimerStartLarge(WAKEUP_TIMER, sleep_count);
         }
 
-        if(sleepmode == E_AHI_SLEEP_OSCON_RAMOFF || sleepmode == E_AHI_SLEEP_OSCOFF_RAMOFF || sleepmode == E_AHI_SLEEP_DEEP) {
+        if(sleep_mode == E_AHI_SLEEP_OSCON_RAMOFF || sleep_mode == E_AHI_SLEEP_OSCOFF_RAMOFF || sleep_mode == E_AHI_SLEEP_DEEP) {
           vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_DISABLE);
           vAHI_UartDisable(E_AHI_UART_0);
           vAHI_UartDisable(E_AHI_UART_1);
           watchdog_stop();
         }
 
-        vAHI_Sleep((teAHI_SleepMode)sleepmode);
+        vAHI_Sleep((teAHI_SleepMode)sleep_mode);
         while(TRUE) ;
       }
     } else {
 #else
-    if(sleepmode >= 0) {
+    if(sleep_mode >= 0) {
 
       vAHI_WakeTimerEnable(WAKEUP_TIMER, TRUE);
       /* sync with the tick timer */
       WAIT_FOR_EDGE(sleep_start);
       sleep_start_ticks = u32AHI_TickTimerRead();
 
-      if(sleepcount != 0) {
-        vAHI_WakeTimerStartLarge(WAKEUP_TIMER, sleepcount);
+      if(sleep_count != 0) {
+        vAHI_WakeTimerStartLarge(WAKEUP_TIMER, sleep_count);
       }
 
-      if(sleepmode == E_AHI_SLEEP_OSCON_RAMOFF || sleepmode == E_AHI_SLEEP_OSCOFF_RAMOFF || sleepmode == E_AHI_SLEEP_DEEP) {
+      if(sleep_mode == E_AHI_SLEEP_OSCON_RAMOFF || sleep_mode == E_AHI_SLEEP_OSCOFF_RAMOFF || sleep_mode == E_AHI_SLEEP_DEEP) {
         vAHI_TickTimerConfigure(E_AHI_TICK_TIMER_DISABLE);
         vAHI_UartDisable(E_AHI_UART_0);
         vAHI_UartDisable(E_AHI_UART_1);
         watchdog_stop();
       }
 
-      vAHI_Sleep((teAHI_SleepMode)sleepmode);
+      vAHI_Sleep((teAHI_SleepMode)sleep_mode);
       while(TRUE) ;
     }
     {
@@ -588,6 +592,10 @@ AppColdStart(void)
     fp();
   }
 
+  wake_gpio =  u32AHI_DioWakeStatus();
+  wake_timer = u8AHI_WakeTimerFiredStatus();
+  wake_comparator = u8AHI_ComparatorWakeStatus();
+
   /* After reset or sleep with memory off */
   main();
 }
@@ -603,6 +611,10 @@ AppWarmStart(void)
   uint32_t sleep_ticks;
   uint64_t sleep_end;
   rtimer_clock_t sleep_ticks_rtimer;
+
+  wake_gpio = u32AHI_DioWakeStatus();
+  wake_timer = u8AHI_WakeTimerFiredStatus();
+  wake_comparator = u8AHI_ComparatorWakeStatus();
 
   clock_arch_calibrate();
   //leds_init();

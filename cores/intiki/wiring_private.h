@@ -121,9 +121,12 @@ struct spi_device {
 };
 
 struct power_device {
+	void (*idle)(void*, uint32_t);
 	void (*sleep)(void*, uint32_t);
 	void (*deepsleep)(void*, uint32_t);
-	void (*idle)(void*, uint32_t);
+	void (*enable_wake_gpio)(void*, bool, uint32_t, uint32_t, uint32_t);
+	void (*enable_wake_timer)(void*, bool);
+	uint32_t (*wakeup_reason)(void*);
 	void* devinfo;
 };
 
