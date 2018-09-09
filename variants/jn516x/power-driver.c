@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include <stdint.h>
-#include "power_driver.h"
+#include "power-driver.h"
 #include "platform.h"
 #include <AppHardwareApi.h>
 
