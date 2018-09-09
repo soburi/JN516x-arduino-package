@@ -8,6 +8,9 @@
 
 extern uint32_t sleep_mode;
 extern uint64_t sleep_count;
+extern uint32_t wake_gpio;
+extern uint8_t wake_timer;
+extern uint8_t wake_comparator;
 
 static void sleep(uint32_t mode, uint32_t ms)
 {
@@ -15,24 +18,30 @@ static void sleep(uint32_t mode, uint32_t ms)
 	sleep_count = MSEC2WTCOUNT(ms);
 }
 
-void power_sleep(uint32_t millis)
+void power_sleep(void* dev, uint32_t millis)
 {
+	(void)dev;
 	sleep(E_AHI_SLEEP_OSCON_RAMOFF, millis);
 }
 
-void power_deepsleep(uint32_t millis)
+void power_deepsleep(void* dev, uint32_t millis)
 {
+	(void)dev;
 	sleep(E_AHI_SLEEP_DEEP, millis);
 }
 
-void power_idle(uint32_t millis)
+void power_idle(void* dev, uint32_t millis)
 {
+	(void)dev;
 	sleep(E_AHI_SLEEP_OSCON_RAMON, millis);
 }
 
-void power_enable_wake_gpio(bool enable, uint32_t pin, uint32_t mode)
+uint32_t power_wakeup_reason(void* dev)
 {
-	(void)enable;
-	(void)pin;
-	(void)mode;
+	(void)dev;
+	if(wake_gpio != 0) return 1;
+	if(wake_timer != 0) return 4;
+	if(wake_comparator != 0) return 3;
+
+	return 0;
 }

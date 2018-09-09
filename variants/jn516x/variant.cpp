@@ -22,6 +22,7 @@
 extern "C" {
 #include "i2c-driver.h"
 #include "spi-driver.h"
+#include "power_driver.h"
 #include <uart0.h>
 #include <uart1.h>
 }
@@ -241,3 +242,10 @@ struct spi_device spi0 = {
 	NULL
 };
 
+struct power_device pow0 = {
+	power_idle,
+	power_sleep,
+	power_deepsleep,
+	power_wakeup_reason,
+	NULL
+};

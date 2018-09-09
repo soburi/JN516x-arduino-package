@@ -9,12 +9,13 @@
 extern "C" {
 #endif
 
-extern void power_sleep(uint32_t millis);
+extern void power_sleep(void* dev, uint32_t millis);
 
-extern void power_deepsleep(uint32_t millis);
+extern void power_deepsleep(void* dev, uint32_t millis);
 
-extern void power_idle(uint32_t millis);
+extern void power_idle(void* dev, uint32_t millis);
 
+extern uint32_t power_wakeup_reason(void* dev);
 
 #ifdef __cplusplus
 }
