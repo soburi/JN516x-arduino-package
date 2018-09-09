@@ -22,7 +22,7 @@
 extern "C" {
 #include "i2c-driver.h"
 #include "spi-driver.h"
-#include "power_driver.h"
+#include "power-driver.h"
 #include <uart0.h>
 #include <uart1.h>
 }
