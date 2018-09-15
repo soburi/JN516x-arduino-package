@@ -247,5 +247,6 @@ struct power_device pow0 = {
 	power_sleep,
 	power_deepsleep,
 	power_wakeup_reason,
+	power_enable_wake_gpio,
 	NULL
 };

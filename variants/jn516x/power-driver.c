@@ -45,3 +45,8 @@ uint32_t power_wakeup_reason(void* dev)
 
 	return 0;
 }
+
+void power_enable_wake_gpio(void* dev, bool enable, uint32_t type, uint32_t x, uint32_t y)
+{
+}
+

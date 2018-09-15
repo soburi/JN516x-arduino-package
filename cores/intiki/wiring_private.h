@@ -125,6 +125,7 @@ struct power_device {
 	void (*sleep)(void*, uint32_t);
 	void (*deepsleep)(void*, uint32_t);
 	uint32_t (*wakeup_reason)(void*);
+	void (*enable_wake_gpio)(void*, bool, uint32_t, uint32_t, uint32_t);
 	void* devinfo;
 };
 

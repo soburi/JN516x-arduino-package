@@ -17,6 +17,8 @@ extern void power_idle(void* dev, uint32_t millis);
 
 extern uint32_t power_wakeup_reason(void* dev);
 
+extern void power_enable_wake_gpio(void* dev, bool enable, uint32_t type, uint32_t x, uint32_t y);
+
 #ifdef __cplusplus
 }
 #endif
