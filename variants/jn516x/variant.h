@@ -114,6 +114,9 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 extern struct i2c_device i2c0;
 #define WIRE_INTERFACE       (&i2c0)
 
+extern struct power_device pow0;
+#define POWER_INTERFACE        (&pow0)
+
 #define VARIANT_MCK                     84000000
 
 

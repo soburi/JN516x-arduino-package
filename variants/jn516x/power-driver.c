@@ -3,6 +3,7 @@
 #include "power-driver.h"
 #include "platform.h"
 #include <AppHardwareApi.h>
+#include <sys/process.h>
 
 #define MSEC2WTCOUNT(ms)  ( (ms)  * 32 )
 
@@ -12,10 +13,20 @@ extern uint32_t wake_gpio;
 extern uint8_t wake_timer;
 extern uint8_t wake_comparator;
 
+static void nop(void* x) { (void)x; }
+
+static int wait_infinity(process_event_t ev, process_data_t data, void* param)
+{
+	(void)ev; (void)data; (void)param;
+	return 0;
+}
+
+
 static void sleep(uint32_t mode, uint32_t ms)
 {
 	sleep_mode = mode;
 	sleep_count = MSEC2WTCOUNT(ms);
+	yield_until(nop, NULL, wait_infinity, NULL);
 }
 
 void power_sleep(void* dev, uint32_t millis)
