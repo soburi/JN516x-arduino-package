@@ -54,6 +54,10 @@ extern void yield_continue(fp_run run, void* run_param);
 
 extern void post_continue();
 
+extern void main_thread_post(process_event_t event, void* param);
+
+extern process_event_t waketimer_event;
+
 typedef struct
 {
 	struct start_process_list_t* next;

@@ -4,6 +4,7 @@
 #include "platform.h"
 #include <AppHardwareApi.h>
 #include <sys/process.h>
+#include <wiring_private.h>
 
 #define MSEC2WTCOUNT(ms)  ( (ms)  * 32 )
 
@@ -17,13 +18,14 @@ static void nop(void* x) { (void)x; }
 
 static int wait_infinity(process_event_t ev, process_data_t data, void* param)
 {
-	(void)ev; (void)data; (void)param;
-	return 0;
+	(void)data; (void)param;
+	return ev == waketimer_event ? 1 : 0;
 }
 
 
 static void sleep(uint32_t mode, uint32_t ms)
 {
+	printf("power_sleep %d %d\n", mode, ms);
 	sleep_mode = mode;
 	sleep_count = MSEC2WTCOUNT(ms);
 	yield_until(nop, NULL, wait_infinity, NULL);
@@ -50,9 +52,12 @@ void power_idle(void* dev, uint32_t millis)
 uint32_t power_wakeup_reason(void* dev)
 {
 	(void)dev;
-	if(wake_gpio != 0) return 1;
-	if(wake_timer != 0) return 4;
+
+	printf("power_wakeup_reason %u %u %u\n", wake_gpio, wake_timer, wake_comparator);
+
 	if(wake_comparator != 0) return 3;
+	if(wake_timer != 0) return 4;
+	if(wake_gpio != 0) return 1;
 
 	return 0;
 }

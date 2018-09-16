@@ -546,12 +546,14 @@ main_loop(void)
 #else
     if(sleep_mode >= 0) {
 
+      PRINTF("vAHI_WakeTimerEnable\n");
       vAHI_WakeTimerEnable(WAKEUP_TIMER, TRUE);
       /* sync with the tick timer */
       WAIT_FOR_EDGE(sleep_start);
       sleep_start_ticks = u32AHI_TickTimerRead();
 
       if(sleep_count != 0) {
+        PRINTF("vAHI_WakeTimerStartLarge %d\n", sleep_count);
         vAHI_WakeTimerStartLarge(WAKEUP_TIMER, sleep_count);
       }
 
@@ -560,10 +562,13 @@ main_loop(void)
         vAHI_UartDisable(E_AHI_UART_0);
         vAHI_UartDisable(E_AHI_UART_1);
         watchdog_stop();
+        PRINTF("vAHI_Sleep %d\n", sleep_mode);
+        vAHI_Sleep((teAHI_SleepMode)sleep_mode);
+        while(TRUE) ;
       }
-
-      vAHI_Sleep((teAHI_SleepMode)sleep_mode);
-      while(TRUE) ;
+      else {
+        vAHI_Sleep((teAHI_SleepMode)sleep_mode);
+      }
     }
     {
 #endif /* JN516X_SLEEP_ENABLED */
@@ -600,6 +605,7 @@ AppColdStart(void)
   main();
 }
 /*---------------------------------------------------------------------------*/
+extern int initialized;
 void
 AppWarmStart(void)
 {
@@ -615,6 +621,7 @@ AppWarmStart(void)
   wake_gpio = u32AHI_DioWakeStatus();
   wake_timer = u8AHI_WakeTimerFiredStatus();
   wake_comparator = u8AHI_ComparatorWakeStatus();
+  initialized = 0;
 
   clock_arch_calibrate();
   //leds_init();

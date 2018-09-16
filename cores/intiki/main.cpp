@@ -35,6 +35,8 @@ void initVariant() { }
 
 #include "wiring_private.h"
 
+process_event_t waketimer_event;
+
 static struct main_thread_wait_t
 {
 	enum main_thread_wait_type type;
@@ -101,14 +103,19 @@ void add_start_process(start_process_t* p)
 	list_add(start_processes, p);
 }
 
+int initialized = 0;
+
 static void arduino_loop(void* none)
 {
 	(void)none;
 
-	setup();
-
 	for (;;)
 	{
+		if(!initialized) {
+			setup();
+			initialized = 1;
+		}
+
 		loop();
 		if (serialEventRun) serialEventRun();
 		yield();
@@ -119,6 +126,8 @@ static void arduino_loop(void* none)
 PROCESS_THREAD(main_thread, ev, data)
 {
 	static struct mt_thread arduino_thread;
+
+	waketimer_event = process_alloc_event();
 
 	PROCESS_BEGIN();
 
@@ -187,8 +196,13 @@ void yield_continue(fp_run run, void* run_param)
 	YIELD_TO_MAIN_THREAD(WT_PAUSE, run, run_param, NULL, NULL);
 }
 
+void main_thread_post(process_event_t event, void* param)
+{
+	process_post(&main_thread, event, param);
+}
+
 void post_continue()
 {
-	process_post(&main_thread, PROCESS_EVENT_CONTINUE, NULL);
+	main_thread_post(PROCESS_EVENT_CONTINUE, NULL);
 }
  

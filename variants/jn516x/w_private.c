@@ -31,8 +31,11 @@ uint16_t segmentNumber;
 
 void sysctrl_callback(uint32_t u32Device, uint32_t u32ItemBitmap)
 {
-	DBG_PRINTF("sysctrl_callback(%x, %x)\n", u32Device, u32ItemBitmap);
+	printf("sysctrl_callback(%x, %x)\n", u32Device, u32ItemBitmap);
 	if(u32ItemBitmap & ALL_DIO_INT_MASK) {
 		DIO_interrupt_handler(u32Device, u32ItemBitmap);
+	}
+	if(u32ItemBitmap & (E_AHI_SYSCTRL_WK1_MASK | E_AHI_SYSCTRL_WK0_MASK) ) {
+		main_thread_post(waketimer_event, NULL);
 	}
 }
