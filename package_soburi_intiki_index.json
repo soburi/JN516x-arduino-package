@@ -59,8 +59,8 @@
               "archiveFileName": "intiki_x86_64-apple-darwin_1.0.0.tar.bz2",
               "url": "https://github.com/soburi/intiki/releases/download/1.0.0/intiki_x86_64-apple-darwin_1.0.0.tar.bz2",
               "host": "x86_64-apple-darwin",
-              "checksum": "SHA-256:498f7ec68541b302db4fcb35ad3fc547e275a279048b79a488c931bbc2a3e17d",
-              "size": "1000188"
+              "checksum": "SHA-256:82109c3ee17923661100f7517bb90ede296626cad6eb30a565005c16f8373b70",
+              "size": "1000790"
             },
             {
               "archiveFileName": "intiki_x86_64-pc-linux-gnu_1.0.0.tar.bz2",
