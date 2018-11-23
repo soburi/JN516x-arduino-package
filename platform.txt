@@ -74,7 +74,7 @@ preproc.common.flags={compiler.cpp.flags} -DF_CPU={build.f_cpu} {arduino.defines
 preproc.includes.flags=-w -x c++ -M -MG -MP
 recipe.preproc.includes={intiki.cmd-v} -recipe preproc.includes {make.paths} -source "{source_file}" -target /dev/null -- {preproc.includes.flags} {preproc.common.flags}
 preproc.macros.flags=-w -x c++ -E -CC
-recipe.preproc.macros={intiki.cmd-v} -recipe preproc.macros {make.paths} -source "{source_file}" -target "{preprocessed_file_path}" -- {preproc.macros.flags} {preproc.common.flags}
+recipe.preproc.macros={intiki.cmd-v} -recipe preproc.macros {make.paths} -source "{source_file}" -target "{preprocessed_file_path}" -- {preproc.macros.flags} {preproc.common.flags} preproc.macros
 
 recipe.hooks.sketch.prebuild.1.pattern={intiki.cmd-v} -recipe stage -stage sketch {make.paths}
 recipe.hooks.libraries.prebuild.1.pattern={intiki.cmd-v} -recipe stage -stage libraries {make.paths}
