@@ -64,10 +64,10 @@ recipe.output.tmp_file={build.project_name}.bin
 recipe.output.save_file={build.project_name}.{build.variant}.bin
 
 ## Compute size
-recipe.size.pattern={intiki.cmd-v} -recipe make {make.paths} {make.args} size
+recipe.size.pattern={intiki.cmd-v} -recipe make {make.paths} -C {build.path} {make.args} size
 recipe.size.regex=\.text\s+([0-9]+).*
 
-preproc.common.flags={compiler.cpp.flags} -DF_CPU={build.f_cpu} {arduino.defines} {compiler.cpp.extra_flags} {build.extra_flags} -includes {includes} -make-args {make.args}
+preproc.common.flags={compiler.cpp.flags} -DF_CPU={build.f_cpu} {arduino.defines} {compiler.cpp.extra_flags} {build.extra_flags} -includes {includes} -make-args -C {build.path} {make.args}
 
 
 ## Preprocessor
@@ -82,7 +82,7 @@ recipe.hooks.core.prebuild.1.pattern={intiki.cmd-v} -recipe stage -stage core {m
 recipe.hooks.linking.prelink.1.pattern={intiki.cmd-v} -recipe stage -stage link {make.paths}
 recipe.hooks.objcopy.preobjcopy.1.pattern={intiki.cmd-v} -recipe genprjc -build.path {build.path} -project_name {build.project_name}
 recipe.hooks.objcopy.preobjcopy.2.pattern={intiki.cmd-v} -recipe makefile {make.paths}
-recipe.hooks.objcopy.preobjcopy.3.pattern={intiki.cmd-v} -recipe make {make.paths} -- {make.args} {build.make.goals}
+recipe.hooks.objcopy.preobjcopy.3.pattern={intiki.cmd-v} -recipe make {make.paths} -- -C {build.path} {make.args} {build.make.goals}
 
 tools.intiki.path={runtime.tools.intiki.path}
 tools.intiki.cmd.path={path}/intiki
