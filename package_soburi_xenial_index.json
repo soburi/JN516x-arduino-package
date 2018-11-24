@@ -6,6 +6,49 @@
           "name": "JN516x Boards",
           "architecture": "jn516x",
           "category": "Contributed",
+          "version": "3",
+          "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/xenial-3/JN516x-arduino-package-xenial-3.tar.bz2",
+          "archiveFileName": "JN516x-arduino-package-xenial-3.tar.bz2",
+          "checksum": "SHA-256:bacd6ccc6a613ab5e04a7b874cf1dc1cac1d049d457105c0a8cc5462c1f8292b",
+          "size": "25798947",
+          "boards": [
+            {
+              "name": "Generic JN516x board"
+            },
+            {
+              "name": "TOCOS TWE Lite"
+            },
+            {
+              "name": "SeeedStudio Mesh Bee"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "intiki",
+              "name": "intiki",
+              "version": "1.0.0"
+            },
+            {
+              "packager": "intiki",
+              "name": "msys2-contiki-build",
+              "version": "0.0.1"
+            },
+            {
+              "packager": "intiki",
+              "name": "BA2-toolchain",
+              "version": "4.7.4-r36379"
+            },
+            {
+              "packager": "intiki",
+              "name": "jenprog",
+              "version": "1.1.20180614"
+            }
+          ]
+        },
+        {
+          "name": "JN516x Boards",
+          "architecture": "jn516x",
+          "category": "Contributed",
           "version": "1",
           "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/xenial-1/JN516x-arduino-package-xenial-1.tar.bz2",
           "archiveFileName": "JN516x-arduino-package-xenial-1.tar.bz2",
