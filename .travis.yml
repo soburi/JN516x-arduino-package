@@ -23,6 +23,7 @@ deploy:
 
 before_script:
 - env
+- gem install -V rugged
 - source dist/setup_env.sh
 - git remote add gh-origin "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
 - git config --global user.email "travisci@example.com"
