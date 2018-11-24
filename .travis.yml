@@ -23,7 +23,6 @@ deploy:
 
 before_script:
 - env
-- gem install -V rugged
 - source dist/setup_env.sh
 - git remote add gh-origin "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
 - git config --global user.email "travisci@example.com"
@@ -35,7 +34,7 @@ before_script:
 
 script:
 # check submojule.json
-- ruby dist/ci_submodules.rb -c dist/submodules.json
+- ruby2.3 dist/ci_submodules.rb -c dist/submodules.json
 # generate archive
 - EXCLUDEGIT=$(find . -name '.git' -printf '%f ' | xargs -i echo -n --exclude {})
 - BZIP2=-9 tar cfj ../${ARCHIVENAME}.tar.bz2 -C .. ${EXCLUDEGIT} $(basename ${PWD})
