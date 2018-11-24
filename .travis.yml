@@ -6,7 +6,7 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - gcc-6
+    - ruby-rugged
 env:
   global:
   - secure: s23FCXAYTELTC5XaizCh0rUkVF7kW/CQMgFhTL81me/v0lQsjhOlNR531KY8+RSHv3NXPRr32o/c4g4WURdxHE8BtggGU4/LzxqTTW6Ua9EEMumpQlIIpNi71qU5cTNv/B5LjvYiXBF3hl/SAvGt26EvMxTRwpQDPJm0ePWSEahMx+n5OzVh/C4RMnA4ZoJCVzEXQZ+NiuRtLu9JVwLpG7TRpecf2kBMtdz6VBgzOKvOY9zYaA+6ZW4qE/wC7e+5zWFyS9C9P9JU6D/0izrGiaT+amk8lZvjJCeBvNag/zIfySZy4aDHjwmoFB5vDWDQqGac/DSIv/xUAicCssoBkjvBk4YVxtKYEF6oXJg40XAWIErkz4AUp3wiHXtdTpovH0r8QT896jAwaU0zxdXXFjJidBXuO4DLMbxABj/9Ab4vzY7G6YcUHi9C9t5A7ISp0MAxB53MJcylWDCp5tpxbs1zbe5ndoxs1YrEvJIw4ezJ6u1NGJTwra/kSpdyIqYhRnCoK7z0HnkmPwykYhyMOz6K/g2DqJ8wtNU2642Zz4o4P5/pvgT/IWo1/qLnZvsQ+t4VvXNGKzupaJZG50rTrnlat4QTzwPa1gCpSeZiV+A5GtIdtYnhQYarl6b8EJI9SU2frsQ9fH7o9twppJlEb7bS4bJXcKk4cdRdN4MnXwE=
@@ -23,14 +23,10 @@ deploy:
 
 before_script:
 - env
-- gem install -V rugged
 - source dist/setup_env.sh
 - git remote add gh-origin "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
 - git config --global user.email "travisci@example.com"
 - git config --global user.name "Travis-CI"
-- curl -l -L http://ftp.gnu.org/gnu/make/make-4.2.tar.bz2 | tar xfj - -C ~
-- cd ~/make-4.2 && ./configure && make && cp make ~/bin
-- cd -
 - export PATH=~/bin:$PATH
 - curl -l -L https://downloads.arduino.cc/arduino-${ARDUINO_VERSION}-linux64.tar.xz | tar xfJ - -C ~
 - if [ "$TRAVIS_TAG" != "" ] ; then bash dist/setup_tools.sh ; fi
