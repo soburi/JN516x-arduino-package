@@ -152,7 +152,7 @@
           "systems": [
             {
               "archiveFileName": "msys2-contiki-build_i686-mingw32_0.0.2.tar.bz2",
-	      "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/msys2-contiki-build-0.2/msys2-contiki-build_i686-mingw32_0.0.1.tar.bz2",
+	      "url": "https://github.com/soburi/JN516x-arduino-package/releases/download/msys2-contiki-build-0.2/msys2-contiki-build_i686-mingw32_0.0.2.tar.bz2",
               "host": "i686-mingw32",
               "checksum": "SHA-256:93e9953c8cc2a03ce67b3d65002626b3e66bc023be3a4eb153a1ce4dd5c44fe6",
               "size": "20759621"
